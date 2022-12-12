@@ -2,6 +2,7 @@
   "name": "express-typescript",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "keywords": [
     "TypeScript",
     "express",
