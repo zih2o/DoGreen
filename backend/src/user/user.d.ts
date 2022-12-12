@@ -21,7 +21,7 @@ interface IUserRepository {
 }
 
 interface IUserService {
-    RegiserUser: (newUser: User)=> Promise<void>;
+    RegisterUser: (newUser: User)=> Promise<void>;
     findAll: ()=> Promise<User[]>;
     findUser: ()=> Promise<User>;
     updateUser: (userInfo: Omit<User, 'role'>)=> Promise<void>;
