@@ -35,6 +35,7 @@ export const requestMiddleware = (
   options?: HandlerOptions,
 ): RequestHandler => async (req: Request, res: Response, next: NextFunction) => {
   if (options?.validation?.body) {
+    // eslint-disable-next-line no-unsafe-optional-chaining
     const { error } = options?.validation?.body.validate(req.body);
     if (error != null) {
       next(new BadRequest(getMessageFromJoiError(error)));
