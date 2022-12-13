@@ -9,11 +9,14 @@ import logger from './logger';
 const app = express();
 
 function logResponseTime(req: Request, res: Response, next: NextFunction) {
+  // 요청이 들어온 시간
   const startHrTime = process.hrtime();
 
   res.on('finish', () => {
+    // 응답이 끝났을때의 시간을 잰다.
     const elapsedHrTime = process.hrtime(startHrTime);
-    const elapsedTimeInMs = elapsedHrTime[0] * 1000 + elapsedHrTime[1] / 1e6;
+    // 마이크로초단위 나노초단위
+    const elapsedTimeInMs = elapsedHrTime[0] * 1000 + elapsedHrTime[1] / 1e6; // 1을 10의 6승으로 나눈다.
     const message = `${req.method} ${res.statusCode} ${elapsedTimeInMs}ms\t${req.path}`;
     logger.log({
       level: 'debug',
@@ -26,13 +29,10 @@ function logResponseTime(req: Request, res: Response, next: NextFunction) {
 }
 
 app.use(logResponseTime);
-
+// response.body 압축해주는 역할
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
-
 app.use(routes);
 
 app.use((err: ApplicationError, req: Request, res: Response, next: NextFunction) => {
