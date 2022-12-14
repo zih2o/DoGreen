@@ -12,15 +12,19 @@ const router = Router();
 // controller 의존성 주입
 const authController = new AuthController();
 const userController = new UserController();
-
+//
 const authRouter = Router();
 const userRouter = Router();
 
-authRouter.post('/signup', authController.register);
-
+// 유저가 로그인 -> 토큰 발급
 router.use('/auth', authRouter);
 router.use('/user', userRouter);
 
+authRouter.post('/signup', authController.register);
+authRouter.post('login', authController.login);
+
+userRouter.get('/:username', userController.getByUserName);
+userRouter.get('/', userController.getUsers);
 // Dev routes
 if (process.env.NODE_ENV === 'development') {
   router.use('/dev/api-docs', swaggerUi.serve);
