@@ -23,7 +23,7 @@ export const InitialData: userData = {
 const MyPage = () => {
   return (
     <div>
-      <h2>마이페이지</h2>
+      <h2 className="text-3xl font-bold underline">마이페이지</h2>
       <MyPageTab />
       <UserInfo />
     </div>
