@@ -8,6 +8,6 @@ type AuthT = {
 interface IAuthService {
     register: (authDTO: AuthT)=> Promise<void>;
     existUserByEmail: (email: AuthT['email'])=> Promise<boolean>;
-    generateUserToken: (authDTO: AuthT) => Promise<string>;
+    generateUserToken: (authDTO: Pick<AuthT, 'email' | 'password'>) => Promise<string>;
 
 }

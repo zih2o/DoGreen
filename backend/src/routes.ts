@@ -24,7 +24,7 @@ authRouter.post('/signup', authController.register);
 authRouter.post('login', authController.login);
 
 userRouter.get('/:username', userController.getByUserName);
-userRouter.get('/', userController.getUsers);
+// userRouter.get('/', userController.getUsers);
 // Dev routes
 if (process.env.NODE_ENV === 'development') {
   router.use('/dev/api-docs', swaggerUi.serve);

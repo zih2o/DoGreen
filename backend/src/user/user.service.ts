@@ -5,12 +5,6 @@ import { UserSchema } from './user.schema';
 const UserModel = model<UserT>('users', UserSchema);
 
 export class UserService implements IUserService {
-  async getUserToken(user: AuthT) {
-    // 이메일이 존재하는지 확인하기
-    const existUser = await this.existUserByEmail(user.email);
-    await UserModel.create(existUser);
-  }
-
   async findAll() {
     return UserModel.find({});
   }

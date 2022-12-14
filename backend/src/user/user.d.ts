@@ -18,8 +18,7 @@ interface IUserService {
     // DTO에선 없지만 controller의 미들웨어 같은 걸로 email을 넣어주어야 함
     updateUser: (userInfo: Omit<UserT, 'role'>) => Promise<void>;
     deleteUser: (email: UserT['email'])=> Promise<void>;
-    createUser: (userInfo: CreateUserDto) => Promise<void>;
-}
+    createUser: (userInfo: CreateUserDto) => Promise<void>;}
 
 // 유저가 유저이메일을가지고 유저 정보를 조회
 // 유저가 로그인 -> 토큰 발급

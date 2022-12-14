@@ -21,7 +21,7 @@ export class AuthService implements IAuthService {
     return result !== null;
   }
 
-  async generateUserToken(authDTO: AuthT) {
+  async generateUserToken(authDTO: Pick<AuthT, 'email' | 'password'>) {
     // email로 auth 정보 찾아온다
     const auth = await AuthModel.findOne({ email: authDTO.email });
     invariant(auth !== null, `${authDTO.email}은 가입 내역이 없습니다.`); // 타입 가드
