@@ -1,0 +1,33 @@
+[
+    {
+        "email":"antargicpeng@artic.com",
+        "role": "USER",
+        "username":"아델리펭귄"
+    },
+    {
+        "email":"hyungseokSon@green.com",
+        "role": "USER",
+        "username":"핑키공주형석"
+    },
+    {
+        "email":"SIYEA@artic.com",
+        "role": "USER",
+        "username":"비둘기단 남극펭귄"
+    },
+    {
+        "email":"jisupark@team.com",
+        "role": "ADMIN",
+        "username":"킹팀장"
+    },
+    {
+        "email":"yena@cute.com",
+        "role": "USER",
+        "username":"S2zㅣ존전사예나S2"
+    },
+    {
+        "email":"jihyun@green.com",
+        "role": "USER",
+        "username":"찌혀니><"
+    }
+
+]
