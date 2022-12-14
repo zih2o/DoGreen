@@ -29,7 +29,7 @@ export class AuthController {
   */
   async login(req: Request, res: Response) {
     const { email, password } = req.body;
-    const userToken = await userService.getUserToken({ email, password });
+    const userToken = await authService.generateUserToken({ email, password });
     // post요청인데 과연 200이 맞을까
     res.status(200).json(userToken);
   };
