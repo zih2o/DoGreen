@@ -18,5 +18,8 @@
       }
     }
   },
+  "env": {
+    "node": true
+  },
   "rules": {}
 }
