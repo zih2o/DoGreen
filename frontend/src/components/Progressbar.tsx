@@ -5,7 +5,6 @@ type progressInfo = {
   value: number;
 };
 const TotalProgressBar = ({ value }: progressInfo) => {
-  console.log(value);
   return (
     <div>
       <div className="progress-bar">

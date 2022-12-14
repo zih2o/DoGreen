@@ -11,7 +11,7 @@ const UserInfo = () => {
       <div className="progressbar_wrapper mt-24 mb-24 w-10/12 mx-auto">
         <TotalProgressBar value={userInfo.rank} />
       </div>
-      <div className="message_wrapper mb-24">
+      <div className="message_wrapper mb-48">
         <p className="text-4xl text-center font-bold">
           <span className="text-emerald-600">{userInfo.name}</span>님, 상위 {userInfo.rank}%의
           <span className="text-emerald-600"> {userInfo.status}</span>
