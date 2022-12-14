@@ -1,6 +1,8 @@
+type Role = 'USER' | 'ADMIN'
 type AuthT = {
   email: string;
   password: string;
+  role: Role
 };
 
 interface IAuthService {
