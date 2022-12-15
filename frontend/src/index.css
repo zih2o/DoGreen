@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 @tailwind base;
 @tailwind components;
@@ -25,3 +26,8 @@
   margin: 0;
   padding: 0;
 }
+=======
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+>>>>>>> fb06eac2bcf6192be1c2adc014a9806691bfff48
