@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import swaggerUi from 'swagger-ui-express';
-import apiSpec from '../openapi.json';
+import apiSpec from '../openapi.json' assert { type: 'json' };
 import { AuthController } from './auth/auth-controller';
 import { UserController } from './user/user-controller';
 import { AdminController } from './user/admin-controller';
