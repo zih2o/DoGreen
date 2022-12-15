@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { InitialData, userData } from '../pages/MyPage';
 import { Routes, Route, Link } from 'react-router-dom';
 
+
 const MyPageTab = () => {
   const [userInfo, setUserInfo] = useState<userData>(InitialData);
   return (

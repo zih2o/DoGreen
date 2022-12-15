@@ -1,8 +1,29 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
-    extend: {},
+    fontSize: {
+      '3xl': '1.953rem',
+      '4xl': '2.441rem',
+      '5xl': '3.052rem',
+    },
+    extend: {
+      colors: {
+        'garden1': '#637E69',
+        'garden2': '#EDF4E8',
+        'garden3': '#F6E6E5',
+        'garden4': '#5C5656',
+        'gardenBG': '#EAE7E8',
+        'gardenBG-light': '#EAE7E8',
+        'forest1':'#57B55F',
+        'forest2':'#65D26D',
+        'forest3':'#D09645',
+        'forest4':'#110E0E',
+        'forestBG':'#57B55F',
+      },
+      fontFamily: {
+        pacifico: ["Pacifico", "sans-serif"],
+      },
+    },
   },
   plugins: [],
 };
