@@ -13,6 +13,10 @@ const UserSchema = new Schema<UserT>(
     username: {
       type: String,
       required: true
+    },
+    email: {
+      type: String,
+      required: true
     }
   },
   {
