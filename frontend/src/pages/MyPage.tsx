@@ -1,6 +1,6 @@
 import React from 'react';
-import UserInfo from '../components/UserInfo';
 import MyPageTab from '../components/MyPageTab';
+import MyPageMain from '../components/MyPageMain';
 // import axios from 'axios';
 
 export interface userData {
@@ -31,7 +31,7 @@ const MyPage = () => {
           <MyPageTab />
         </div>
         <div className="MyPage_Content_Wrapper w-3/4 bg-slate-100">
-          <UserInfo />
+          <MyPageMain />
         </div>
       </div>
     </div>
