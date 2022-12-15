@@ -7,7 +7,7 @@ function Hambuger(props) {
         <Link to="/">
           <li>Home</li>
         </Link>
-        <Link to="/mypages">
+        <Link to="/mypage">
           <li>마이페이지</li>
         </Link>
         <Link to="/animals">
