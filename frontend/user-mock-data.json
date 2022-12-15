@@ -1,33 +1,44 @@
 [
-    {
-        "email":"antargicpeng@artic.com",
-        "role": "USER",
-        "username":"아델리펭귄"
-    },
-    {
-        "email":"hyungseokSon@green.com",
-        "role": "USER",
-        "username":"핑키공주형석"
-    },
-    {
-        "email":"SIYEA@artic.com",
-        "role": "USER",
-        "username":"비둘기단 남극펭귄"
-    },
-    {
-        "email":"jisupark@team.com",
-        "role": "ADMIN",
-        "username":"킹팀장"
-    },
-    {
-        "email":"yena@cute.com",
-        "role": "USER",
-        "username":"S2zㅣ존전사예나S2"
-    },
-    {
-        "email":"jihyun@green.com",
-        "role": "USER",
-        "username":"찌혀니><"
-    }
-
+  {
+    "email": "antargicpeng@artic.com",
+    "role": "USER",
+    "username": "아델리펭귄",
+    "bio": "Hi, there! I'm adelie penguin from antartica.",
+    "imgUrl": "https://user-images.githubusercontent.com/91370858/205333195-7fc1105a-9cb8-445a-9c23-7490e24e43aa.png"
+  },
+  {
+    "email": "hyungseokSon@green.com",
+    "role": "USER",
+    "username": "핑키공주형석",
+    "bio": "Hi, there! I'm adelie penguin from antartica.",
+    "imgUrl": "https://user-images.githubusercontent.com/91370858/205332649-9150e9e9-e7c6-45e0-a963-53380d2f818a.png"
+  },
+  {
+    "email": "SIYEA@artic.com",
+    "role": "USER",
+    "username": "비둘기단 남극펭귄",
+    "bio": "Hi, there! I'm adelie penguin from antartica.",
+    "imgUrl": "https://user-images.githubusercontent.com/91370858/205333419-c0f2c5b2-02f0-4420-a0a7-38b94949b78e.png"
+  },
+  {
+    "email": "jisupark@team.com",
+    "role": "ADMIN",
+    "username": "킹팀장",
+    "bio": "Hi, there! I'm adelie penguin from antartica.",
+    "imgUrl": "https://user-images.githubusercontent.com/4677417/186189283-0831b9ab-d6b9-485d-8955-3057e532ab31.png"
+  },
+  {
+    "email": "yena@cute.com",
+    "role": "USER",
+    "username": "S2zㅣ존전사예나S2",
+    "bio": "Hi, there! I'm adelie penguin from antartica.",
+    "imgUrl": "https://user-images.githubusercontent.com/91370858/205333195-7fc1105a-9cb8-445a-9c23-7490e24e43aa.png"
+  },
+  {
+    "email": "jihyun@green.com",
+    "role": "USER",
+    "username": "찌혀니><",
+    "bio": "Hi, there! I'm adelie penguin from antartica.",
+    "imgUrl": "https://user-images.githubusercontent.com/91370858/205333195-7fc1105a-9cb8-445a-9c23-7490e24e43aa.png"
+  }
 ]

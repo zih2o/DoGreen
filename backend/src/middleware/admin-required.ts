@@ -1,16 +1,15 @@
 import { NextFunction, Request, Response } from 'express';
 
 function adminRequired(req: Request, res: Response, next: NextFunction) {
-  if (req.currentUserRole !== 'ADMIN') {
-    res.status(403).json({
-      result: 'forbidden-approach',
-      reason: '관리자만 사용할 수 있는 서비스입니다.'
-    });
-
-    return;
+// Try-catch 에러처리로 분리?
+  try {
+    if (req.currentUserRole !== 'ADMIN') {
+      res.status(403).json({ message: 'Access denied' });
+    }
+    next();
+  } catch (e) {
+    res.status(500).json({ message: `An ${e} has occured` });
   }
-
-  next();
-}
+};
 
 export { adminRequired };

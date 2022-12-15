@@ -15,7 +15,7 @@ const AuthSchema = new Schema<AuthT>(
       // TODO default와 enum 충돌 안나는지 확인하기
       type: String,
       enum: ['USER', 'ADMIN'],
-      required: false,
+      required: false, // dksl Required가 false인데 default가 유저면 어케되는거임?????
       default: 'USER'
     }
   },
