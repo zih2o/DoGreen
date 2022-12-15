@@ -12,7 +12,6 @@ const ChallengeInfo = () => {
         <h2 className="text-2xl  font-bold">
           참여율 <br></br>55%
         </h2>
-        {/* py-2 px-4 pt-8 */}
         <div className="show_status flex items-center mt-8 w-96 ">
           <CalendarHeatmap
             startDate={new Date('2022-09-01')}
