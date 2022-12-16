@@ -8,7 +8,7 @@ const AuthModel = model<AuthT>('auths', AuthSchema);
 
 export class AuthService implements IAuthService {
   async register(newAuth: AuthT) {
-    const hash = argon2.hash(newAuth.password);
+    const hash = await argon2.hash(newAuth.password);
 
     await AuthModel.create({
       email: newAuth.email,
@@ -46,24 +46,31 @@ export class AuthService implements IAuthService {
   };
 
   // password가 correct한지 authService에서 확인하는 함수
-  async isPasswordCorrect(authDTO: AuthT) {
+  async isPasswordCorrect(oldPassword: AuthT['password'], email: AuthT['email']) {
     // 비밀번호를  수정
-    const auth = await AuthModel.findOne({ email: authDTO.email });
-    invariant(auth !== null, `${authDTO.email}은 가입 내역이 없습니다.`); // 타입 가드
+    const oldAuth = await AuthModel.findOne({ email });
+    invariant(oldAuth !== null, `${email}은 가입 내역이 없습니다.`); // 타입 가드
 
     // auth의 password와 db의 password를 argon2로 verify한다
     return argon2.verify(
-      auth.password,
-      authDTO.password
+      oldAuth.password,
+      oldPassword
     );
   };
 
-  async updatePassword(newAuthDTO:AuthT) {
-    const isValidPassword = await this.isPasswordCorrect(newAuthDTO);
+  async updatePassword(
+    oldPassword: AuthT['password'] | undefined,
+    newAuth: Partial<Pick<AuthT, 'email' | 'password'>>
+  ) {
+    if (!oldPassword || !newAuth.email || !newAuth.password) {
+      return;
+    }
 
-    if (isValidPassword === true) {
-      const newHash = argon2.hash(newAuthDTO.password);
-      AuthModel.updateOne({ password: newHash });
+    const isOldPasswordCorrect = await this.isPasswordCorrect(oldPassword, newAuth.email);
+
+    if (isOldPasswordCorrect === true) {
+      const newHash = await argon2.hash(newAuth.password);
+      await AuthModel.updateOne({ password: newHash });
     }
   }
 }
