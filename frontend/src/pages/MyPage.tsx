@@ -1,6 +1,7 @@
 import React from 'react';
 import MyPageTab from '../components/MyPageTab';
 import MyPageMain from '../components/MyPageMain';
+import Header from '../components/Header';
 // import axios from 'axios';
 
 export interface userData {
@@ -23,9 +24,7 @@ export const InitialData: userData = {
 const MyPage = () => {
   return (
     <div className="w-full min-h-screen">
-      <div className="bg-rose-100 py-24">
-        <h2 className="text-3xl font-bold underline">마이페이지</h2>
-      </div>
+      <Header/>
       <div className="flex min-h-screen w-full">
         <div className="MyPage_Tab_Wrapper w-1/4 bg-gray-200">
           <MyPageTab />
