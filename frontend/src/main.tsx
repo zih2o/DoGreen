@@ -8,6 +8,8 @@ import './index.css';
 import CardPage from './pages/CardPage';
 import MyPage from './pages/MyPage';
 import NewsPage from './pages/NewsPage';
+import MySubscribe from './components/MySubscribe';
+import MyChallenge from './components/MyChallenge';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +21,8 @@ const router = createBrowserRouter([
       { path: '/admin', element: <Admin /> },
       { path: '/categories/:catId', element: <CardPage /> },
       { path: '/cards/:cardId', element: <NewsPage /> },
+      { path: '/mypage/subscribe', element: <MySubscribe /> },
+      { path: '/mypage/challenge', element: <MyChallenge /> },
     ],
   },
 ]);

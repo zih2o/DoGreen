@@ -2,6 +2,7 @@ import React from 'react';
 import MyPageTab from '../components/MyPageTab';
 import MyPageMain from '../components/MyPageMain';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 // import axios from 'axios';
 
 export interface userData {
@@ -33,6 +34,7 @@ const MyPage = () => {
           <MyPageMain />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
