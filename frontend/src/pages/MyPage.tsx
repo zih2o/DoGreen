@@ -25,7 +25,7 @@ const MyPage = () => {
   return (
     <div className="mx-auto w-full min-h-screen">
       <MyPageTopBar />
-      <div className="container flex px-5 w-full lg:flex mx-auto">
+      <div className="container flex px-5 w-full mx-auto">
         <MyPageTab />
         <MyPageMain />
       </div>

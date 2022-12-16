@@ -5,7 +5,7 @@ const UserInfo = () => {
   const [userInfo, setUserInfo] = useState<userData>(InitialData);
   return (
     <div className="message_wrapper px-10 lg:px-20 mb-24">
-      <p className="text-2xl lg:text-3xl text-center leading-10 font-bold">
+      <p className="text-2xl text-center leading-10 font-bold">
         <span className="text-emerald-600">{userInfo.name}</span>님, 상위 {userInfo.rank}%의
         <span className="text-emerald-600"> {userInfo.status}</span>
         이군요!

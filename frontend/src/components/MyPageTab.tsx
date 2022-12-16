@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import ProfileInfo from './ProfileInfo';
 import MyPageTabBar from './MyPageTabBar';
 

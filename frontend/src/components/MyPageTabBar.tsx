@@ -9,9 +9,6 @@ const MyPageTabBar = (props: any) => {
       <Link to="/mypage/subscribe" className="mb-10 pl-8">
         내 구독 정보
       </Link>
-      {/* <Link to="/mypage/challenge" className="mb-10 pl-8">
-        내 챌린지 정보
-      </Link> */}
     </div>
   );
 };
