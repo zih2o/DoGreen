@@ -1,7 +1,7 @@
 import { model } from 'mongoose';
 import * as argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
-import { AuthSchema } from './auth-schema';
+import { AuthSchema } from './auth.schema';
 import invariant from '../invariant';
 
 const AuthModel = model<AuthT>('auths', AuthSchema);
