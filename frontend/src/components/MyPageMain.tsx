@@ -8,7 +8,7 @@ const MyPageMain = () => {
   const [userInfo, setUserInfo] = useState<userData>(InitialData);
   return (
     <div className="MyPage_Content_Wrapper py-5 flex-1">
-      <div className="progressbar_wrapper mt-28 mb-24 w-10/12 mx-auto">
+      <div className="progressbar_wrapper mt-12 mb-24 p-4 mx-auto">
         <TotalProgressBar value={userInfo.rank} />
       </div>
       <div className="message_wrapper mb-48">
