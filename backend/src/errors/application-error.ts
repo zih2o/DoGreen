@@ -1,3 +1,4 @@
+// TODO 이렇게살야되는지잠시고민해보기
 export default class ApplicationError extends Error {
   public message: string = 'ApplicationError';
 

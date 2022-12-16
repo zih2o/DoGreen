@@ -12,6 +12,16 @@ const UserSchema = new Schema<UserT>(
     },
     username: {
       type: String,
+      required: true,
+      unique: true
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    isDeleted: {
+      type: Boolean,
       required: true
     }
   },
