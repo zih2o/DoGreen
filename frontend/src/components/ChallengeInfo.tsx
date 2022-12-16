@@ -5,11 +5,11 @@ import './MyPage.css';
 
 const ChallengeInfo = () => {
   return (
-    <div>
+    <div className="mt-24 mb-24">
       <h2 className="text-3xl pl-20 mb-10 font-bold">참여하고 있는 챌린지</h2>
       <div className="challenge_wrapper flex items-center justify-around h-64 mx-20 bg-green-50">
         <h2 className="text-3xl text-center font-bold">플라스틱 줄이기 챌린지</h2>
-        <h2 className="text-2xl  font-bold">
+        <h2 className="text-2xl font-bold">
           참여율 <br></br>55%
         </h2>
         <div className="show_status flex items-center mt-8 w-96 ">
