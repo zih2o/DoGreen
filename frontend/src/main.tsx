@@ -10,6 +10,7 @@ import MyPage from './pages/MyPage';
 import NewsPage from './pages/NewsPage';
 import MySubscribe from './components/MySubscribe';
 import MyChallenge from './components/MyChallenge';
+import EditUserInfo from './components/EditUserInfo';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
       { path: '/cards/:cardId', element: <NewsPage /> },
       { path: '/mypage/subscribe', element: <MySubscribe /> },
       { path: '/mypage/challenge', element: <MyChallenge /> },
+      { path: '/mypage/editUser', element: <EditUserInfo /> },
     ],
   },
 ]);
