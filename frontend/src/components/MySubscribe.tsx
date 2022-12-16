@@ -6,7 +6,7 @@ const MySubscribe = () => {
   return (
     <div className="mx-auto w-full min-h-screen">
       <MyPageTopBar />
-      <div className="container flex lg:flex px-5 lg:w-full mx-auto">
+      <div className="container flex px-5 lg:w-full mx-auto">
         <MyPageTab />
         <SubscribeTab />
       </div>

@@ -6,7 +6,7 @@ type progressInfo = {
 };
 const TotalProgressBar = ({ value }: progressInfo) => {
   return (
-    <div>
+    <div className="progressbar_wrapper mt-12 mb-24 px-10 lg:px-20 mx-auto">
       <div className="progress-bar">
         <div className="value">
           <div style={{ color: 'green', width: value + 3 + '%' }}>

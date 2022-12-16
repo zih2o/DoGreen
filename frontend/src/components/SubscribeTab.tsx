@@ -199,7 +199,7 @@ const SubscribeTab = () => {
             return section.tabTitle;
           })}
         </ul>
-        <div className="relative flex flex-col w-full px-20 pt-10 ">
+        <div className="relative flex flex-col w-full px-10 lg:px-20 pt-10 ">
           <div className="flex-auto">{tabContentArr[activeIndex].tabContent}</div>
         </div>
       </div>

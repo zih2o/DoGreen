@@ -5,13 +5,15 @@ import './MyPage.css';
 
 const ChallengeInfo = () => {
   return (
-    <div className="mt-24 mb-24">
-      <h2 className="text-3xl pl-20 mb-10 font-bold">나의 Do Green</h2>
-      <div className="challenge_wrapper flex items-center justify-around h-64 mx-20 bg-garden4/10">
-        <h2 className="text-2xl text-center font-bold">나의 활동 기록</h2>
-        <h2 className="text-2xl font-bold">
-          상위 <br></br>60%
-        </h2>
+    <div className="w-full mt-12 mb-24">
+      <h2 className="text-2xl lg:text-3xl pl-20 mb-10 font-bold">나의 Do Green</h2>
+      <div className="challenge_wrapper max-w-6xl flex px-10 items-center justify-around h-64 mx-20 bg-garden4/10">
+        <div className="flex w-80 justify-evenly items-center">
+          <h2 className="text-2xl text-center font-bold">나의 활동 기록</h2>
+          <h2 className="text-2xl font-bold">
+            상위 <br></br>60%
+          </h2>
+        </div>
         <div className="show_status flex items-center mt-8 w-96 ">
           <CalendarHeatmap
             startDate={new Date('2022-09-01')}
