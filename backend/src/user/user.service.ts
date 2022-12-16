@@ -1,7 +1,7 @@
 import { model, Types } from 'mongoose';
-import { AuthService } from '../auth/auth-service';
+import { AuthService } from '../auth/auth.service';
 import invariant from '../invariant';
-import { UserSchema } from './user-schema';
+import { UserSchema } from './user.schema';
 
 const UserModel = model<UserT>('users', UserSchema);
 
