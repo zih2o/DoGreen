@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-function adminRequired(req: Request, res: Response, next: NextFunction) {
+const adminRequired = (req: Request, res: Response, next: NextFunction) => {
 // Try-catch 에러처리로 분리?
   try {
     if (req.currentUserRole !== 'ADMIN') {
