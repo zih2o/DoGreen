@@ -31,11 +31,12 @@ authRouter.post('/register', authController.register);
 authRouter.post('login', authController.login);
 
 authRouter.get('/', adminController.findAll);
-authRouter.get('/', adminController.banUsers);
+// TODO: method와 path
+authRouter.patch('/', adminController.banUsers);
 authRouter.get('/', adminController.getBannedOrLeaveUser);
 
 userRouter.get('/:username', userController.findUserByUserName);
-userRouter.get('/', userController.updateUser); // 탈퇴랑 수정 둘다 가능
+userRouter.patch('/', userController.updateUserInfo); // 탈퇴랑 수정 둘다 가능
 
 // Dev routes
 if (process.env.NODE_ENV === 'development') {
