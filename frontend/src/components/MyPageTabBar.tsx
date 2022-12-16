@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 const MyPageTabBar = (props: any) => {
   return (
-    <div className={'flex flex-col font-bold ' + (props.modal ? 'text-md' : 'mb-10 text-xl')}>
+    <div className="flex flex-col font-bold text-2xl">
       <Link to="/mypage" className="mb-10 pl-8">
         내 정보 수정
       </Link>
