@@ -54,11 +54,6 @@ export class UserService implements IUserService {
 
   // update, softdeletebyuser 가능
   async updateUser(userInfo: Omit<UserT, 'role'>) {
-    // controller단에서 유저의 기존 비밀번호를 확인했다고 가정하기
-    // await authService.isPasswordCorrect(userInfo.auth)
-    //   .catch(e => console.error(`${e} occured: password incorrect`));
-    // await authService.updatePassword(userInfo.auth);
-
     await UserModel.updateOne({ userInfo });
   }
 
