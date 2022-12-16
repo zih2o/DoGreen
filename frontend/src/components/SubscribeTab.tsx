@@ -90,14 +90,6 @@ const SubscribeTab = () => {
                   </div>
                 </a>
               </li>
-              <li className="w-52">
-                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="#penguin">
-                  <div className="card_content_img h-52 bg-gray-100"></div>
-                  <div className="card_content_text text-xl font-bold p-10 text-center">
-                    <h2>Penguin</h2>
-                  </div>
-                </a>
-              </li>
             </ul>
           </div>
         </div>
@@ -175,14 +167,7 @@ const SubscribeTab = () => {
                   </div>
                 </a>
               </li>
-              <li className="w-52">
-                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="#penguin">
-                  <div className="card_content_img h-52 bg-gray-100"></div>
-                  <div className="card_content_text text-xl font-bold p-10 text-center">
-                    <h2>토픽</h2>
-                  </div>
-                </a>
-              </li>
+
               <li className="w-52">
                 <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="#penguin">
                   <div className="card_content_img h-52 bg-gray-100"></div>
@@ -207,14 +192,16 @@ const SubscribeTab = () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 p-4 mt-2">
-      <ul className="tabs flex mb-0 list-none flex-wrap flex-row" role="tablist">
-        {tabContentArr.map((section) => {
-          return section.tabTitle;
-        })}
-      </ul>
-      <div className="relative flex flex-col w-full px-20 pt-10 ">
-        <div className="flex-auto">{tabContentArr[activeIndex].tabContent}</div>
+    <div className="MyPage_Content_Wrapper py-5 flex-1">
+      <div className="grid grid-cols-1 p-4 mt-12">
+        <ul className="tabs flex mb-0 list-none flex-wrap flex-row" role="tablist">
+          {tabContentArr.map((section) => {
+            return section.tabTitle;
+          })}
+        </ul>
+        <div className="relative flex flex-col w-full px-10 lg:px-20 pt-10 ">
+          <div className="flex-auto">{tabContentArr[activeIndex].tabContent}</div>
+        </div>
       </div>
     </div>
   );

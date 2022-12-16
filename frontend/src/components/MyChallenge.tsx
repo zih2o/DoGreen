@@ -1,14 +1,12 @@
 import React from 'react';
 import MyPageTab from './MyPageTab';
 import ChallengeInfo from './ChallengeInfo';
-import Header from './Header';
 
 const MyChallenge = () => {
   return (
     <div>
       <div className="w-full min-h-screen">
-        <Header />
-        <div className="flex min-h-screen w-full">
+        <div className="container flex min-h-screen mx-auto px-5 ">
           <div className="MyPage_Tab_Wrapper w-1/4 bg-gray-200">
             <MyPageTab />
           </div>

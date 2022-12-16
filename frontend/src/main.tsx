@@ -9,7 +9,6 @@ import CardPage from './pages/CardPage';
 import MyPage from './pages/MyPage';
 import NewsPage from './pages/NewsPage';
 import MySubscribe from './components/MySubscribe';
-import MyChallenge from './components/MyChallenge';
 import EditUserInfo from './components/EditUserInfo';
 import RegisterPage from './pages/RegisterPage';
 
@@ -19,13 +18,18 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, path: '/', element: <Home /> },
-      { path: '/mypage', element: <MyPage /> },
+      {
+        path: '/mypage',
+        element: <App />,
+        children: [
+          { path: '/mypage', element: <MyPage /> },
+          { path: '/mypage/subscribe', element: <MySubscribe /> },
+          { path: '/mypage/editUser', element: <EditUserInfo /> },
+        ],
+      },
       { path: '/admin', element: <Admin /> },
       { path: '/categories/:catId', element: <CardPage /> },
       { path: '/cards/:cardId', element: <NewsPage /> },
-      { path: '/mypage/subscribe', element: <MySubscribe /> },
-      { path: '/mypage/challenge', element: <MyChallenge /> },
-      { path: '/mypage/editUser', element: <EditUserInfo /> },
       { path: '/register', element: <RegisterPage /> },
     ],
   },
