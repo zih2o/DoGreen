@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { UserService } from './user-service';
+import { UserService } from './user.service';
 
 const userService = new UserService();
 // 여기다가 admin-required 어케주입하지

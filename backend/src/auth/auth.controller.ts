@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { UserService } from '../user/user-service';
+import { UserService } from '../user/user.service';
 
 const authService = {} as IAuthService;
 const userService = new UserService();
