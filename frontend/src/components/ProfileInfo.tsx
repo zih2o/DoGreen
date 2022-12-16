@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { InitialData, userData } from '../pages/MyPage';
 
-const ProfileInfo = () => {
+const ProfileInfo = (props: any) => {
   const [userInfo, setUserInfo] = useState<userData>(InitialData);
   return (
     <div>
-      <section className="flex mx-3 my-20 items-center justify-content-center">
+      <section className={'flex mx-3 items-center justify-content-center' + (props.modal ? ' my-5' : ' my-20')}>
         <div className="profile_wrapper w-1/3">
           <img className="p-3" src="/src/assets/profile.png" alt="profile_img" />
         </div>
