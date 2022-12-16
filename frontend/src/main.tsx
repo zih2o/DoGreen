@@ -11,6 +11,7 @@ import NewsPage from './pages/NewsPage';
 import MySubscribe from './components/MySubscribe';
 import MyChallenge from './components/MyChallenge';
 import EditUserInfo from './components/EditUserInfo';
+import RegisterPage from './pages/RegisterPage';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
       { path: '/mypage/subscribe', element: <MySubscribe /> },
       { path: '/mypage/challenge', element: <MyChallenge /> },
       { path: '/mypage/editUser', element: <EditUserInfo /> },
+      { path: '/register', element: <RegisterPage /> },
     ],
   },
 ]);
