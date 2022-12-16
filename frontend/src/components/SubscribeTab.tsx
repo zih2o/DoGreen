@@ -27,7 +27,7 @@ const SubscribeTab = () => {
           <div className="card_wrapper mt-20 mb-20 flex block">
             <ul className="flex justify-center flex-wrap gap-y-14 gap-x-6 ">
               <li className="w-52">
-                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="penguin">
+                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="#penguin">
                   <div className="card_content_img h-52 bg-gray-100"></div>
                   <div className="card_content_text text-xl font-bold p-10 text-center">
                     <h2>Penguin</h2>
@@ -35,7 +35,7 @@ const SubscribeTab = () => {
                 </a>
               </li>
               <li className="w-52">
-                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="penguin">
+                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="#penguin">
                   <div className="card_content_img h-52 bg-gray-100"></div>
                   <div className="card_content_text text-xl font-bold p-10 text-center">
                     <h2>Penguin</h2>
@@ -43,7 +43,7 @@ const SubscribeTab = () => {
                 </a>
               </li>
               <li className="w-52">
-                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="penguin">
+                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="#penguin">
                   <div className="card_content_img h-52 bg-gray-100"></div>
                   <div className="card_content_text text-xl font-bold p-10 text-center">
                     <h2>Penguin</h2>
@@ -51,7 +51,7 @@ const SubscribeTab = () => {
                 </a>
               </li>
               <li className="w-52">
-                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="penguin">
+                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="#penguin">
                   <div className="card_content_img h-52 bg-gray-100"></div>
                   <div className="card_content_text text-xl font-bold p-10 text-center">
                     <h2>Penguin</h2>
@@ -59,7 +59,7 @@ const SubscribeTab = () => {
                 </a>
               </li>
               <li className="w-52">
-                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="penguin">
+                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="#penguin">
                   <div className="card_content_img h-52 bg-gray-100"></div>
                   <div className="card_content_text text-xl font-bold p-10 text-center">
                     <h2>Penguin</h2>
@@ -67,7 +67,7 @@ const SubscribeTab = () => {
                 </a>
               </li>
               <li className="w-52">
-                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="penguin">
+                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="#penguin">
                   <div className="card_content_img h-52 bg-gray-100"></div>
                   <div className="card_content_text text-xl font-bold p-10 text-center">
                     <h2>Penguin</h2>
@@ -75,7 +75,7 @@ const SubscribeTab = () => {
                 </a>
               </li>
               <li className="w-52">
-                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="penguin">
+                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="#penguin">
                   <div className="card_content_img h-52 bg-gray-100"></div>
                   <div className="card_content_text text-xl font-bold p-10 text-center">
                     <h2>Penguin</h2>
@@ -83,7 +83,7 @@ const SubscribeTab = () => {
                 </a>
               </li>
               <li className="w-52">
-                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="penguin">
+                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="#penguin">
                   <div className="card_content_img h-52 bg-gray-100"></div>
                   <div className="card_content_text text-xl font-bold p-10 text-center">
                     <h2>Penguin</h2>
@@ -91,7 +91,7 @@ const SubscribeTab = () => {
                 </a>
               </li>
               <li className="w-52">
-                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="penguin">
+                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="#penguin">
                   <div className="card_content_img h-52 bg-gray-100"></div>
                   <div className="card_content_text text-xl font-bold p-10 text-center">
                     <h2>Penguin</h2>
@@ -128,7 +128,7 @@ const SubscribeTab = () => {
           <div className="card_wrapper mt-20 mb-20 flex block">
             <ul className="flex justify-center flex-wrap gap-y-14 gap-x-6 ">
               <li className="w-52">
-                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="penguin">
+                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="#penguin">
                   <div className="card_content_img h-52 bg-gray-100"></div>
                   <div className="card_content_text text-xl font-bold p-10 text-center">
                     <h2>토픽</h2>
@@ -136,7 +136,7 @@ const SubscribeTab = () => {
                 </a>
               </li>
               <li className="w-52">
-                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="penguin">
+                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="#penguin">
                   <div className="card_content_img h-52 bg-gray-100"></div>
                   <div className="card_content_text text-xl font-bold p-10 text-center">
                     <h2>뉴스</h2>
@@ -144,7 +144,7 @@ const SubscribeTab = () => {
                 </a>
               </li>
               <li className="w-52">
-                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="penguin">
+                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="#penguin">
                   <div className="card_content_img h-52 bg-gray-100"></div>
                   <div className="card_content_text text-xl font-bold p-10 text-center">
                     <h2>푸드</h2>
@@ -152,7 +152,7 @@ const SubscribeTab = () => {
                 </a>
               </li>
               <li className="w-52">
-                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="penguin">
+                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="#penguin">
                   <div className="card_content_img h-52 bg-gray-100"></div>
                   <div className="card_content_text text-xl font-bold p-10 text-center">
                     <h2>그린</h2>
@@ -160,7 +160,7 @@ const SubscribeTab = () => {
                 </a>
               </li>
               <li className="w-52">
-                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="penguin">
+                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="#penguin">
                   <div className="card_content_img h-52 bg-gray-100"></div>
                   <div className="card_content_text text-xl font-bold p-10 text-center">
                     <h2>라이프스타일</h2>
@@ -168,7 +168,7 @@ const SubscribeTab = () => {
                 </a>
               </li>
               <li className="w-52">
-                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="penguin">
+                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="#penguin">
                   <div className="card_content_img h-52 bg-gray-100"></div>
                   <div className="card_content_text text-xl font-bold p-10 text-center">
                     <h2>후원</h2>
@@ -176,7 +176,7 @@ const SubscribeTab = () => {
                 </a>
               </li>
               <li className="w-52">
-                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="penguin">
+                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="#penguin">
                   <div className="card_content_img h-52 bg-gray-100"></div>
                   <div className="card_content_text text-xl font-bold p-10 text-center">
                     <h2>토픽</h2>
@@ -184,7 +184,7 @@ const SubscribeTab = () => {
                 </a>
               </li>
               <li className="w-52">
-                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="penguin">
+                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="#penguin">
                   <div className="card_content_img h-52 bg-gray-100"></div>
                   <div className="card_content_text text-xl font-bold p-10 text-center">
                     <h2>제품</h2>
@@ -192,7 +192,7 @@ const SubscribeTab = () => {
                 </a>
               </li>
               <li className="w-52">
-                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="penguin">
+                <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="#penguin">
                   <div className="card_content_img h-52 bg-gray-100"></div>
                   <div className="card_content_text text-xl font-bold p-10 text-center">
                     <h2>펭귄</h2>
