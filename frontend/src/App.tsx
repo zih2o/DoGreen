@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MyPage from './pages/MyPage';
 import Home from './components/Home';
 import Admin from './components/Admin';
-import LoginPage from './pages/LoginPage';
+import LoginRgisterModalPage from './pages/LoginRgisterModalPage';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/admin" element={<Admin />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login" element={<LoginRgisterModalPage />} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -1,38 +1,41 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { AiOutlineClose } from 'react-icons/ai';
 
 const Login = () => {
   return (
-    <div className="flex-col w-full max-w-sm space-y-8">
-      <p className="text-center">로그인</p>
-      <div className="flex items-center justify-between">
-        <label htmlFor="email">이메일</label>
-        <input
-          className="w-3/4 rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-          id="email"
-          placeholder="Email"
-        />
-      </div>
-      <div className="flex items-center justify-between">
-        <label htmlFor="pwd">비밀번호</label>
-        <input
-          className="w-3/4 rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-          id="pwd"
-          placeholder="Password"
-          autoComplete="off"
-        />
+    <dialog className="w-[450px] h-[380px] flex flex-col items-center justify-center border-[3px] border-garden1 rounded shadow-[0_0_30px_rgba(30, 30, 30, 0.185)] box-border bg-gardenBG	z-[10000]">
+      <div className="flex-col w-full max-w-sm space-y-4 ">
+        <p className="text-center text-garden1 font-pacifico text-3xl mt-1 mb-10 pb-3">Do Green!</p>
+        <div className="flex items-center justify-between">
+          <label htmlFor="email">Email</label>
+          <input
+            className="w-3/4 rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-300 focus:z-10 focus:border-forest3 focus:outline-none focus:ring-forest3 text-xs"
+            id="email"
+            placeholder="dogreen@green.com"
+          />
+        </div>
+        <div className="flex items-center justify-between">
+          <label htmlFor="pwd">Password</label>
+          <input
+            className="w-3/4 rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-300 focus:z-10 focus:border-forest3 focus:outline-none focus:ring-forest3 text-xs"
+            id="pwd"
+            placeholder="Password"
+            autoComplete="off"
+          />
+        </div>
       </div>
       <button
         type="submit"
-        className=" bg-white relative flex w-full justify-center  hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+        className="w-[350px] mt-10 bg-white relative flex w-full justify-center hover:bg-gray-100 text-garden4 font-semibold py-2 px-4 border-garden1 border-[2px] rounded shadow"
         id="login"
       >
-        로그인
+        Login
       </button>
-      <a className="relative flex w-full justify-center" href="/register" id="resgister">
-        회원가입
+      <a className="mt-3 justify-self-start" href="/register" id="resgister">
+        Create account
       </a>
-    </div>
+    </dialog>
   );
 };
 
