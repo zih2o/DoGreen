@@ -32,6 +32,9 @@ app.use(logResponseTime);
 // response.body 압축해주는 역할
 app.use(compression());
 app.use(bodyParser.json());
+// parse application/x-www-form-urlencoded
+// { extended: true } : nested object를 지원한다.
+// https://stackoverflow.com/questions/29960764/what-does-extended-mean-in-express-4-0
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(routes);
 

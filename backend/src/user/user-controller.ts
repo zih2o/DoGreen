@@ -13,16 +13,18 @@ export class UserController {
     res.status(200);
   }
 
-  async updateUser(req: Request, res: Response) {
-    const { requiredPassword, userInfo } = req.body;
-    const isExistUser = await authService.existUserByEmail(userInfo.email);
+  async updateUserInfo(req: Request, res: Response) {
+    const { oldPassword, newPassword, ...userInfo } = req.body as Partial<{
+      oldPassword: string, newPassword: string,
+    } & Omit<UserT, 'auth' | 'isDeleted'>>;
+    const isExistUser = await authService.existUserByEmail(req.currentUserId);
     if (isExistUser === true) {
-      Promise.all([
-        authService.isPasswordCorrect(requiredPassword),
-        authService.updatePassword(userInfo.newPassword),
-        userService.updateUser(userInfo)
-      ]);
-      res.status(201);
+      await authService.updatePassword(oldPassword, {
+        email: req.currentUserId,
+        password: newPassword // 새 비밀번호
+      });
+      await userService.updateUser(userInfo);
+      res.status(200);
     }
   }
 }
