@@ -2,8 +2,8 @@ import './App.css';
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MyPage from './pages/MyPage';
-import Home from './components/Home';
-import Admin from './components/Admin';
+import Home from './pages/Home';
+import Admin from './pages/Admin';
 
 function App() {
   return (
