@@ -23,6 +23,14 @@ const UserSchema = new Schema<UserT>(
     isDeleted: {
       type: Boolean,
       required: true
+    },
+    bio: {
+      type: String,
+      default: 'Hi there!'
+    },
+    imgUrl: {
+      type: String,
+      default: 'https://user-images.githubusercontent.com/91370858/208048148-47028f2f-d283-4ab1-a43e-3c073543161e.png'
     }
   },
   {

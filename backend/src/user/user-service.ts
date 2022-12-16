@@ -53,7 +53,7 @@ export class UserService implements IUserService {
   }
 
   // update, softdeletebyuser 가능
-  async updateUser(userInfo: Omit<UserT, 'role'>) {
+  async updateUser(userInfo: Partial<Omit<UserT, 'auth' | 'isDeleted'>>) {
     await UserModel.updateOne({ userInfo });
   }
 
