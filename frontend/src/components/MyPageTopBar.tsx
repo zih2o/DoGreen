@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { AiOutlineDoubleRight, AiOutlineClose } from 'react-icons/ai';
 import ProfileInfo from '../components/ProfileInfo';
 import MyPageTabBar from '../components/MyPageTabBar';
 
 const MyPageTopBar = () => {
   const [tabOpen, setTabOpen] = useState(false);
+  const { pathname } = useLocation();
   const handleToggle = () => {
     setTabOpen(!tabOpen);
   };
@@ -14,8 +16,10 @@ const MyPageTopBar = () => {
         <AiOutlineDoubleRight className="icon" size="24" />
       </button>
       <ol className="ml-4 flex text-md leading-6 whitespace-nowrap min-w-0">
-        <li className="flex items-center">마이페이지 &nbsp;{'-'}</li>
-        <li className="font-semibold text-slate-900 truncate">&nbsp;{` 세부페이지명 `} </li>
+        <li className="flex items-center">마이페이지 </li>
+        <li className="font-semibold text-slate-900 truncate">
+          &nbsp;{pathname === '/mypage' ? '' : pathname === '/mypage/subscribe' ? '>  내 구독 정보' : ''}
+        </li>
       </ol>
       <br></br>
 

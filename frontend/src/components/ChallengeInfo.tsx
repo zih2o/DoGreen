@@ -9,7 +9,7 @@ const ChallengeInfo = () => {
       <h2 className="text-2xl lg:text-3xl px-10 lg:px-20 mb-10 font-bold">나의 Do Green</h2>
       <div className="challenge_wrapper max-w-6xl flex px-5 items-center justify-around h-64 mx-10 lg:mx-20 bg-garden4/10">
         <div className="flex-col w-96 justify-evenly items-center">
-          <h2 className="text-2xl text-center font-bold">나의 활동 기록</h2>
+          <h2 className="text-2xl text-center leading-10 font-bold">나의 활동 기록</h2>
           <h2 className="text-xl text-center font-bold">상위 60%</h2>
         </div>
         <div className="show_status flex items-center mt-8 w-96 ">
