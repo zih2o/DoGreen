@@ -45,9 +45,8 @@ function Header() {
           </nav>
         </div>
       </header>
-      <div className='inset-x-0 top-0 left-0 bg-white p-11'/>
+      <div className="inset-x-0 top-0 left-0 bg-white p-11" />
       {hamburgerOpen ? <Hambuger name="Elice" rank="Earth Gardian" /> : null}
-  
     </div>
   );
 }

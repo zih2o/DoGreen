@@ -7,8 +7,8 @@ import UserInfo from './UserInfo';
 const MyPageMain = () => {
   const [userInfo, setUserInfo] = useState<userData>(InitialData);
   return (
-    <div>
-      <div className="progressbar_wrapper mt-24 mb-24 w-10/12 mx-auto">
+    <div className="MyPage_Content_Wrapper py-5 flex-1">
+      <div className="progressbar_wrapper mt-28 mb-24 w-10/12 mx-auto">
         <TotalProgressBar value={userInfo.rank} />
       </div>
       <div className="message_wrapper mb-48">

@@ -10,7 +10,7 @@ const TotalProgressBar = ({ value }: progressInfo) => {
       <div className="progress-bar">
         <div className="value">
           <div style={{ color: 'green', width: value + 3 + '%' }}>
-            <img className="w-20 h-20 float-right text-center" src="./src/assets/profile.png" alt="profile" />
+            <img className="w-20 h-20 float-right text-center" src="/src/assets/profile.png" alt="profile" />
           </div>
         </div>
         <div className="bar">

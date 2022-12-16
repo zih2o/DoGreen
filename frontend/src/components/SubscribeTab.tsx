@@ -207,14 +207,16 @@ const SubscribeTab = () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 p-4 mt-2">
-      <ul className="tabs flex mb-0 list-none flex-wrap flex-row" role="tablist">
-        {tabContentArr.map((section) => {
-          return section.tabTitle;
-        })}
-      </ul>
-      <div className="relative flex flex-col w-full px-20 pt-10 ">
-        <div className="flex-auto">{tabContentArr[activeIndex].tabContent}</div>
+    <div className="MyPage_Content_Wrapper py-5 flex-1">
+      <div className="grid grid-cols-1 p-4 mt-2">
+        <ul className="tabs flex mb-0 list-none flex-wrap flex-row" role="tablist">
+          {tabContentArr.map((section) => {
+            return section.tabTitle;
+          })}
+        </ul>
+        <div className="relative flex flex-col w-full px-20 pt-10 ">
+          <div className="flex-auto">{tabContentArr[activeIndex].tabContent}</div>
+        </div>
       </div>
     </div>
   );
