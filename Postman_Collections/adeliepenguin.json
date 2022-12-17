@@ -758,7 +758,7 @@
           ]
         },
         {
-          "name": "New Request",
+          "name": "user가 회원탈퇴",
           "id": "b358dbab-f727-4b2b-a94f-60f62860c40a",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
@@ -839,13 +839,13 @@
   ],
   "variable": [
     {
-      "id": "31085720-9ad0-4370-a45e-85ebb55ee918",
+      "id": "b93dd307-5093-460f-adbc-6560d036818d",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "a245d634-fbab-4b9f-8572-4abebcdb73ae",
+      "id": "b19dc0b7-c0a2-4edc-bc86-090e4faa22b6",
       "key": "deploy",
       "value": "",
       "type": "string"
