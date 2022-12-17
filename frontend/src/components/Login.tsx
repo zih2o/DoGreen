@@ -28,7 +28,7 @@ const Login = () => {
   };
 
   return (
-    <div className="w-[450px] h-[380px] flex flex-col items-center justify-center border-[3px] border-garden1 rounded shadow-[0_0_30px_rgba(30, 30, 30, 0.185)] box-border bg-gardenBG">
+    <div className="w-[450px] h-[380px] flex flex-col items-center justify-center border-[3px] border-garden1 rounded  box-border bg-gardenBG ">
       <div className="flex-col w-full max-w-sm space-y-4 ">
         <p className="text-center text-garden1 font-pacifico text-3xl mt-1 mb-10 pb-3">Do Green!</p>
         <form onSubmit={handleSubmit(onSubmit)} action="">
