@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Hambuger from './Hamburger';
 function Header() {
@@ -21,13 +21,11 @@ function Header() {
               </Link>
             </span>
           </div>
-          {/** Dark mod switch button */}
           <div className='flex justify-between items-center col-start-9 col-span-2 lg:col-span-1'>
             <label className="flex relative cursor-pointer">
               <input type="checkbox" onChange={toggleDarkmode} className="sr-only peer" />
               <div className="w-14 h-7  bg-garden2 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-garden2 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-garden1" />
             </label>
-            {/** Hambuger Dropdown bar */}
             <nav className="flex">
               <button onClick={toggleHambuger}>
                 <svg viewBox="0 0 100 80" width="40" height="40" className="fill-garden4">
