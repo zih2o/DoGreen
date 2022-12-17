@@ -675,55 +675,6 @@
           },
           "response": [
             {
-              "id": "ba766f7d-2ebf-4d85-aa3e-52bf1510d47c",
-              "name": "user가 자신의 정보를 조회",
-              "originalRequest": {
-                "method": "GET",
-                "header": [],
-                "url": "{{local}}:3000/user/me"
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "json",
-              "header": [
-                {
-                  "key": "X-Powered-By",
-                  "value": "Express"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json; charset=utf-8"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "195"
-                },
-                {
-                  "key": "ETag",
-                  "value": "W/\"c3-UTQ4hIIjg2JvlZz7kPflLWoJSAw\""
-                },
-                {
-                  "key": "Vary",
-                  "value": "Accept-Encoding"
-                },
-                {
-                  "key": "Date",
-                  "value": "Sat, 17 Dec 2022 11:58:30 GMT"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=5"
-                }
-              ],
-              "cookie": [],
-              "responseTime": null,
-              "body": "{\n    \"role\": \"USER\",\n    \"email\": \"lion3@kakao.com\",\n    \"username\": \"라이언\",\n    \"bio\": \"Hi there!\",\n    \"imgUrl\": \"https://user-images.githubusercontent.com/91370858/208048148-47028f2f-d283-4ab1-a43e-3c073543161e.png\"\n}"
-            },
-            {
               "id": "dfcffe4b-279c-474f-bb5e-f2c151ea81c7",
               "name": "user가 자신의 정보를 조회",
               "originalRequest": {
@@ -856,13 +807,13 @@
   ],
   "variable": [
     {
-      "id": "2f772619-dae2-4fcd-a19c-1d33babfbf79",
+      "id": "1a5b9783-b1ac-4dd4-95cd-e13121bd2f1d",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "03dca5fa-796d-4bd9-8edf-68c6160fbe8a",
+      "id": "75f6a988-1d24-4004-adde-dc1cc99d8acb",
       "key": "deploy",
       "value": "",
       "type": "string"
