@@ -661,7 +661,20 @@
     },
     {
       "name": "user",
-      "item": [],
+      "item": [
+        {
+          "name": "New Request",
+          "id": "0917e744-dffa-4c7f-84b4-0ce66a6e3c0b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ],
       "id": "51673f73-5e7f-46bb-a7aa-7a1d917b0c57",
       "auth": {
         "type": "bearer",
@@ -717,13 +730,13 @@
   ],
   "variable": [
     {
-      "id": "58823a46-fc2d-478c-b164-99bfcbd24da8",
+      "id": "e2ccff22-1bd1-476e-856c-9bf982df346a",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "e1192f10-6131-4a3f-9b31-83fe5edc3b88",
+      "id": "858d23dc-8fdc-415a-88bc-6396714cd48e",
       "key": "deploy",
       "value": "",
       "type": "string"
