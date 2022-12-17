@@ -675,71 +675,6 @@
           },
           "response": [
             {
-              "id": "a1c2ee28-3aaf-42c5-8f9b-8ac2c9c3e7af",
-              "name": "user가 자신의 정보를 조회",
-              "originalRequest": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{local}}:3000/user/:username",
-                  "host": [
-                    "{{local}}"
-                  ],
-                  "port": "3000",
-                  "path": [
-                    "user",
-                    ":username"
-                  ],
-                  "variable": [
-                    {
-                      "key": "username",
-                      "value": "라이언"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "json",
-              "header": [
-                {
-                  "key": "X-Powered-By",
-                  "value": "Express"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json; charset=utf-8"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "195"
-                },
-                {
-                  "key": "ETag",
-                  "value": "W/\"c3-UTQ4hIIjg2JvlZz7kPflLWoJSAw\""
-                },
-                {
-                  "key": "Vary",
-                  "value": "Accept-Encoding"
-                },
-                {
-                  "key": "Date",
-                  "value": "Sat, 17 Dec 2022 11:58:30 GMT"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=5"
-                }
-              ],
-              "cookie": [],
-              "responseTime": null,
-              "body": "{\n    \"role\": \"USER\",\n    \"email\": \"lion3@kakao.com\",\n    \"username\": \"라이언\",\n    \"bio\": \"Hi there!\",\n    \"imgUrl\": \"https://user-images.githubusercontent.com/91370858/208048148-47028f2f-d283-4ab1-a43e-3c073543161e.png\"\n}"
-            },
-            {
               "id": "ba766f7d-2ebf-4d85-aa3e-52bf1510d47c",
               "name": "user가 자신의 정보를 조회",
               "originalRequest": {
@@ -872,13 +807,13 @@
   ],
   "variable": [
     {
-      "id": "82bb0a62-80c0-4e44-ad9d-dbcd246276ef",
+      "id": "4fde58b4-ce2a-4c50-87e2-91cce10cc2ed",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "f615181c-95a7-472f-863c-30b5b7d51ef5",
+      "id": "b6e53297-98a8-4731-b65d-d627a45579c2",
       "key": "deploy",
       "value": "",
       "type": "string"
