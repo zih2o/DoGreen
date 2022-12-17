@@ -747,13 +747,13 @@
   ],
   "variable": [
     {
-      "id": "24a52d4b-3835-4384-a77b-8038906fb985",
+      "id": "cc2c5154-52f0-45af-9bcf-11c5ea060427",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "7690f89f-a983-4a1e-8b5c-e9da75bfc028",
+      "id": "9f8854b1-77d1-4f51-8311-94e3ef544620",
       "key": "deploy",
       "value": "",
       "type": "string"
