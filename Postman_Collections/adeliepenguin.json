@@ -88,7 +88,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"password!\"\n}",
+              "raw": "{\n    \"email\": \"lion@kakao.com\",\n    \"password\": \"password!\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -689,13 +689,13 @@
   ],
   "variable": [
     {
-      "id": "a32f9972-39b0-4192-bb67-f272205b03d6",
+      "id": "547a485a-230f-4b1b-a1b7-7e42cc538053",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "2dcdc4d9-4ccb-43cb-b96d-7f7fecf8ad58",
+      "id": "94cb9286-b192-4aa5-8706-78bb192ed89f",
       "key": "deploy",
       "value": "",
       "type": "string"
