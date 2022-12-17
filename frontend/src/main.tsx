@@ -11,6 +11,7 @@ import NewsPage from './pages/NewsPage';
 import MySubscribe from './components/MySubscribe';
 import EditUserInfo from './components/EditUserInfo';
 import RegisterPage from './pages/RegisterPage';
+import LoginRgisterModalPage from './pages/LoginRgisterModalPage';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
       { path: '/categories/:catId', element: <CardPage /> },
       { path: '/cards/:cardId', element: <NewsPage /> },
       { path: '/register', element: <RegisterPage /> },
+      { path: '/login', element: <LoginRgisterModalPage /> },
     ],
   },
 ]);
