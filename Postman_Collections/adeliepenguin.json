@@ -756,6 +756,18 @@
               "body": "{\n    \"role\": \"USER\",\n    \"email\": \"lion3@kakao.com\",\n    \"username\": \"라이언\",\n    \"bio\": \"Hi there!\",\n    \"imgUrl\": \"https://user-images.githubusercontent.com/91370858/208048148-47028f2f-d283-4ab1-a43e-3c073543161e.png\"\n}"
             }
           ]
+        },
+        {
+          "name": "New Request",
+          "id": "b358dbab-f727-4b2b-a94f-60f62860c40a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
         }
       ],
       "id": "51673f73-5e7f-46bb-a7aa-7a1d917b0c57",
@@ -813,13 +825,13 @@
   ],
   "variable": [
     {
-      "id": "f8e88a10-c3e5-43cc-9050-a0733302604f",
+      "id": "65996113-4a73-4691-9837-1644f9dd3a16",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "e43d9dd5-576a-4a97-b440-b1cfaa8c14d2",
+      "id": "2cd1adfe-ab84-4d9a-bf60-98bc9838d197",
       "key": "deploy",
       "value": "",
       "type": "string"
