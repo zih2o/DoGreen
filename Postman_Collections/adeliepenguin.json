@@ -670,7 +670,24 @@
           },
           "request": {
             "method": "GET",
-            "header": []
+            "header": [],
+            "url": {
+              "raw": "{{local}}:3000/user/:username",
+              "host": [
+                "{{local}}"
+              ],
+              "port": "3000",
+              "path": [
+                "user",
+                ":username"
+              ],
+              "variable": [
+                {
+                  "key": "username",
+                  "value": null
+                }
+              ]
+            }
           },
           "response": []
         }
@@ -730,13 +747,13 @@
   ],
   "variable": [
     {
-      "id": "e2ccff22-1bd1-476e-856c-9bf982df346a",
+      "id": "24a52d4b-3835-4384-a77b-8038906fb985",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "858d23dc-8fdc-415a-88bc-6396714cd48e",
+      "id": "7690f89f-a983-4a1e-8b5c-e9da75bfc028",
       "key": "deploy",
       "value": "",
       "type": "string"
