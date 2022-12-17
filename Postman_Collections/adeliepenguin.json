@@ -180,64 +180,6 @@
           },
           "response": [
             {
-              "id": "60ad3b8b-0503-4d84-97b9-4bf2e145fd14",
-              "name": "admin의 로그인",
-              "originalRequest": {
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"password!\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": "{{local}}:3000/auth/login"
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "json",
-              "header": [
-                {
-                  "key": "X-Powered-By",
-                  "value": "Express"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json; charset=utf-8"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "205"
-                },
-                {
-                  "key": "ETag",
-                  "value": "W/\"cd-D1Ljfq7Lg5qPAPc7FE0p89NmhsI\""
-                },
-                {
-                  "key": "Vary",
-                  "value": "Accept-Encoding"
-                },
-                {
-                  "key": "Date",
-                  "value": "Sat, 17 Dec 2022 06:42:18 GMT"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=5"
-                }
-              ],
-              "cookie": [],
-              "responseTime": null,
-              "body": "\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzlkNjhkM2VmNWI0Zjk4MzljZWNiZWIiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY3MTI2MDM4NH0.xlwy5aA_jOkO1iwvQpC9w8kDeTYmiONDmAvTdS55iEY\""
-            },
-            {
               "id": "72b53a18-96ed-47b9-92b7-d814184b27e7",
               "name": "admin의 로그인",
               "originalRequest": {
@@ -959,13 +901,13 @@
   ],
   "variable": [
     {
-      "id": "91ae7cca-0e51-405e-9e60-be8030f108d4",
+      "id": "c9ab5f1b-a026-49f9-9acd-8777f1ee8fdf",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "840d77d2-0972-4941-a3a5-8985533f6816",
+      "id": "f9b2c7d4-be82-4cdd-b5ee-3b131b598539",
       "key": "deploy",
       "value": "",
       "type": "string"
