@@ -764,7 +764,7 @@
             "disableBodyPruning": true
           },
           "request": {
-            "method": "GET",
+            "method": "PUT",
             "header": [],
             "url": "{{local}}:3000/user/withdraw"
           },
@@ -826,13 +826,13 @@
   ],
   "variable": [
     {
-      "id": "b5e6e53d-69a4-407d-9bd9-6a0bb84a1473",
+      "id": "b504be57-6093-4ff0-8350-987f9de14157",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "69ce23e4-7d1d-4fed-af7d-896ae5bcbac5",
+      "id": "73afe87f-03b3-46ad-b763-ee29755f86ea",
       "key": "deploy",
       "value": "",
       "type": "string"
