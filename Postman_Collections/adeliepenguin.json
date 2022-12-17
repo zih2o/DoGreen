@@ -801,8 +801,17 @@
             "disableBodyPruning": true
           },
           "request": {
-            "method": "PUT",
+            "method": "PATCH",
             "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n    \n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": "{{local}}:3000/user/withdraw"
           },
           "response": []
@@ -863,13 +872,13 @@
   ],
   "variable": [
     {
-      "id": "21293400-14c9-4e46-8f7b-ce5304a71f19",
+      "id": "0cdf8df8-0fb1-4d66-91e3-e5307c76a8cb",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "bdfa80f1-2fa4-4e67-937c-629969ea9260",
+      "id": "c981ae64-2be6-4ff0-9ae2-82a3ddc2abc1",
       "key": "deploy",
       "value": "",
       "type": "string"
