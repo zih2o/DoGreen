@@ -5,30 +5,30 @@ import Login from '../components/Login';
 import Register from '../components/Register';
 
 function LoginRgisterModalPage() {
-  const [isOpenModal, setOpenModal] = useState<boolean>(false);
-  const [isStatus, setIsStatus] = useState('');
+  const [handleModal, setHandleModal] = useState<boolean>(false);
+  const [status, setStatus] = useState<'login' | 'register' | null>(null);
 
-  const onClickToggleModal = useCallback(() => {
-    setOpenModal(!isOpenModal);
-  }, [isOpenModal]);
+  const onClose = useCallback(() => {
+    setHandleModal(!handleModal);
+  }, [handleModal]);
   const handleBybutton = () => {
-    setOpenModal(!isOpenModal);
+    setHandleModal(!handleModal);
   };
 
   return (
     <main className="w-full h-screen flex flex-col items-center">
       <h3 className="text-center">버튼이 있는 곳에 연결할 것</h3>
-      {isOpenModal && (
-        <Modal onClickToggleModal={onClickToggleModal} handleBybutton={handleBybutton}>
-          {isStatus === 'Login' ? <Login /> : ''}
-          {isStatus === 'Register' ? <Register /> : ''}
+      {handleModal && (
+        <Modal onClose={onClose} handleBybutton={handleBybutton}>
+          {status === 'login' ? <Login /> : ''}
+          {status === 'register' ? <Register /> : ''}
         </Modal>
       )}
       <button
         className="w-[160px] h-[48px] bg-[#65D26D] text-white	text-sm font-normal rounded border-none cursor-pointer"
         onClick={() => {
-          setIsStatus('Login');
-          onClickToggleModal();
+          setStatus('login');
+          onClose();
         }}
       >
         로그인
@@ -36,8 +36,8 @@ function LoginRgisterModalPage() {
       <button
         className="w-[160px] h-[48px] bg-[#65D26D] text-white	text-sm font-normal rounded border-none cursor-pointer"
         onClick={() => {
-          setIsStatus('Register');
-          onClickToggleModal();
+          setStatus('register');
+          onClose();
         }}
       >
         회원가입

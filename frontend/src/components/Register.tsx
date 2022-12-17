@@ -6,7 +6,6 @@ interface IFormInput {
   email: string;
   password: string;
   confirmPassword: string;
-  example: string;
 }
 
 const Register = () => {
@@ -25,12 +24,14 @@ const Register = () => {
   password.current = watch('password');
 
   return (
-    <div className="w-[480px] h-[530px] flex flex-col items-center justify-start border-[3px] border-garden1 rounded shadow-[0_0_30px_rgba(30, 30, 30, 0.185)] box-border bg-gardenBG">
+    <div className="w-[520px] h-[660px] flex flex-col items-center justify-start border-[3px] border-garden1 rounded shadow-[0_0_30px_rgba(30, 30, 30, 0.185)] box-border bg-gardenBG">
       <p className="justify-self-start text-center my-10 text-garden1 font-pacifico text-3xl  ">Do green!</p>
-      <p className="justify-self-start text-left mb-5 text-garden1">Register</p>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex-col w-full max-w-sm">
-        <div className="flex items-center justify-between">
-          <label htmlFor="username">UserName</label>
+      <p className="justify-self-start text-left mb-10 text-garden1 text-xl">Register</p>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex-col w-full px-10">
+        <div className="flex items-center justify-between space-y-2">
+          <label htmlFor="username" className="text-xl w-[120px]">
+            UserName
+          </label>
           <input
             className={`w-3/4 rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-300 focus:z-10 focus:border-forest1 focus:outline-none focus:ring-forest3 text-xs ${
               errors?.username && 'border-forest3'
@@ -46,7 +47,7 @@ const Register = () => {
             })}
           />
         </div>
-        <p className="text-[13px] pl-[100px] mt-1 min-h-[25px] text-forest3">
+        <p className="text-base pl-[115px] mt-1 min-h-[35px] text-forest3">
           {errors?.username?.type === 'required'
             ? '필수요소입니다! 추가 부탁드립니다.'
             : errors?.username?.type === ('maxLength' && 'minLength')
@@ -54,7 +55,9 @@ const Register = () => {
             : ''}
         </p>
         <div className="flex items-center justify-between">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email" className="text-xl  w-[120px]">
+            Email
+          </label>
           <input
             className={`w-3/4 rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-300 focus:z-10 focus:border-forest1 focus:outline-none focus:ring-forest3 text-xs ${
               errors?.username && 'border-forest3'
@@ -68,7 +71,7 @@ const Register = () => {
             })}
           />
         </div>
-        <p className="text-[13px] pl-[100px] mt-1 min-h-[25px] text-forest3">
+        <p className="text-base pl-[115px] mt-1 min-h-[35px] text-forest3">
           {errors?.email?.type === 'required'
             ? '깜빡하셨습니다!'
             : errors?.email?.type === 'pattern'
@@ -76,7 +79,9 @@ const Register = () => {
             : ''}
         </p>
         <div className="flex items-center justify-between">
-          <label htmlFor="pwd">Password</label>
+          <label htmlFor="pwd" className="text-xl  w-[120px]">
+            Password
+          </label>
           <input
             className={`w-3/4 rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-300 focus:z-10 focus:border-forest1 focus:outline-none focus:ring-forest3 text-xs ${
               errors?.username && 'border-forest3'
@@ -92,7 +97,7 @@ const Register = () => {
             })}
           />
         </div>
-        <p className="text-[13px] pl-[100px] mt-1 min-h-[25px] text-forest3">
+        <p className="text-base pl-[115px] mt-1 min-h-[35px] text-forest3">
           {errors?.password?.type === 'required'
             ? '깜빡하셨습니다!'
             : errors?.password?.type === 'minLength'
@@ -102,7 +107,7 @@ const Register = () => {
             : ''}
         </p>
         <div className="flex items-center justify-between">
-          <label htmlFor="pwd">
+          <label htmlFor="pwd" className="text-xl w-[120px]">
             Comfirm
             <br />
             Password
@@ -121,7 +126,7 @@ const Register = () => {
             })}
           />
         </div>
-        <p className="text-[13px] pl-[100px] mt-1 min-h-[25px] text-forest3">
+        <p className="text-base pl-[115px] mt-1 min-h-[35px] text-forest3">
           {errors?.password?.type === 'required'
             ? '깜빡하셨습니다!'
             : errors?.confirmPassword?.type === 'validate'
@@ -131,7 +136,7 @@ const Register = () => {
         <div className="flex justify-center align-center">
           <button
             type="submit"
-            className=" w-[350px] mt-2  py-2 px-4  bg-white relative flex w-full justify-center hover:bg-gray-100 text-garden4 font-semibold border-garden1 border-[2px] rounded shadow"
+            className=" w-[350px] mt-10  py-3 px-4  bg-white relative flex w-full justify-center hover:bg-gray-100 text-garden4 font-semibold  text-xl border-garden1 border-[2px] rounded shadow"
           >
             Corfirm Registration
           </button>
