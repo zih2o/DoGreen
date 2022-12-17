@@ -779,7 +779,7 @@
           "request": {
             "method": "PUT",
             "header": [],
-            "url": "{{local}}:3000/"
+            "url": "{{local}}:3000/user"
           },
           "response": []
         }
@@ -839,13 +839,13 @@
   ],
   "variable": [
     {
-      "id": "12932028-ea2c-42d3-b276-a02680ae52be",
+      "id": "1abc14bc-fcf7-43b6-8e8a-3b47d1cbbb1f",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "effd0345-aa13-47fd-812b-6769048eb265",
+      "id": "71d85d22-7212-4fcb-90ba-e6af376ea51c",
       "key": "deploy",
       "value": "",
       "type": "string"
