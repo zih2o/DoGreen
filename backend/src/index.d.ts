@@ -3,8 +3,13 @@ export {};
 declare global {
   namespace Express {
     export interface Request {
-      currentUserId: string;
-      currentUserRole: Role;
+      context: {
+        currentUser: {
+          authId: string, // Auth의 ObjectId
+          role: Role,
+          email: string,
+        }
+      }
     }
   }
 }
