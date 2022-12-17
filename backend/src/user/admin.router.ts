@@ -1,12 +1,19 @@
 import { Router } from 'express';
+import { adminRequired } from '../middleware/adminRequired';
+import { loginRequired } from '../middleware/loginRequired';
 import { AdminController } from './admin.controller';
 
-const router = Router();
 const adminRouter = Router();
 const adminController = new AdminController();
 
-router.use('/admin', adminRouter);
+adminRouter.use(loginRequired);
+adminRouter.use(adminRequired);
 
 adminRouter.patch('/ban', adminController.banUsers);
-adminRouter.get('/inactive', adminController.getBannedOrLeaveUser);
+adminRouter.patch('/cancel', adminController.cancelBanUsers);
+adminRouter.get('/inactive', adminController.getInactiveUsers);
+adminRouter.get('/active', adminController.getActiveUsers);
+
 adminRouter.get('/', adminController.findAll);
+
+export { adminRouter };

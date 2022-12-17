@@ -1,6 +1,10 @@
 import { Router } from 'express';
 import swaggerUi from 'swagger-ui-express';
-import apiSpec from '../openapi.json' assert { type: 'json' };
+import { authRouter } from './auth/auth.router';
+import { adminRouter } from './user/admin.router';
+import { userRouter } from './user/user.router';
+
+// import apiSpec from '../openapi.json' assert { type: 'json' };
 
 const swaggerUiOptions = {
   customCss: '.swagger-ui .topbar { display: none }'
@@ -8,10 +12,14 @@ const swaggerUiOptions = {
 
 const router = Router();
 
+router.use('/admin', adminRouter);
+router.use('/auth', authRouter);
+router.use('/user', userRouter);
+
 // Dev routes
 if (process.env.NODE_ENV === 'development') {
   router.use('/dev/api-docs', swaggerUi.serve);
-  router.get('/dev/api-docs', swaggerUi.setup(apiSpec, swaggerUiOptions));
+  // router.get('/dev/api-docs', swaggerUi.setup(apiSpec, swaggerUiOptions));
 }
 
 export default router;

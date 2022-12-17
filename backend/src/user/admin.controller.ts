@@ -2,21 +2,31 @@ import { Request, Response } from 'express';
 import { UserService } from './user.service';
 
 const userService = new UserService();
-// 여기다가 admin-required 어케주입하지
 export class AdminController {
   async findAll(req: Request, res: Response) {
-    userService.findAll();
-    res.status(200);
+    const users = await userService.findAll();
+    res.status(200).json(users);
   };
 
   async banUsers(req: Request, res: Response) {
-    const { usernames } = req.body;
-    userService.banUsers(usernames);
-    res.send(200);
+    const usernames = req.body;
+    await userService.banUsers(usernames);
+    res.status(200).end();
   };
 
-  async getBannedOrLeaveUser(req: Request, res: Response) {
-    userService.getBannedOrLeaveUser();
-    res.send(200);
-  }
+  async cancelBanUsers(req: Request, res: Response) {
+    const usernames = req.body;
+    await userService.cancelBanUsers(usernames);
+    res.status(200).end();
+  };
+
+  async getInactiveUsers(req: Request, res: Response) {
+    const inactiveUsers = await userService.getInactiveUsers();
+    res.status(200).json(inactiveUsers);
+  };
+
+  async getActiveUsers(req: Request, res: Response) {
+    const activeUsers = await userService.getActiveUsers();
+    res.status(200).json(activeUsers);
+  };
 }
