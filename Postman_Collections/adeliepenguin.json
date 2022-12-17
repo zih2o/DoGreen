@@ -771,7 +771,7 @@
           "response": []
         },
         {
-          "name": "New Request Copy",
+          "name": "user가 자신의 정보를 수정",
           "id": "07d0c834-adab-41e1-a08f-8a40a806034a",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
@@ -839,13 +839,13 @@
   ],
   "variable": [
     {
-      "id": "b93dd307-5093-460f-adbc-6560d036818d",
+      "id": "82fdc5c5-cc5c-4772-a815-07f311f49f6e",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "b19dc0b7-c0a2-4edc-bc86-090e4faa22b6",
+      "id": "e0f40de8-d151-44c6-957b-645c449e2978",
       "key": "deploy",
       "value": "",
       "type": "string"
