@@ -769,6 +769,19 @@
             "url": "{{local}}:3000/user/withdraw"
           },
           "response": []
+        },
+        {
+          "name": "New Request Copy",
+          "id": "07d0c834-adab-41e1-a08f-8a40a806034a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": "{{local}}:3000/"
+          },
+          "response": []
         }
       ],
       "id": "51673f73-5e7f-46bb-a7aa-7a1d917b0c57",
@@ -826,13 +839,13 @@
   ],
   "variable": [
     {
-      "id": "b504be57-6093-4ff0-8350-987f9de14157",
+      "id": "12932028-ea2c-42d3-b276-a02680ae52be",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "73afe87f-03b3-46ad-b763-ee29755f86ea",
+      "id": "effd0345-aa13-47fd-812b-6769048eb265",
       "key": "deploy",
       "value": "",
       "type": "string"
