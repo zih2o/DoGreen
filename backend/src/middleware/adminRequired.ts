@@ -5,8 +5,9 @@ const adminRequired = (req: Request, res: Response, next: NextFunction) => {
   try {
     if (req.currentUserRole !== 'ADMIN') {
       res.status(403).json({ message: 'Access denied' });
+    } else {
+      next();
     }
-    next();
   } catch (e) {
     res.status(500).json({ message: `An ${e} has occured` });
   }

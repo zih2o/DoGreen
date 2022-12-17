@@ -33,7 +33,7 @@ interface IUserService {
     // null오면 타입가드로 처리해주면 되지않을까 굳이 저렇게 더럽게 null도 뱉어줘야할지 모르겟음
     // DTO에선 없지만 controller의 미들웨어 같은 걸로 email을 넣어주어야 함
     updateUser: (userInfo: Partial<Omit<UserT, 'auth' | 'isDeleted'>>) => Promise<void>; // user가 자신의 정보를 수정하는 기능+탈퇴
-    createUser: (userInfo: CreateUserDto) => Promise<void>; // register
+    createUser: (userInfo: CreateUserDto & { _id: Types.ObjectId }) => Promise<void>; // register
     findUserByUsername: (userName: UserT['username']) => Promise<UserDto>; // 유저가 다른 유저의 유저네임으로 유저정보를 조회함 Url : username
     existUserByEmail: (userEmail: UserT['email'])=> Promise<boolean>;
     getBannedOrLeaveUser:()=> Promise<UserDto[] | null>;

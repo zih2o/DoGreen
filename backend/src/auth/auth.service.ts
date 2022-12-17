@@ -10,10 +10,12 @@ export class AuthService implements IAuthService {
   async register(newAuth: AuthT) {
     const hash = await argon2.hash(newAuth.password);
 
-    await AuthModel.create({
+    const { _id } = await AuthModel.create({
       email: newAuth.email,
-      password: hash
+      password: hash,
+      role: newAuth.role
     });
+    return _id;
   }
 
   async existUserByEmail(email: AuthT['email']) {

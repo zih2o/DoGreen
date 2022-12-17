@@ -39,15 +39,16 @@ const loginRequired = (req: Request, res: Response, next: NextFunction) => {
 
   // 해당 token 이 정상적인 token인지 확인
   try {
-    const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
+    const secretKey = process.env.JWT_SECRET || 'secret-key';
+    console.log(userToken);
     const jwtDecoded = jwt.verify(userToken, secretKey);
-
     invariant(typeof jwtDecoded === 'object', 'jwt payload는 객체여야 합니다');
 
     const { _id, role } = jwtDecoded;
     req.currentUserId = _id;
     req.currentUserRole = role;
 
+    console.log(role, req.currentUserRole);
     next();
   } catch (error) {
     // jwt.verify 함수가 에러를 발생시키는 경우는 토큰이 정상적으로 decode 안되었을 경우임.

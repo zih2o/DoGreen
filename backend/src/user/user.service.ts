@@ -62,13 +62,24 @@ export class UserService implements IUserService {
     await UserModel.updateMany({ userInfos });
   }
 
-  async getBannedOrLeaveUser(): Promise<UserDto[] | null> {
-    return UserModel.find({ isDeleted: true });
+  async getBannedOrLeaveUser(): Promise<UserDto[]> {
+    const inactiveUsers = await UserModel.find({ isDeleted: true });
+    await UserModel.populate(inactiveUsers, {
+      path: 'auth',
+      select: 'role'
+    });
+    // O(N)
+    return inactiveUsers?.map(user => ({
+      role: user.auth.role,
+      email: user.email,
+      username: user.username
+    })) ?? [];
   };
 
-  async createUser(userInfo: CreateUserDto) {
+  async createUser(userInfo: CreateUserDto & { _id: Types.ObjectId }) {
     await UserModel.create({
-      auth: { email: userInfo.email },
+      auth: { _id: userInfo._id },
+      email: userInfo.email,
       username: userInfo.username,
       bio: userInfo.bio,
       imgUrl: userInfo.imgUrl
