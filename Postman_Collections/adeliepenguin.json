@@ -241,7 +241,7 @@
         }
       ],
       "id": "0e0782b1-4dc4-4ea8-b163-2366cce8603f",
-      "description": "`description` 회원가입과 로그인을 담당합니다.\n\n### user 계정\n\n``` json\n{\n    \"email\": \"lion4@kakao.com\",\n    \"password\": \"password!\"\n}\n\n```\n\n> user가 회원가입 할 수 있습니다.  \n> user가 회원가입한 email과 password로 로그인 할 수 있습니다.  \n> admin은 client에서 회원가입할 수 없습니다.  \n> admin이 email과 password로 로그인 할 수 있습니다."
+      "description": "`description` 회원가입과 로그인을 담당합니다.\n\n### user 계정\n\n``` json\n{\n    \"email\": \"lion4@kakao.com\",\n    \"password\": \"password!\"\n}\n\n```\n\n> user가 회원가입 할 수 있습니다.  \n> user가 회원가입한 email과 password로 로그인 할 수 있습니다.  \n> admin은 client에서 회원가입할 수 없습니다.  \n> admin이 email과 password로 로그인 할 수 있습니다.\n\n`BE`에서 발생한 문제\n\nauth create와 user create를 transaction으로 묶어야 user create이 fail해도 auth도 함께 fail되어 해당 로직을 하나의 묶음으로 처리해야 함"
     },
     {
       "name": "admin",
@@ -902,13 +902,13 @@
   ],
   "variable": [
     {
-      "id": "f2dfdd5a-c807-42c9-be32-6eb024fc108d",
+      "id": "341728cd-3bb2-4047-908d-1e38e61b2d83",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "15ee0fcc-7f5b-49d4-8cb4-3158346f3e41",
+      "id": "9bbadc86-cfa8-4716-a320-029193f30bba",
       "key": "deploy",
       "value": "",
       "type": "string"
