@@ -726,6 +726,28 @@
           ]
         },
         {
+          "name": "user가 자신의 정보를 수정",
+          "id": "07d0c834-adab-41e1-a08f-8a40a806034a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"role\": \"USER\",\n    \"email\": \"lion3@kakao.com\",\n    \"username\": \"라이언\",\n    \"bio\": \"Hi there!\",\n    \"imgUrl\": \"https://user-images.githubusercontent.com/91370858/208048148-47028f2f-d283-4ab1-a43e-3c073543161e.png\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{local}}:3000/user"
+          },
+          "response": []
+        },
+        {
           "name": "user가 회원탈퇴",
           "id": "b358dbab-f727-4b2b-a94f-60f62860c40a",
           "protocolProfileBehavior": {
@@ -735,19 +757,6 @@
             "method": "PUT",
             "header": [],
             "url": "{{local}}:3000/user/withdraw"
-          },
-          "response": []
-        },
-        {
-          "name": "user가 자신의 정보를 수정",
-          "id": "07d0c834-adab-41e1-a08f-8a40a806034a",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "url": "{{local}}:3000/user"
           },
           "response": []
         }
@@ -807,13 +816,13 @@
   ],
   "variable": [
     {
-      "id": "1a5b9783-b1ac-4dd4-95cd-e13121bd2f1d",
+      "id": "010f98da-b38e-4ddb-9fe9-f5013c304d3a",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "75f6a988-1d24-4004-adde-dc1cc99d8acb",
+      "id": "a83aecd9-2162-489b-a53a-5489478e661d",
       "key": "deploy",
       "value": "",
       "type": "string"
