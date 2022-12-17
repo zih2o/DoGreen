@@ -847,6 +847,7 @@
         }
       ],
       "id": "51673f73-5e7f-46bb-a7aa-7a1d917b0c57",
+      "description": "`description` user에 대한 기능을 담당합니다.\n\n### user 계정\n\nJSON\n\n```\n{\n  \"email\": \"lion4@kakao.com\",\n  \"password\": \"password!\"\n}\n\n```\n\n> user\b가 자신의 정보를 조회할 수 있습니다.  \n> user가 자신의 정보를 수정할 수 있습니다. 이 때 기존 패스워드가 필요합니다.  \n> 유저가 탈퇴할 수 있습니다.",
       "auth": {
         "type": "bearer",
         "bearer": {
@@ -901,13 +902,13 @@
   ],
   "variable": [
     {
-      "id": "057e1631-a4e6-45ab-a3f4-d4a4c67cb9ed",
+      "id": "dfe0f9d2-6628-4027-91cd-d5523d75be36",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "fc041809-abca-4903-bd25-16288eba2fed",
+      "id": "9683c2b4-8eee-4769-ab23-50b9c78b8a95",
       "key": "deploy",
       "value": "",
       "type": "string"
