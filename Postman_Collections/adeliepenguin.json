@@ -629,7 +629,7 @@
         }
       ],
       "id": "ae68bec3-bf54-491a-a86b-eb8160a6c14d",
-      "description": "`description` 관리자와 관련된 기능을 담당합니다.\n\n> admin은 admin을 포함한 모든 user를 조회합니다.\n> \n> admin은 user를 비활성화시킬 수 있습니다.\n> \n> admin은 user를 활성화시킬 수 있습니다.\n> \n> admin은 활성화 상태인 유저를 조회할 수 있습니다.\n> \n> admin은 활성화 상태인 유저를 조회할 수 있습니다.\n\n### **admin 계정**\n\n``` json\n{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"password!\"\n}\n\n```",
+      "description": "`description` 관리자와 관련된 기능을 담당합니다.\n\n> admin은 admin을 포함한 모든 user를 조회합니다.\n> \n> admin은 user를 비활성화시킬 수 있습니다.\n> \n> admin은 user를 활성화시킬 수 있습니다.\n> \n> admin은 활성화 상태인 유저를 조회할 수 있습니다.\n> \n> admin은 활성화 상태인 유저를 조회할 수 있습니다.\n> \n> \\`변경되어야 하는 부분\\`\n> \n> admin은 모든 유저를 조회할 때 admin을 제외하고 조회해야 합니다.\n> \n> (이유 : admin이 admin을 정지시키는 경우를 방지하기 위함)\n> \n> \\`논의가 필요한 부분\\`\n> \n> admin은 하나의 계정인지(?)\n\n### **admin 계정**\n\n``` json\n{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"password!\"\n}\n\n```",
       "auth": {
         "type": "bearer",
         "bearer": {
@@ -902,13 +902,13 @@
   ],
   "variable": [
     {
-      "id": "9a87ccfe-279f-4be1-845a-4f309af3fd20",
+      "id": "f2dfdd5a-c807-42c9-be32-6eb024fc108d",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "da6df321-e692-4e91-8bd0-47b1e1c6bf1c",
+      "id": "15ee0fcc-7f5b-49d4-8cb4-3158346f3e41",
       "key": "deploy",
       "value": "",
       "type": "string"
