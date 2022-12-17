@@ -736,14 +736,14 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"role\": \"USER\",\n    \"email\": \"lion3@kakao.com\",\n    \"username\": \"라이언\",\n    \"bio\": \"Hi there!\",\n    \"imgUrl\": \"https://user-images.githubusercontent.com/91370858/208048148-47028f2f-d283-4ab1-a43e-3c073543161e.png\"\n}",
+              "raw": "{\n    \"oldPassword\": \"password!\",\n    \"bio\": \"Hi hello!\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
                 }
               }
             },
-            "url": "{{local}}:3000/user"
+            "url": "{{local}}:3000/user/me"
           },
           "response": []
         },
@@ -816,13 +816,13 @@
   ],
   "variable": [
     {
-      "id": "010f98da-b38e-4ddb-9fe9-f5013c304d3a",
+      "id": "3991f145-64bd-4793-8870-7c0d85f0dc2f",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "a83aecd9-2162-489b-a53a-5489478e661d",
+      "id": "6f119542-a5d6-42c8-bde0-05183fee0266",
       "key": "deploy",
       "value": "",
       "type": "string"
