@@ -847,7 +847,7 @@
         }
       ],
       "id": "51673f73-5e7f-46bb-a7aa-7a1d917b0c57",
-      "description": "`description` user에 대한 기능을 담당합니다.\n\n### user 계정\n\nJSON\n\n```\n{\n  \"email\": \"lion4@kakao.com\",\n  \"password\": \"password!\"\n}\n\n```\n\n> user\b가 자신의 정보를 조회할 수 있습니다.  \n> user가 자신의 정보를 수정할 수 있습니다. 이 때 기존 패스워드가 필요합니다.  \n> 유저가 탈퇴할 수 있습니다.\n> \n> \\`앞으로 변경될 부분\\`\n> \n> 회원탈퇴한 유저는 자신의 정보를 조회할 수 없습니다.\n> \n> (isDeleted가 false인 user만 요청을 보낼 수 있습니다.)\n> \n> 회원탈퇴한 유저는 자신의 정보를 수정할 수 없습니다.\n> \n> (isDeleted가 false인 user만 요청을 보낼 수 있습니다.)\n> \n> \\`논의가 필요한 부분\\`\n\n> admin이 정지시킨 유저\u001d가 회원탈퇴할 수 없습니다(?)\n> \n> (isDeleted가 false인 user만 요청을 보낼 수 있습니다.)\n> \n> admin이 회원탈퇴 할 수 있습니다(?)\n> \n> admin이 자신의 정보를 조회할 수 있습니다(?)",
+      "description": "`description` user에 대한 기능을 담당합니다.\n\n### user 계정\n\nJSON\n\n```\n{\n  \"email\": \"lion4@kakao.com\",\n  \"password\": \"password!\"\n}\n\n```\n\n> user\b가 자신의 정보를 조회할 수 있습니다.  \n> user가 자신의 정보를 수정할 수 있습니다. 이 때 기존 패스워드가 필요합니다. 변경할 수 있는 정보는 username(하지만 유일해야 합니다), bio, imgUrl입니다. 그리고 셋 중 하나만 넣더라도 변경됩니다.  \n> 유저가 탈퇴할 수 있습니다.\n> \n> \\`앞으로 변경될 부분\\`\n> \n> 회원탈퇴한 유저는 자신의 정보를 조회할 수 없습니다.\n> \n> (isDeleted가 false인 user만 요청을 보낼 수 있습니다.)\n> \n> 회원탈퇴한 유저는 자신의 정보를 수정할 수 없습니다.\n> \n> (isDeleted가 false인 user만 요청을 보낼 수 있습니다.)\n> \n> \\`논의가 필요한 부분\\`\n\n> admin이 정지시킨 유저\u001d가 회원탈퇴할 수 없습니다(?)\n> \n> (isDeleted가 false인 user만 요청을 보낼 수 있습니다.)\n> \n> admin이 회원탈퇴 할 수 있습니다(?)\n> \n> admin이 자신의 정보를 조회할 수 있습니다(?)",
       "auth": {
         "type": "bearer",
         "bearer": {
@@ -902,13 +902,13 @@
   ],
   "variable": [
     {
-      "id": "341728cd-3bb2-4047-908d-1e38e61b2d83",
+      "id": "9259cbfc-914d-4d4d-a6f0-d39230be2edc",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "9bbadc86-cfa8-4716-a320-029193f30bba",
+      "id": "8cecf496-603c-4410-b2b8-9eda3e3770fe",
       "key": "deploy",
       "value": "",
       "type": "string"
