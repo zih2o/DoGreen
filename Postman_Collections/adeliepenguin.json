@@ -803,15 +803,6 @@
           "request": {
             "method": "PATCH",
             "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "[\n    \n]",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
             "url": "{{local}}:3000/user/me/withdraw"
           },
           "response": []
@@ -872,13 +863,13 @@
   ],
   "variable": [
     {
-      "id": "c1246976-ead7-48cd-ac6b-47c8f2deb6f1",
+      "id": "209be71a-74c5-4cc2-902a-8ce8acc823ba",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "23af3515-7862-4499-aa7f-0396a2dd506f",
+      "id": "19f7cc3f-397c-4d44-9e09-2b4ef61e6cb9",
       "key": "deploy",
       "value": "",
       "type": "string"
