@@ -663,7 +663,7 @@
       "name": "user",
       "item": [
         {
-          "name": "user가 자신의 정보를 조회",
+          "name": "New Request",
           "id": "0917e744-dffa-4c7f-84b4-0ce66a6e3c0b",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
@@ -813,13 +813,13 @@
   ],
   "variable": [
     {
-      "id": "adac3fb9-83e7-4283-b5fc-968d022a6d9f",
+      "id": "739495cf-b427-4646-bcda-e32900a5baed",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "c3462421-ae59-4aa4-9815-56fa9625a71e",
+      "id": "fca6b974-b4bc-4e9d-b386-324786d19948",
       "key": "deploy",
       "value": "",
       "type": "string"
