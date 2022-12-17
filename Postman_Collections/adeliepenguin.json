@@ -236,6 +236,64 @@
               "cookie": [],
               "responseTime": null,
               "body": "\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzlkNjhkM2VmNWI0Zjk4MzljZWNiZWIiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY3MTI2MDM4NH0.xlwy5aA_jOkO1iwvQpC9w8kDeTYmiONDmAvTdS55iEY\""
+            },
+            {
+              "id": "72b53a18-96ed-47b9-92b7-d814184b27e7",
+              "name": "admin의 로그인",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"password!\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{local}}:3000/auth/login"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "210"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"d2-7Q4VzPtmuJc5axsYzwWVPI04mMQ\""
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 17 Dec 2022 13:33:40 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoSWQiOiI2MzlkNjhkM2VmNWI0Zjk4MzljZWNiZWIiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY3MTI4NDAyMH0.tXo0sRM3U_vcRxw7Mhjg_krYCm2upOnbQY45fhF-I9M\""
             }
           ]
         }
@@ -901,13 +959,13 @@
   ],
   "variable": [
     {
-      "id": "de516638-4b86-4cd6-891c-fbab9d30beea",
+      "id": "91ae7cca-0e51-405e-9e60-be8030f108d4",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "f0ab73eb-5fa8-4d6c-9a66-2a70cef92352",
+      "id": "840d77d2-0972-4941-a3a5-8985533f6816",
       "key": "deploy",
       "value": "",
       "type": "string"
