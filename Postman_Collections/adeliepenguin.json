@@ -241,7 +241,7 @@
         }
       ],
       "id": "0e0782b1-4dc4-4ea8-b163-2366cce8603f",
-      "description": "`description` 회원가입과 로그인을 담당합니다.\n\n### user 계정\n\n``` json\n{\n    \"email\": \"lion4@kakao.com\",\n    \"password\": \"password!\"\n}\n\n```\n\n> user가 회원가입 할 수 있습니다.  \n> user가 회원가입한 email과 password로 로그인 할 수 있습니다.  \n> admin은 client에서 회원가입할 수 없습니다.  \n> admin이 email과 password로 로그인 할 수 있습니다.\n\n`BE`에서 발생한 문제\n\nauth create와 user create를 transaction으로 묶어야 user create이 fail해도 auth도 함께 fail되어 해당 로직을 하나의 묶음으로 처리해야 함"
+      "description": "`description` 회원가입과 로그인을 담당합니다.\n\n### user 계정\n\n``` json\n{\n    \"email\": \"lion4@kakao.com\",\n    \"password\": \"password!\"\n}\n\n```\n\n`기능명세`  \n**user가 회원가입 할 수 있습니다.**  \n**user가 회원가입한 email과 password로 로그인 할 수 있습니다.**  \n**admin은 client에서 회원가입할 수 없습니다.**  \n**admin이 email과 password로 로그인 할 수 있습니다.**\n\n`논의가 필요한 부분`  \nadmin이 ban한 user는 회원가입을 3개월 간 할 수 없는지\n\n`BE`에서 발생한 문제\n\nauth create와 user create를 transaction으로 묶어야 user create이 fail해도 auth도 함께 fail되어 해당 로직을 하나의 묶음으로 처리해야 함. DB 정합성이 깨짐을 확인함"
     },
     {
       "name": "admin",
@@ -902,13 +902,13 @@
   ],
   "variable": [
     {
-      "id": "8b0a08fc-351c-43ec-b786-7f32dfa4a0c4",
+      "id": "92387af4-4f2b-476b-9ce3-0f8e49442a9a",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "37c0a547-762b-4f73-b2da-f2bebef394e0",
+      "id": "225a80d1-432f-4fd7-bb53-b83da8ccee24",
       "key": "deploy",
       "value": "",
       "type": "string"
