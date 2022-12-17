@@ -2,7 +2,29 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import invariant from '../invariant';
 
-function loginRequired(req: Request, res: Response, next: NextFunction) {
+// module.exports = function setCurrentUser(req, res, next) {
+// const loginRequiredRefactored = (req: Request, res: Response, next: NextFunction) => {
+//   req.header('authorization');
+//   const user = getUserFromToken(token).then((user) => {
+//     req.currentUserId = user;
+
+//     next();
+//   });
+// };
+
+// module.exports = function isLoggedIn(req: Request, res: Response, next: NextFunction) {
+//   if (req.currentUserId) {
+//     next();
+//   } else {
+//     // return unauthorized
+//     res.send(404).json({
+//       result: 'forbidden-approach',
+//       reason: '정상적인 토큰이 아닙니다.'
+//     });
+//   }
+// };
+
+const loginRequired = (req: Request, res: Response, next: NextFunction) => {
   // request 헤더로부터 authorization bearer 토큰을 받음.
   const userToken = req.headers['authorization']?.split(' ')[1];
 
@@ -17,15 +39,16 @@ function loginRequired(req: Request, res: Response, next: NextFunction) {
 
   // 해당 token 이 정상적인 token인지 확인
   try {
-    const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
+    const secretKey = process.env.JWT_SECRET || 'secret-key';
+    console.log(userToken);
     const jwtDecoded = jwt.verify(userToken, secretKey);
-
     invariant(typeof jwtDecoded === 'object', 'jwt payload는 객체여야 합니다');
 
     const { _id, role } = jwtDecoded;
     req.currentUserId = _id;
     req.currentUserRole = role;
 
+    console.log(role, req.currentUserRole);
     next();
   } catch (error) {
     // jwt.verify 함수가 에러를 발생시키는 경우는 토큰이 정상적으로 decode 안되었을 경우임.
@@ -35,6 +58,6 @@ function loginRequired(req: Request, res: Response, next: NextFunction) {
       reason: '정상적인 토큰이 아닙니다.'
     });
   }
-}
+};
 
 export { loginRequired };

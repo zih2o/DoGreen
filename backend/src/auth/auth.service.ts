@@ -8,12 +8,14 @@ const AuthModel = model<AuthT>('auths', AuthSchema);
 
 export class AuthService implements IAuthService {
   async register(newAuth: AuthT) {
-    const hash = argon2.hash(newAuth.password);
+    const hash = await argon2.hash(newAuth.password);
 
-    await AuthModel.create({
+    const { _id } = await AuthModel.create({
       email: newAuth.email,
-      password: hash
+      password: hash,
+      role: newAuth.role
     });
+    return _id;
   }
 
   async existUserByEmail(email: AuthT['email']) {
@@ -33,10 +35,8 @@ export class AuthService implements IAuthService {
     );
 
     invariant(isVerified, '패스워드가 일치하지 않습니다.');
-
     invariant(process.env.JWT_SECRET, 'JWT 시크릿이 없습니다');
-    // json? 자바스크립트 객체 표기법
-    // jwt? json web token => 이 json은 저희 서버에서 생성된 것임을 보증합니다
+
     return jwt.sign(
       {
         _id: auth._id.toString(),
@@ -46,4 +46,33 @@ export class AuthService implements IAuthService {
       process.env.JWT_SECRET
     );
   };
+
+  // password가 correct한지 authService에서 확인하는 함수
+  async isPasswordCorrect(oldPassword: AuthT['password'], email: AuthT['email']) {
+    // 비밀번호를  수정
+    const oldAuth = await AuthModel.findOne({ email });
+    invariant(oldAuth !== null, `${email}은 가입 내역이 없습니다.`); // 타입 가드
+
+    // auth의 password와 db의 password를 argon2로 verify한다
+    return argon2.verify(
+      oldAuth.password,
+      oldPassword
+    );
+  };
+
+  async updatePassword(
+    oldPassword: AuthT['password'] | undefined,
+    newAuth: Partial<Pick<AuthT, 'email' | 'password'>>
+  ) {
+    if (!oldPassword || !newAuth.email || !newAuth.password) {
+      return;
+    }
+
+    const isOldPasswordCorrect = await this.isPasswordCorrect(oldPassword, newAuth.email);
+
+    if (isOldPasswordCorrect === true) {
+      const newHash = await argon2.hash(newAuth.password);
+      await AuthModel.updateOne({ password: newHash });
+    }
+  }
 }

@@ -12,7 +12,26 @@ const UserSchema = new Schema<UserT>(
     },
     username: {
       type: String,
-      required: true
+      required: true,
+      unique: true
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    isDeleted: {
+      type: Boolean,
+      required: true,
+      default: false
+    },
+    bio: {
+      type: String,
+      default: 'Hi there!'
+    },
+    imgUrl: {
+      type: String,
+      default: 'https://user-images.githubusercontent.com/91370858/208048148-47028f2f-d283-4ab1-a43e-3c073543161e.png'
     }
   },
   {
