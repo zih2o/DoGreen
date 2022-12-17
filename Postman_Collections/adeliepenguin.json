@@ -805,7 +805,45 @@
             "header": [],
             "url": "{{local}}:3000/user/me/withdraw"
           },
-          "response": []
+          "response": [
+            {
+              "id": "6671dc6b-2917-420f-ad78-3c006567a6f5",
+              "name": "user가 회원탈퇴",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "url": "{{local}}:3000/user/me/withdraw"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 17 Dec 2022 13:32:22 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": null
+            }
+          ]
         }
       ],
       "id": "51673f73-5e7f-46bb-a7aa-7a1d917b0c57",
@@ -863,13 +901,13 @@
   ],
   "variable": [
     {
-      "id": "209be71a-74c5-4cc2-902a-8ce8acc823ba",
+      "id": "d9118d7e-7a64-4a19-a919-dea5ff43d1ed",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "19f7cc3f-397c-4d44-9e09-2b4ef61e6cb9",
+      "id": "140ed943-3bf3-43f9-b72f-8f2391eafada",
       "key": "deploy",
       "value": "",
       "type": "string"
