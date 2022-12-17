@@ -732,7 +732,7 @@
             "disableBodyPruning": true
           },
           "request": {
-            "method": "PUT",
+            "method": "PATCH",
             "header": [],
             "body": {
               "mode": "raw",
@@ -901,13 +901,13 @@
   ],
   "variable": [
     {
-      "id": "51504cc0-7b30-40f1-84be-eff592086c3e",
+      "id": "db29a37b-5e15-46a1-9a9d-e3300517afbd",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "3e72ac19-c637-486c-b400-d5b1875c8411",
+      "id": "2689523b-a311-4b4d-b953-1da66d0eab9f",
       "key": "deploy",
       "value": "",
       "type": "string"
