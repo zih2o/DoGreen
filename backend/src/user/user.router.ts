@@ -1,11 +1,14 @@
 import { Router } from 'express';
+import { loginRequired } from '../middleware/loginRequired';
 import { UserController } from './user.controller';
 
 const userController = new UserController();
 const userRouter = Router();
 
-userRouter.get('/:username', userController.findUserByUserName);
-userRouter.patch('/withdraw', userController.updateUserInfo); // 탈퇴
-userRouter.patch('/', userController.updateUserInfo); // 수정
+userRouter.use(loginRequired);
+
+userRouter.get('/me', userController.findMyUserInfo);
+userRouter.patch('/me/withdraw', userController.withdrawMyself); // 탈퇴
+userRouter.patch('/me', userController.updateMyself); // 수정
 
 export { userRouter };

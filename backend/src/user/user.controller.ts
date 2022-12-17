@@ -7,24 +7,31 @@ const authService = new AuthService();
 
 // user가 자기 정보를 조회함
 export class UserController {
-  async findUserByUserName(req: Request, res: Response) {
-    const { username } = req.params;
-    await userService.findUserByUsername(username);
-    res.status(200);
+  async findMyUserInfo(req: Request, res: Response) {
+    const { email } = req.context.currentUser;
+    const userInfo = await userService.findUserByEmail(email);
+    res.status(200).json(userInfo);
   }
 
-  async updateUserInfo(req: Request, res: Response) {
+  async withdrawMyself(req: Request, res: Response) {
+    const { email } = req.context.currentUser;
+    await userService.withdraw(email);
+    res.status(200).end();
+  }
+
+  async updateMyself(req: Request, res: Response) {
+    const { email } = req.context.currentUser;
     const { oldPassword, newPassword, ...userInfo } = req.body as Partial<{
       oldPassword: string, newPassword: string,
     } & Omit<UserT, 'auth' | 'isDeleted'>>;
-    const isExistUser = await authService.existUserByEmail(req.currentUserId);
+    const isExistUser = await authService.existUserByEmail(email);
     if (isExistUser === true) {
       await authService.updatePassword(oldPassword, {
-        email: req.currentUserId,
+        email,
         password: newPassword // 새 비밀번호
       });
-      await userService.updateUser(userInfo);
-      res.status(200);
+      await userService.updateUser(email, userInfo);
+      res.status(200).end();
     }
   }
 }
