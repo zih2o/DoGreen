@@ -671,23 +671,7 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": {
-              "raw": "{{local}}:3000/user/:username",
-              "host": [
-                "{{local}}"
-              ],
-              "port": "3000",
-              "path": [
-                "user",
-                ":username"
-              ],
-              "variable": [
-                {
-                  "key": "username",
-                  "value": "라이언"
-                }
-              ]
-            }
+            "url": "{{local}}:3000/user/me"
           },
           "response": [
             {
@@ -839,13 +823,13 @@
   ],
   "variable": [
     {
-      "id": "82fdc5c5-cc5c-4772-a815-07f311f49f6e",
+      "id": "53ede34a-272d-4840-a1c4-8b3caff631b8",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "e0f40de8-d151-44c6-957b-645c449e2978",
+      "id": "8153f0d5-ae16-4505-95ed-d2910d2628f2",
       "key": "deploy",
       "value": "",
       "type": "string"
