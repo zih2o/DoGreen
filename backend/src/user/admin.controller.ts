@@ -9,13 +9,24 @@ export class AdminController {
   };
 
   async banUsers(req: Request, res: Response) {
-    const { usernames } = req.body;
+    const usernames = req.body;
     await userService.banUsers(usernames);
     res.status(200).end();
   };
 
-  async getBannedOrLeaveUser(req: Request, res: Response) {
-    const inactiveUsers = await userService.getBannedOrLeaveUser();
+  async cancelBanUsers(req: Request, res: Response) {
+    const usernames = req.body;
+    await userService.cancelBanUsers(usernames);
+    res.status(200).end();
+  };
+
+  async getInactiveUsers(req: Request, res: Response) {
+    const inactiveUsers = await userService.getInactiveUsers();
     res.status(200).json(inactiveUsers);
-  }
+  };
+
+  async getActiveUsers(req: Request, res: Response) {
+    const activeUsers = await userService.getActiveUsers();
+    res.status(200).json(activeUsers);
+  };
 }
