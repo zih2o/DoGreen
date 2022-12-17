@@ -21,7 +21,7 @@
     "dev": "./scripts/dev.sh",
     "dev-server": "NODE_ENV=development nodemon",
     "ts-node-server": "ts-node --esm --experimental-specifier-resolution=node src/server.ts",
-    "start": "node --experimental-specifier-resolution=node dist/src/server.js",
+    "start": "node  --experimental-modules --experimental-specifier-resolution=node dist/server.js",
     "test": "jest",
     "fix-lint": "./node_modules/eslint/bin/eslint.js  src --ext .ts --fix"
   },
