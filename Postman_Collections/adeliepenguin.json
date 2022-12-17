@@ -692,7 +692,7 @@
           "response": [
             {
               "id": "a1c2ee28-3aaf-42c5-8f9b-8ac2c9c3e7af",
-              "name": "New Request",
+              "name": "user가 자신의 정보를 조회",
               "originalRequest": {
                 "method": "GET",
                 "header": [],
@@ -813,13 +813,13 @@
   ],
   "variable": [
     {
-      "id": "4f424327-84b5-4e31-8631-1f7c2e4fe65f",
+      "id": "f8e88a10-c3e5-43cc-9050-a0733302604f",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "9d64fbd3-b332-4617-a17f-8f5c2627f3da",
+      "id": "e43d9dd5-576a-4a97-b440-b1cfaa8c14d2",
       "key": "deploy",
       "value": "",
       "type": "string"
