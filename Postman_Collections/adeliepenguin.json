@@ -1,0 +1,699 @@
+{
+  "info": {
+    "_postman_id": "007f57f5-7d67-4238-bb52-d7ad030aa5eb",
+    "name": "green(temp)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "user의 회원가입",
+          "_postman_id": "82cdddbc-dbb2-4d54-8c0d-ca7eda1a59cb",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"username\": \"admin\",\n    \"password\": \"password!\",\n    \"role\": \"ADMIN\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{local}}:3000/auth/register"
+          },
+          "response": [
+            {
+              "id": "56b0a937-59a2-4c42-ae23-41f81e6b75c8",
+              "name": "user의 회원가입",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"lion4@kakao.com\",\n    \"username\": \"라이1언\",\n    \"password\": \"password!\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{local}}:3000/auth/register"
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 17 Dec 2022 06:38:58 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": null
+            }
+          ]
+        },
+        {
+          "name": "user의 로그인",
+          "_postman_id": "c87e0639-1bcc-4206-bb40-59317515f8d4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"password!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{local}}:3000/auth/login"
+          },
+          "response": [
+            {
+              "id": "2f3d2c64-5910-4d66-9db6-27bd6e641e16",
+              "name": "user의 로그인",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"lion4@kakao.com\",\n    \"password\": \"password!\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{local}}:3000/auth/login"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "205"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"cd-D1Ljfq7Lg5qPAPc7FE0p89NmhsI\""
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 17 Dec 2022 06:42:18 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzlkNjQwMjVhYmIzYWI1MDIwNjk5YjQiLCJlbWFpbCI6Imxpb240QGtha2FvLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjcxMjU5MzM4fQ.I4XCTc5JHz_D1hOLoGXuCu-xxL9MXyt569utV0x4mbg\""
+            }
+          ]
+        },
+        {
+          "name": "admin의 로그인",
+          "_postman_id": "a7d864ae-93dd-4b09-b680-ff67997b430d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"password!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{local}}:3000/auth/register"
+          },
+          "response": [
+            {
+              "id": "60ad3b8b-0503-4d84-97b9-4bf2e145fd14",
+              "name": "admin의 로그인",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"password!\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{local}}:3000/auth/login"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "205"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"cd-D1Ljfq7Lg5qPAPc7FE0p89NmhsI\""
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 17 Dec 2022 06:42:18 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzlkNjhkM2VmNWI0Zjk4MzljZWNiZWIiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY3MTI2MDM4NH0.xlwy5aA_jOkO1iwvQpC9w8kDeTYmiONDmAvTdS55iEY\""
+            }
+          ]
+        }
+      ],
+      "_postman_id": "0e0782b1-4dc4-4ea8-b163-2366cce8603f",
+      "description": "`description` 회원가입과 로그인을 담당합니다.\n\n### user 계정\n\n``` json\n{\n    \"email\": \"lion4@kakao.com\",\n    \"password\": \"password!\"\n}\n\n```\n\n> user가 회원가입 할 수 있습니다.  \n> user가 회원가입한 email과 password로 로그인 할 수 있습니다.  \n> admin은 client에서 회원가입할 수 없습니다.  \n> admin이 email과 password로 로그인 할 수 있습니다."
+    },
+    {
+      "name": "admin",
+      "item": [
+        {
+          "name": "admin의 모든 유저 조회",
+          "_postman_id": "7d5a7d40-4622-46e3-8dd7-5a4139bc5146",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{local}}:3000/admin/"
+          },
+          "response": [
+            {
+              "id": "ad65f928-5b35-4a2b-9b5b-acb9044db723",
+              "name": "admin의 모든 유저 조회",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{local}}:3000/admin/"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "259"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"103-nVFR/WSNL4ycCgHhGt0Fszd9rDU\""
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 17 Dec 2022 07:00:20 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n    {\n        \"role\": \"USER\",\n        \"email\": \"lion3@kakao.com\",\n        \"username\": \"라이언\"\n    },\n    {\n        \"role\": \"USER\",\n        \"email\": \"lion4@kakao.com\",\n        \"username\": \"라이1언\"\n    },\n    {\n        \"role\": \"USER\",\n        \"email\": \"admin@kakao.com\",\n        \"username\": \"관리자\"\n    },\n    {\n        \"role\": \"ADMIN\",\n        \"email\": \"admin@gmail.com\",\n        \"username\": \"admin\"\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "admin의 비활성화된 user 조회",
+          "_postman_id": "6af60a7d-cd41-4d63-ad84-4f73ce6b4fed",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{local}}:3000/admin/inactive"
+          },
+          "response": [
+            {
+              "id": "4ff92e5f-9c53-4ea0-b024-c5c032af6aa9",
+              "name": "admin의 비활성화된 user 조회",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{local}}:3000/admin/inactive"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "66"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"42-kaMXXRgesEXCFiPxBoRcIvZV1sU\""
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 17 Dec 2022 07:59:29 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n    {\n        \"role\": \"USER\",\n        \"email\": \"admin@kakao.com\",\n        \"username\": \"관리자\"\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "admin의 user 계정 비활성화",
+          "_postman_id": "674e6cfb-b3bf-44b9-8294-811f391b4a05",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n    \"관리자\"\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{local}}:3000/admin/ban"
+          },
+          "response": [
+            {
+              "id": "3424bc93-d91c-4e24-a202-d422bf5553de",
+              "name": "admin의 user 계정 비활성화",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n    \"관리자\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{local}}:3000/admin/ban"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 17 Dec 2022 07:29:19 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": null
+            }
+          ]
+        },
+        {
+          "name": "admin의 user 계정 활성화",
+          "_postman_id": "0277aac3-3507-4739-a0ee-35485caab4ba",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n    \"관리자\",\n    \"라이1언\",\n    \"라이언\",\n    \"admin\"\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{local}}:3000/admin/cancel"
+          },
+          "response": [
+            {
+              "id": "3efac805-f7b7-49f9-aa98-e72f30e13d46",
+              "name": "admin의 user 계정 활성화",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n    \"관리자\",\n    \"라이1언\",\n    \"라이언\",\n    \"admin\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{local}}:3000/admin/cancel"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 17 Dec 2022 07:50:49 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": null
+            }
+          ]
+        },
+        {
+          "name": "admin의 활성화된 user 조회",
+          "_postman_id": "32b654cb-01b7-4751-a632-7b01c0bb7182",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{local}}:3000/admin/active"
+          },
+          "response": [
+            {
+              "id": "0c7ca1df-cc90-4b98-8994-c5ae130630eb",
+              "name": "admin의 활성화된 user 조회",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{local}}:3000/admin/active"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "259"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"103-nVFR/WSNL4ycCgHhGt0Fszd9rDU\""
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 17 Dec 2022 07:59:15 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n    {\n        \"role\": \"USER\",\n        \"email\": \"lion3@kakao.com\",\n        \"username\": \"라이언\"\n    },\n    {\n        \"role\": \"USER\",\n        \"email\": \"lion4@kakao.com\",\n        \"username\": \"라이1언\"\n    },\n    {\n        \"role\": \"USER\",\n        \"email\": \"admin@kakao.com\",\n        \"username\": \"관리자\"\n    },\n    {\n        \"role\": \"ADMIN\",\n        \"email\": \"admin@gmail.com\",\n        \"username\": \"admin\"\n    }\n]"
+            }
+          ]
+        }
+      ],
+      "_postman_id": "ae68bec3-bf54-491a-a86b-eb8160a6c14d",
+      "description": "`description` 관리자와 관련된 기능을 담당합니다.\n\n> admin은 admin을 포함한 모든 user를 조회합니다.\n> \n> admin은 user를 비활성화시킬 수 있습니다.\n> \n> admin은 user를 활성화시킬 수 있습니다.\n> \n> admin은 활성화 상태인 유저를 조회할 수 있습니다.\n> \n> admin은 활성화 상태인 유저를 조회할 수 있습니다.\n\n### **admin 계정**\n\n``` json\n{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"password!\"\n}\n\n```",
+      "auth": {
+        "type": "bearer",
+        "bearer": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzlkNjhkM2VmNWI0Zjk4MzljZWNiZWIiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY3MTI2MDM4NH0.xlwy5aA_jOkO1iwvQpC9w8kDeTYmiONDmAvTdS55iEY"
+        }
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "f83e012e-460f-4260-a15f-bef784a40805",
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "id": "7f164d8c-85d3-4e6e-90f7-37ca911c800e",
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "id": "1a10bf60-0f3e-4371-9079-418210b7d8a5",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "id": "20446268-fb12-4c5c-804a-df1e709deb21",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "id": "c5b54c19-bb2e-443b-8084-7e4d5e7f2068",
+      "key": "localhost",
+      "value": "https://localhost:3000",
+      "type": "string"
+    },
+    {
+      "id": "e59f3018-af94-498b-9410-de3a7233f933",
+      "key": "deploy",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
