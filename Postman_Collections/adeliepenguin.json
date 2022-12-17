@@ -847,7 +847,7 @@
         }
       ],
       "id": "51673f73-5e7f-46bb-a7aa-7a1d917b0c57",
-      "description": "`description` user에 대한 기능을 담당합니다.\n\n### user 계정\n\nJSON\n\n```\n{\n  \"email\": \"lion4@kakao.com\",\n  \"password\": \"password!\"\n}\n\n```\n\n> user\b가 자신의 정보를 조회할 수 있습니다.  \n> user가 자신의 정보를 수정할 수 있습니다. 이 때 기존 패스워드가 필요합니다.  \n> 유저가 탈퇴할 수 있습니다.\n> \n> \\`앞으로 변경될 부분\\`\n> \n> 회원탈퇴한 유저는 자신의 정보를 조회할 수 없습니다.\n> \n> (isDeleted가 false인 user만 요청을 보낼 수 있습니다.)\n> \n> 회원탈퇴한 유저는 자신의 정보를 수정할 수 없습니다.\n> \n> (isDeleted가 false인 user만 요청을 보낼 수 있습니다.)\n\n> admin이 정지시킨 유저\u001d가 회원탈퇴할 수 없습니다(?)\n> \n> (isDeleted가 false인 user만 요청을 보낼 수 있습니다.)",
+      "description": "`description` user에 대한 기능을 담당합니다.\n\n### user 계정\n\nJSON\n\n```\n{\n  \"email\": \"lion4@kakao.com\",\n  \"password\": \"password!\"\n}\n\n```\n\n> user\b가 자신의 정보를 조회할 수 있습니다.  \n> user가 자신의 정보를 수정할 수 있습니다. 이 때 기존 패스워드가 필요합니다.  \n> 유저가 탈퇴할 수 있습니다.\n> \n> \\`앞으로 변경될 부분\\`\n> \n> 회원탈퇴한 유저는 자신의 정보를 조회할 수 없습니다.\n> \n> (isDeleted가 false인 user만 요청을 보낼 수 있습니다.)\n> \n> 회원탈퇴한 유저는 자신의 정보를 수정할 수 없습니다.\n> \n> (isDeleted가 false인 user만 요청을 보낼 수 있습니다.)\n> \n> \\`논의가 필요한 부분\\`\n\n> admin이 정지시킨 유저\u001d가 회원탈퇴할 수 없습니다(?)\n> \n> (isDeleted가 false인 user만 요청을 보낼 수 있습니다.)\n> \n> admin이 회원탈퇴 할 수 있습니다(?)\n> \n> admin이 자신의 정보를 조회할 수 있습니다(?)",
       "auth": {
         "type": "bearer",
         "bearer": {
@@ -902,13 +902,13 @@
   ],
   "variable": [
     {
-      "id": "956abd47-2244-40dd-99b2-62ba3c009e32",
+      "id": "9a87ccfe-279f-4be1-845a-4f309af3fd20",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "0b0f4873-1efa-4687-8afd-8fd5f4d006ac",
+      "id": "da6df321-e692-4e91-8bd0-47b1e1c6bf1c",
       "key": "deploy",
       "value": "",
       "type": "string"
