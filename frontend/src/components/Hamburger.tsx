@@ -10,21 +10,31 @@ function Hambuger(props) {
           <span className=" text-garden2 text-xl">지금까지 펭귄 300마리를 구하셨어요!</span>
         </div>
         <ul id="menu" className="flex flex-col mt-6">
-          <Link to="/" className="hover:underline decoration-garden2">
-            <li className="mb-4 text-garden2">Home</li>
-          </Link>
-          <Link to="/mypage" className="hover:underline decoration-garden2">
-            <li className="mb-4 text-garden2">마이페이지</li>
-          </Link>
-          <Link to="/animals" className="hover:underline decoration-garden2">
-            <li className="mb-4 text-garden2">동물</li>
-          </Link>
-          <Link to="/topics" className="hover:underline decoration-garden2">
-            <li className="mb-4 text-garden2">토픽</li>
-          </Link>
-          <Link to="/logout" target="_blank" className="hover:underline decoration-garden2">
-            <li className="mb-4 text-garden2">로그아웃</li>
-          </Link>
+          <li className="mb-4 text-garden2">
+            <Link to="/" className="hover:underline decoration-garden2">
+              Home
+            </Link>
+          </li>
+          <li className="mb-4 text-garden2">
+            <Link to="/mypage" className="hover:underline decoration-garden2">
+              마이페이지
+            </Link>
+          </li>
+          <li className="mb-4 text-garden2">
+            <Link to="/animals" className="hover:underline decoration-garden2">
+              동물
+            </Link>
+          </li>
+          <li className="mb-4 text-garden2">
+            <Link to="/topics" className="hover:underline decoration-garden2">
+              토픽
+            </Link>
+          </li>
+          <li className="mb-4 text-garden2">
+            <Link to="/logout" target="_blank" className="hover:underline decoration-garden2">
+              로그아웃
+            </Link>
+          </li>
         </ul>
       </div>
       <div className="fixed top-[12.5%] left-[0%] w-[70%] h-full bg-garden4 bg-opacity-50" />
