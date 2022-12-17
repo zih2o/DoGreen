@@ -22,8 +22,7 @@ const UserSchema = new Schema<UserT>(
     },
     isDeleted: {
       type: Boolean,
-      required: true,
-      default: false
+      required: true
     },
     bio: {
       type: String,

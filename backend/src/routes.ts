@@ -4,11 +4,7 @@ import { authRouter } from './auth/auth.router';
 import { adminRouter } from './user/admin.router';
 import { userRouter } from './user/user.router';
 
-// import apiSpec from '../openapi.json' assert { type: 'json' };
-
-const swaggerUiOptions = {
-  customCss: '.swagger-ui .topbar { display: none }'
-};
+import apiSpec from './openapi.json' assert { type: 'json' };
 
 const router = Router();
 
@@ -19,7 +15,7 @@ router.use('/user', userRouter);
 // Dev routes
 if (process.env.NODE_ENV === 'development') {
   router.use('/dev/api-docs', swaggerUi.serve);
-  // router.get('/dev/api-docs', swaggerUi.setup(apiSpec, swaggerUiOptions));
+  router.get('/dev/api-docs', swaggerUi.setup(apiSpec));
 }
 
 export default router;
