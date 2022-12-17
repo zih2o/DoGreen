@@ -10,7 +10,10 @@ adminRouter.use(loginRequired);
 adminRouter.use(adminRequired);
 
 adminRouter.patch('/ban', adminController.banUsers);
-adminRouter.get('/inactive', adminController.getBannedOrLeaveUser);
+adminRouter.patch('/cancel', adminController.cancelBanUsers);
+adminRouter.get('/inactive', adminController.getInactiveUsers);
+adminRouter.get('/active', adminController.getActiveUsers);
+
 adminRouter.get('/', adminController.findAll);
 
 export { adminRouter };

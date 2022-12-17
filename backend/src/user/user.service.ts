@@ -57,13 +57,30 @@ export class UserService implements IUserService {
     await UserModel.updateOne({ userInfo });
   }
 
-  async banUsers(userInfos: Pick<UserT, 'username'>[]) {
-    // JWT token이 ADMIN인 것을 확인하는 middleware admin-required를 controller에 추가하기
-    await UserModel.updateMany({ userInfos });
+  async banUsers(usernames: UserT['username'][]) {
+    await UserModel.updateMany({ role: 'USER', username: usernames }, { isDeleted: true });
   }
 
-  async getBannedOrLeaveUser(): Promise<UserDto[]> {
+  async cancelBanUsers(usernames: UserT['username'][]) {
+    await UserModel.updateMany({ role: 'USER', username: usernames }, { isDeleted: false });
+  }
+
+  async getInactiveUsers(): Promise<UserDto[]> {
     const inactiveUsers = await UserModel.find({ isDeleted: true });
+    await UserModel.populate(inactiveUsers, {
+      path: 'auth',
+      select: 'role'
+    });
+    // O(N)
+    return inactiveUsers?.map(user => ({
+      role: user.auth.role,
+      email: user.email,
+      username: user.username
+    })) ?? [];
+  };
+
+  async getActiveUsers(): Promise<UserDto[]> {
+    const inactiveUsers = await UserModel.find({ isDeleted: false });
     await UserModel.populate(inactiveUsers, {
       path: 'auth',
       select: 'role'
