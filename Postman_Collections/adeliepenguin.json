@@ -689,7 +689,73 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "id": "a1c2ee28-3aaf-42c5-8f9b-8ac2c9c3e7af",
+              "name": "New Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{local}}:3000/user/:username",
+                  "host": [
+                    "{{local}}"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "user",
+                    ":username"
+                  ],
+                  "variable": [
+                    {
+                      "key": "username",
+                      "value": "라이언"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "195"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"c3-UTQ4hIIjg2JvlZz7kPflLWoJSAw\""
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 17 Dec 2022 11:58:30 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n    \"role\": \"USER\",\n    \"email\": \"lion3@kakao.com\",\n    \"username\": \"라이언\",\n    \"bio\": \"Hi there!\",\n    \"imgUrl\": \"https://user-images.githubusercontent.com/91370858/208048148-47028f2f-d283-4ab1-a43e-3c073543161e.png\"\n}"
+            }
+          ]
         }
       ],
       "id": "51673f73-5e7f-46bb-a7aa-7a1d917b0c57",
@@ -747,13 +813,13 @@
   ],
   "variable": [
     {
-      "id": "cc2c5154-52f0-45af-9bcf-11c5ea060427",
+      "id": "a081459a-25cb-43ca-b44e-c7c8a1cb50a8",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "9f8854b1-77d1-4f51-8311-94e3ef544620",
+      "id": "0a6e3676-58fc-4610-90b6-44de07591a73",
       "key": "deploy",
       "value": "",
       "type": "string"
