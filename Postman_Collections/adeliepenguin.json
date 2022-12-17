@@ -176,7 +176,7 @@
                 }
               }
             },
-            "url": "{{local}}:3000/auth/register"
+            "url": "{{local}}:3000/auth/login"
           },
           "response": [
             {
@@ -901,13 +901,13 @@
   ],
   "variable": [
     {
-      "id": "d9118d7e-7a64-4a19-a919-dea5ff43d1ed",
+      "id": "de516638-4b86-4cd6-891c-fbab9d30beea",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "140ed943-3bf3-43f9-b72f-8f2391eafada",
+      "id": "f0ab73eb-5fa8-4d6c-9a66-2a70cef92352",
       "key": "deploy",
       "value": "",
       "type": "string"
