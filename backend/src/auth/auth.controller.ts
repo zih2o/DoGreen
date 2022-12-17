@@ -1,7 +1,8 @@
-import express, { Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { UserService } from '../user/user.service';
+import { AuthService } from './auth.service';
 
-const authService = {} as IAuthService;
+const authService = new AuthService();
 const userService = new UserService();
 
 export class AuthController {
@@ -12,9 +13,9 @@ export class AuthController {
       password,
       role
     } = req.body; // username, email, password
-    await authService.register({ email, password, role });
-    await userService.createUser({ username, email });
-    res.status(201);
+    const _id = await authService.register({ email, password, role });
+    await userService.createUser({ _id, username, email });
+    res.status(201).end();
   };
 
   async login(req: Request, res: Response) {
