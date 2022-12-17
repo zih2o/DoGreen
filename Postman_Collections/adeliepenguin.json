@@ -745,7 +745,54 @@
             },
             "url": "{{local}}:3000/user/me"
           },
-          "response": []
+          "response": [
+            {
+              "id": "3d927b07-d341-46c4-95bb-6923ffeac922",
+              "name": "user가 자신의 정보를 수정",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"oldPassword\": \"password!\",\n    \"bio\": \"Hi hello!\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{local}}:3000/user/me"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 17 Dec 2022 13:31:18 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": null
+            }
+          ]
         },
         {
           "name": "user가 회원탈퇴",
@@ -816,13 +863,13 @@
   ],
   "variable": [
     {
-      "id": "3991f145-64bd-4793-8870-7c0d85f0dc2f",
+      "id": "21293400-14c9-4e46-8f7b-ce5304a71f19",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "6f119542-a5d6-42c8-bde0-05183fee0266",
+      "id": "bdfa80f1-2fa4-4e67-937c-629969ea9260",
       "key": "deploy",
       "value": "",
       "type": "string"
