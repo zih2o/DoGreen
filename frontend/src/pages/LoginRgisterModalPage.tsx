@@ -4,19 +4,22 @@ import Modal from '../components/Modal';
 import Login from '../components/Login';
 import Register from '../components/Register';
 
-function LoginPage() {
+function LoginRgisterModalPage() {
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const [isStatus, setIsStatus] = useState('');
 
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
+  const handleBybutton = () => {
+    setOpenModal(!isOpenModal);
+  };
 
   return (
     <main className="w-full h-screen flex flex-col items-center">
       <h3 className="text-center">버튼이 있는 곳에 연결할 것</h3>
       {isOpenModal && (
-        <Modal onClickToggleModal={onClickToggleModal}>
+        <Modal onClickToggleModal={onClickToggleModal} handleBybutton={handleBybutton}>
           {isStatus === 'Login' ? <Login /> : ''}
           {isStatus === 'Register' ? <Register /> : ''}
         </Modal>
@@ -43,4 +46,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default LoginRgisterModalPage;
