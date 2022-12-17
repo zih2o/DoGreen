@@ -812,7 +812,7 @@
                 }
               }
             },
-            "url": "{{local}}:3000/user/withdraw"
+            "url": "{{local}}:3000/user/me/withdraw"
           },
           "response": []
         }
@@ -872,13 +872,13 @@
   ],
   "variable": [
     {
-      "id": "0cdf8df8-0fb1-4d66-91e3-e5307c76a8cb",
+      "id": "c1246976-ead7-48cd-ac6b-47c8f2deb6f1",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "c981ae64-2be6-4ff0-9ae2-82a3ddc2abc1",
+      "id": "23af3515-7862-4499-aa7f-0396a2dd506f",
       "key": "deploy",
       "value": "",
       "type": "string"
