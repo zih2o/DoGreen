@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-const MyPageTabBar = (props: any) => {
+const MyPageTabBar = () => {
   return (
     <div className="flex flex-col font-bold text-2xl">
       <Link to="/mypage/editUser" className="mb-10 pl-8">
