@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-function Hambuger(props) {
+function Hamburger(props) {
   return (
     <>
-      <div className="p-6 fixed top-[12.5%] bottom-[100px] right-[0%] w-[30%] h-full items-center place-content-between bg-garden4 text-right border-b-2 border-garden4">
+      <div className="p-6 fixed top-[12.3%] bottom-[100px] right-[0%] w-[70%] h-full items-center place-content-between bg-garden4 text-right border-b-2 border-garden4 md:w-[30%]">
         <div className="flex flex-col mx-auto items-center">
           <div className="leading-10 text-garden2 text-3xl">
             {props.rank} {props.name}님
@@ -38,8 +38,8 @@ function Hambuger(props) {
           </li>
         </ul>
       </div>
-      <div className="fixed top-[12.5%] left-[0%] w-[70%] h-full bg-garden4 bg-opacity-50" />
+      <div className="fixed top-[12.3%] left-[0%] w-[30%] h-full bg-garden4 bg-opacity-50 md:w-[70%]" />
     </>
   );
 }
-export default Hambuger;
+export default Hamburger;
