@@ -10,7 +10,7 @@ export class AuthService implements IAuthService {
   async createAuth(newAuth: AuthT) {
     const hash = await argon2.hash(newAuth.password);
 
-    return new AuthModel({
+    return AuthModel.create({
       email: newAuth.email,
       password: hash,
       role: newAuth.role
@@ -73,5 +73,11 @@ export class AuthService implements IAuthService {
       const newHash = await argon2.hash(newAuth.password);
       await AuthModel.updateOne({ password: newHash });
     }
+  }
+
+  async findAll() {
+    const authIds = AuthModel.find({ role: 'USER' }).select('_id');
+    invariant(authIds !== null, '유저가 존재하지 않습니다.'); // type Guards
+    return authIds;
   }
 }
