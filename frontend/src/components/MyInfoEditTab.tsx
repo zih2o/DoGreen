@@ -3,7 +3,7 @@ import MyPageTopBar from './MyPageTopBar';
 import MyPageTab from './MyPageTab';
 import EditUserInfo from './EditUserInfo';
 import GlobalLayout from './layout/GlobalLayout';
-import MyPageLayout from './layout/MyPageLayout';
+import { MyPageLayout } from './layout/MyPageLayout';
 
 const MyInfoEditTab = () => {
   return (

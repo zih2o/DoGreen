@@ -3,7 +3,7 @@ import MyPageTab from '../components/MyPageTab';
 import MyPageMain from '../components/MyPageMain';
 import MyPageTopBar from '../components/MyPageTopBar';
 import GlobalLayout from '../components/layout/GlobalLayout';
-import MyPageLayout from '../components/layout/MyPageLayout';
+import { MyPageLayout } from '../components/layout/MyPageLayout';
 export interface IUserData {
   id: number;
   name: string;
