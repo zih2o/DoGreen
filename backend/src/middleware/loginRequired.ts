@@ -3,30 +3,7 @@ import jwt from 'jsonwebtoken';
 import invariant from '../invariant';
 import logger from '../logger';
 
-// module.exports = function setCurrentUser(req, res, next) {
-// const loginRequiredRefactored = (req: Request, res: Response, next: NextFunction) => {
-//   req.header('authorization');
-//   const user = getUserFromToken(token).then((user) => {
-//     req.currentUserId = user;
-
-//     next();
-//   });
-// };
-
-// module.exports = function isLoggedIn(req: Request, res: Response, next: NextFunction) {
-//   if (req.currentUserId) {
-//     next();
-//   } else {
-//     // return unauthorized
-//     res.send(404).json({
-//       result: 'forbidden-approach',
-//       reason: '정상적인 토큰이 아닙니다.'
-//     });
-//   }
-// };
-
 const loginRequired = (req: Request, res: Response, next: NextFunction) => {
-  // request 헤더로부터 authorization bearer 토큰을 받음.
   const userToken = req.headers['authorization']?.split(' ')[1];
 
   if (!userToken || userToken === 'null') {

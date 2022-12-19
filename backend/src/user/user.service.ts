@@ -19,12 +19,19 @@ export class UserService implements IUserService {
   async findAll() {
     // populate
     // https://mongoosejs.com/docs/populate.html#field-selection
-    const users = await UserModel.find({ role: 'USER' }, undefined, {
+    const authIds = await authService.findAll();
+    const users = await UserModel.find({ auth: authIds }, undefined, {
+    // 아니 role을 그냥 userSchema에 넣으면 populate안해도되는데 왜 user스키마에 자신의 롤을
+    // 넣지않은거니
       populate: {
         path: 'auth',
         select: 'role'
       }
-    });
+    })
+
+    // })
+      .limit(10)
+      .sort({ updatedAt: 'desc' });
     // O(N)
     return users.map(userToUserDto);
   }
@@ -41,7 +48,6 @@ export class UserService implements IUserService {
     return userToUserDto(user);
   }
 
-  // TODO 로직이 계속 반복되서 추상화할만한지 생각해보기 하지만 프로퍼티가 달라서 감당안되니까 뒤로 미루기
   async findUserByEmail(email: UserT['email']) {
     const user = await UserModel.findOne({ email }, undefined, {
       populate: {
@@ -82,11 +88,13 @@ export class UserService implements IUserService {
   }
 
   async banUsers(usernames: UserT['username'][]) {
-    await UserModel.updateMany({ role: 'USER', username: usernames }, { isDeleted: true });
+    await UserModel.updateMany({ role: 'USER', username: usernames }, { isDeleted: true }).limit(10)
+      .sort({ updatedAt: 'desc' });
   }
 
   async cancelBanUsers(usernames: UserT['username'][]) {
-    await UserModel.updateMany({ role: 'USER', username: usernames }, { isDeleted: false });
+    await UserModel.updateMany({ role: 'USER', username: usernames }, { isDeleted: false }).limit(10)
+      .sort({ updatedAt: 'desc' });
   }
 
   async getInactiveUsers(): Promise<UserDto[]> {
@@ -95,7 +103,9 @@ export class UserService implements IUserService {
         path: 'auth',
         select: 'role'
       }
-    });
+    })
+      .limit(10)
+      .sort({ updatedAt: 'desc' });
     // O(N)
     return inactiveUsers.map(userToUserDto);
   };
@@ -106,7 +116,8 @@ export class UserService implements IUserService {
         path: 'auth',
         select: 'role'
       }
-    });
+    }).limit(10)
+      .sort({ updatedAt: 'desc' });
     // O(N)
     return inactiveUsers.map(userToUserDto);
   };
