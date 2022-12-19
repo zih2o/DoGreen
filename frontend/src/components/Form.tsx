@@ -18,7 +18,6 @@ export const Form = ({ children, onSubmit, buttonId, buttonClass, buttonName }: 
     register,
     formState: { errors },
   } = useForm();
-  console.log(children);
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex-col w-full px-10">
       {Array.isArray(children)

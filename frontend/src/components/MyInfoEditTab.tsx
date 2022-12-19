@@ -1,6 +1,6 @@
 import React from 'react';
 import MyPageTab from './MyPageTab';
-import EditUserInfo from './EditUserInfo';
+import { FormEditUserInfo } from './EditUserInfo';
 import MyPageTopBar from '../components/MyPageTopBar';
 
 const MyInfoEditTab = () => {
@@ -9,7 +9,7 @@ const MyInfoEditTab = () => {
       <MyPageTopBar />
       <div className="container flex px-5 lg:w-full mx-auto">
         <MyPageTab />
-        <EditUserInfo />
+        <FormEditUserInfo />
       </div>
     </div>
   );
