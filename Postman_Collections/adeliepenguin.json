@@ -10,7 +10,7 @@
       "item": [
         {
           "name": "user의 회원가입",
-          "_postman_id": "82cdddbc-dbb2-4d54-8c0d-ca7eda1a59cb",
+          "id": "82cdddbc-dbb2-4d54-8c0d-ca7eda1a59cb",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
@@ -79,7 +79,7 @@
         },
         {
           "name": "user의 로그인",
-          "_postman_id": "c87e0639-1bcc-4206-bb40-59317515f8d4",
+          "id": "c87e0639-1bcc-4206-bb40-59317515f8d4",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
@@ -88,7 +88,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"password!\"\n}",
+              "raw": "{\n    \"email\": \"lion@kakao.com\",\n    \"password\": \"password!\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -160,7 +160,7 @@
         },
         {
           "name": "admin의 로그인",
-          "_postman_id": "a7d864ae-93dd-4b09-b680-ff67997b430d",
+          "id": "a7d864ae-93dd-4b09-b680-ff67997b430d",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
@@ -240,7 +240,7 @@
           ]
         }
       ],
-      "_postman_id": "0e0782b1-4dc4-4ea8-b163-2366cce8603f",
+      "id": "0e0782b1-4dc4-4ea8-b163-2366cce8603f",
       "description": "`description` 회원가입과 로그인을 담당합니다.\n\n### user 계정\n\n``` json\n{\n    \"email\": \"lion4@kakao.com\",\n    \"password\": \"password!\"\n}\n\n```\n\n> user가 회원가입 할 수 있습니다.  \n> user가 회원가입한 email과 password로 로그인 할 수 있습니다.  \n> admin은 client에서 회원가입할 수 없습니다.  \n> admin이 email과 password로 로그인 할 수 있습니다."
     },
     {
@@ -248,7 +248,7 @@
       "item": [
         {
           "name": "admin의 모든 유저 조회",
-          "_postman_id": "7d5a7d40-4622-46e3-8dd7-5a4139bc5146",
+          "id": "7d5a7d40-4622-46e3-8dd7-5a4139bc5146",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
@@ -329,7 +329,7 @@
         },
         {
           "name": "admin의 비활성화된 user 조회",
-          "_postman_id": "6af60a7d-cd41-4d63-ad84-4f73ce6b4fed",
+          "id": "6af60a7d-cd41-4d63-ad84-4f73ce6b4fed",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
@@ -410,7 +410,7 @@
         },
         {
           "name": "admin의 user 계정 비활성화",
-          "_postman_id": "674e6cfb-b3bf-44b9-8294-811f391b4a05",
+          "id": "674e6cfb-b3bf-44b9-8294-811f391b4a05",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
@@ -479,7 +479,7 @@
         },
         {
           "name": "admin의 user 계정 활성화",
-          "_postman_id": "0277aac3-3507-4739-a0ee-35485caab4ba",
+          "id": "0277aac3-3507-4739-a0ee-35485caab4ba",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
@@ -548,7 +548,7 @@
         },
         {
           "name": "admin의 활성화된 user 조회",
-          "_postman_id": "32b654cb-01b7-4751-a632-7b01c0bb7182",
+          "id": "32b654cb-01b7-4751-a632-7b01c0bb7182",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
@@ -628,7 +628,7 @@
           ]
         }
       ],
-      "_postman_id": "ae68bec3-bf54-491a-a86b-eb8160a6c14d",
+      "id": "ae68bec3-bf54-491a-a86b-eb8160a6c14d",
       "description": "`description` 관리자와 관련된 기능을 담당합니다.\n\n> admin은 admin을 포함한 모든 user를 조회합니다.\n> \n> admin은 user를 비활성화시킬 수 있습니다.\n> \n> admin은 user를 활성화시킬 수 있습니다.\n> \n> admin은 활성화 상태인 유저를 조회할 수 있습니다.\n> \n> admin은 활성화 상태인 유저를 조회할 수 있습니다.\n\n### **admin 계정**\n\n``` json\n{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"password!\"\n}\n\n```",
       "auth": {
         "type": "bearer",
@@ -651,6 +651,147 @@
           "listen": "test",
           "script": {
             "id": "7f164d8c-85d3-4e6e-90f7-37ca911c800e",
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "user",
+      "item": [
+        {
+          "name": "user가 자신의 정보를 조회",
+          "id": "0917e744-dffa-4c7f-84b4-0ce66a6e3c0b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{local}}:3000/user/:username",
+              "host": [
+                "{{local}}"
+              ],
+              "port": "3000",
+              "path": [
+                "user",
+                ":username"
+              ],
+              "variable": [
+                {
+                  "key": "username",
+                  "value": "라이언"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a1c2ee28-3aaf-42c5-8f9b-8ac2c9c3e7af",
+              "name": "user가 자신의 정보를 조회",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{local}}:3000/user/:username",
+                  "host": [
+                    "{{local}}"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "user",
+                    ":username"
+                  ],
+                  "variable": [
+                    {
+                      "key": "username",
+                      "value": "라이언"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "195"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"c3-UTQ4hIIjg2JvlZz7kPflLWoJSAw\""
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 17 Dec 2022 11:58:30 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n    \"role\": \"USER\",\n    \"email\": \"lion3@kakao.com\",\n    \"username\": \"라이언\",\n    \"bio\": \"Hi there!\",\n    \"imgUrl\": \"https://user-images.githubusercontent.com/91370858/208048148-47028f2f-d283-4ab1-a43e-3c073543161e.png\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "New Request",
+          "id": "b358dbab-f727-4b2b-a94f-60f62860c40a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ],
+      "id": "51673f73-5e7f-46bb-a7aa-7a1d917b0c57",
+      "auth": {
+        "type": "bearer",
+        "bearer": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzlkNjBiMzY3ZTUyNDQ1YjIxOTYyMDIiLCJlbWFpbCI6Imxpb25Aa2FrYW8uY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2NzEyNzY3Mjd9.ICUo_ytJov85IyM698YdgjmPPxonuQ4130t1k6CxIYA"
+        }
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "5fe60bcc-ef3f-4cb1-adbf-0bbd00fadb09",
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "id": "56d50c2b-89fc-4b7f-87ac-0b44ba115bb3",
             "type": "text/javascript",
             "exec": [
               ""
@@ -684,13 +825,13 @@
   ],
   "variable": [
     {
-      "id": "c5b54c19-bb2e-443b-8084-7e4d5e7f2068",
+      "id": "65996113-4a73-4691-9837-1644f9dd3a16",
       "key": "localhost",
       "value": "https://localhost:3000",
       "type": "string"
     },
     {
-      "id": "e59f3018-af94-498b-9410-de3a7233f933",
+      "id": "2cd1adfe-ab84-4d9a-bf60-98bc9838d197",
       "key": "deploy",
       "value": "",
       "type": "string"

@@ -9,7 +9,7 @@ import CardPage from './pages/CardPage';
 import MyPage from './pages/MyPage';
 import NewsPage from './pages/NewsPage';
 import MySubscribe from './components/MySubscribe';
-import EditUserInfo from './components/EditUserInfo';
+import MyInfoEditTab from './components/MyInfoEditTab';
 import RegisterPage from './pages/RegisterPage';
 import LoginRgisterModalPage from './pages/LoginRgisterModalPage';
 
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
         children: [
           { path: '/mypage', element: <MyPage /> },
           { path: '/mypage/subscribe', element: <MySubscribe /> },
-          { path: '/mypage/editUser', element: <EditUserInfo /> },
+          { path: '/mypage/editUser', element: <MyInfoEditTab /> },
         ],
       },
       { path: '/admin', element: <Admin /> },

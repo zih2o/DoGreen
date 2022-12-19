@@ -29,7 +29,7 @@ const MyPageTopBar = () => {
             <AiOutlineClose size="24" />
           </button>
           <ProfileInfo modal />
-          <MyPageTabBar modal />
+          <MyPageTabBar />
         </div>
       ) : (
         ''

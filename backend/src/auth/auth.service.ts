@@ -7,15 +7,14 @@ import invariant from '../invariant';
 const AuthModel = model<AuthT>('auths', AuthSchema);
 
 export class AuthService implements IAuthService {
-  async register(newAuth: AuthT) {
+  async createAuth(newAuth: AuthT) {
     const hash = await argon2.hash(newAuth.password);
 
-    const { _id } = await AuthModel.create({
+    return new AuthModel({
       email: newAuth.email,
       password: hash,
       role: newAuth.role
     });
-    return _id;
   }
 
   async existUserByEmail(email: AuthT['email']) {
@@ -39,7 +38,7 @@ export class AuthService implements IAuthService {
 
     return jwt.sign(
       {
-        _id: auth._id.toString(),
+        authId: auth._id.toString(),
         email: auth.email,
         role: auth.role
       },
