@@ -1,4 +1,5 @@
 module.exports = {
+  darkMode: 'class',
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     fontSize: {
@@ -22,7 +23,7 @@ module.exports = {
         forest2: '#65D26D',
         forest3: '#D09645',
         forest4: '#110E0E',
-        forestBG: '#57B55F',
+        forestBG: '#57B55F'
       },
       fontFamily: {
         pacifico: ['Pacifico', 'sans-serif'],
