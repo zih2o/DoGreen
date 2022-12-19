@@ -2,48 +2,36 @@ import React, { useState, useCallback } from 'react';
 // import styled from "styled-components";
 import Modal from '../components/Modal';
 import Login from '../components/Login';
-import Register from '../components/Register';
+import { FormLogin } from '../components/FormLogin';
 
-function LoginRgisterModalPage() {
-  const [isOpenModal, setOpenModal] = useState<boolean>(false);
-  const [isStatus, setIsStatus] = useState('');
+function LoginModalPage() {
+  const [handleModal, setHandleModal] = useState<boolean>(false);
 
-  const onClickToggleModal = useCallback(() => {
-    setOpenModal(!isOpenModal);
-  }, [isOpenModal]);
+  const onClose = useCallback(() => {
+    setHandleModal(!handleModal);
+  }, [handleModal]);
   const handleBybutton = () => {
-    setOpenModal(!isOpenModal);
+    setHandleModal(!handleModal);
   };
 
   return (
     <main className="w-full h-screen flex flex-col items-center">
       <h3 className="text-center">버튼이 있는 곳에 연결할 것</h3>
-      {isOpenModal && (
-        <Modal onClickToggleModal={onClickToggleModal} handleBybutton={handleBybutton}>
-          {isStatus === 'Login' ? <Login /> : ''}
-          {isStatus === 'Register' ? <Register /> : ''}
+      {handleModal && (
+        <Modal onClose={onClose} handleBybutton={handleBybutton}>
+          <FormLogin />
         </Modal>
       )}
       <button
         className="w-[160px] h-[48px] bg-[#65D26D] text-white	text-sm font-normal rounded border-none cursor-pointer"
         onClick={() => {
-          setIsStatus('Login');
-          onClickToggleModal();
+          onClose();
         }}
       >
         로그인
-      </button>
-      <button
-        className="w-[160px] h-[48px] bg-[#65D26D] text-white	text-sm font-normal rounded border-none cursor-pointer"
-        onClick={() => {
-          setIsStatus('Register');
-          onClickToggleModal();
-        }}
-      >
-        회원가입
       </button>
     </main>
   );
 }
 
-export default LoginRgisterModalPage;
+export default LoginModalPage;
