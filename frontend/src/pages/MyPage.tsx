@@ -7,9 +7,8 @@ export interface IUserData {
   id: number;
   name: string;
   rank: number;
-  status: string;
+  bio: string;
   saveNumber: number;
-  userAnimal: string;
 }
 // {
 //   "role": "USER",
@@ -22,9 +21,8 @@ export const InitialData: IUserData = {
   id: 0,
   name: '엘리스',
   rank: 60,
-  status: 'Earth Gardian',
+  bio: 'Hi there!',
   saveNumber: 50,
-  userAnimal: '아델리펭귄',
 };
 
 const MyPage = () => {

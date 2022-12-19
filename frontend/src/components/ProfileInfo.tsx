@@ -12,7 +12,7 @@ const ProfileInfo = (props: IMyPageTopBarProps) => {
         </div>
         <div className={'info_wrapper font-bold flex flex-col w-2/3  ml-5  ' + (props.modal ? 'text-md' : 'text-xl')}>
           <p>{InitialData.name}</p>
-          <p>Lv. {InitialData.status}</p>
+          <p>{InitialData.bio}</p>
         </div>
       </section>
     </div>
