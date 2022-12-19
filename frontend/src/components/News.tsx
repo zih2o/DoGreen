@@ -9,8 +9,8 @@ export default function NewsCard() {
         <img className={'rounded-full w-12 h-12 shadow-xl'} src="/src/assets/penguin.jpeg" alt="펭귄" />
         <span className="font-semibold">펭귄</span>
       </div>
-      <div className="flex flex-col w-10/12 shadow-2xl rounded-lg">
-        <div className="bg-slate-50  w-full p-6 rounded-t-lg text-md">펭귄이애오</div>
+      <div className="flex flex-col w-10/12 shadow-2xl rounded-lg md:w-9/12 lg:w-8/12">
+        <div className="bg-slate-50  w-full p-6 rounded-t-lg text-md sm:">펭귄이애오</div>
         <div className="flex justify-between bg-slate-400  px-6 py-2 rounded-b-lg bg-gradient-to-r from-zinc-50 to-garden4 items-center">
           <div className="flex">
             <BsFillHeartFill className="mr-4" />
@@ -22,3 +22,4 @@ export default function NewsCard() {
     </div>
   );
 }
+<div></div>;

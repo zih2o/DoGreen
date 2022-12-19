@@ -1,11 +1,9 @@
 import React from 'react';
-import CardPageNav from '../components/CardPageNav';
 import CategoyCard from '../components/CategoyCard';
 
-export default function CardPage() {
+export default function CategoriesPage() {
   return (
     <div>
-      <CardPageNav />
       <CategoyCard />
     </div>
   );
