@@ -1,17 +1,19 @@
 import React from 'react';
+import MyPageTopBar from './MyPageTopBar';
 import MyPageTab from './MyPageTab';
 import EditUserInfo from './EditUserInfo';
-import MyPageTopBar from '../components/MyPageTopBar';
+import GlobalLayout from './layout/GlobalLayout';
+import MyPageLayout from './layout/MyPageLayout';
 
 const MyInfoEditTab = () => {
   return (
-    <div className="mx-auto w-full min-h-screen">
+    <GlobalLayout>
       <MyPageTopBar />
-      <div className="container flex px-5 lg:mt-[113.99px] lg:w-full mx-auto">
+      <MyPageLayout>
         <MyPageTab />
         <EditUserInfo />
-      </div>
-    </div>
+      </MyPageLayout>
+    </GlobalLayout>
   );
 };
 

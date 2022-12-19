@@ -1,22 +1,19 @@
 import React from 'react';
+import MyPageTopBar from './MyPageTopBar';
 import MyPageTab from './MyPageTab';
 import ChallengeInfo from './ChallengeInfo';
+import GlobalLayout from './layout/GlobalLayout';
+import MyPageLayout from './layout/MyPageLayout';
 
 const MyChallenge = () => {
   return (
-    <div>
-      <div className="w-full min-h-screen">
-        <div className="container flex min-h-screen mx-auto px-5 ">
-          <div className="MyPage_Tab_Wrapper w-1/4 bg-gray-200">
-            <MyPageTab />
-          </div>
-          <div className="MyPage_Content_Wrapper w-3/4 bg-slate-100">
-            <ChallengeInfo />
-            <ChallengeInfo />
-          </div>
-        </div>
-      </div>
-    </div>
+    <GlobalLayout>
+      <MyPageTopBar />
+      <MyPageLayout>
+        <MyPageTab />
+        <ChallengeInfo />
+      </MyPageLayout>
+    </GlobalLayout>
   );
 };
 export default MyChallenge;
