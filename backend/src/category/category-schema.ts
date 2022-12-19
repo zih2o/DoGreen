@@ -1,19 +1,26 @@
 import { Schema } from 'mongoose';
 
 const CategorySchema = new Schema({
-  name: {
+  categoryName: {
     type: String,
-    require: true,
-    unique: true
+    required: true,
+    unique: true,
+    maxlength: 15
   },
-  index: {
-    type: Number,
-    require: true,
-    unique: true
+  MascotName: {
+    type: String,
+    required: true,
+    unique: true,
+    maxlength: 10
   },
-  cards: [{
+  MascotImage: {
+    type: String,
+    required: true,
+    default: 'https://user-images.githubusercontent.com/91370858/208048148-47028f2f-d283-4ab1-a43e-3c073543161e.png'
+  },
+  posts: [{
     type: Schema.Types.ObjectId,
-    ref: 'Card'
+    ref: 'posts'
   }]
 });
 
