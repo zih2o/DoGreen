@@ -1,18 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { MyPageTabLayout } from './layout/MyPageLayout';
+import { LinkType } from './common/theme';
+
 const MyPageTabBar = () => {
   return (
-    <div className="flex flex-col font-bold text-xl">
-      <Link to="/mypage" className="mb-10 pl-8">
+    <MyPageTabLayout>
+      <Link to="/mypage" className={LinkType.mypageTab}>
         마이페이지 홈
       </Link>
-      <Link to="/mypage/editUser" className="mb-10 pl-8">
+      <Link to="/mypage/editUser" className={LinkType.mypageTab}>
         내 정보 수정
       </Link>
-      <Link to="/mypage/subscribe" className="mb-10 pl-8">
+      <Link to="/mypage/subscribe" className={LinkType.mypageTab}>
         내 구독 정보
       </Link>
-    </div>
+    </MyPageTabLayout>
   );
 };
 export default MyPageTabBar;
