@@ -7,7 +7,7 @@ const SubscribeTab = () => {
     setActiveIndex(index);
   };
   const tabContents = [
-    { title: '동물', subscribed: ['펭귄', '북극곰', '동물3', '동물4', '동물5', '동물6', '동물7', '동물8'] },
+    { title: '동물', subscribed: ['펭귄', '북극곰', '캥거루', '동물4', '동물5', '동물6', '동물7', '동물8'] },
     { title: '토픽', subscribed: ['뉴스', '푸드', '라이프스타일', '후원', '토픽'] },
   ];
   const tabTitles = tabContents.map((tab, index) => (
@@ -26,7 +26,7 @@ const SubscribeTab = () => {
   const tabCards = tabContents[activeIndex].subscribed.map((card, index) => (
     <div key={index}>
       <li className="w-52">
-        <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden relative" href="#penguin">
+        <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden " href="#penguin">
           <div className="card_content_img h-52 bg-gray-100"></div>
           <div className="card_content_text text-xl font-bold p-10 text-center">
             <h2>{card}</h2>
@@ -42,10 +42,10 @@ const SubscribeTab = () => {
         <ul className="tabs flex mb-0 list-none flex-wrap flex-row" role="tablist">
           {tabTitles}
         </ul>
-        <div className="relative flex flex-col w-full px-10 lg:px-20 pt-10">
+        <div className="flex flex-col w-full px-10 lg:px-20 pt-10">
           <div className="flex-auto">
             <div className="text-3xl font-bold">구독중인 {tabContents[activeIndex].title}</div>
-            <div className="card_wrapper mt-20 mb-20 flex block">
+            <div className="card_wrapper mt-20 mb-20 flex">
               <ul className="flex justify-center flex-wrap gap-y-14 gap-x-6">{tabCards}</ul>
             </div>
           </div>

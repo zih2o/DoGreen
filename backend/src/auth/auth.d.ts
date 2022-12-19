@@ -11,4 +11,5 @@ interface IAuthService {
     generateUserToken: (authDTO: Pick<AuthT, 'email' | 'password'>) => Promise<string>;
     isPasswordCorrect:(oldPassword: AuthT['password'], email: AuthT['email'])=> Promise<boolean>;
     updatePassword: (oldPassword: AuthT['password'], newAuth: Pick<AuthT, 'email' | 'password'>) => Promise<void>;
-};
+    findAll: ()=> Promise<ObjectId[] | null>
+  };

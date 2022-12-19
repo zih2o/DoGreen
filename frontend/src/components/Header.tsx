@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import SVG from './SVG';
+import { Link } from 'react-router-dom';\
 import Hamburger from './Hamburger';
 import { GiHamburgerMenu } from 'react-icons/gi';
 
