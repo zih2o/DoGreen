@@ -2,6 +2,7 @@ import React from 'react';
 import ProfileInfo from './ProfileInfo';
 import MyPageTabBar from './MyPageTabBar';
 
+
 const MyPageTab = () => {
   return (
     <div className="MyPage_Tab_Wrapper hidden xl:w-80 lg:w-60 lg:block">
