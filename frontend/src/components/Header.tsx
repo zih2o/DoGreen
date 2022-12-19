@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SVG from './SVG';
 import Hamburger from './Hamburger';
+import { GiHamburgerMenu } from 'react-icons/gi';
 
 function Header() {
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
@@ -29,11 +30,8 @@ function Header() {
           </label>
           <nav className="flex">
             <button onClick={toggleHamburger}>
-              <svg className="w-10 h-10 fill-garden4" viewBox="0 0 32 32" aria-hidden="true">
-                <path d="'M4 10h24c1.104 0 2-0.896 2-2s-0.896-2-2-2H4C2.896 6 2 6.896 2 8S2.896 10 4 10z M28 14H4c-1.104 0-2 0.896-2 2 s0.896 2 2 2h24c1.104 0 2-0.896 2-2S29.104 14 28 14z M28 22H4c-1.104 0-2 0.896-2 2s0.896 2 2 2h24c1.104 0 2-0.896 2-2 S29.104 22 28 22z" />
-              </svg>
+              <GiHamburgerMenu className="w-10 h-10 fill-garden4/90" />
               <span className="sr-only">Hamburger svg</span>
-              {/* <SVG name="Hamburger" width="10" height="10" viewBox="0 0 32 32" color="garden4" /> */}
             </button>
           </nav>
         </div>
