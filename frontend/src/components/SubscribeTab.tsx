@@ -7,7 +7,7 @@ const SubscribeTab = () => {
     setActiveIndex(index);
   };
   const tabContents = [
-    { title: '동물', subscribed: ['펭귄', '북극곰', '동물3', '동물4', '동물5', '동물6', '동물7', '동물8'] },
+    { title: '동물', subscribed: ['펭귄', '북극곰', '캥거루', '동물4', '동물5', '동물6', '동물7', '동물8'] },
     { title: '토픽', subscribed: ['뉴스', '푸드', '라이프스타일', '후원', '토픽'] },
   ];
   const tabTitles = tabContents.map((tab, index) => (
