@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { AiOutlineDoubleRight, AiOutlineClose } from 'react-icons/ai';
-import ProfileInfo from '../components/ProfileInfo';
-import MyPageTabBar from '../components/MyPageTabBar';
+import { ProfileInfo } from './UserInfo';
+import MyPageTabBar from './MyPageTabBar';
 import { MyPageBarLayout } from './layout/MyPageLayout';
 import { MyPageNavModalLayout, IconButton, NavRoute } from './mypage/MyPageNav';
 
