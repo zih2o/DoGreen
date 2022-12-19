@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MyPageTabLayout } from './layout/MyPageLayout';
+import { MyPageTabLinkLayout } from './layout/MyPageLayout';
 import { LinkType } from './common/theme';
 
 const MyPageTabBar = () => {
   return (
-    <MyPageTabLayout>
+    <MyPageTabLinkLayout>
       <Link to="/mypage" className={LinkType.mypageTab}>
         마이페이지 홈
       </Link>
@@ -15,7 +15,7 @@ const MyPageTabBar = () => {
       <Link to="/mypage/subscribe" className={LinkType.mypageTab}>
         내 구독 정보
       </Link>
-    </MyPageTabLayout>
+    </MyPageTabLinkLayout>
   );
 };
 export default MyPageTabBar;
