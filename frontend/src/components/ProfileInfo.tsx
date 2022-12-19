@@ -1,9 +1,9 @@
 import React from 'react';
 import { InitialData } from '../pages/MyPage';
-interface MyPageTopBarProps {
+interface IMyPageTopBarProps {
   modal?: boolean;
 }
-const ProfileInfo = (props: MyPageTopBarProps) => {
+const ProfileInfo = (props: IMyPageTopBarProps) => {
   return (
     <div>
       <section className={'flex mx-3 items-center justify-content-center ' + (props.modal ? 'my-5' : 'my-20')}>

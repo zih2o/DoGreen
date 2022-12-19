@@ -2,9 +2,8 @@ import React from 'react';
 import MyPageTab from '../components/MyPageTab';
 import MyPageMain from '../components/MyPageMain';
 import MyPageTopBar from '../components/MyPageTopBar';
-// import axios from 'axios';
 
-export interface UserData {
+export interface IUserData {
   id: number;
   name: string;
   rank: number;
@@ -12,7 +11,7 @@ export interface UserData {
   saveNumber: number;
   userAnimal: string;
 }
-export const InitialData: UserData = {
+export const InitialData: IUserData = {
   id: 0,
   name: '엘리스',
   rank: 60,
