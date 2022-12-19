@@ -1,10 +1,9 @@
 import React from 'react';
-import './MyPage.css';
 
-type progressInfo = {
+interface IProgressInfo {
   value: number;
-};
-const TotalProgressBar = ({ value }: progressInfo) => {
+}
+const TotalProgressBar = ({ value }: IProgressInfo) => {
   return (
     <div className="progressbar_wrapper mt-12 mb-24 px-10 lg:px-20 mx-auto">
       <div className="progress-bar">

@@ -11,7 +11,7 @@ const MyPageTopBar = () => {
     setTabOpen(!tabOpen);
   };
   return (
-    <div className="container flex items-center px-5 md:mt-0 h-24 bg-gardenBG-light lg:hidden">
+    <div className="container flex items-center px-5 mt-[113.99px] h-24 bg-gardenBG-light lg:hidden">
       <button type="button" className="text-slate-500 hover:text-slate-600" onClick={handleToggle}>
         <AiOutlineDoubleRight className="icon" size="24" />
       </button>
