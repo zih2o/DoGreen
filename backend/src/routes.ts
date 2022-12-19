@@ -5,12 +5,14 @@ import { adminRouter } from './user/admin.router';
 import { userRouter } from './user/user.router';
 
 import apiSpec from './openapi.json' assert { type: 'json' };
+import { postRouter } from './post/postRouter';
 
 const router = Router();
 
 router.use('/admin', adminRouter);
 router.use('/auth', authRouter);
 router.use('/user', userRouter);
+router.use('/post', postRouter);
 
 // Dev routes
 if (process.env.NODE_ENV === 'development') {

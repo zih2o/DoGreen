@@ -1,15 +1,15 @@
-import { model, Types } from 'mongoose';
+import { model, ObjectId, Types } from 'mongoose';
 import { PostSchema } from './postSchema';
 import { PostRepository } from './postRepository';
 
 const postRepository = new PostRepository();
 export class PostService implements IPostService {
-  async createPost(createPostInfo:updatePostDto) {
+  async createPost(createPostInfo:createPostDto) {
     await postRepository.createOne(createPostInfo);
   }
 
   async deletePost(id:PostT['id']) {
-    await postRepository.deleteOne({ id });
+    await postRepository.deleteOne(id);
   }
 
   async updatePost(updatedContents:updatePostDto) {
@@ -22,7 +22,7 @@ export class PostService implements IPostService {
   }
 
   async findOnePost(id:PostT['id']) {
-    const postInfo = await postRepository.findOne({ id });
+    const postInfo = await postRepository.findPost(id);
     return postInfo;
   }
 }
