@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { MyPageContentsLayout } from './layout/MyPageLayout';
 
 const SubscribeTab = () => {
   const tabCategories = { subscribed: ['뉴스', '푸드', '라이프스타일', '후원', '토픽'] };
@@ -15,7 +16,7 @@ const SubscribeTab = () => {
   ));
 
   return (
-    <div className="MyPage_Content_Wrapper py-5 flex-1">
+    <MyPageContentsLayout>
       <div className="grid grid-cols-1 p-4 mt-12">
         <div className="flex flex-col w-full ml-0 lg:ml-16 px-0 lg:px-10 pt-10">
           <div className="text-3xl font-bold">구독중인 토픽</div>
@@ -24,7 +25,7 @@ const SubscribeTab = () => {
           </div>
         </div>
       </div>
-    </div>
+    </MyPageContentsLayout>
   );
 };
 export default SubscribeTab;

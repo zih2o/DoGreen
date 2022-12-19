@@ -15,6 +15,9 @@ interface IMyPageTabLinkLayoutProps {
 interface IMyPageContentsLayoutProps {
   children: ReactNode;
 }
+interface IMyPageMessageLayoutProps {
+  children: ReactNode;
+}
 export const MyPageLayout = ({ children }: IMyPageLayoutProps) => {
   return <div className="container w-full flex lg:mt-[113.99px] mx-auto px-5">{children}</div>;
 };
@@ -37,4 +40,12 @@ export const MyPageTabLinkLayout = ({ children }: IMyPageTabLinkLayoutProps) => 
 
 export const MyPageContentsLayout = ({ children }: IMyPageContentsLayoutProps) => {
   return <div className="w-full flex-1 lg:w-80 py-5">{children}</div>;
+};
+
+export const MyPageMessageLayout = ({ children }: IMyPageMessageLayoutProps) => {
+  return (
+    <div className="message_wrapper px-10 lg:px-20 mb-24">
+      <p className="text-2xl text-center leading-10 font-bold">{children}</p>
+    </div>
+  );
 };
