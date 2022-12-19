@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
-import { InitialData, userData } from '../pages/MyPage';
+import React from 'react';
+import { InitialData } from '../pages/MyPage';
 
 const UserInfo = () => {
-  const [userInfo, setUserInfo] = useState<userData>(InitialData);
   return (
     <div className="message_wrapper px-10 lg:px-20 mb-24">
       <p className="text-2xl text-center leading-10 font-bold">
-        <span className="text-emerald-600">{userInfo.name}</span>님, 상위 {userInfo.rank}%의
-        <span className="text-emerald-600"> {userInfo.status}</span>
+        <span className="text-emerald-600">{InitialData.name}</span>님, 상위 {InitialData.rank}%의
+        <span className="text-emerald-600"> {InitialData.status}</span>
         이군요!
-        <br></br> 현재까지 <span className="text-emerald-600">{userInfo.saveNumber}마리</span>의 {userInfo.userAnimal}을
-        구하셨어요.
+        <br></br> 현재까지 <span className="text-emerald-600">{InitialData.saveNumber}마리</span>의{' '}
+        {InitialData.userAnimal}을 구하셨어요.
       </p>
     </div>
   );

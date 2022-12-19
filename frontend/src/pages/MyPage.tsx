@@ -4,7 +4,7 @@ import MyPageMain from '../components/MyPageMain';
 import MyPageTopBar from '../components/MyPageTopBar';
 // import axios from 'axios';
 
-export interface userData {
+export interface UserData {
   id: number;
   name: string;
   rank: number;
@@ -12,7 +12,7 @@ export interface userData {
   saveNumber: number;
   userAnimal: string;
 }
-export const InitialData: userData = {
+export const InitialData: UserData = {
   id: 0,
   name: '엘리스',
   rank: 60,
