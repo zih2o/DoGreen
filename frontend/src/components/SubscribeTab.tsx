@@ -17,12 +17,10 @@ const SubscribeTab = () => {
   return (
     <div className="MyPage_Content_Wrapper py-5 flex-1">
       <div className="grid grid-cols-1 p-4 mt-12">
-        <div className="flex flex-col w-full mx-0 px-0 lg:px-10 pt-10">
+        <div className="flex flex-col w-full ml-0 lg:ml-16 px-0 lg:px-10 pt-10">
           <div className="text-3xl font-bold">구독중인 토픽</div>
           <div className="card_wrapper mt-20 mb-20 mx-0 flex">
-            <ul className="flex justify-start place-items-stretch ml-0 lg:ml-16 flex-wrap gap-y-14 gap-x-8">
-              {tabCards}
-            </ul>
+            <ul className="flex justify-start place-items-stretch  flex-wrap gap-y-14 gap-x-8">{tabCards}</ul>
           </div>
         </div>
       </div>
