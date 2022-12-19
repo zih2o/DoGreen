@@ -14,6 +14,12 @@ interface IImageType {
 interface ITextType {
   messageText: string;
 }
+
+interface IWrapperType {
+  profileTotalWrapper: string;
+  profileWrapper: string;
+  textWrapper: string;
+}
 export const LinkType: ILinkType = {
   mypageTab: 'mb-12 pl-8',
 };
@@ -28,4 +34,9 @@ export const ImageType: IImageType = {
 };
 export const TextType: ITextType = {
   messageText: 'text-emerald-600',
+};
+export const WrapperType: IWrapperType = {
+  profileTotalWrapper: 'flex mx-3 items-center justify-content-center ',
+  profileWrapper: 'w-2/5 ',
+  textWrapper: 'w-3/5 flex flex-col ml-5 font-bold ',
 };

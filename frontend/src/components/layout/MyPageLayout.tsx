@@ -44,7 +44,7 @@ export const MyPageContentsLayout = ({ children }: IMyPageContentsLayoutProps) =
 
 export const MyPageMessageLayout = ({ children }: IMyPageMessageLayoutProps) => {
   return (
-    <div className="message_wrapper px-10 lg:px-20 mb-24">
+    <div className="mb-24 px-10 lg:px-20">
       <p className="text-2xl text-center leading-10 font-bold">{children}</p>
     </div>
   );
