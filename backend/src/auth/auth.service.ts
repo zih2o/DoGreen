@@ -74,4 +74,10 @@ export class AuthService implements IAuthService {
       await AuthModel.updateOne({ password: newHash });
     }
   }
+
+  async findAll() {
+    const authIds = AuthModel.find({ role: 'USER' }).select('_id');
+    invariant(authIds !== null, '유저가 존재하지 않습니다.'); // type Guards
+    return authIds;
+  }
 }
