@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form } from './Form';
 import { FormInput } from './FormInput';
-import { requiredMessage, validateEmail, validatePassword } from './util/validateUtil';
+import { requiredMessage, validateEmail, validatePassword } from '../util/validateUtil';
 
 export const FormLogin = () => {
   const onSubmit = async (data) => {
