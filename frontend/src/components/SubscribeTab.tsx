@@ -1,15 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const SubscribeTab = () => {
   const tabCategories = { subscribed: ['뉴스', '푸드', '라이프스타일', '후원', '토픽'] };
   const tabCards = tabCategories.subscribed.map((card, index) => (
     <li className="w-56" key={index}>
-      <a className="bg-white rounded-xl shadow-md block h-full overflow-hidden " href="#penguin">
+      <Link to="#" className="bg-white rounded-xl shadow-md block h-full overflow-hidden ">
         <div className="card_content_img h-52 bg-gray-100"></div>
         <div className="card_content_text text-xl font-bold p-10 text-center">
           <h2>{card}</h2>
         </div>
-      </a>
+      </Link>
     </li>
   ));
 
