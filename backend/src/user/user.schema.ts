@@ -21,8 +21,7 @@ const UserSchema = new Schema<UserT>(
       unique: true
     },
     isDeleted: {
-      type: Boolean,
-      required: true
+      type: Boolean
     },
     bio: {
       type: String,

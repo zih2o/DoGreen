@@ -9,12 +9,12 @@ export class PostRepository implements IPostRepository {
     return totalPost;
   }
 
-  async findOne(id: PostT['id']) {
-    const postInfo = await PostModel.findOne({ _id: id });
+  async findPost(id: PostT['id']) {
+    const postInfo = await PostModel.findById(id);
     return postInfo;
   }
 
-  async createOne(newPost: updatePostDto) {
+  async createOne(newPost: createPostDto) {
     await PostModel.create(newPost);
   }
 

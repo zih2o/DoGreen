@@ -4,18 +4,15 @@ const PostSchema = new Schema<PostT>(
   {
     card: {
       type: Schema.Types.ObjectId,
-      ref: 'Card',
-      required: true
+      ref: 'Card'
     },
     author: {
       type: String,
-      ref: 'User',
-      required: true
+      ref: 'User'
     },
     content: {
       type: String,
-      minlength: 5,
-      required: true
+      minlength: 5
     },
     likes: {
       likedUserList: [{
