@@ -12,7 +12,7 @@ interface IRegisterInputProps {
   confimrPassword: string;
 }
 
-export const FormRegister = () => {
+export const Register = () => {
   const { schema } = useSimpleValidation();
   const {
     handleSubmit,
@@ -32,7 +32,7 @@ export const FormRegister = () => {
 
   const className = {
     container:
-      'w-[560px] h-[600px] flex flex-col items-center justify-start px-11 border-[3px] border-garden1 rounded shadow-[0_0_30px_rgba(30, 30, 30, 0.185)] box-border bg-gardenBG',
+      'w-[560px] h-[600px] flex flex-col items-center justify-start px-11 border-[3px] border-garden1 box-border rounded bg-gardenBG shadow-[0_0_30px_rgba(30, 30, 30, 0.185)]',
     form: 'flex-col w-full px-3',
     title: 'justify-self-start text-center my-16 pb-2 text-garden1 font-pacifico text-4xl  ',
   };
