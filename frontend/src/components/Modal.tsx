@@ -1,24 +1,28 @@
-import React, { PropsWithChildren, useState } from 'react';
-import { AiOutlineClose } from 'react-icons/ai';
-
-interface ModalDefaultType {
+import React, { PropsWithChildren } from 'react';
+interface IModalDefaultType {
   onClose: () => void;
-  handleBybutton: () => void;
-  children?: React.ReactNode;
+  children: React.ReactNode;
 }
 
-function Modal({ onClose, handleBybutton, children }: PropsWithChildren<ModalDefaultType>) {
+//모달 컴포넌트를 사용하기위해서는 아래의 CSS를 동일하게 적용해야함.(수정하면 안됨)
+const className = {
+  container: 'flex items-center fixed w-full h-screen',
+  dialog:
+    'flex fixed left-[50%] top-[50%] z-[10000]  w-max h-max border-none bg-transparent translate-y-[-50%] translate-x-[-50%] shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]',
+  background: 'fixed top-0 z-[9998] w-full h-screen bg-black bg-opacity-25',
+};
+
+function Modal({ onClose, children }: PropsWithChildren<IModalDefaultType>) {
   return (
-    <div className="w-full h-screen flex  items-center fixed ">
-      <dialog className="w-max h-max fixed flex left-[50%] top-[50%] translate-y-[-50%] translate-x-[-50%] border-none  bg-transparent shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]  z-[10000]">
-        <button type="button" className="absolute top-0 right-0 self-center float-right p-5" onClick={handleBybutton}>
-          <AiOutlineClose size="24" />
-        </button>
+    <div className={className.container}>
+      <dialog className={className.dialog}>
+        {/* children === 모달로 띄울 컴포넌트 */}
         {children}
       </dialog>
       <div
-        className="w-full h-screen fixed top-0 z-[9998] bg-black bg-opacity-25"
+        className={className.background}
         onClick={(e: React.MouseEvent) => {
+          //배경을 누르면 모달창이 꺼짐(모달창을 제어하는 버튼이 있는 페이지에서 state값을 조절함)
           e.preventDefault();
           if (onClose) {
             onClose();

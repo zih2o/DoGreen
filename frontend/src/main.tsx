@@ -10,7 +10,7 @@ import MyPage from './pages/MyPage';
 import NewsPage from './pages/NewsPage';
 import { MyHome, MyInfoEditTab, MySubscribe } from './components/mypage/DetailPage';
 import RegisterPage from './pages/RegisterPage';
-import LoginRgisterModalPage from './pages/LoginRgisterModalPage';
+import LoginModalPage from './pages/LoginModalPage';
 
 const router = createBrowserRouter([
   {
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
       { path: '/categories/:catId', element: <CardPage /> },
       { path: '/cards/:cardId', element: <NewsPage /> },
       { path: '/register', element: <RegisterPage /> },
-      { path: '/login', element: <LoginRgisterModalPage /> },
+      { path: '/login', element: <LoginModalPage /> },
     ],
   },
 ]);
