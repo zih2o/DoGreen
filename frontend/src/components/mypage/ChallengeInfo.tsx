@@ -33,21 +33,6 @@ const ChallengeInfo = () => {
               }
               return `color-github-${value.count}`;
             }}
-            // titleForValue={(value) => {
-            //   console.log(value);
-            //   if (!value) {
-            //     return;
-            //   } else {
-            //     console.log(`Date is ${value.date}`);
-            //   }
-            // }}
-            // onMouseOver={(value) => {
-            //   if (!value) {
-            //     return;
-            //   } else {
-            //     console.log(`Date is ${value.date}`);
-            //   }
-            // }}
             tooltipDataAttrs={(value: any) => {
               const d1 = new Date(value.date);
               if (value) {

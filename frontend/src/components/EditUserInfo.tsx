@@ -4,6 +4,9 @@ import { Controller, useForm } from 'react-hook-form';
 import useSimpleValidation from './yup';
 import { InputContainer } from './InputContainer';
 import { FormInput, IputError, InputButton } from './FormsAboutInput';
+import { TextType } from './common/theme';
+import { MyPageContentsLayout } from './layout/MyPageLayout';
+
 
 interface IEditInputProps {
   username: string;
@@ -36,6 +39,7 @@ export const FormEditUserInfo = () => {
   };
 
   return (
+    <MyPageContentsLayout>
     <div className={className.container}>
       <p className={className.title}>내 정보 수정</p>
       <form onSubmit={handleSubmit(onSubmit)} className={className.form}>
@@ -135,6 +139,6 @@ export const FormEditUserInfo = () => {
 
         <InputButton value="수정하기" />
       </form>
-    </div>
+    </MyPageContentsLayout>
   );
 };
