@@ -34,4 +34,3 @@ export default function NewsCard() {
     </div>
   );
 }
-<div></div>;
