@@ -1,39 +1,19 @@
 import React from 'react';
-import UserInfo from '../components/UserInfo';
-import MyPageTab from '../components/MyPageTab';
-import Header from '../components/Header';
-// import axios from 'axios';
-
-export interface userData {
-  id: number;
-  name: string;
-  rank: number;
-  status: string;
-  saveNumber: number;
-  userAnimal: string;
-}
-export const InitialData: userData = {
-  id: 0,
-  name: '엘리스',
-  rank: 60,
-  status: 'Earth Gardian',
-  saveNumber: 50,
-  userAnimal: '아델리펭귄',
-};
+import { Outlet } from 'react-router-dom';
+import MyPageTab from '../components/mypage/MyPageTab';
+import MyPageTopBar from '../components/mypage/MyPageTopBar';
+import { GlobalLayout } from '../components/layout/GlobalLayout';
+import { MyPageLayout } from '../components/layout/MyPageLayout';
 
 const MyPage = () => {
   return (
-    <div className="w-full min-h-screen">
-      <Header/>
-      <div className="flex min-h-screen w-full">
-        <div className="MyPage_Tab_Wrapper w-1/4 bg-gray-200">
-          <MyPageTab />
-        </div>
-        <div className="MyPage_Content_Wrapper w-3/4 bg-slate-100">
-          <UserInfo />
-        </div>
-      </div>
-    </div>
+    <GlobalLayout>
+      <MyPageTopBar />
+      <MyPageLayout>
+        <MyPageTab />
+        <Outlet />
+      </MyPageLayout>
+    </GlobalLayout>
   );
 };
 export default MyPage;
