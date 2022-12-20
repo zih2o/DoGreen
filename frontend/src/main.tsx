@@ -11,7 +11,7 @@ import NewsPage from './pages/NewsPage';
 import MySubscribe from './components/mypage/MySubscribe';
 import MyInfoEditTab from './components/mypage/MyInfoEditTab';
 import RegisterPage from './pages/RegisterPage';
-import LoginRgisterModalPage from './pages/LoginRgisterModalPage';
+import LoginModalPage from './pages/LoginModalPage';
 
 const router = createBrowserRouter([
   {
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
       { path: '/categories/:catId', element: <CardPage /> },
       { path: '/cards/:cardId', element: <NewsPage /> },
       { path: '/register', element: <RegisterPage /> },
-      { path: '/login', element: <LoginRgisterModalPage /> },
+      { path: '/login', element: <LoginModalPage /> },
     ],
   },
 ]);

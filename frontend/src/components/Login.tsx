@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 import useSimpleValidation from './yup';
@@ -10,7 +10,7 @@ interface ILoginInputProps {
   password: string;
 }
 
-export const FormLogin = () => {
+export const Login = () => {
   const { schema } = useSimpleValidation();
   const {
     handleSubmit,
@@ -68,7 +68,7 @@ export const FormLogin = () => {
           />
           <IputError>{errors.password && errors.password.message}</IputError>
         </InputContainer>
-        <InputButton value="가입하기" />
+        <InputButton value="로그인" />
       </form>
       <div className={className.accountContainer}>
         <p className={className.accountText}>Do It Together.. </p>
