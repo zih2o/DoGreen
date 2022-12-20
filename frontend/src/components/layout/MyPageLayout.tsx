@@ -4,10 +4,10 @@ interface IMyPageLayoutProps {
   children: ReactNode;
 }
 export const MyPageLayout = ({ children }: IMyPageLayoutProps) => {
-  return <div className="container w-full flex lg:mt-[113.99px] mx-auto px-5">{children}</div>;
+  return <div className="container flex w-full lg:mt-[113.99px] mx-auto px-5">{children}</div>;
 };
 export const MyPageBarLayout = ({ children }: IMyPageLayoutProps) => {
-  return <div className="container h-24 flex lg:hidden items-center mt-[113.99px] px-5">{children}</div>;
+  return <div className="container flex lg:hidden h-24 items-center mt-[113.99px] px-5">{children}</div>;
 };
 export const MyPageTabLayout = ({ children }: IMyPageLayoutProps) => {
   return (

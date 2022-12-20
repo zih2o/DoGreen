@@ -49,13 +49,13 @@ export const TextType: ITextType = {
 export const WrapperType: IWrapperType = {
   profileTotalWrapper: 'flex mx-3 items-center justify-content-center ',
   profileWrapper: 'w-2/5 ',
-  textWrapper: 'w-3/5 flex flex-col ml-5 font-bold ',
+  textWrapper: 'flex flex-col w-3/5 ml-5 font-bold ',
   cardContentsWrapper: 'flex mt-20 mb-20 mx-0 ',
   cardListWrapper: 'flex flex-wrap justify-start place-items-stretch gap-y-14 gap-x-8',
 };
 export const CardType: ICardType = {
   size: 'w-56',
-  layout: 'h-full shadow-md rounded-xl block overflow-hidden bg-white',
+  layout: 'block h-full shadow-md rounded-xl overflow-hidden bg-white',
   img: 'h-52 bg-gray-100',
   text: 'p-10 text-center text-xl font-bold ',
 };
