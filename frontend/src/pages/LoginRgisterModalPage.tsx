@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react';
 // import styled from "styled-components";
 import Modal from '../components/Modal';
-import Login from '../components/Login';
 import { FormLogin } from '../components/FormLogin';
 
 function LoginModalPage() {
@@ -15,7 +14,7 @@ function LoginModalPage() {
   };
 
   return (
-    <main className="w-full h-screen flex flex-col items-center">
+    <main className="w-full h-screen flex flex-col items-center p-[300px]">
       <h3 className="text-center">버튼이 있는 곳에 연결할 것</h3>
       {handleModal && (
         <Modal onClose={onClose} handleBybutton={handleBybutton}>

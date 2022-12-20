@@ -1,3 +1,5 @@
+export const passwordRegExp = /(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+
 export const validateRequired = (value?: string) => {
   return !value && '깜빡하셨습니다';
 };
