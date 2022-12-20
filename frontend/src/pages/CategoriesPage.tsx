@@ -1,10 +1,10 @@
 import React from 'react';
-import CategoyCard from '../components/CategoyCard';
+import Card from '../components/Card';
 
 export default function CategoriesPage() {
   return (
-    <div>
-      <CategoyCard />
+    <div className="mt-32">
+      <Card />
     </div>
   );
 }

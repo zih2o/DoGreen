@@ -1,6 +1,7 @@
 import React from 'react';
 import { BsFillHeartFill } from 'react-icons/bs';
 import { ImBubble } from 'react-icons/im';
+import NewsSkeleton from './skeletons/Loading';
 
 export default function NewsCard() {
   return (
