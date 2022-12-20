@@ -1,6 +1,6 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 import MyPageTab from '../components/mypage/MyPageTab';
-import MyPageMain from '../components/mypage/MyPageMain';
 import MyPageTopBar from '../components/mypage/MyPageTopBar';
 import { GlobalLayout } from '../components/layout/GlobalLayout';
 import { MyPageLayout } from '../components/layout/MyPageLayout';
@@ -11,7 +11,7 @@ const MyPage = () => {
       <MyPageTopBar />
       <MyPageLayout>
         <MyPageTab />
-        <MyPageMain />
+        <Outlet />
       </MyPageLayout>
     </GlobalLayout>
   );
