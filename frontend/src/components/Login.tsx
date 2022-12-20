@@ -34,7 +34,7 @@ export const Login = () => {
 
   const className = {
     container:
-      'w-[460px] h-[400px] flex flex-col items-center justify-start px-8 border-[3px] border-garden1 rounded shadow-[0_0_30px_rgba(30, 30, 30, 0.185)] box-border bg-gardenBG',
+      'flex flex-col items-center justify-start w-[460px] h-[400px] px-8 border-[3px] border-garden1 box-border rounded bg-gardenBG shadow-[0_0_30px_rgba(30, 30, 30, 0.185)]',
     title: 'justify-self-start text-center my-10 pb-3 text-garden1 font-pacifico text-4xl',
     accountContainer: 'flex p-1 mr-3 self-end text-xl ',
     accountText: 'text-garden4 text-base',
