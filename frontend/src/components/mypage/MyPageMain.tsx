@@ -1,16 +1,16 @@
 import React from 'react';
 import TotalProgressBar from './Progressbar';
 import ChallengeInfo from './ChallengeInfo';
-import UserInfo from './UserInfo';
-import { InitialData } from '../pages/MyPage';
+import { InitialData, UserMessage } from './UserInfo';
+import { MyPageContentsLayout } from '../layout/MyPageLayout';
 
 const MyPageMain = () => {
   return (
-    <div className="MyPage_Content_Wrapper flex-1 lg:w-80 w-full py-5">
+    <MyPageContentsLayout>
       <TotalProgressBar value={InitialData.rank} />
-      <UserInfo />
+      <UserMessage />
       <ChallengeInfo />
-    </div>
+    </MyPageContentsLayout>
   );
 };
 export default MyPageMain;

@@ -1,5 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { TextType } from './common/theme';
+import { MyPageContentsLayout } from './layout/MyPageLayout';
 interface IFormInput {
   username: string;
   email: string;
@@ -9,8 +11,8 @@ interface IFormInput {
 
 const EditUserInfo = () => {
   return (
-    <div className="flex-col py-5 flex-1">
-      <p className="text-center p-10 text-3xl font-bold">내 정보 수정</p>
+    <MyPageContentsLayout>
+      <p className={TextType.titleText}>내 정보 수정</p>
       <form className="flex flex-row justify-around text-xl font-bold mt-20 ">
         <div className="w-3/5 space-y-10">
           <div className="flex mb-4 items-center justify-between ">
@@ -70,7 +72,7 @@ const EditUserInfo = () => {
           </button>
         </div>
       </form>
-    </div>
+    </MyPageContentsLayout>
   );
 };
 

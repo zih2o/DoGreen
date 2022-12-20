@@ -8,8 +8,8 @@ import './index.css';
 import CardPage from './pages/CardPage';
 import MyPage from './pages/MyPage';
 import NewsPage from './pages/NewsPage';
-import MySubscribe from './components/MySubscribe';
-import MyInfoEditTab from './components/MyInfoEditTab';
+import MySubscribe from './components/mypage/MySubscribe';
+import MyInfoEditTab from './components/mypage/MyInfoEditTab';
 import RegisterPage from './pages/RegisterPage';
 import LoginRgisterModalPage from './pages/LoginRgisterModalPage';
 
