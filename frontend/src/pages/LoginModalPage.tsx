@@ -10,6 +10,19 @@ function LoginModalPage() {
     setHandleModal(!handleModal);
   };
 
+  const isLogined = window.sessionStorage.getItem('token');
+  const initialLoginBtn = isLogined ? '로그아웃' : '로그인';
+  const [loginStatus, setLoginStatus] = useState<string>(initialLoginBtn);
+  const logined = () => {
+    if (isLogined === null) {
+      setLoginStatus('로그아웃');
+      setHandleModal(!handleModal); //로그인 창 열기
+    } else {
+      setLoginStatus('로그인');
+      window.sessionStorage.clear();
+    }
+  };
+
   //아래의 CSS는 공용 개인 CSS임!(모달창을 띄울 버튼 환경을 만든 CSS)
   const className = {
     pageContainer: 'flex flex-col items-center w-full h-screen p-[300px]',
@@ -26,7 +39,7 @@ function LoginModalPage() {
       {handleModal && (
         <Modal onClose={onClose}>
           <button type="button" className={className.closeButton} onClick={onClose}>
-            <AiOutlineClose size="24" />
+            <AiOutlineClose size="24" color="#5C5656" />
           </button>
           <Login />
         </Modal>
@@ -35,7 +48,7 @@ function LoginModalPage() {
 
         <모달로 띄우고싶은 컴포넌트 />
         닫기버튼 추가할 경우,
-        1. 해당 위치에서, 모달을 닫고싶은 컴포넌트 및 태그를 추가 (postion : absolute 사용)
+        1. 해당 위치에서, 모달을 닫고싶은 컴포넌트 및 태그를 추가 (postion : absolute 사용 권장)
         2. 속성값으로  'onClick={onClose}' 값을 줌
       
       </Modal>
@@ -46,10 +59,10 @@ function LoginModalPage() {
       <button
         className={className.modalCotrolBtn}
         onClick={() => {
-          onClose();
+          logined();
         }}
       >
-        로그인
+        {loginStatus}
       </button>
     </main>
   );
