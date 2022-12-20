@@ -10,6 +10,19 @@ function LoginModalPage() {
     setHandleModal(!handleModal);
   };
 
+  const isLogined = window.sessionStorage.getItem('token');
+  const initialLoginBtn = isLogined ? '로그아웃' : '로그인';
+  const [loginStatus, setLoginStatus] = useState<string>(initialLoginBtn);
+  const logined = () => {
+    if (isLogined === null) {
+      setLoginStatus('로그아웃');
+      setHandleModal(!handleModal); //로그인 창 열기
+    } else {
+      setLoginStatus('로그인');
+      window.sessionStorage.clear();
+    }
+  };
+
   //아래의 CSS는 공용 개인 CSS임!(모달창을 띄울 버튼 환경을 만든 CSS)
   const className = {
     pageContainer: 'flex flex-col items-center w-full h-screen p-[300px]',
@@ -46,10 +59,10 @@ function LoginModalPage() {
       <button
         className={className.modalCotrolBtn}
         onClick={() => {
-          onClose();
+          logined();
         }}
       >
-        로그인
+        {loginStatus}
       </button>
     </main>
   );

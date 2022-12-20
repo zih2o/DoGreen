@@ -1,7 +1,10 @@
 import React from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 import { userValidation } from './yup';
+import axios from 'axios';
+
 import { InputContainer } from './InputContainer';
 import { FormInput, IputError, InputButton } from './FormsAboutInput';
 
@@ -12,7 +15,10 @@ interface IRegisterInputProps {
   confimrPassword: string;
 }
 
+const serverURL = 'http://localhost:3000';
+
 export const Register = () => {
+  const navigate = useNavigate();
   const { schema } = userValidation();
   const {
     handleSubmit,
@@ -25,9 +31,17 @@ export const Register = () => {
 
   console.log('### errors', errors);
 
-  const onSubmit = (data: IRegisterInputProps) => {
-    console.log(data);
-    alert(JSON.stringify(data));
+  const onSubmit = async (data: IRegisterInputProps) => {
+    try {
+      console.log(data);
+      const res = await axios.post(`${serverURL}/auth/register`, data);
+      console.log(res);
+      alert('정상적으로 회원가입되었습니다.');
+      navigate('/');
+    } catch (error: any) {
+      console.log(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요:
+    ${error.message}`);
+    }
   };
 
   const className = {

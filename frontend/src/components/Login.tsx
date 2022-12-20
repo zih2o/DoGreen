@@ -28,16 +28,15 @@ export const Login = () => {
 
   const onSubmit = async (data: ILoginInputProps) => {
     try {
-      const result = await axios.post(`${serverURL}/auth/login`, data);
-      console.log(result.data);
+      const res = await axios.post(`${serverURL}/auth/login`, data);
+      console.log(res.data);
 
-      const accesToken = result.data;
-      window.sessionStorage.setItem('token', accesToken);
+      const token = res.data;
+      window.sessionStorage.setItem('token', token);
       return navigate('/');
-    } catch (err: any) {
-      // window.sessionStorage.clear();
+    } catch (error: any) {
       console.log(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요:
-      ${err.message}`);
+      ${error.message}`);
     }
   };
 
