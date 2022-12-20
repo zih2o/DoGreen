@@ -1,11 +1,29 @@
 import React, { useState } from 'react';
-import { Form } from './Form';
-import { FormInput } from './FormInput';
-import { requiredMessage, validateEmail, validatePassword } from '../util/validateUtil';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Controller, useForm } from 'react-hook-form';
+import useSimpleValidation from './yup';
+import { InputContainer } from './InputContainer';
+import { FormInput, IputError, InputButton } from './FormsAboutInput';
+
+interface ILoginInputProps {
+  email: string;
+  password: string;
+}
 
 export const FormLogin = () => {
-  const onSubmit = async (data) => {
+  const { schema } = useSimpleValidation();
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<ILoginInputProps>({
+    mode: 'onSubmit',
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = async (data: ILoginInputProps) => {
     try {
+      console.log(data);
       console.log(JSON.stringify(data));
 
       alert(JSON.stringify(data));
@@ -13,35 +31,48 @@ export const FormLogin = () => {
       alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
     }
   };
-  const [currentPwd, setCurrentPwd] = useState<string>('');
+
+  const className = {
+    container:
+      'w-[460px] h-[400px] flex flex-col items-center justify-start px-8 border-[3px] border-garden1 rounded shadow-[0_0_30px_rgba(30, 30, 30, 0.185)] box-border bg-gardenBG',
+    title: 'justify-self-start text-center my-10 pb-3 text-garden1 font-pacifico text-4xl',
+    accountContainer: 'flex p-1 mr-3 self-end text-xl ',
+    accountText: 'text-garden4 text-base',
+    accountLink: 'text-garden1 pl-3 accountContainer font-semibold',
+  };
 
   return (
-    <div className="w-[620px] h-[550px] flex flex-col items-center justify-start border-[3px] border-garden1 rounded shadow-[0_0_30px_rgba(30, 30, 30, 0.185)] box-border bg-gardenBG">
-      <p className="justify-self-start text-center my-20 pb-2 text-garden1 font-pacifico text-4xl  ">Do Green!</p>
-      <Form
-        onSubmit={onSubmit}
-        buttonName="Login"
-        buttonClass="w-full bg-white flex justify-center hover:bg-gray-100 text-2xl text-garden4 font-semibold py-3 mb-2 mt-3 border-garden1 border-[2px] rounded shadow"
-      >
-        <FormInput
-          name="Email"
-          id="email"
-          placeholder="이메일"
-          type="email"
-          rules={{ required: requiredMessage, validate: validateEmail }}
-        />
-        <FormInput
-          name="Password"
-          id="password"
-          placeholder="비밀번호 입력"
-          type="password"
-          onChange={(e) => setCurrentPwd(e.target.value)}
-          rules={{ required: requiredMessage, validate: validatePassword }}
-        />
-      </Form>
-      <div className="flex p-3 mr-8 self-end text-xl ">
-        <p className="text-garden4">Do It Together.. </p>
-        <a className="text-garden1 pl-3 font-semibold" href="/register" id="resgister">
+    <div className={className.container}>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex-col w-full px-3">
+        <p className={className.title}>Do it together!</p>
+        <InputContainer inputProp="username" label="이메일">
+          <Controller
+            name="email"
+            control={control}
+            defaultValue=""
+            render={({ field }) => {
+              return <FormInput id="email" placeholder="당신의 이메일" {...field} />;
+            }}
+          />
+          <IputError>{errors.email && errors.email.message}</IputError>
+        </InputContainer>
+
+        <InputContainer inputProp="username" label="비밀번호">
+          <Controller
+            name="password"
+            control={control}
+            defaultValue=""
+            render={({ field }) => {
+              return <FormInput type="password" id="password" placeholder="당신의 비밀번호" {...field} />;
+            }}
+          />
+          <IputError>{errors.password && errors.password.message}</IputError>
+        </InputContainer>
+        <InputButton value="가입하기" />
+      </form>
+      <div className={className.accountContainer}>
+        <p className={className.accountText}>Do It Together.. </p>
+        <a className={className.accountLink} href="/register" id="resgister">
           Create account
         </a>
       </div>
