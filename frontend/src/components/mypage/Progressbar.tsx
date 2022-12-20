@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageType, ProgressbarType } from './common/theme';
+import { ImageType, ProgressbarType } from '../common/theme';
 interface IProgressInfo {
   value: number;
 }
