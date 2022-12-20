@@ -23,7 +23,7 @@ function Footer() {
           . All Rights Reserved.
         </span>
         <div className="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
-          {svgs.map(svg =>(<Link to={svg.url}>Components[svg.name]</Link>))}
+          {/* {svgs.map(svg =>(<Link to={svg.url}>Components[svg.name]</Link>))} */}
           {/* 1. const 로 가지고 있는 array 만들기 => svgs 에 array로 존재
           2. Components[svg] 를 여러개 가지고 있는 변수 만들기(map 활용)
             * 이 동작을 할 때 React.createElement(svgComponent, {}); 를 해줘야함
