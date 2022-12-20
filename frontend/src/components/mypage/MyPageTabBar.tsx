@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MyPageTabLinkLayout } from './layout/MyPageLayout';
-import { LinkType } from './common/theme';
+import { MyPageTabLinkLayout } from '../layout/MyPageLayout';
+import { LinkType } from '../common/theme';
 
 const MyPageTabBar = () => {
   return (

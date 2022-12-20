@@ -1,6 +1,6 @@
 import React from 'react';
-import { ImageType, TextType, WrapperType } from './common/theme';
-import { MyPageMessageLayout } from './layout/MyPageLayout';
+import { ImageType, TextType, WrapperType } from '../common/theme';
+import { MyPageMessageLayout } from '../layout/MyPageLayout';
 interface IMyPageTopBarProps {
   modal?: boolean;
 }
