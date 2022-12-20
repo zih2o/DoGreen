@@ -1,17 +1,19 @@
 import React from 'react';
+import MyPageTopBar from './MyPageTopBar';
 import MyPageTab from './MyPageTab';
 import SubscribeTab from './SubscribeTab';
-import MyPageTopBar from '../components/MyPageTopBar';
+import { GlobalLayout } from '../layout/GlobalLayout';
+import { MyPageLayout } from '../layout/MyPageLayout';
 
 const MySubscribe = () => {
   return (
-    <div className="mx-auto w-full min-h-screen">
+    <GlobalLayout>
       <MyPageTopBar />
-      <div className="container flex px-5 lg:mt-[113.99px] lg:w-full mx-auto">
+      <MyPageLayout>
         <MyPageTab />
         <SubscribeTab />
-      </div>
-    </div>
+      </MyPageLayout>
+    </GlobalLayout>
   );
 };
 export default MySubscribe;
