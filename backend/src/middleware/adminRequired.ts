@@ -1,16 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
+import { ForbiddenError } from '../errors/ForbiddenError';
 
 const adminRequired = (req: Request, res: Response, next: NextFunction) => {
-// Try-catch 에러처리로 분리?
-  try {
-    if (req.context.currentUser.role !== 'ADMIN') {
-      res.status(403).json({ message: 'Access denied' });
-    } else {
-      next();
-    }
-  } catch (e) {
-    res.status(500).json({ message: `An ${e} has occured` });
+  if (req.context.currentUser.role !== 'ADMIN') {
+    throw new ForbiddenError('관리자만 이용할 수 있습니다.');
   }
+
+  next();
 };
 
 export { adminRequired };
