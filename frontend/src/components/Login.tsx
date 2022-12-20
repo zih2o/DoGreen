@@ -1,18 +1,21 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 import { loginValidation } from './yup';
+import axios from 'axios';
+
 import { InputContainer } from './InputContainer';
 import { FormInput, IputError, InputButton } from './FormsAboutInput';
-import axios from 'axios';
 
 interface ILoginInputProps {
   email: string;
   password: string;
 }
-// const serverURL = 'http://localhost:3000';
+const serverURL = 'http://localhost:3000';
 
 export const Login = () => {
+  const navigate = useNavigate();
   const { schema } = loginValidation();
   const {
     handleSubmit,
@@ -25,13 +28,15 @@ export const Login = () => {
 
   const onSubmit = async (data: ILoginInputProps) => {
     try {
-      console.log(JSON.stringify(data));
-      // alert(JSON.stringify(data));
-      console.log(data);
-      const result = await axios.post(`/auth/login`, { data });
-      console.log(result);
+      const result = await axios.post(`${serverURL}/auth/login`, data);
+      console.log(result.data);
+
+      const accesToken = result.data;
+      window.sessionStorage.setItem('token', accesToken);
+      return navigate('/');
     } catch (err: any) {
-      alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요:
+      // window.sessionStorage.clear();
+      console.log(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요:
       ${err.message}`);
     }
   };
