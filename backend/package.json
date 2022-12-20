@@ -36,7 +36,8 @@
     "mongoose": "6.7.2",
     "swagger-ui-express": "4.6.0",
     "winston": "3.8.2",
-    "winston-transport": "4.5.0"
+    "winston-transport": "4.5.0",
+    "zod": "^3.20.2"
   },
   "devDependencies": {
     "@types/compression": "1.7.2",
