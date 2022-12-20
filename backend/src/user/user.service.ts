@@ -36,6 +36,12 @@ export class UserService implements IUserService {
     return users.map(userToUserDto);
   }
 
+  async isActive(authId: string): Promise<boolean> {
+    const user = await UserModel.findOne({ auth: authId }).select('isDeleted');
+    invariant(user !== null, '유저정보가 존재하지 않습니다.'); // TODO 너무 구림
+    return user.isDeleted;
+  }
+
   // 유저가 자신의 정보를 조회하는 기능
   async findUser(authId: string) {
     const user = await UserModel.findOne({ auth: authId }, undefined, {
