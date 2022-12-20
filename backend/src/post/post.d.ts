@@ -43,7 +43,7 @@ interface IPostRepository {
     deleteOne: (targetPost: string) => Promise<void>
     updateOne: (updatePost: updatePostDto) => Promise<void>
     findAll: () => Promise<PostT[]>
-    findOne: (id: PostT['id']) => Promise<PostT | null>
+    findPost: (id: PostT['id']) => Promise<PostT | null>
 }
 
 interface IPostService {

@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { Types } from 'mongoose';
+import { ObjectId, Types } from 'mongoose';
+import { PostRepository } from './postRepository';
 import { PostService } from './postService';
 
 const postService = new PostService();
@@ -25,7 +26,6 @@ export class PostController {
 
   async findOnePost(req: Request, res: Response, next: NextFunction) {
     const { id } = req.params;
-
     const postInfo = await postService.findOnePost(id);
     res.status(201).json(postInfo);
   }

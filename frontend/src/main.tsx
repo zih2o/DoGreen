@@ -8,10 +8,9 @@ import './index.css';
 import CardPage from './pages/CardPage';
 import MyPage from './pages/MyPage';
 import NewsPage from './pages/NewsPage';
-import MySubscribe from './components/MySubscribe';
-import MyInfoEditTab from './components/MyInfoEditTab';
+import { MyHome, MyInfoEditTab, MySubscribe } from './components/mypage/DetailPage';
 import RegisterPage from './pages/RegisterPage';
-import LoginRgisterModalPage from './pages/LoginRgisterModalPage';
+import LoginModalPage from './pages/LoginModalPage';
 
 const router = createBrowserRouter([
   {
@@ -21,9 +20,9 @@ const router = createBrowserRouter([
       { index: true, path: '/', element: <Home /> },
       {
         path: '/mypage',
-        element: <App />,
+        element: <MyPage />,
         children: [
-          { path: '/mypage', element: <MyPage /> },
+          { path: '/mypage', element: <MyHome /> },
           { path: '/mypage/subscribe', element: <MySubscribe /> },
           { path: '/mypage/editUser', element: <MyInfoEditTab /> },
         ],
@@ -32,7 +31,7 @@ const router = createBrowserRouter([
       { path: '/categories/:catId', element: <CardPage /> },
       { path: '/cards/:cardId', element: <NewsPage /> },
       { path: '/register', element: <RegisterPage /> },
-      { path: '/login', element: <LoginRgisterModalPage /> },
+      { path: '/login', element: <LoginModalPage /> },
     ],
   },
 ]);
