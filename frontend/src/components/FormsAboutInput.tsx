@@ -8,17 +8,12 @@ interface IFormInput {
 }
 
 export const FormInput = ({ type, placeholder, id, error, ...field }: IFormInput) => {
-  return (
-    <input
-      type={type}
-      id={id}
-      placeholder={placeholder}
-      className={`w-full rounded-md border border-gray-300 px-3 py-2 bg-white text-gray-900 placeholder:text-[13px] placeholder-gray-400 focus:z-10 focus:border-forest1 focus:outline-none focus:ring-forest3 text-xs ${
-        error && 'border-forest3'
-      }`}
-      {...field}
-    />
-  );
+  const className = {
+    input: `w-full  px-3 py-2 bg-white rounded-md border border-gray-300 text-gray-900  placeholder:text-[13px] placeholder-gray-400 focus:z-10 focus:border-forest1 focus:outline-none focus:ring-forest3 ${
+      error && 'border-forest3'
+    }`,
+  };
+  return <input type={type} id={id} placeholder={placeholder} className={className.input} {...field} />;
 };
 interface IInputError {
   children: React.ReactNode;

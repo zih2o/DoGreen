@@ -2,7 +2,7 @@ import * as yup from 'yup';
 import { useMemo } from 'react';
 import { passwordRegExp } from '../util/validateUtil';
 
-const useSimpleValidation = () => {
+export const userValidation = () => {
   const schema = useMemo(() => {
     return yup.object({
       email: yup
@@ -28,4 +28,13 @@ const useSimpleValidation = () => {
   return { schema };
 };
 
-export default useSimpleValidation;
+export const loginValidation = () => {
+  const schema = useMemo(() => {
+    return yup.object({
+      email: yup.string().required('이메일을 입력해주세요.').email('올바른 이메일 형식이 아닙니다.'),
+      password: yup.string().required('비밀번호를 입력해주세요.'),
+    });
+  }, []);
+
+  return { schema };
+};
