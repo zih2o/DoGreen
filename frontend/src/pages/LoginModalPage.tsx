@@ -26,7 +26,7 @@ function LoginModalPage() {
       {handleModal && (
         <Modal onClose={onClose}>
           <button type="button" className={className.closeButton} onClick={onClose}>
-            <AiOutlineClose size="24" />
+            <AiOutlineClose size="24" color="#5C5656" />
           </button>
           <Login />
         </Modal>
@@ -35,7 +35,7 @@ function LoginModalPage() {
 
         <모달로 띄우고싶은 컴포넌트 />
         닫기버튼 추가할 경우,
-        1. 해당 위치에서, 모달을 닫고싶은 컴포넌트 및 태그를 추가 (postion : absolute 사용)
+        1. 해당 위치에서, 모달을 닫고싶은 컴포넌트 및 태그를 추가 (postion : absolute 사용 권장)
         2. 속성값으로  'onClick={onClose}' 값을 줌
       
       </Modal>

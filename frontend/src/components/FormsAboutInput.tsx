@@ -13,7 +13,7 @@ export const FormInput = ({ type, placeholder, id, error, ...field }: IFormInput
       type={type}
       id={id}
       placeholder={placeholder}
-      className={`w-full rounded-md border border-gray-300 px-3 py-2 bg-white text-gray-900 placeholder:text-[13px] placeholder-gray-300 focus:z-10 focus:border-forest1 focus:outline-none focus:ring-forest3 text-xs ${
+      className={`w-full rounded-md border border-gray-300 px-3 py-2 bg-white text-gray-900 placeholder:text-[13px] placeholder-gray-400 focus:z-10 focus:border-forest1 focus:outline-none focus:ring-forest3 text-xs ${
         error && 'border-forest3'
       }`}
       {...field}
