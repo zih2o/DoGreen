@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { TextType } from './common/theme';
+import { CardLayout } from './layout/GlobalLayout';
 import { MyPageContentsLayout } from './layout/MyPageLayout';
 
 const SubscribeTab = () => {
@@ -17,14 +19,12 @@ const SubscribeTab = () => {
 
   return (
     <MyPageContentsLayout>
-      <div className="grid grid-cols-1 p-4 mt-12">
-        <div className="flex flex-col w-full ml-0 lg:ml-16 px-0 lg:px-10 pt-10">
-          <div className="text-3xl font-bold">구독중인 토픽</div>
-          <div className="card_wrapper mt-20 mb-20 mx-0 flex">
-            <ul className="flex justify-start place-items-stretch  flex-wrap gap-y-14 gap-x-8">{tabCards}</ul>
-          </div>
+      <CardLayout>
+        <div className={TextType.titleText}>구독중인 토픽</div>
+        <div className="card_wrapper mt-20 mb-20 mx-0 flex">
+          <ul className="flex justify-start place-items-stretch  flex-wrap gap-y-14 gap-x-8">{tabCards}</ul>
         </div>
-      </div>
+      </CardLayout>
     </MyPageContentsLayout>
   );
 };

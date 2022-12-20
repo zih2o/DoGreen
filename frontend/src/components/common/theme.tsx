@@ -12,6 +12,7 @@ interface IImageType {
 }
 
 interface ITextType {
+  titleText: string;
   messageText: string;
 }
 
@@ -33,6 +34,7 @@ export const ImageType: IImageType = {
   progressbarImg: 'w-20 h-20 float-right rounded-full text-center',
 };
 export const TextType: ITextType = {
+  titleText: 'text-3xl font-bold',
   messageText: 'text-emerald-600',
 };
 export const WrapperType: IWrapperType = {
