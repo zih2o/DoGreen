@@ -1,7 +1,7 @@
 import React from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
-import useSimpleValidation from './yup';
+import { userValidation } from './yup';
 import { InputContainer } from './InputContainer';
 import { FormInput, IputError, InputButton } from './FormsAboutInput';
 
@@ -15,7 +15,7 @@ interface IEditInputProps {
   bio: string;
 }
 export const FormEditUserInfo = () => {
-  const { schema } = useSimpleValidation();
+  const { schema } = userValidation();
   const {
     handleSubmit,
     control,

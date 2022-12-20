@@ -8,7 +8,7 @@ interface IInputContainer {
 
 const className = {
   container: 'flex items-start justify-between w-full space-y-2',
-  label: 'flex text-xl font-semibold pt-4',
+  label: 'flex text-xl text-garden4 font-semibold pt-4',
   inputBox: 'flex flex-col w-2/3',
 };
 

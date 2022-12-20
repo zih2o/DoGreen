@@ -1,7 +1,10 @@
 import React from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
-import useSimpleValidation from './yup';
+import { useNavigate } from 'react-router';
+import { userValidation } from './yup';
+import axios from 'axios';
+
 import { InputContainer } from './InputContainer';
 import { FormInput, IputError, InputButton } from './FormsAboutInput';
 
@@ -12,8 +15,11 @@ interface IRegisterInputProps {
   confimrPassword: string;
 }
 
-export const FormRegister = () => {
-  const { schema } = useSimpleValidation();
+const serverURL = 'http://localhost:3000';
+
+export const Register = () => {
+  const navigate = useNavigate();
+  const { schema } = userValidation();
   const {
     handleSubmit,
     control,
@@ -25,14 +31,22 @@ export const FormRegister = () => {
 
   console.log('### errors', errors);
 
-  const onSubmit = (data: IRegisterInputProps) => {
-    console.log(data);
-    alert(JSON.stringify(data));
+  const onSubmit = async (data: IRegisterInputProps) => {
+    try {
+      console.log(data);
+      const res = await axios.post(`${serverURL}/auth/register`, data);
+      console.log(res);
+      alert('정상적으로 회원가입되었습니다.');
+      navigate('/');
+    } catch (error: any) {
+      console.log(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요:
+    ${error.message}`);
+    }
   };
 
   const className = {
     container:
-      'w-[560px] h-[600px] flex flex-col items-center justify-start px-11 border-[3px] border-garden1 rounded shadow-[0_0_30px_rgba(30, 30, 30, 0.185)] box-border bg-gardenBG',
+      'w-[560px] h-[600px] flex flex-col items-center justify-start px-11 border-[3px] border-garden1 box-border rounded bg-gardenBG shadow-[0_0_30px_rgba(30, 30, 30, 0.185)]',
     form: 'flex-col w-full px-3',
     title: 'justify-self-start text-center my-16 pb-2 text-garden1 font-pacifico text-4xl  ',
   };
