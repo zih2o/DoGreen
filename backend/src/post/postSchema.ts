@@ -1,36 +1,27 @@
 import { Schema } from 'mongoose';
 
-const PostSchema = new Schema<PostT>(
+const PostSchema = new Schema(
   {
-    card: {
+    category: {
       type: Schema.Types.ObjectId,
-      ref: 'Card'
-    },
-    author: {
-      type: String,
-      ref: 'User'
+      ref: 'categories',
+      required: true
     },
     content: {
       type: String,
-      minlength: 5
+      minlength: 5,
+      required: true
+    },
+    image: {
+      type: String
     },
     likes: {
-      likedUserList: [{
-        type: Schema.Types.ObjectId,
-        ref: 'user'
-      }],
-      likesNum: {
-        type: Number,
-        default: 0
-      }
+      type: Schema.Types.ObjectId,
+      ref: 'likes'
     },
     comments: {
-      type: [
-        {
-          type: Schema.Types.ObjectId,
-          ref: 'Comment'
-        }
-      ]
+      type: Schema.Types.ObjectId,
+      ref: 'comeents'
     }
   },
   {

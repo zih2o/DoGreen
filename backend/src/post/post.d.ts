@@ -26,10 +26,9 @@ type CardT = {
 // }
 type PostT = {
     id: Types.ObjectId, // mongoDB가 자동생성함
-    card: CardT,
-    author: UserT['username'],
-    title: string,
+    category: categoryT,
     content: string,
+    image: string,
     likes: LikeT,
     comments?: CommentT, // comment를 분리?
     timestamps: Date
