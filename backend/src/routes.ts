@@ -4,6 +4,8 @@ import { authRouter } from './auth/auth.router';
 import { adminRouter } from './user/admin.router';
 import { userRouter } from './user/user.router';
 import { categoryRouter } from './category/categoryRouter';
+import { subscribeRouter } from './subscribe/subscribe.router';
+
 import { postRouter } from './post/postRouter';
 import apiSpec from '../openapi.json' assert { type: 'json' };
 
@@ -14,6 +16,7 @@ router.use('/auth', authRouter);
 router.use('/user', userRouter);
 router.use('/post', postRouter);
 router.use('/category', categoryRouter);
+router.use('/subscribe', subscribeRouter);
 
 // Dev routes
 if (process.env.NODE_ENV === 'development') {
