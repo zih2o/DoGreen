@@ -4,6 +4,7 @@
 @tailwind utilities;
 
 :root {
+  @apply light;
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
@@ -11,14 +12,13 @@
 
   color-scheme: light dark;
   color: theme('colors.garden4');
-  background-color: theme('colors.gardenBG-light');
+  background-color: theme('colors.gardenBG');
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-
 }
 
 * {
@@ -27,5 +27,33 @@
 }
 
 .dark {
-  @apply bg-gray-800 text-zinc-50;
+  color:#b3c5ef;
+  background-color: #0e1525;
+  --color-bg-white:#0e1525;
+  /* --color-bg-garden1: #838DF8; */
+  --color-bg-garden1: #3ABFF8;
+  --color-bg-garden2: #0e1525;
+  --color-bg-garden3: #010101;
+  --color-bg-garden4: #b3c5ef;
+  --color-bg-gardenBG: #0f1729;
+
+  --color-text-garden1: #3ABFF8;
+  --color-text-garden2: #0e1525;
+  --color-text-garden3: #0f1729;
+  --color-text-garden4: #b3c5ef;
+  --color-text-gardenBG: #0f1729;
+}
+
+.light {
+  --color-bg-garden1: #637e69;
+  --color-bg-garden2: #edf4e8;
+  --color-bg-garden3: #f6e6e5;
+  --color-bg-garden4: #5c5656;
+  --color-bg-gardenBG: #eae7e8;
+
+  --color-text-garden1: #637e69;
+  --color-text-garden2: #edf4e8;
+  --color-text-garden3: #f6e6e5;
+  --color-text-garden4: #5c5656;
+  --color-text-gardenBG: #eae7e8;
 }

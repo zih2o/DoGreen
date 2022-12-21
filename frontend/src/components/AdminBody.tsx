@@ -5,7 +5,7 @@ import Categorys from './adminPage/Category';
 function AdminBody(props) {
   return (
     <>
-      <div className="grid col-span-3 row-span-full grid-cols-4 grid-rows-6 lg:col-span-2">
+      <div className="grid col-span-3 row-span-full grid-cols-4 grid-rows-6 lg:col-span-2 bg-garden1">
         <div className="flex flex-wrap justify-between col-span-full p-6 pb-8 bg-garden1 text-garden2 ">
           <img className="m-1" src="/src/assets/profile.png" alt="profile_img" />
           <ul className="flex flex-col justify-center">

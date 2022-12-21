@@ -39,7 +39,7 @@ function Hamburger(props) {
           <LoginForm />
         )}
       </div>
-      <div className="fixed top-[12.3%] left-[0%] w-[30%] h-full bg-garden4 bg-opacity-50 md:w-[70%]" />
+      <div className="fixed top-[12.3%] left-[0%] w-[30%] h-full bg-navBg md:w-[70%]" />
     </>
   );
 }
