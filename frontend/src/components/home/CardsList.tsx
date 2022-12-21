@@ -73,7 +73,7 @@ const CardsList = () => {
       <div className="container mx-auto flex mt-12">
         <div className={TextType.titleText}>{'어떤 주제가 궁금한가요?'} &nbsp;</div>
         <div className={TextType.titleText + ' text-garden1'}>
-          <Link to="/categories/:catId">
+          <Link to="/categories">
             {'>'} &nbsp;
             <span className="hover:underline hover:decoration-garden1 hover:decoration-4">더보기</span>{' '}
           </Link>

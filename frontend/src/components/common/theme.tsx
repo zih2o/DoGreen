@@ -47,7 +47,7 @@ export const ImageType: IImageType = {
   progressbarImg: 'w-20 h-20 float-right rounded-full text-center',
 };
 export const TextType: ITextType = {
-  titleText: 'text-3xl font-bold',
+  titleText: 'text-3xl font-bold leading-10',
   messageText: 'text-emerald-600',
 };
 

@@ -15,11 +15,18 @@ interface IUserSubscriptionData {
   mascotImage: string;
 }
 const getUserSubscription = async (accessToken: string | null) => {
-  const response = await axios.get(`${serverURL}/subscribe`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
+  const response = await axios
+    .get(`${serverURL}/subscribe`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error.response.data);
+    });
   return response.data;
 };
 
@@ -43,10 +50,12 @@ const SubscribeTab = () => {
     <li className={CardType.size} key={index}>
       <Link to="#" className={CardType.layout}>
         <div className={CardType.imgWrapper}>
-          <img className={CardType.img} src="/src/assets/profile.png" alt="default card" />
+          <img className={CardType.img} src={userCardInfo?.mascotImage} alt="default card" />
         </div>
         <div className={CardType.text}>
-          <h2>펭귄이 전하는 오늘의 {card} </h2>
+          <h2>
+            {userCardInfo?.mascotName} 전하는 오늘의 {userCardInfo?.categoryName}{' '}
+          </h2>
         </div>
       </Link>
     </li>
@@ -54,12 +63,21 @@ const SubscribeTab = () => {
 
   return (
     <MyPageContentsLayout>
-      <CardLayout>
-        <div className={TextType.titleText}>구독중인 토픽</div>
-        <div className={WrapperType.cardContentsWrapper}>
-          <ul className={WrapperType.cardListWrapper}>{tabCards}</ul>
+      {userCardInfo && (
+        <CardLayout>
+          <div className={TextType.titleText}>구독중인 토픽</div>
+          <div className={WrapperType.cardContentsWrapper}>
+            <ul className={WrapperType.cardListWrapper}>{tabCards}</ul>
+          </div>
+        </CardLayout>
+      )}
+      <div className="flex-col mt-60 align-middle">
+        <div className={TextType.titleText + ' text-center'}>구독 정보가 없습니다</div>
+        <br></br>
+        <div className="text-2xl text-center leading-10 font-bold text-garden1 underline">
+          <Link to="/categories">구독 바로가기</Link>
         </div>
-      </CardLayout>
+      </div>
     </MyPageContentsLayout>
   );
 };
