@@ -32,8 +32,6 @@ function Footer() {
           React.createElement(svgComponent, {});
           * 1개의 object 안에 name, url 존재
           ** 위에서 Components[name] 을 가지게 만들기 */}
-
-
           <BsFacebook className='w-5 h-5 fill-gray-500/100'/>
           <BsInstagram className='w-5 h-5 fill-gray-500/100'/>
           <BsTwitter className='w-5 h-5 fill-gray-500/100'/>

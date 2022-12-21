@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Card from './Card';
-import Categorys from "./adminPage/Categorys"
+import Categorys from './adminPage/Category';
 function AdminBody(props) {
   return (
     <>
@@ -14,7 +14,7 @@ function AdminBody(props) {
           </ul>
         </div>
         <div className="col-span-full row-start-2 row-span-full p-6 bg-garden1 text-garden2 ">
-          <Categorys name="admin"/>
+          <Categorys name="admin" />
         </div>
       </div>
       <div className="flex flex-col p-6 col-start-4 col-span-full row-span-full bg-garden2 lg:col-start-3">
