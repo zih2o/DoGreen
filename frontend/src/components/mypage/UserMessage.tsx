@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { TextType } from '../common/theme';
 import { MyPageMessageLayout } from '../layout/MyPageLayout';
-import { InitialData } from '../../pages/MyPage';
+import { AuthStore, InitialData } from '../../stores/UserStore';
 
 const serverURL = 'http://localhost:3000';
-const accessToken = sessionStorage.getItem('token');
 
 const getUser = async (accessToken: string | null) => {
   const response = await axios.get(`${serverURL}/user/me`, {
@@ -20,6 +19,7 @@ const getUser = async (accessToken: string | null) => {
 export const UserMessage = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState(InitialData);
+  const accessToken = AuthStore((state) => state.token);
 
   useEffect(() => {
     if (!accessToken) {

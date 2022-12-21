@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ImageType, WrapperType } from '../common/theme';
-import { InitialData } from '../../pages/MyPage';
-import { store } from '../../stores/UserStore';
+import { AuthStore, InitialData } from '../../stores/UserStore';
 interface IMyPageTopBarProps {
   modal?: boolean;
 }
@@ -21,7 +20,7 @@ const getUser = async (accessToken: string | null) => {
 export const ProfileInfo = (props: IMyPageTopBarProps) => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState(InitialData);
-  const accessToken = store((state) => state.token);
+  const accessToken = AuthStore((state) => state.token);
 
   useEffect(() => {
     if (!accessToken) {

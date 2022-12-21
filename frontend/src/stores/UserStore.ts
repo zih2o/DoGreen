@@ -1,7 +1,6 @@
 import create from 'zustand';
-import axios from 'axios';
 
-interface IStore {
+interface IAuthState {
   token: string | null;
 }
 
@@ -20,27 +19,6 @@ export const InitialData: IUserData = {
   imgUrl: '',
 };
 
-export const store = create<IStore>(() => ({
+export const AuthStore = create<IAuthState>(() => ({
   token: sessionStorage.getItem('token'),
 }));
-
-// const getUser = async (accessToken: string | null) => {
-//   const response = await axios.get(`${serverURL}/user/me`, {
-//     headers: {
-//       Authorization: `Bearer ${accessToken}`,
-//     },
-//   });
-//   return response.data;
-// };
-
-// const userStore = create<IUserData>(InitialData)( {
-//     getUserData: async (token: string) => {
-//         const response = await axios.get(`${serverURL}/user/me`, {
-//             headers: {
-//               Authorization: `Bearer ${accessToken}`,
-//             },
-//           });
-//           return response.data;
-//         },
-//     }
-// )
