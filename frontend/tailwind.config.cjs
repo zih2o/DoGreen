@@ -50,8 +50,8 @@ module.exports = {
         },
       },
       animation: {
-        slider1: 'rightMove 20s linear infinite',
-        slider2: 'leftMove 20s linear infinite',
+        slider1: 'rightMove 30s linear infinite',
+        slider2: 'leftMove 30s linear infinite',
       },
     },
   },

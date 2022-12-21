@@ -23,7 +23,7 @@ export const InitialData: IUserData = {
 
 export const getUser = async () => {
   const response = await axios
-    .get('localhost:3000/user/me')
+    .get('/user/me')
     .then((response) => {
       console.log(response);
     })
