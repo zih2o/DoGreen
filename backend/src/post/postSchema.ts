@@ -1,11 +1,10 @@
 import { Schema } from 'mongoose';
 
-const PostSchema = new Schema(
+const PostSchema = new Schema<PostT>(
   {
     category: {
       type: Schema.Types.ObjectId,
-      ref: 'categories',
-      required: true
+      ref: 'categories'
     },
     content: {
       type: String,
@@ -21,7 +20,7 @@ const PostSchema = new Schema(
     },
     comments: {
       type: Schema.Types.ObjectId,
-      ref: 'comeents'
+      ref: 'comments'
     }
   },
   {
