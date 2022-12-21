@@ -3,13 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ImageType, WrapperType } from '../common/theme';
 import { InitialData } from '../../pages/MyPage';
-
+import { store } from '../../stores/UserStore';
 interface IMyPageTopBarProps {
   modal?: boolean;
 }
-
 const serverURL = 'http://localhost:3000';
-const accessToken = sessionStorage.getItem('token');
 
 const getUser = async (accessToken: string | null) => {
   const response = await axios.get(`${serverURL}/user/me`, {
@@ -23,6 +21,7 @@ const getUser = async (accessToken: string | null) => {
 export const ProfileInfo = (props: IMyPageTopBarProps) => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState(InitialData);
+  const accessToken = store((state) => state.token);
 
   useEffect(() => {
     if (!accessToken) {
