@@ -7,25 +7,25 @@ const postService = new PostService();
 
 export class PostController {
   async createPost(req: Request, res: Response, next: NextFunction) {
-    const { createPostInfo } = req.body;
+    const createPostInfo = req.body;
     await postService.createPost(createPostInfo);
     res.status(200).end();
   }
 
   async deletePost(req: Request, res: Response, next: NextFunction) {
-    const { id } = req.params;
+    const id = req.params;
     await postService.deletePost(id);
     res.status(200).end();
   }
 
   async updatePost(req: Request, res: Response, next: NextFunction) {
-    const { updatedContents } = req.body;
-    await postService.updatePost(updatedContents);
+    const updatedContents = req.body;
+    await postService.updatePost(updatedContents, req.params.id);
     res.status(200).end();
   }
 
   async findOnePost(req: Request, res: Response, next: NextFunction) {
-    const { id } = req.params;
+    const id = req.params;
     const postInfo = await postService.findOnePost(id);
     res.status(201).json(postInfo);
   }

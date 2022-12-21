@@ -2,7 +2,11 @@ import { Schema } from 'mongoose';
 
 const commentSchema = new Schema(
   {
-    author: {
+    refPost: {
+      type: Schema.Types.ObjectId,
+      ref: 'posts'
+    },
+    username: {
       type: Schema.Types.ObjectId,
       ref: 'users'
     },
