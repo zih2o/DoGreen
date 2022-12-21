@@ -18,6 +18,9 @@ const CardsList = () => {
       '토픽1',
       '뉴스2',
       '푸드2',
+      '라이프스타일2',
+      '후원2',
+      '토픽2',
     ],
     subscribed2: [
       '뉴스',
@@ -67,7 +70,7 @@ const CardsList = () => {
   ));
   return (
     <CardLayout isHome>
-      <div className="flex mt-12">
+      <div className="container mx-auto flex mt-12">
         <div className={TextType.titleText}>{'어떤 주제가 궁금한가요?'} &nbsp;</div>
         <div className={TextType.titleText + ' text-garden1'}>
           <Link to="/categories/:catId">
