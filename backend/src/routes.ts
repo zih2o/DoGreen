@@ -4,7 +4,7 @@ import { authRouter } from './auth/auth.router';
 import { adminRouter } from './user/admin.router';
 import { userRouter } from './user/user.router';
 
-import apiSpec from './openapi.json' assert { type: 'json' };
+import apiSpec from '../openapi.json' assert { type: 'json' };
 
 const router = Router();
 
