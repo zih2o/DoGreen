@@ -29,12 +29,18 @@ export const Login = () => {
   const onSubmit = async (data: ILoginInputProps) => {
     try {
       const res = await axios.post(`${serverURL}/auth/login`, data);
-      console.log(res.data);
 
       const token = res.data;
       window.sessionStorage.setItem('token', token);
+
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      console.log(`토큰: ${token}`);
+
       return navigate('/');
     } catch (error: any) {
+      alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요:
+      ${error.message}
+      해당 창은 모달형태로 대체될 예정입니다.`);
       console.log(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요:
       ${error.message}`);
     }
