@@ -33,12 +33,16 @@ export const Register = () => {
 
   const onSubmit = async (data: IRegisterInputProps) => {
     try {
-      console.log(data);
+      console.log(`입력값 : ${data}`);
       const res = await axios.post(`${serverURL}/auth/register`, data);
       console.log(res);
-      alert('정상적으로 회원가입되었습니다.');
+      alert(`정상적으로 회원가입되었습니다.
+      해당 창은 모달형태로 대체될 예정입니다.`);
       navigate('/');
     } catch (error: any) {
+      alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요:
+      ${error.message}
+      해당 창은 모달형태로 대체될 예정입니다.`);
       console.log(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요:
     ${error.message}`);
     }
@@ -55,7 +59,7 @@ export const Register = () => {
     <div className={className.container}>
       <form onSubmit={handleSubmit(onSubmit)} className={className.form}>
         <p className={className.title}>Do it together!</p>
-        <InputContainer inputProp="username" label="아이디">
+        <InputContainer inputProp="username" label="이름">
           <Controller
             name="username"
             control={control}

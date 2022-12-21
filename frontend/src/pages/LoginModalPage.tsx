@@ -15,9 +15,9 @@ function LoginModalPage() {
   const [loginStatus, setLoginStatus] = useState<string>(initialLoginBtn);
   const logined = () => {
     if (isLogined === null) {
-      setLoginStatus('로그아웃');
       setHandleModal(!handleModal); //로그인 창 열기
     } else {
+      alert('로그아웃하시겠습니까?');
       setLoginStatus('로그인');
       window.sessionStorage.clear();
     }
