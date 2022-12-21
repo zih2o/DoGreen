@@ -2,8 +2,9 @@ import { z } from 'zod';
 
 export const createUserSchema = z.object({
   email: z.string().email().trim(),
-  username: z.string().trim().max(20),
-  password: z.string().trim(),
+  username: z.string().trim().min(2).max(15),
+  password: z.string().trim().regex(/(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/).min(4)
+    .max(15),
   role: z.enum(['USER', 'ADMIN']),
   bio: z.string().max(100).optional(),
   imgUrl: z.string().optional()
