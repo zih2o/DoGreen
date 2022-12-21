@@ -5,7 +5,7 @@ import { adminRouter } from './user/admin.router';
 import { userRouter } from './user/user.router';
 import { categoryRouter } from './category/categoryRouter';
 import { postRouter } from './post/postRouter';
-import apiSpec from './openapi.json' assert { type: 'json' };
+import apiSpec from '../openapi.json' assert { type: 'json' };
 
 const router = Router();
 
