@@ -20,7 +20,7 @@
     "dev": "./scripts/dev.sh",
     "dev-server": "NODE_ENV=development nodemon",
     "ts-node-server": "ts-node --esm --experimental-specifier-resolution=node src/server.ts",
-    "start": "node  --experimental-modules --experimental-specifier-resolution=node dist/server.js",
+    "start": "node --experimental-modules --experimental-specifier-resolution=node dist/server.js",
     "test": "jest",
     "fix-lint": "./node_modules/eslint/bin/eslint.js  src --ext .ts --fix"
   },
@@ -31,19 +31,17 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "4.18.2",
-    "joi": "17.7.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "6.7.2",
     "swagger-ui-express": "4.6.0",
     "winston": "3.8.2",
-    "winston-transport": "4.5.0"
+    "winston-transport": "4.5.0",
+    "zod": "^3.20.2"
   },
   "devDependencies": {
     "@types/compression": "1.7.2",
     "@types/cors": "^2.8.13",
     "@types/express": "4.17.14",
-    "@types/hapi__joi": "17.1.8",
-    "@types/jest": "29.2.3",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/node": "18.11.9",
     "@types/supertest": "2.0.12",
@@ -53,11 +51,7 @@
     "eslint": "8.27.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-plugin-import": "2.26.0",
-    "jest": "29.3.1",
-    "jest-express": "1.12.0",
     "nodemon": "2.0.20",
-    "supertest": "6.3.1",
-    "ts-jest": "29.0.3",
     "ts-node": "10.9.1",
     "typescript": "4.8.4"
   },

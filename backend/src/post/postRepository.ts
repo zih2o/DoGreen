@@ -1,7 +1,9 @@
 import { model, Types } from 'mongoose';
+import { CategorySchema } from '../category/categorySchema';
 import { PostSchema } from './postSchema';
 
 const PostModel = model<PostT>('posts', PostSchema);
+const CategoryModel = model<categoryT>('categories', CategorySchema);
 
 export class PostRepository implements IPostRepository {
   async findAll() {
@@ -14,16 +16,18 @@ export class PostRepository implements IPostRepository {
     return postInfo;
   }
 
-  async createOne(newPost: createPostDto) {
-    await PostModel.create(newPost);
+  async createOne(newPost: createPostDto, id: createCategoryDto) {
+    const newPostId = await PostModel.create({ category: id, content: newPost.content });
+    await CategoryModel.updateOne({ id }, { $push: { posts: newPostId } });
   }
 
   async deleteOne(id:PostT['id']) {
-    await PostModel.deleteOne({ _id: id });
+    await PostModel.findByIdAndDelete(id.id);
+    await CategoryModel.updateOne({ $pull: { posts: id.id } });
   }
 
-  async updateOne(postInfo :updatePostDto) {
-    await PostModel.updateOne({ _id: postInfo.id }, { content: postInfo.content });
+  async updateOne(id: PostT['id'], toUpdatePost :updatePostDto) {
+    await PostModel.updateOne({ _id: id }, toUpdatePost);
   }
 }
 

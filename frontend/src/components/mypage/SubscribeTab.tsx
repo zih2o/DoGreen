@@ -9,9 +9,11 @@ const SubscribeTab = () => {
   const tabCards = tabCategories.subscribed.map((card, index) => (
     <li className={CardType.size} key={index}>
       <Link to="#" className={CardType.layout}>
-        <div className={CardType.img}></div>
+        <div className={CardType.imgWrapper}>
+          <img className={CardType.img} src="/src/assets/profile.png" alt="default card" />
+        </div>
         <div className={CardType.text}>
-          <h2>{card}</h2>
+          <h2>펭귄이 전하는 오늘의 {card} </h2>
         </div>
       </Link>
     </li>

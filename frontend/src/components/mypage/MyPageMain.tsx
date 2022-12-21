@@ -1,13 +1,13 @@
 import React from 'react';
 import TotalProgressBar from './Progressbar';
 import ChallengeInfo from './ChallengeInfo';
-import { InitialData, UserMessage } from './UserInfo';
+import { UserMessage } from './UserInfo';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
 
 const MyPageMain = () => {
   return (
     <MyPageContentsLayout>
-      <TotalProgressBar value={InitialData.rank} />
+      <TotalProgressBar value={60} />
       <UserMessage />
       <ChallengeInfo />
     </MyPageContentsLayout>

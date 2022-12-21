@@ -1,8 +1,14 @@
+// 외부 라이브러리
 import { model } from 'mongoose';
 import * as argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
-import { AuthSchema } from './auth.schema';
+// 내부 공통 유틸리티
 import invariant from '../invariant';
+import { ForbiddenError } from '../errors/ForbiddenError';
+import { InternalServerError } from '../errors/InternalServerError';
+import type { CurrentUser } from '../index';
+// 모듈 내부 private
+import { AuthSchema } from './auth.schema';
 
 const AuthModel = model<AuthT>('auths', AuthSchema);
 
@@ -79,5 +85,23 @@ export class AuthService implements IAuthService {
     const authIds = AuthModel.find({ role: 'USER' }).select('_id');
     invariant(authIds !== null, '유저가 존재하지 않습니다.'); // type Guards
     return authIds;
+  }
+
+  verifyCurrentUser(userToken: string): CurrentUser {
+    const secretKey = process.env.JWT_SECRET;
+
+    invariant(
+      secretKey !== undefined,
+      new InternalServerError('JWT secret-key가 필요합니다.')
+    );
+
+    const currentUser = jwt.verify(userToken, secretKey);
+
+    invariant(
+      typeof currentUser === 'object',
+      new ForbiddenError('JWT payload는 객체여야 합니다.')
+    );
+
+    return currentUser as CurrentUser;
   }
 }
