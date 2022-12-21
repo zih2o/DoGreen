@@ -33,5 +33,5 @@ export class UserController {
       await userService.updateUser(email, userInfo);
       res.status(200).end();
     }
-  }
+  };
 }

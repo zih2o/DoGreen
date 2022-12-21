@@ -16,4 +16,19 @@ export class AuthController {
     const userToken = await authService.generateUserToken({ email, password });
     res.status(200).json(userToken);
   };
+
+  async isDuplicated(req: Request, res: Response) {
+    const { email, username } = req.body;
+    const result = { } as Partial<{
+      email: boolean;
+      username: boolean;
+    }>;
+    if (email) {
+      result.email = await userService.isDuplicatedEmail(email);
+    }
+    if (username) {
+      result.username = await userService.isDuplicatedUsername(username);
+    }
+    res.status(200).json(result);
+  }
 };
