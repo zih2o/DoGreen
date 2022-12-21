@@ -1,10 +1,42 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import App from './App';
+import Admin from './pages/Admin';
+import Home from './pages/Home';
+import './index.css';
+import CardPage from './pages/CardPage';
+import MyPage from './pages/MyPage';
+import NewsPage from './pages/NewsPage';
+import { MyHome, MyInfoEditTab, MySubscribe } from './components/mypage/DetailPage';
+import RegisterPage from './pages/RegisterPage';
+import LoginModalPage from './pages/LoginModalPage';
 
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    children: [
+      { index: true, path: '/', element: <Home /> },
+      {
+        path: '/mypage',
+        element: <MyPage />,
+        children: [
+          { path: '/mypage', element: <MyHome /> },
+          { path: '/mypage/subscribe', element: <MySubscribe /> },
+          { path: '/mypage/editUser', element: <MyInfoEditTab /> },
+        ],
+      },
+      { path: '/admin', element: <Admin /> },
+      { path: '/categories/:catId', element: <CardPage /> },
+      { path: '/cards/:cardId', element: <NewsPage /> },
+      { path: '/register', element: <RegisterPage /> },
+      { path: '/login', element: <LoginModalPage /> },
+    ],
+  },
+]);
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>,
-)
+);
