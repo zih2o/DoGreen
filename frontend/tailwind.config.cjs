@@ -23,13 +23,35 @@ module.exports = {
         forest2: '#65D26D',
         forest3: '#D09645',
         forest4: '#110E0E',
-        forestBG: '#57B55F'
+        forestBG: '#57B55F',
       },
       fontFamily: {
         pacifico: ['Pacifico', 'sans-serif'],
       },
       spacing: {
         320: '80rem',
+      },
+      keyframes: {
+        leftMove: {
+          '0%': {
+            transform: 'translateX(0px)',
+          },
+          '100%': {
+            transform: 'translateX(-1020px)',
+          },
+        },
+        rightMove: {
+          '0%': {
+            transform: 'translateX(-1000px)',
+          },
+          '100%': {
+            transform: 'translateX(20px)',
+          },
+        },
+      },
+      animation: {
+        slider1: 'rightMove 30s linear infinite',
+        slider2: 'leftMove 30s linear infinite',
       },
     },
   },
