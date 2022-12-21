@@ -6,13 +6,13 @@ import { LinkType } from '../common/theme';
 const MyPageTabBar = () => {
   return (
     <MyPageTabLinkLayout>
-      <Link to="/mypage" className={LinkType.mypageTab}>
+      <Link to="/mypage" className={LinkType.mypageTab + ' hover:underline hover:decoration-2'}>
         마이페이지 홈
       </Link>
-      <Link to="/mypage/editUser" className={LinkType.mypageTab}>
+      <Link to="/mypage/editUser" className={LinkType.mypageTab + ' hover:underline hover:decoration-2'}>
         내 정보 수정
       </Link>
-      <Link to="/mypage/subscribe" className={LinkType.mypageTab}>
+      <Link to="/mypage/subscribe" className={LinkType.mypageTab + ' hover:underline hover:decoration-2'}>
         내 구독 정보
       </Link>
     </MyPageTabLinkLayout>

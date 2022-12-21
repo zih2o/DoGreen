@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { AuthService } from '../auth/auth.service';
+import { zParse } from '../zParse';
 import { UserService } from './user.service';
+import { updateSchema } from './user.zodSchema';
 
 const userService = new UserService();
 const authService = new AuthService();
@@ -21,9 +23,10 @@ export class UserController {
 
   async updateMyself(req: Request, res: Response) {
     const { email } = req.context.currentUser;
-    const { oldPassword, newPassword, ...userInfo } = req.body as Partial<{
-      oldPassword: string, newPassword: string,
-    } & Omit<UserT, 'auth' | 'isDeleted'>>;
+    const {
+      body: { oldPassword, newPassword, ...userInfo }
+    } = await zParse(updateSchema, req);
+
     const isExistUser = await authService.existUserByEmail(email);
     if (isExistUser === true) {
       await authService.updatePassword(oldPassword, {
@@ -33,5 +36,5 @@ export class UserController {
       await userService.updateUser(email, userInfo);
       res.status(200).end();
     }
-  }
+  };
 }
