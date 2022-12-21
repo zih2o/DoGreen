@@ -1,11 +1,12 @@
 import bodyParser from 'body-parser';
 import compression from 'compression';
-import path from 'path';
+import cors from 'cors';
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import ApplicationError from './errors/application-error';
 import routes from './routes';
 import logger from './logger';
+import ApplicationError from './errors/ApplicationError';
 
 const app = express();
 
