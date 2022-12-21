@@ -1,770 +1,320 @@
 {
-  "openapi": "3.0.0",
+  "openapi": "3.0.1",
   "info": {
-    "title": "green(temp)",
-    "version": "1.0.0"
+    "title": "API Service",
+    "version": "1.0.0",
+    "description": "API Service endpoints",
+    "contact": {
+      "email": "sidhant@panda.fyi",
+      "name": "Sidhant Panda"
+    }
   },
   "servers": [
     {
-      "url": "http://{{local}}:3000"
+      "url": "/"
     }
   ],
   "tags": [
     {
-      "name": "auth",
-      "description": "회원가입과 로그인을 담당합니다."
-    },
-    {
-      "name": "admin",
-      "description": "관리자와 관련된 기능을 담당합니다."
-    },
-    {
-      "name": "user",
-      "description": "user에 대한 기능을 담당합니다."
+      "name": "book",
+      "description": "Books APIs"
     }
   ],
   "paths": {
-    "/auth/register": {
+    "/book/add": {
       "post": {
-        "tags": [
-          "auth"
-        ],
-        "summary": "user의 회원가입",
+        "tags": ["book"],
+        "summary": "Add a book to the database",
+        "operationId": "book-add",
         "requestBody": {
+          "description": "New user signing up",
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "example": {
-                  "email": "admin@gmail.com",
-                  "username": "admin",
-                  "password": "password!",
-                  "role": "ADMIN"
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Created",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 17 Dec 2022 06:38:58 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              },
-              "Transfer-Encoding": {
-                "schema": {
-                  "type": "string",
-                  "example": "chunked"
-                }
-              }
-            },
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": null
-              }
-            }
-          }
-        }
-      }
-    },
-    "/auth/login": {
-      "post": {
-        "tags": [
-          "auth"
-        ],
-        "summary": "admin의 로그인",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "example": {
-                  "email": "admin@gmail.com",
-                  "password": "password!"
-                }
+                "$ref": "#/components/schemas/DraftBookSchema"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": "210"
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"d2-7Q4VzPtmuJc5axsYzwWVPI04mMQ\""
-                }
-              },
-              "Vary": {
-                "schema": {
-                  "type": "string",
-                  "example": "Accept-Encoding"
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 17 Dec 2022 13:33:40 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
+            "description": "Book was added",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
-                },
-                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoSWQiOiI2MzlkNjhkM2VmNWI0Zjk4MzljZWNiZWIiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY3MTI4NDAyMH0.tXo0sRM3U_vcRxw7Mhjg_krYCm2upOnbQY45fhF-I9M"
+                  "$ref": "#/components/schemas/BookSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerErrorSchema"
+                }
               }
             }
           }
         }
       }
     },
-    "/admin/": {
+    "/book/all": {
       "get": {
-        "tags": [
-          "admin"
-        ],
-        "summary": "admin의 모든 유저 조회",
+        "tags": ["book"],
+        "summary": "Get all books in database",
+        "operationId": "book-get-all",
         "responses": {
           "200": {
-            "description": "OK",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": "259"
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"103-nVFR/WSNL4ycCgHhGt0Fszd9rDU\""
-                }
-              },
-              "Vary": {
-                "schema": {
-                  "type": "string",
-                  "example": "Accept-Encoding"
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 17 Dec 2022 07:00:20 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
+            "description": "Search results",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
-                },
-                "example": [
-                  {
-                    "role": "USER",
-                    "email": "lion3@kakao.com",
-                    "username": "라이언"
-                  },
-                  {
-                    "role": "USER",
-                    "email": "lion4@kakao.com",
-                    "username": "라이1언"
-                  },
-                  {
-                    "role": "USER",
-                    "email": "admin@kakao.com",
-                    "username": "관리자"
-                  },
-                  {
-                    "role": "ADMIN",
-                    "email": "admin@gmail.com",
-                    "username": "admin"
+                  "properties": {
+                    "books": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/BookSchema"
+                      }
+                    }
                   }
-                ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerErrorSchema"
+                }
               }
             }
           }
         }
       }
     },
-    "/admin/inactive": {
+    "/book/id/{bookId}": {
       "get": {
-        "tags": [
-          "admin"
+        "parameters": [
+          {
+            "in": "path",
+            "name": "bookId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "ID of book to retrieve"
+          }
         ],
-        "summary": "admin의 비활성화된 user 조회",
+        "tags": ["book"],
+        "summary": "Retrieve a book by ID",
+        "operationId": "book-get",
         "responses": {
           "200": {
-            "description": "OK",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": "66"
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"42-kaMXXRgesEXCFiPxBoRcIvZV1sU\""
-                }
-              },
-              "Vary": {
-                "schema": {
-                  "type": "string",
-                  "example": "Accept-Encoding"
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 17 Dec 2022 07:59:29 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
+            "description": "Book details",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
-                },
-                "example": [
-                  {
-                    "role": "USER",
-                    "email": "admin@kakao.com",
-                    "username": "관리자"
+                  "properties": {
+                    "book": {
+                      "$ref": "#/components/schemas/BookSchema"
+                    }
                   }
-                ]
+                }
               }
             }
-          }
-        }
-      }
-    },
-    "/admin/ban": {
-      "patch": {
-        "tags": [
-          "admin"
-        ],
-        "summary": "admin의 user 계정 비활성화",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "example": [
-                  "관리자"
-                ]
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 17 Dec 2022 07:29:19 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              },
-              "Transfer-Encoding": {
-                "schema": {
-                  "type": "string",
-                  "example": "chunked"
-                }
-              }
-            },
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": null
-              }
-            }
-          }
-        }
-      }
-    },
-    "/admin/cancel": {
-      "patch": {
-        "tags": [
-          "admin"
-        ],
-        "summary": "admin의 user 계정 활성화",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "example": [
-                  "관리자",
-                  "라이1언",
-                  "라이언",
-                  "admin"
-                ]
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 17 Dec 2022 07:50:49 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              },
-              "Transfer-Encoding": {
-                "schema": {
-                  "type": "string",
-                  "example": "chunked"
-                }
-              }
-            },
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": null
-              }
-            }
-          }
-        }
-      }
-    },
-    "/admin/active": {
-      "get": {
-        "tags": [
-          "admin"
-        ],
-        "summary": "admin의 활성화된 user 조회",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": "259"
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"103-nVFR/WSNL4ycCgHhGt0Fszd9rDU\""
-                }
-              },
-              "Vary": {
-                "schema": {
-                  "type": "string",
-                  "example": "Accept-Encoding"
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 17 Dec 2022 07:59:15 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
+          },
+          "404": {
+            "description": "Book not found",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
-                },
-                "example": [
-                  {
-                    "role": "USER",
-                    "email": "lion3@kakao.com",
-                    "username": "라이언"
-                  },
-                  {
-                    "role": "USER",
-                    "email": "lion4@kakao.com",
-                    "username": "라이1언"
-                  },
-                  {
-                    "role": "USER",
-                    "email": "admin@kakao.com",
-                    "username": "관리자"
-                  },
-                  {
-                    "role": "ADMIN",
-                    "email": "admin@gmail.com",
-                    "username": "admin"
-                  }
-                ]
-              }
-            }
-          }
-        }
-      }
-    },
-    "/user/me": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "user가 자신의 정보를 조회",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Content-Type": {
-                "schema": {
-                  "type": "string",
-                  "example": "application/json; charset=utf-8"
-                }
-              },
-              "Content-Length": {
-                "schema": {
-                  "type": "integer",
-                  "example": "195"
-                }
-              },
-              "ETag": {
-                "schema": {
-                  "type": "string",
-                  "example": "W/\"c3-UTQ4hIIjg2JvlZz7kPflLWoJSAw\""
-                }
-              },
-              "Vary": {
-                "schema": {
-                  "type": "string",
-                  "example": "Accept-Encoding"
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 17 Dec 2022 13:26:27 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                },
-                "example": {
-                  "role": "USER",
-                  "email": "lion3@kakao.com",
-                  "username": "라이언",
-                  "bio": "Hi there!",
-                  "imgUrl": "https://user-images.githubusercontent.com/91370858/208048148-47028f2f-d283-4ab1-a43e-3c073543161e.png"
+                  "$ref": "#/components/schemas/NotFoundErrorSchema"
                 }
               }
             }
           }
         }
       },
-      "patch": {
-        "tags": [
-          "user"
-        ],
-        "summary": "user가 자신의 정보를 수정",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "example": {
-                  "oldPassword": "password!",
-                  "bio": "Hi hello!"
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "headers": {
-              "X-Powered-By": {
-                "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 17 Dec 2022 13:31:18 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              },
-              "Transfer-Encoding": {
-                "schema": {
-                  "type": "string",
-                  "example": "chunked"
-                }
-              }
+      "delete": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "bookId",
+            "schema": {
+              "type": "string"
             },
+            "required": true,
+            "description": "ID of book to remove"
+          }
+        ],
+        "tags": ["book"],
+        "summary": "Remove a book by ID",
+        "operationId": "book-remove",
+        "responses": {
+          "204": {
+            "description": "Book removed"
+          },
+          "404": {
+            "description": "Book not found",
             "content": {
-              "text/plain": {
+              "application/json": {
                 "schema": {
-                  "type": "string"
-                },
-                "example": null
+                  "$ref": "#/components/schemas/NotFoundErrorSchema"
+                }
               }
             }
           }
         }
       }
     },
-    "/user/me/withdraw": {
-      "patch": {
-        "tags": [
-          "user"
+    "/book/search": {
+      "get": {
+        "tags": ["book"],
+        "summary": "Search books by name or author",
+        "operationId": "book-search",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "schema": {
+              "type": "string",
+              "default": "hitchhiker"
+            },
+            "description": "String containing full name or partial name of the book"
+          },
+          {
+            "in": "query",
+            "name": "author",
+            "schema": {
+              "type": "string",
+              "default": "douglas"
+            },
+            "description": "String containing full name or partial name of the author"
+          }
         ],
-        "summary": "user가 회원탈퇴",
-        "requestBody": {
-          "content": {}
-        },
         "responses": {
           "200": {
-            "description": "OK",
-            "headers": {
-              "X-Powered-By": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Express"
-                }
-              },
-              "Date": {
-                "schema": {
-                  "type": "string",
-                  "example": "Sat, 17 Dec 2022 13:32:22 GMT"
-                }
-              },
-              "Connection": {
-                "schema": {
-                  "type": "string",
-                  "example": "keep-alive"
-                }
-              },
-              "Keep-Alive": {
-                "schema": {
-                  "type": "string",
-                  "example": "timeout=5"
-                }
-              },
-              "Transfer-Encoding": {
-                "schema": {
-                  "type": "string",
-                  "example": "chunked"
+                  "properties": {
+                    "books": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/BookSchema"
+                      }
+                    }
+                  }
                 }
               }
-            },
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
             "content": {
-              "text/plain": {
+              "application/json": {
                 "schema": {
-                  "type": "string"
-                },
-                "example": null
+                  "$ref": "#/components/schemas/ServerErrorSchema"
+                }
               }
             }
           }
         }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BadRequestSchema": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error message",
+            "example": "PATH: [author] ;; MESSAGE: \"author\" is required"
+          }
+        },
+        "required": ["error"]
+      },
+      "ServerErrorSchema": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Internal server error"
+          }
+        },
+        "required": ["error"]
+      },
+      "NotFoundErrorSchema": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Item not found"
+          }
+        },
+        "required": ["error"]
+      },
+      "DraftBookSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the book",
+            "example": "The Hitchhiker's Guide to the Galaxy"
+          },
+          "author": {
+            "type": "string",
+            "description": "Name of the author",
+            "example": "Douglas Adams"
+          }
+        },
+        "required": ["name", "author"]
+      },
+      "BookSchema": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/DraftBookSchema"
+          }
+        ],
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "MongoDB id of the document",
+            "example": "5d7224d3b40b1a1a046697dd"
+          },
+          "createdAt": {
+            "type": "number",
+            "description": "Created at timestamp in miliseconds",
+            "example": 1616158942428
+          },
+          "updatedAt": {
+            "type": "number",
+            "description": "Updated at timestamp in miliseconds",
+            "example": 1616158942428
+          }
+        },
+        "required": ["_id", "createdAt", "updatedAt"]
       }
     }
   }

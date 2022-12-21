@@ -10,7 +10,6 @@
     }
   },
   "rules": {
-    "linebreak-style": 0,
     "import/extensions": [
       0,
       "never",
@@ -63,8 +62,8 @@
       "error",
       {
         "devDependencies": [
-          "/*.test.ts",
-          "/.spec.ts"
+          "**/*.test.ts",
+          "**/*.spec.ts"
         ]
       }
     ],
