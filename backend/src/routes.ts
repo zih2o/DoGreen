@@ -1,26 +1,24 @@
 import { Router } from 'express';
 import swaggerUi from 'swagger-ui-express';
-import apiSpec from '../openapi.json';
-
-import * as BookController from './controllers/book';
-
-const swaggerUiOptions = {
-  customCss: '.swagger-ui .topbar { display: none }'
-};
+import { authRouter } from './auth/auth.router';
+import { adminRouter } from './user/admin.router';
+import { userRouter } from './user/user.router';
+import { categoryRouter } from './category/categoryRouter';
+import { postRouter } from './post/postRouter';
+import apiSpec from '../openapi.json' assert { type: 'json' };
 
 const router = Router();
 
-// Book routes
-router.post('/book/add', BookController.add);
-router.get('/book/all', BookController.all);
-router.get('/book/search', BookController.search);
-router.get('/book/id/:bookId', BookController.get);
-router.delete('/book/id/:bookId', BookController.remove);
+router.use('/admin', adminRouter);
+router.use('/auth', authRouter);
+router.use('/user', userRouter);
+router.use('/post', postRouter);
+router.use('/category', categoryRouter);
 
 // Dev routes
 if (process.env.NODE_ENV === 'development') {
   router.use('/dev/api-docs', swaggerUi.serve);
-  router.get('/dev/api-docs', swaggerUi.setup(apiSpec, swaggerUiOptions));
+  router.get('/dev/api-docs', swaggerUi.setup(apiSpec));
 }
 
 export default router;

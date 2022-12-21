@@ -14,13 +14,15 @@ const levelStyleMap: { [key: string]: string } = {
 };
 
 export default class ConsoleLogTransport extends Transport {
-
   log(info: any, callback: { (): void }) {
     const label = info.consoleLoggerOptions?.label! || (info.level as string).toUpperCase();
     const finalMessage = `[${new Date().toISOString()}] [${label}] ${info.message}`;
-
+    // ESLint 씹음
+    // eslint-disable-next-line no-console
     console.log(levelStyleMap[info.level], finalMessage);
-    info.stack && console.log('\t', info.stack);
-    callback();
+    if (info.stack) {
+      // eslint-disable-next-line no-console
+      console.log('\t', info.stack);
+    } callback();
   }
 }
