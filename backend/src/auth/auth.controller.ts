@@ -19,7 +19,10 @@ export class AuthController {
 
   async isDuplicated(req: Request, res: Response) {
     const { email, username } = req.body;
-    const result = { email: false, username: false };
+    const result = { } as Partial<{
+      email: boolean;
+      username: boolean;
+    }>;
     if (email) {
       result.email = await userService.isDuplicatedEmail(email);
     }
