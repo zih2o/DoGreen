@@ -5,7 +5,22 @@ import MyPageTopBar from '../components/mypage/MyPageTopBar';
 import { GlobalLayout } from '../components/layout/GlobalLayout';
 import { MyPageLayout } from '../components/layout/MyPageLayout';
 
-const MyPage = () => {
+export interface IUserData {
+  role: string;
+  email: string;
+  username: string;
+  bio: string;
+  imgUrl: string;
+}
+export const InitialData: IUserData = {
+  role: '',
+  email: '',
+  username: '',
+  bio: '',
+  imgUrl: '',
+};
+
+export const MyPage = () => {
   return (
     <GlobalLayout>
       <MyPageTopBar />
@@ -16,4 +31,3 @@ const MyPage = () => {
     </GlobalLayout>
   );
 };
-export default MyPage;
