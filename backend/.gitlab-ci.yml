@@ -1,7 +1,6 @@
 networks:
   gitlab:
-
-  image: gitlab/dind:latest
+    image: gitlab/dind:latest
 services:
   - docker:dind
 before_script:
@@ -12,14 +11,16 @@ stages:
 build:
   stage: build
   script:
-    - docker build -t $CI_REGISTRY/$CI_PROJECT_PATH:latest . 
+    # 도커 빌드함
+    - docker build -t $CI_REGISTRY/$CI_PROJECT_PATH:latest .
+    # 빌드한 컨테이너를 push해서 올림
     - docker push $CI_REGISTRY/$CI_PROJECT_PATH:latest
   tags:
     - docker 
 deploy:
   stage: deploy
   script:
-    ###### Login to deployment server using SSH #####
+    ######  SSH로 서버 접속 #####
     - mkdir -p ~/.ssh
     - echo "$DEPLOY_SERVER_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
@@ -27,11 +28,13 @@ deploy:
     - eval "$(ssh-agent -s)"
     - ssh-add ~/.ssh/id_rsa
     - ssh-keyscan -H $DEPLOYMENT_SERVER_IP >> ~/.ssh/known_hosts  
-    ###### Pull the registry to deployment server and recereate the docker service #####    
+    # 레지스트리에 로그인
     - ssh $DEPLOYMENT_SERVER_USERNAME@$DEPLOYMENT_SERVER_IP docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY 
+    # 레지스트리에서 pull로 댕겨옴
     - ssh $DEPLOYMENT_SERVER_USERNAME@$DEPLOYMENT_SERVER_IP docker pull $CI_REGISTRY/$CI_PROJECT_PATH:latest
+    # 댕겨온 컨테이너를 docker compose로 올려줌!
     - ssh $DEPLOYMENT_SERVER_USERNAME@$DEPLOYMENT_SERVER_IP docker-compose -f $DOCKER_COMPOSE_FILE_PATH/$DOCKER_COMPOSE_FILE_NAME up -d $CI_PROJECT_NAME
   only:
-    - master
+    - main
   tags:
     - docker
