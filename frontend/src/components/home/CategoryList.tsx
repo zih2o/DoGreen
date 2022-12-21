@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { CardLayout } from '../layout/GlobalLayout';
 import { CardType, TextType, WrapperType } from '../common/theme';
 
-const CategoryList = () => {
+const CardsList = () => {
   const tabCategories = {
     subscribed1: [
       '뉴스',
@@ -88,4 +88,4 @@ const CategoryList = () => {
     </CardLayout>
   );
 };
-export default CategoryList;
+export default CardsList;
