@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Hamburger from './Hamburger';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { FaUserCircle } from 'react-icons/fa';
 import { BsSun, BsFillMoonFill } from 'react-icons/bs';
-import { useHamburgerStore } from './store/store';
+import { useDarkModeStore,useHamburgerStore } from './store/store';
 
 function Header() {
   const { hamburgerOpen, toggleHamburger } = useHamburgerStore();
-  const [darkMode, setDarkMode] = useState(false);
+  const {darkMode, toggleDarkMode} = useDarkModeStore()
+  useEffect(() => {
+        if (darkMode) {
+            window.document.documentElement.classList.add('dark')
+            localStorage.setItem("darkMode", "true")
+        } else {
+            window.document.documentElement.classList.remove('dark')
+            localStorage.setItem("darkMode", "false")
+        }
+    }, [darkMode])
   return (
     <header className="fixed top-0 inset-x-0">
       <div className="grid grid-cols-10 items-center col-span-full top-0 px-6 py-[39px] bg-garden3">
@@ -19,7 +28,7 @@ function Header() {
             </Link>
           </span>
         </div>
-        <button className="col-start-8 md:col-start-9 flex justify-end" onClick={() => setDarkMode(!darkMode)}>
+        <button className="col-start-8 md:col-start-9 flex justify-end" onClick={toggleDarkMode}>
           {darkMode ? (
             <BsFillMoonFill className="w-9 h-9 p-1 fill-garden4/90 border-solid border-2 border-garden4/90 rounded" />
           ) : (

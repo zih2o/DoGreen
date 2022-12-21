@@ -3,22 +3,28 @@ import { Link } from 'react-router-dom';
 import Categorys from './adminPage/Category';
 import LoginForm from './hamburger/LoginForm';
 function Hamburger(props) {
-  const [onUser, setOnUser] = useState(false);
   const isLogined = window.sessionStorage.getItem('token');
-  const initialLoginBtn = isLogined ? '로그아웃' : '로그인';
-  const [loginStatus, setLoginStatus] = useState<string>(initialLoginBtn);
-  const logined = () => {
-    if (isLogined === null) {
-      setLoginStatus('로그아웃');
-      setHandleModal(!handleModal); //로그인 창 열기
-    } else {
-      setLoginStatus('로그인');
-      window.sessionStorage.clear();
-    }
-  };
+  // const initialLoginBtn = isLogined ? '로그아웃' : '로그인';
+  // const [loginStatus, setLoginStatus] = useState<string>(initialLoginBtn);
+  // const logined = () => {
+  //   if (isLogined === null) {
+  //     setLoginStatus('로그아웃');
+  //     setHandleModal(!handleModal); //로그인 창 열기
+  //   } else {
+  //     setLoginStatus('로그인');
+  //     window.sessionStorage.clear();
+  //   }
+  // };
+  // useEffect(() => {
+  //   //제일처음할것
+  //   //localstor
+  // })
+  const className ={
+    topDiv:"p-6 fixed top-[12.3%] z-[9997] bottom-[100px] right-[0%] w-[70%] h-full items-center place-content-between bg-garden4 text-right border-b-2 border-garden4 md:w-[30%]"
+  }
   return (
     <>
-      <div className="p-6 fixed top-[12.3%] z-[9997] bottom-[100px] right-[0%] w-[70%] h-full items-center place-content-between bg-garden4 text-right border-b-2 border-garden4 md:w-[30%]">
+      <div className={className.topDiv}>
         {isLogined ? (
           <>
             <div className="flex flex-col mx-auto items-center">
