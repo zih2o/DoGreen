@@ -9,6 +9,7 @@ import { InternalServerError } from '../errors/InternalServerError';
 import type { CurrentUser } from '../index';
 // 모듈 내부 private
 import { AuthSchema } from './auth.schema';
+import { BadRequestError } from '../errors/BadRequestError';
 
 const AuthModel = model<AuthT>('auths', AuthSchema);
 
@@ -31,7 +32,7 @@ export class AuthService implements IAuthService {
   async generateUserToken(authDTO: Pick<AuthT, 'email' | 'password'>) {
     // email로 auth 정보 찾아온다
     const auth = await AuthModel.findOne({ email: authDTO.email });
-    invariant(auth !== null, `${authDTO.email}은 가입 내역이 없습니다.`); // 타입 가드
+    invariant(auth !== null, new BadRequestError(`${authDTO.email}은 가입 내역이 없습니다.`)); // 타입 가드
 
     // auth의 password와 db의 password를 argon2로 verify한다
     const isVerified = await argon2.verify(
@@ -39,7 +40,7 @@ export class AuthService implements IAuthService {
       authDTO.password // 사용자가 준 plain text
     );
 
-    invariant(isVerified, '패스워드가 일치하지 않습니다.');
+    invariant(isVerified, new BadRequestError('패스워드가 일치하지 않습니다.'));
     invariant(process.env.JWT_SECRET, 'JWT 시크릿이 없습니다');
 
     return jwt.sign(
@@ -56,7 +57,7 @@ export class AuthService implements IAuthService {
   async isPasswordCorrect(oldPassword: AuthT['password'], email: AuthT['email']) {
     // 비밀번호를  수정
     const oldAuth = await AuthModel.findOne({ email });
-    invariant(oldAuth !== null, `${email}은 가입 내역이 없습니다.`); // 타입 가드
+    invariant(oldAuth !== null, new BadRequestError(`${email}은 가입 내역이 없습니다.`)); // 타입 가드
 
     // auth의 password와 db의 password를 argon2로 verify한다
     return argon2.verify(
