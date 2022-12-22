@@ -15,6 +15,12 @@ interface IUserLogin {
   what: () => void;
 }
 
+interface IAdminLogin {
+  token: null | string;
+  isLogined: boolean;
+  what: () => void;
+}
+
 export const useDarkModeStore = create<IDarkMode>((set) => ({
   darkMode: localStorage.getItem("darkMode") === "true" ? true : false,
   toggleDarkMode: () => set((state) => ({ darkMode: !state.darkMode })),
@@ -26,6 +32,12 @@ export const useHamburgerStore = create<IHamburger>((set) => ({
 }));
 
 export const useUserLoginStore = create<IUserLogin>((set) => ({
+  token : window.sessionStorage.getItem('token'),
+  isLogined: false,
+  what: () => set((state) => ({ isLogined: !state.isLogined })),
+}));
+
+export const useAdminLoginStore = create<IAdminLogin>((set) => ({
   token : window.sessionStorage.getItem('token'),
   isLogined: false,
   what: () => set((state) => ({ isLogined: !state.isLogined })),
