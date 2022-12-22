@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Categorys from './adminPage/Category';
 import LoginForm from './hamburger/LoginForm';
-import { useHamburgerStore } from './store/store'
+import { useHamburgerStore } from '../hooks/store';
 
 function Hamburger(props) {
   const { hamburgerOpen, toggleHamburger } = useHamburgerStore();
@@ -48,7 +48,9 @@ function Hamburger(props) {
           <LoginForm />
         )}
       </div>
-      {handleModal && <button className="fixed top-[12.3%] left-[0%] w-[30%] h-full bg-navBg md:w-[70%]" onClick={closeModal} />}
+      {handleModal && (
+        <button className="fixed top-[12.3%] left-[0%] w-[30%] h-full bg-navBg md:w-[70%]" onClick={closeModal} />
+      )}
     </>
   );
 }

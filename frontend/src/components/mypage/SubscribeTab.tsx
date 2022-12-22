@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { CardType, TextType, WrapperType } from '../common/theme';
 import { CardLayout } from '../layout/GlobalLayout';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
-import { AuthStore } from '../store/UserStore';
+import { AuthStore } from '../../hooks/UserStore';
 
 const serverURL = 'http://localhost:3000';
 
