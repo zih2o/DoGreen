@@ -45,7 +45,7 @@ interface IUserService {
     // 이미 존재하는 이메일인지 확인하는 것
     isDuplicatedEmail: (userEmail: UserT['email'])=> Promise<boolean>;
     isDuplicatedUsername: (userEmail: UserT['username'])=> Promise<boolean>;
-    findUsernameByAuthId:(authId:string)=> string;
+    findUserByAuthId:(authId:string)=> Promise<UserT['name']>;
     getInactiveUsers:()=> Promise<UserDto[] | null>;
     getActiveUsers:()=> Promise<UserDto[] | null>;
     withdraw: (email: UserT['email']) => Promise<void>;

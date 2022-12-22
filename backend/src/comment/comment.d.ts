@@ -1,10 +1,10 @@
 type CommentT = {
     refPost: Types.ObjectId,
-    username: Types.ObjectId,
-    content: string,
+    userId: Types.ObjectId,
+    comment: string,
 }
 
 interface ICommentRepository {
-    createComment: (commentInfo: CommentT['content']) => Promise<void>
-    findAllComment: ()=>Promise<CommentT[]>
+    createComment: (comment: CommentT['comment'], postId: CommentT[refPost], userId: CommentT['userId']) => Promise<Object>
+
 }

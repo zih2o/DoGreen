@@ -6,11 +6,11 @@ const CommentSchema = new Schema<CommentT>(
       type: Schema.Types.ObjectId,
       ref: 'posts'
     },
-    username: {
+    userId: {
       type: Schema.Types.ObjectId,
       ref: 'users'
     },
-    content: {
+    comment: {
       type: String,
       required: true
     }

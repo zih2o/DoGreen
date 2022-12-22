@@ -6,4 +6,6 @@ import { loginRequired } from '../middleware/loginRequired';
 const commentController = new CommentController();
 const commentRouter = Router();
 
-commentRouter.post('/');
+commentRouter.post('/', loginRequired, commentController.createComment);
+commentRouter.get('/:id', commentController.findAllCommentAtPost);
+export { commentRouter };
