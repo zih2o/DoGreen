@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ImageType, WrapperType } from '../common/theme';
-import { AuthStore, InitialData } from '../store/UserStore';
+import { AuthStore, InitialData } from '../../hooks/UserStore';
 interface IMyPageTopBarProps {
   modal?: boolean;
 }
