@@ -7,7 +7,7 @@ import axios from 'axios';
 
 import { InputContainer } from '../InputContainer';
 import { ImgContainer } from '../ImgContainer';
-import { FormInput, IputError, InputButton } from '../FormsAboutInput';
+import { FormInput, IputError, InputButton, ClickButton } from '../FormsAboutInput';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
 import { AuthStore, InitialData } from '../store/UserStore';
 
@@ -37,6 +37,7 @@ export const FormEditUserInfo = () => {
   const [userData, setUserData] = useState(InitialData);
   const accessToken = AuthStore((state) => state.token);
 
+  //유저데이터부르기
   useEffect(() => {
     if (!accessToken) {
       navigate('/login');
@@ -48,10 +49,13 @@ export const FormEditUserInfo = () => {
   }, []);
   console.log(userData);
 
+  //react-hook-form yup
   const { schema } = editValidation();
   const {
     handleSubmit,
     control,
+    register,
+    setValue,
     watch,
     formState: { errors },
   } = useForm<IEditInputProps>({
@@ -59,19 +63,26 @@ export const FormEditUserInfo = () => {
     resolver: yupResolver(schema),
   });
 
-  //userData.imgUrl
+  //초기값
+  useEffect(() => {
+    if (userData) {
+      setValue('email', userData.email);
+      setValue('bio', userData.bio);
+      setValue('username', userData.username);
+      setImgPreview(userData.imgUrl);
+    }
+  }, [userData]);
+  //이미지 변경
   const [imgPreview, setImgPreview] = useState(userData.imgUrl);
   const image = watch('imgUrl');
-  console.log(image);
   useEffect(() => {
     if (image && image.length > 0) {
-      console.log(image);
       const file = image?.[0];
       setImgPreview(URL.createObjectURL(file));
-      console.log(imgPreview);
     }
   }, [image]);
 
+  //수정하기
   const onSubmit = async (data: IEditInputProps) => {
     console.log(data);
     alert(JSON.stringify(data));
@@ -84,8 +95,21 @@ export const FormEditUserInfo = () => {
       console.log(error);
     }
   };
+
+  //탈퇴하기
+  const onClickWithdraw = async () => {
+    try {
+      console.log('회원탈퇴');
+      alert('정말로 회원탈퇴하시겠습니까?');
+      const res = await axios.patch(`${serverURL}/user/me/withdraw`);
+      alert('탈퇴되었습니다');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const className = {
-    container: 'flex-col justify-center w-full mb-[60px] w-[700px] py-5 pl-10 flex-1',
+    container: 'flex flex-col justify-center items-center w-full mb-[60px] w-[700px] py-5 pl-10 flex-1',
     title: 'text-center p-10 text-3xl font-bold',
     form: 'flex-col w-full px-3',
   };
@@ -95,19 +119,27 @@ export const FormEditUserInfo = () => {
       <div className={className.container}>
         <p className={className.title}>내 정보 수정</p>
         <form onSubmit={handleSubmit(onSubmit)} className={className.form}>
-          <ImgContainer src={imgPreview} label="프로필 사진 변경" inputProp="imgUrl" type="file" id="imgUrl">
+          <ImgContainer src={imgPreview} label="프로필 사진 변경" inputProp="imgUrl">
+            <input type="file" id="imgUrl" className="hidden" {...register('imgUrl')} />
             <IputError>{errors.confimrPassword && errors.confimrPassword.message}</IputError>
           </ImgContainer>
+
           <InputContainer inputProp="email" label="이메일">
-            <p>{userData.email}</p>
+            <Controller
+              name="email"
+              control={control}
+              render={({ field }) => {
+                return <FormInput id="email" disabled {...field} />;
+              }}
+            />
           </InputContainer>
+
           <InputContainer inputProp="username" label="이름">
             <Controller
               name="username"
               control={control}
               render={({ field }) => {
-                const test = errors.username ? 'error' : '';
-                return <FormInput id="username" placeholder={userData.username} error={test} {...field} />;
+                return <FormInput id="username" placeholder="3자이상 20자이하로 등록해주세요." {...field} />;
               }}
             />
             <IputError>{errors.username && errors.username.message}</IputError>
@@ -157,8 +189,8 @@ export const FormEditUserInfo = () => {
           <InputContainer inputProp="bio" label="자기소개">
             <Controller
               name="bio"
-              control={control}
               defaultValue={userData.bio}
+              control={control}
               render={({ field }) => {
                 return <FormInput type="textarea" id="bio" placeholder="자기소개 한 줄 입력해 보세요." {...field} />;
               }}
@@ -168,6 +200,7 @@ export const FormEditUserInfo = () => {
 
           <InputButton value="수정하기" />
         </form>
+        <ClickButton value="탈퇴하기" onClick={onClickWithdraw} />
       </div>
     </MyPageContentsLayout>
   );
