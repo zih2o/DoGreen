@@ -42,8 +42,8 @@ const CardsList = () => {
               </div>
               <div className={CardType.text}>
                 <h2>
-                  {checkName(card.mascotName)} 전하는 <br></br>
-                  <span className="text-garden1">{card.categoryName}</span>
+                  <span className={TextType.mascotNameText}>{checkName(card.mascotName)}</span> 전하는 <br></br>
+                  <span className={TextType.categoryNameText}>{card.categoryName}</span>
                 </h2>
               </div>
             </Link>
@@ -64,8 +64,8 @@ const CardsList = () => {
               </div>
               <div className={CardType.text}>
                 <h2>
-                  {checkName(card.mascotName)} 전하는 <br></br>
-                  <span className="text-garden1">{card.categoryName}</span>
+                  <span className={TextType.mascotNameText}>{checkName(card.mascotName)}</span> 전하는 <br></br>
+                  <span className={TextType.categoryNameText}>{card.categoryName}</span>
                 </h2>
               </div>
             </Link>
