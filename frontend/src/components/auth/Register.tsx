@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router';
 import { userValidation } from './yup';
 import axios from 'axios';
 
-import { InputContainer } from './InputContainer';
-import { FormInput, IputError, InputButton } from './FormsAboutInput';
+import { InputContainer } from '../InputContainer';
+import { FormInput, IputError, InputButton } from '../FormsAboutInput';
 
 interface IRegisterInputProps {
   username: string;

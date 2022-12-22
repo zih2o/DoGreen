@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { useHamburgerStore } from '../store/store';
+import { useHamburgerStore } from '../../hooks/store';
 
 export default function LoginForm() {
   const { hamburgerOpen, toggleHamburger } = useHamburgerStore();
