@@ -59,7 +59,7 @@ const CardsList = () => {
   return (
     <CardLayout isHome>
       <div className="container mx-auto flex mt-12">
-        <div className={TextType.titleText}>{'어떤 주제가 궁금한가요?'} &nbsp;</div>
+        <div className={TextType.titleText}>{'어떤 토픽이 궁금한가요?'} &nbsp;</div>
 
         <div className={TextType.titleText + ' text-garden1'}>
           <Link to="/categories">

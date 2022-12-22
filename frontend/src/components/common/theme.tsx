@@ -38,6 +38,12 @@ interface ICardType {
   text: string;
   front: string;
   back: string;
+  flipContent: string;
+}
+
+interface IButtonType {
+  newsLetterBtn: string;
+  subscribeBtn: string;
 }
 export const LinkType: ILinkType = {
   mypageTab: 'mb-12 pl-8',
@@ -78,4 +84,13 @@ export const CardType: ICardType = {
   text: 'h-1/3 p-5 text-center text-xl font-bold ',
   front: ' absolute w-full backface-hidden',
   back: ' absolute w-full rotate-y-180 ',
+  flipContent:
+    ' transition-transform duration-[1000ms] transform-style-3d hover:rotate-y-180 hover:transition-transform hover:duration-[1200ms]',
+};
+
+export const BtnType: IButtonType = {
+  newsLetterBtn:
+    'text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-xl text-xl px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700',
+  subscribeBtn:
+    'rotation-y-180 focus:outline-none text-white bg-garden1 hover:bg-green-800 focus:ring-2 focus:ring-green-800 rounded-xl text-xl font-bold px-5 py-2.5 mr-2 mb-2 dark:bg-green-700 dark:hover:bg-green-600 dark:focus:ring-green-600',
 };

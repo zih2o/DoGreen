@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { CardLayout, CategoryLayout } from '../components/layout/GlobalLayout';
 import CardSkeleton from '../components/loadings/CardSkeleton';
-import { CardType, TextType, WrapperType } from '../components/common/theme';
+import { CardType, TextType, BtnType, WrapperType } from '../components/common/theme';
 import useCategory from '../hooks/useCategory';
 import { checkName } from '../util/functionUtil';
 
@@ -10,7 +10,7 @@ export default function CategoriesPage() {
   const {
     catQuery: { isLoading, data: categories },
   } = useCategory();
-  const skeletonCards = Array(8).fill(0);
+  const skeletonCards = Array(15).fill(0);
   return (
     <CategoryLayout>
       <CardLayout>
@@ -29,25 +29,13 @@ export default function CategoriesPage() {
             {categories &&
               categories.map((category) => (
                 <>
-                  <li
-                    className={
-                      CardType.size +
-                      ' flip-content transition-transform duration-[1000ms] transform-style-3d hover:rotate-y-180 hover:transition-transform hover:duration-[1200ms]'
-                    }
-                    key={category._id}
-                  >
+                  <li className={CardType.size + CardType.flipContent} key={category._id}>
                     <div className={CardType.layout + CardType.back}>
-                      <button
-                        type="button"
-                        className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-xl text-xl px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                      >
+                      <button type="button" className={BtnType.newsLetterBtn}>
                         {' '}
                         <Link to={`/categories/${category.categoryName}`}>뉴스레터 📰</Link>
                       </button>
-                      <button
-                        type="button"
-                        className="rotation-y-180 focus:outline-none text-white bg-garden1 hover:bg-green-800 focus:ring-2 focus:ring-green-800 rounded-xl text-xl font-bold px-5 py-2.5 mr-2 mb-2 dark:bg-green-700 dark:hover:bg-green-600 dark:focus:ring-green-600"
-                      >
+                      <button type="button" className={BtnType.subscribeBtn}>
                         구독하기 ✅
                       </button>
                     </div>
