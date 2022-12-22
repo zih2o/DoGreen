@@ -30,18 +30,18 @@ function Header() {
         </div>
         <button className="col-start-8 md:col-start-9 flex justify-end" onClick={toggleDarkMode}>
           {darkMode ? (
-            <BsFillMoonFill className="w-9 h-9 p-1 fill-gray-500/100 border-gray-500/100 rounded" />
+            <BsFillMoonFill className="w-9 h-9 p-1" />
           ) : (
-            <BsSun className="w-9 h-9 p-1 fill-gray-500/100 border-gray-500/100 rounded" />
+            <BsSun className="w-9 h-9 p-1" />
           )}
         </button>
         <button
           className="col-start-9 col-span-2 md:col-start10 md:col-span-1 flex justify-end"
           onClick={toggleHamburger}
         >
-          <div className="flex justify-between p-3 border-solid border-2 border-gray-500/100 rounded-full py-2">
-            <GiHamburgerMenu className=" fill-gray-500/100 mr-4" />
-            <FaUserCircle className=" fill-gray-500/100" />
+          <div className="flex justify-between p-3 border-solid border-2 border-garden4/90 rounded-full py-2">
+            <GiHamburgerMenu className="  mr-4" />
+            <FaUserCircle className=" " />
             <span className="sr-only">Hamburger svg</span>
           </div>
         </button>
