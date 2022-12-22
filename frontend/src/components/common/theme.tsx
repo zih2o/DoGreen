@@ -13,6 +13,7 @@ interface IImageType {
 
 interface ITextType {
   titleText: string;
+  introduceText: string;
   messageText: string;
   mascotNameText: string;
   categoryNameText: string;
@@ -52,6 +53,7 @@ export const ImageType: IImageType = {
 };
 export const TextType: ITextType = {
   titleText: 'text-3xl font-bold leading-10',
+  introduceText: 'text-2xl leading-10 mt-3 text-garden1',
   messageText: 'text-emerald-600',
   mascotNameText: 'text-xl',
   categoryNameText: 'text-2xl text-garden1',
@@ -63,16 +65,17 @@ export const WrapperType: IWrapperType = {
   profileWrapper: 'w-2/5',
   textWrapper: 'flex flex-col w-3/5 font-bold text-center ',
   cardContentsWrapper: 'flex mt-20 mb-20 mx-0 ',
-  cardListWrapper: 'flex flex-wrap justify-center gap-y-14 gap-x-12',
+  cardListWrapper: 'flex flex-wrap gap-y-14 gap-x-12',
   cardListRightWrapper: 'flex absolute w-[4428px] top-0 gap-x-12 animate-slider1',
   cardListLeftWrapper: 'flex absolute w-[4400px] bottom-0 gap-x-12 animate-slider2',
 };
 export const CardType: ICardType = {
   size: 'w-56 h-72',
-  layout: 'flex flex-col h-full items-center justify-center rounded-xl shadow-md overflow-hidden ',
+  layout:
+    'flex flex-col h-full items-center justify-center rounded-xl shadow-md overflow-hidden bg-white border border-gray-200 dark:bg-[#292524] dark:border-garden4',
   imgWrapper: 'h-2/3 p-5',
   img: 'w-32 h-32 mb-4 rounded-full shadow-lg',
   text: 'h-1/3 p-5 text-center text-xl font-bold ',
-  front: ' absolute w-full backface-hidden bg-white',
-  back: ' absolute w-full rotate-y-180 bg-white/70',
+  front: ' absolute w-full backface-hidden',
+  back: ' absolute w-full rotate-y-180 ',
 };
