@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 import { editValidation } from '../auth/yup';
+import axios from 'axios';
+
 import { InputContainer } from '../InputContainer';
 import { ImgContainer } from '../ImgContainer';
-
 import { FormInput, IputError, InputButton } from '../FormsAboutInput';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
+import { AuthStore, InitialData } from '../../stores/UserStore';
 
 interface IEditInputProps {
   username: string;
@@ -17,7 +20,34 @@ interface IEditInputProps {
   imgUrl: FileList;
   bio: string;
 }
+
+const serverURL = 'http://localhost:3000';
+
+const getUser = async (accessToken: string | null) => {
+  const response = await axios.get(`${serverURL}/user/me`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return response.data;
+};
+
 export const FormEditUserInfo = () => {
+  const navigate = useNavigate();
+  const [userData, setUserData] = useState(InitialData);
+  const accessToken = AuthStore((state) => state.token);
+
+  useEffect(() => {
+    if (!accessToken) {
+      navigate('/login');
+    }
+    const userInfo = getUser(accessToken);
+    userInfo.then((res) => {
+      setUserData(res);
+    });
+  }, []);
+  console.log(userData);
+
   const { schema } = editValidation();
   const {
     handleSubmit,
@@ -29,8 +59,10 @@ export const FormEditUserInfo = () => {
     resolver: yupResolver(schema),
   });
 
-  const [imgPreview, setImgPreview] = useState('/src/assets/penguin.jpeg');
+  //userData.imgUrl
+  const [imgPreview, setImgPreview] = useState(userData.imgUrl);
   const image = watch('imgUrl');
+  console.log(image);
   useEffect(() => {
     if (image && image.length > 0) {
       console.log(image);
@@ -40,9 +72,17 @@ export const FormEditUserInfo = () => {
     }
   }, [image]);
 
-  const onSubmit = (data: IEditInputProps) => {
+  const onSubmit = async (data: IEditInputProps) => {
     console.log(data);
     alert(JSON.stringify(data));
+    try {
+      alert('수정하시겠습니까?');
+      const res = await axios.patch(`${serverURL}/auth/login`, data);
+      console.log(res);
+      alert('수정되었습니다.');
+    } catch (error) {
+      console.log(error);
+    }
   };
   const className = {
     container: 'flex-col justify-center w-full mb-[60px] w-[700px] py-5 pl-10 flex-1',
@@ -59,18 +99,15 @@ export const FormEditUserInfo = () => {
             <IputError>{errors.confimrPassword && errors.confimrPassword.message}</IputError>
           </ImgContainer>
           <InputContainer inputProp="email" label="이메일">
-            <p>디비에서 불러오는 이메일</p>
+            <p>{userData.email}</p>
           </InputContainer>
           <InputContainer inputProp="username" label="이름">
             <Controller
               name="username"
               control={control}
-              defaultValue=""
               render={({ field }) => {
                 const test = errors.username ? 'error' : '';
-                return (
-                  <FormInput id="username" placeholder="3자이상 20자이하로 등록해주세요." error={test} {...field} />
-                );
+                return <FormInput id="username" placeholder={userData.username} error={test} {...field} />;
               }}
             />
             <IputError>{errors.username && errors.username.message}</IputError>
@@ -80,7 +117,6 @@ export const FormEditUserInfo = () => {
             <Controller
               name="currentPassword"
               control={control}
-              defaultValue=""
               render={({ field }) => {
                 return (
                   <FormInput
@@ -99,7 +135,6 @@ export const FormEditUserInfo = () => {
             <Controller
               name="password"
               control={control}
-              defaultValue=""
               render={({ field }) => {
                 return (
                   <FormInput type="password" id="password" placeholder="변경하실 비밀번호를 입력해주세요" {...field} />
@@ -112,16 +147,8 @@ export const FormEditUserInfo = () => {
             <Controller
               name="confimrPassword"
               control={control}
-              defaultValue=""
               render={({ field }) => {
-                return (
-                  <FormInput
-                    type="password"
-                    id="confimrPassword"
-                    placeholder="변경하실 비밀번호을 한 번 더 입력해주세요"
-                    {...field}
-                  />
-                );
+                return <FormInput type="password" id="confimrPassword" placeholder="비밀번호 확인" {...field} />;
               }}
             />
             <IputError>{errors.confimrPassword && errors.confimrPassword.message}</IputError>
@@ -131,7 +158,7 @@ export const FormEditUserInfo = () => {
             <Controller
               name="bio"
               control={control}
-              defaultValue=""
+              defaultValue={userData.bio}
               render={({ field }) => {
                 return <FormInput type="textarea" id="bio" placeholder="자기소개 한 줄 입력해 보세요." {...field} />;
               }}
