@@ -1,67 +1,56 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { CardLayout } from '../layout/GlobalLayout';
 import { CardType, TextType, WrapperType } from '../common/theme';
-
-const serverURL = 'http://localhost:3000';
-
-interface ICategories {
-  id: string;
-  categoryName: string;
-  mascotName: string;
-  mascotImage: string;
-  posts: Array<string>;
-}
-
-const getCategories = async () => {
-  const response = await axios.get(`${serverURL}/category`);
-  return response.data;
-};
+import useCategory from '../../hooks/useCategory';
+import { checkName } from '../../util/functionUtil';
 
 const CardsList = () => {
-  const [categoryInfo, setCategoryInfo] = useState<ICategories[] | null>(null);
+  const {
+    catQuery: { data: categories },
+  } = useCategory();
 
-  useEffect(() => {
-    const data = getCategories();
-    data.then((res) => {
-      setCategoryInfo(res);
-    });
-  }, []);
-
-  const tabCards1 = categoryInfo?.map((card, index) => {
+  const tabCards1 = categories?.map((card, index) => {
+    const range = categories.length / 2;
     return (
       <>
-        <li key={index} className={CardType.size}>
-          <Link to="#" className={CardType.layout}>
-            <div className={CardType.imgWrapper}>
-              <img className={CardType.img} src={card.mascotImage} alt="default card" />
-            </div>
-            <div className={CardType.text}>
-              <h2>
-                {card.mascotName}이 전하는 오늘의 {card.categoryName}
-              </h2>
-            </div>
-          </Link>
-        </li>
+        {index < range && (
+          <li key={index} className={CardType.size}>
+            <Link to={`/categories/${card.categoryName}`} className={CardType.layout}>
+              <div className={CardType.imgWrapper}>
+                <img className={CardType.img} src={card.mascotImage} alt="default card" />
+              </div>
+              <div className={CardType.text}>
+                <h2>
+                  <span className={TextType.mascotNameText}>{checkName(card.mascotName)}</span> 전하는 <br></br>
+                  <span className={TextType.categoryNameText}>{card.categoryName}</span>
+                </h2>
+              </div>
+            </Link>
+          </li>
+        )}
       </>
     );
   });
-  const tabCards2 = categoryInfo?.map((card, index) => {
+  const tabCards2 = categories?.map((card, index) => {
+    const range = categories.length / 2;
     return (
       <>
-        <li key={index} className={CardType.size}>
-          <Link to="#" className={CardType.layout}>
-            <div className={CardType.imgWrapper}>
-              <img className={CardType.img} src={card.mascotImage} alt="default card" />
-            </div>
-            <div className={CardType.text}>
-              <h2>
-                {card.mascotName}이 전하는 오늘의 {card.categoryName}
-              </h2>
-            </div>
-          </Link>
-        </li>
+        {index >= range && (
+          <li key={index} className={CardType.size}>
+            <Link to={`/categories/${card.categoryName}`} className={CardType.layout}>
+              <div className={CardType.imgWrapper}>
+                <img className={CardType.img} src={card.mascotImage} alt="default card" />
+              </div>
+              <div className={CardType.text}>
+                <h2>
+                  <span className={TextType.mascotNameText}>{checkName(card.mascotName)}</span> 전하는 <br></br>
+                  <span className={TextType.categoryNameText}>{card.categoryName}</span>
+                </h2>
+              </div>
+            </Link>
+          </li>
+        )}
       </>
     );
   });
@@ -81,8 +70,10 @@ const CardsList = () => {
       <div className={WrapperType.homeCategoriesWrapper}>
         <ul id="rightMove" className={WrapperType.cardListRightWrapper}>
           {tabCards1}
+          {tabCards1}
         </ul>
         <ul id="leftMove" className={WrapperType.cardListLeftWrapper}>
+          {tabCards2}
           {tabCards2}
         </ul>
       </div>

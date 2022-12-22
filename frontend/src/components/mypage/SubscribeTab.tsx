@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { CardType, TextType, WrapperType } from '../common/theme';
 import { CardLayout } from '../layout/GlobalLayout';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
-import { AuthStore } from '../../stores/UserStore';
+import { AuthStore } from '../../hooks/useAuth';
 
 const serverURL = 'http://localhost:3000';
 
@@ -81,4 +81,5 @@ const SubscribeTab = () => {
     </MyPageContentsLayout>
   );
 };
+
 export default SubscribeTab;
