@@ -29,7 +29,7 @@ function Hamburger(props) {
   // })
   const className = {
     topDiv:
-      'p-6 fixed top-[12.3%] z-[9997] bottom-[100px] right-[0%] w-[70%] h-full items-center place-content-between bg-garden4 text-right border-b-2 border-garden4 md:w-[30%]',
+      '-z-10 p-6 fixed top-[12.3%] bottom-[100px] right-[0%] w-[70%] h-full items-center place-content-between bg-navbarBG text-right border-b-2 border-garden4 md:w-[30%]',
   };
   return (
     <>
@@ -48,9 +48,7 @@ function Hamburger(props) {
           <LoginForm />
         )}
       </div>
-      {handleModal && (
-        <button className="fixed top-[12.3%] left-[0%] w-[30%] h-full bg-navBg md:w-[70%]" onClick={closeModal} />
-      )}
+      {handleModal && <button className="fixed -z-10 top-[12.3%] left-[0%] w-[30%] h-full bg-navBg md:w-[70%]" onClick={closeModal} />}
     </>
   );
 }
