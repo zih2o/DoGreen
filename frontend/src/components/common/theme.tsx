@@ -14,6 +14,8 @@ interface IImageType {
 interface ITextType {
   titleText: string;
   messageText: string;
+  mascotNameText: string;
+  categoryNameText: string;
 }
 
 interface IWrapperType {
@@ -49,6 +51,8 @@ export const ImageType: IImageType = {
 export const TextType: ITextType = {
   titleText: 'text-3xl font-bold leading-10',
   messageText: 'text-emerald-600',
+  mascotNameText: 'text-xl',
+  categoryNameText: 'text-2xl text-garden1',
 };
 
 export const WrapperType: IWrapperType = {
