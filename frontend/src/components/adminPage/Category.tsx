@@ -15,10 +15,12 @@ interface ICategories {
 interface InameType {
   name: string;
 }
+
 interface IDataType extends InameType {
   url: string;
 }
 
+//name = "admin" || "nav"
 export default function Categorys({ name }: InameType) {
   const categoryDatas: ICategories = {
     admin: [
