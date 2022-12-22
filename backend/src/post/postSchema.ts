@@ -11,17 +11,17 @@ const PostSchema = new Schema<PostT>(
       minlength: 5,
       required: true
     },
-    image: {
+    imageList: [{
       type: String
-    },
+    }],
     likes: {
       type: Schema.Types.ObjectId,
       ref: 'likes'
     },
-    comments: {
+    comments: [{
       type: Schema.Types.ObjectId,
       ref: 'comments'
-    }
+    }]
   },
   {
     timestamps: true

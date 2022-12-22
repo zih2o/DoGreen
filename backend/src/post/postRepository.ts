@@ -1,5 +1,6 @@
 import { model, Types } from 'mongoose';
 import { CategorySchema } from '../category/categorySchema';
+import invariant from '../invariant';
 import { PostSchema } from './postSchema';
 
 const PostModel = model<PostT>('posts', PostSchema);
@@ -17,8 +18,12 @@ export class PostRepository implements IPostRepository {
   }
 
   async createOne(newPost: createPostDto, id: createCategoryDto) {
-    const newPostId = await PostModel.create({ category: id, content: newPost.content });
-    await CategoryModel.updateOne({ id }, { $push: { posts: newPostId } });
+    const newPostId = await PostModel.create({
+      category: id,
+      content: newPost.content,
+      imageList: newPost.imageList
+    });
+    await CategoryModel.updateOne({ id }, { $push: newPostId.id });
   }
 
   async deleteOne(id:PostT['id']) {
@@ -26,8 +31,18 @@ export class PostRepository implements IPostRepository {
     await CategoryModel.updateOne({ $pull: { posts: id.id } });
   }
 
-  async updateOne(id: PostT['id'], toUpdatePost :updatePostDto) {
-    await PostModel.updateOne({ _id: id }, toUpdatePost);
+  async updateOne(id: PostT['id'], toUpdatePost: updatePostDto) {
+    const findCategoryId = await CategoryModel.findOne({ id });
+    // 카테고리 이름 변경
+    await CategoryModel.findByIdAndUpdate(
+      findCategoryId?.id,
+      { categoryName: toUpdatePost.category }
+    );
+    // 포스트 정보 변경
+    await PostModel.updateMany(
+      { _id: id },
+      { content: toUpdatePost.content, imageList: toUpdatePost.imageList }
+    );
   }
 }
 
