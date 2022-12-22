@@ -30,40 +30,47 @@ const CardsList = () => {
   }, []);
 
   const tabCards1 = categoryInfo?.map((card, index) => {
+    console.log(index, card);
+    const range = categoryInfo?.length / 2;
     return (
       <>
-        <li key={index} className={CardType.size}>
-          <Link to="#" className={CardType.layout}>
-            <div className={CardType.imgWrapper}>
-              <img className={CardType.img} src={card.mascotImage} alt="default card" />
-            </div>
-            <div className={CardType.text}>
-              <h2>
-                {checkName(card.mascotName)} 전하는 <br></br>
-                <span className="text-garden1">{card.categoryName}</span>
-              </h2>
-            </div>
-          </Link>
-        </li>
+        {index <= range && (
+          <li key={index} className={CardType.size}>
+            <Link to="#" className={CardType.layout}>
+              <div className={CardType.imgWrapper}>
+                <img className={CardType.img} src={card.mascotImage} alt="default card" />
+              </div>
+              <div className={CardType.text}>
+                <h2>
+                  {checkName(card.mascotName)} 전하는 <br></br>
+                  <span className="text-garden1">{card.categoryName}</span>
+                </h2>
+              </div>
+            </Link>
+          </li>
+        )}
       </>
     );
   });
   const tabCards2 = categoryInfo?.map((card, index) => {
+    const range = categoryInfo?.length / 2;
     return (
       <>
-        <li key={index} className={CardType.size}>
-          <Link to="#" className={CardType.layout}>
-            <div className={CardType.imgWrapper}>
-              <img className={CardType.img} src={card.mascotImage} alt="default card" />
-            </div>
-            <div className={CardType.text}>
-              <h2>
-                {checkName(card.mascotName)} 전하는 <br></br>
-                <span className="text-garden1">{card.categoryName}</span>
-              </h2>
-            </div>
-          </Link>
-        </li>
+        {index > range && (
+          <li key={index} className={CardType.size}>
+            <Link to="#" className={CardType.layout}>
+              <div className={CardType.imgWrapper}>
+                <img className={CardType.img} src={card.mascotImage} alt="default card" />
+              </div>
+              <div className={CardType.text}>
+                <h2>
+                  {checkName(card.mascotName)} 전하는 <br></br>
+                  <span className="text-garden1">{card.categoryName}</span>
+                </h2>
+              </div>
+            </Link>
+          </li>
+        )}
       </>
     );
   });
@@ -83,8 +90,10 @@ const CardsList = () => {
       <div className={WrapperType.homeCategoriesWrapper}>
         <ul id="rightMove" className={WrapperType.cardListRightWrapper}>
           {tabCards1}
+          {tabCards1}
         </ul>
         <ul id="leftMove" className={WrapperType.cardListLeftWrapper}>
+          {tabCards2}
           {tabCards2}
         </ul>
       </div>

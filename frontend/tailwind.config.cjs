@@ -43,24 +43,24 @@ module.exports = {
       keyframes: {
         leftMove: {
           '0%': {
-            transform: 'translateX(0px)',
+            transform: 'translateX(50px)',
           },
           '100%': {
-            transform: 'translateX(-1020px)',
+            transform: 'translateX(-850px)',
           },
         },
         rightMove: {
           '0%': {
-            transform: 'translateX(-1000px)',
+            transform: 'translateX(-1900px)',
           },
           '100%': {
-            transform: 'translateX(20px)',
+            transform: 'translateX(50px)',
           },
         },
       },
       animation: {
         slider1: 'rightMove 30s linear infinite',
-        slider2: 'leftMove 30s linear infinite',
+        slider2: 'leftMove 20s linear infinite',
       },
     },
   },
