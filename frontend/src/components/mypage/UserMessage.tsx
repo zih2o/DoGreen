@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { TextType } from '../common/theme';
 import { MyPageMessageLayout } from '../layout/MyPageLayout';
-import { AuthStore, InitialData } from '../../stores/UserStore';
+import { AuthStore, InitialData } from '../store/UserStore';
 
 const serverURL = 'http://localhost:3000';
 
