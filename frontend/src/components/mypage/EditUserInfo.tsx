@@ -9,7 +9,7 @@ import { InputContainer } from '../InputContainer';
 import { ImgContainer } from '../ImgContainer';
 import { FormInput, IputError, InputButton } from '../FormsAboutInput';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
-import { AuthStore, InitialData } from '../store/UserStore';
+import { AuthStore, InitialData } from '../../hooks/UserStore';
 
 interface IEditInputProps {
   username: string;
