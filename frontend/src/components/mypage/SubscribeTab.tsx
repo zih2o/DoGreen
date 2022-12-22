@@ -81,4 +81,5 @@ const SubscribeTab = () => {
     </MyPageContentsLayout>
   );
 };
+
 export default SubscribeTab;
