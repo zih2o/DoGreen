@@ -35,6 +35,8 @@ interface ICardType {
   imgWrapper: string;
   img: string;
   text: string;
+  front: string;
+  back: string;
 }
 export const LinkType: ILinkType = {
   mypageTab: 'mb-12 pl-8',
@@ -67,8 +69,10 @@ export const WrapperType: IWrapperType = {
 };
 export const CardType: ICardType = {
   size: 'w-56 h-72',
-  layout: 'flex flex-col h-full items-center justify-center rounded-xl shadow-md overflow-hidden bg-white',
+  layout: 'flex flex-col h-full items-center justify-center rounded-xl shadow-md overflow-hidden ',
   imgWrapper: 'h-2/3 p-5',
   img: 'w-32 h-32 mb-4 rounded-full shadow-lg',
   text: 'h-1/3 p-5 text-center text-xl font-bold ',
+  front: ' absolute w-full backface-hidden bg-white',
+  back: ' absolute w-full rotate-y-180 bg-white/70',
 };

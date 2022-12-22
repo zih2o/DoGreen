@@ -51,7 +51,7 @@ module.exports = {
         },
         rightMove: {
           '0%': {
-            transform: 'translateX(-1300px)',
+            transform: 'translateX(-900px)',
           },
           '100%': {
             transform: 'translateX(50px)',
@@ -64,5 +64,6 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  mode: 'jit',
+  plugins: [require('@kamona/tailwindcss-perspective')],
 };
