@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function NewsSkeleton() {
   return (
-    <div className="flex justify-center w-full h-full py-6 bg-gardenBG-light">
+    <div className="flex justify-center w-full h-full py-6 bg-gardenBG">
       <div className="flex flex-col items-center mr-4">
         <div className={'w-12 h-12 rounded-full bg-zinc-300 shadow-xl animate-pulse'} />
       </div>
