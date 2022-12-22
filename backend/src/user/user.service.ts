@@ -55,8 +55,8 @@ export class UserService implements IUserService {
     return userToUserDto(user);
   }
 
-  async findUsernameByAuthId(authId: string){
-    const username = await UserModel.findOne({ auth: authId }).select('username');
+  async findUserByAuthId(authId: string) {
+    const username = await UserModel.findOne({ auth: authId });
     invariant(username !== null, '유저정보가 존재하지 않습니다.');
     return username;
   }
