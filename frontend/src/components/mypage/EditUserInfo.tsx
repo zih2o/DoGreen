@@ -9,7 +9,8 @@ import { InputContainer } from '../InputContainer';
 import { ImgContainer } from '../ImgContainer';
 import { FormInput, IputError, InputButton } from '../FormsAboutInput';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
-import { AuthStore, InitialData } from '../../hooks/UserStore';
+import { AuthStore } from '../../hooks/useAuth';
+import { InitialData } from '../../hooks/useUserData';
 
 interface IEditInputProps {
   username: string;
