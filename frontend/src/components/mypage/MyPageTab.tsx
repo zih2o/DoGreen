@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProfileInfo } from './UserInfo';
+import { ProfileInfo } from './ProfileInfo';
 import MyPageTabBar from './MyPageTabBar';
 import { MyPageTabLayout } from '../layout/MyPageLayout';
 

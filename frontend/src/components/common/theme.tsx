@@ -14,6 +14,8 @@ interface IImageType {
 interface ITextType {
   titleText: string;
   messageText: string;
+  mascotNameText: string;
+  categoryNameText: string;
 }
 
 interface IWrapperType {
@@ -43,25 +45,21 @@ export const ProgressbarType: IProgressbarType = {
   unfilledbar: 'inline-block h-8 rounded-tr-md rounded-br-md bg-slate-100',
 };
 export const ImageType: IImageType = {
-  profileImg: 'w-24 h-24 rounded-full m-2 p-2 bg-slate-100',
+  profileImg: 'w-full h-full rounded-full p-2 m-3 bg-slate-50/30',
   progressbarImg: 'w-20 h-20 float-right rounded-full text-center',
 };
 export const TextType: ITextType = {
-  titleText: 'text-3xl font-bold',
+  titleText: 'text-3xl font-bold leading-10',
   messageText: 'text-emerald-600',
+  mascotNameText: 'text-xl',
+  categoryNameText: 'text-2xl text-garden1',
 };
 
-// function setSlider() {
-//   alert(document.getElementById('rightMove').className)
-// }
-// $(document).ready(function () {
-//   $('animate-slider').attr('')
-// })
 export const WrapperType: IWrapperType = {
   homeCategoriesWrapper: 'relative overflow-hidden h-[620px] z-0 mb-80',
-  profileTotalWrapper: 'flex mx-3 items-center ',
+  profileTotalWrapper: 'flex items-center ',
   profileWrapper: 'w-2/5',
-  textWrapper: 'flex flex-col w-3/5 ml-5 font-bold ',
+  textWrapper: 'flex flex-col w-3/5 font-bold text-center ',
   cardContentsWrapper: 'flex mt-20 mb-20 mx-0 ',
   cardListWrapper: 'flex flex-wrap justify-center gap-y-14 gap-x-12',
   cardListRightWrapper: 'flex absolute w-[4428px] top-0 gap-x-12 animate-slider1',

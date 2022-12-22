@@ -16,6 +16,7 @@ interface ICategoryRepository {
     updateOneCategory: (deleteCategory: updateCategoryDto, id:updateCategoryDto['id']) => Promise<void>
     findOneCategory: (id: categoryT['id']) => Promise<categoryT | null>
     findAllCategory: () => Promise<categoryT[]>
+    findCategoryByIds: (ids: categoryT['id'][])=> Promise<categoryT[]>
 }
 
 //

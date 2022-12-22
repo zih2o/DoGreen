@@ -1,7 +1,7 @@
 import React from 'react';
 import TotalProgressBar from './Progressbar';
 import ChallengeInfo from './ChallengeInfo';
-import { UserMessage } from './UserInfo';
+import { UserMessage } from './UserMessage';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
 
 const MyPageMain = () => {

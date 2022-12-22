@@ -41,7 +41,7 @@ export class AuthService implements IAuthService {
     );
 
     invariant(isVerified, new BadRequestError('패스워드가 일치하지 않습니다.'));
-    invariant(process.env.JWT_SECRET, 'JWT 시크릿이 없습니다');
+    invariant(process.env.JWT_SECRET, new InternalServerError('JWT_SECRET 환경 변수가 필요합니다.'));
 
     return jwt.sign(
       {
@@ -89,14 +89,12 @@ export class AuthService implements IAuthService {
   }
 
   verifyCurrentUser(userToken: string): CurrentUser {
-    const secretKey = process.env.JWT_SECRET;
-
     invariant(
-      secretKey !== undefined,
-      new InternalServerError('JWT secret-key가 필요합니다.')
+      process.env.JWT_SECRET !== undefined,
+      new InternalServerError('JWT_SECRET 환경 변수가 필요합니다.')
     );
 
-    const currentUser = jwt.verify(userToken, secretKey);
+    const currentUser = jwt.verify(userToken, process.env.JWT_SECRET);
 
     invariant(
       typeof currentUser === 'object',
