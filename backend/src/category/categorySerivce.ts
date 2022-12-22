@@ -25,6 +25,10 @@ export class CategoryService {
     return allCategory;
   }
 
+  async findCategoryByIds(ids: categoryT['id'][]) {
+    return categoryRepository.findCategoryByIds(ids);
+  }
+
   async findOneCategory(id: categoryT['id']) {
     const oneCategory = await categoryRepository.findOneCategory(id);
     return oneCategory;

@@ -3,7 +3,7 @@ import React from 'react';
 interface IFormInput {
   type?: string;
   id: string;
-  placeholder: string;
+  placeholder?: string;
   error?: string;
 }
 
@@ -14,6 +14,13 @@ export const FormInput = ({ type, placeholder, id, error, ...field }: IFormInput
     }`,
   };
   return <input type={type} id={id} placeholder={placeholder} className={className.input} {...field} />;
+};
+
+export const ImgInput = ({ type, id, ...field }: IFormInput) => {
+  const className = {
+    input: 'hidden',
+  };
+  return <input type={type} id={id} className={className.input} {...field} />;
 };
 interface IInputError {
   children: React.ReactNode;

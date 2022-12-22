@@ -1,4 +1,6 @@
 import { model, Types } from 'mongoose';
+import { BadRequestError } from '../errors/BadRequestError';
+import invariant from '../invariant';
 import { CategorySchema } from './categorySchema';
 
 const CategoryModel = model<categoryT>('categories', CategorySchema);
@@ -16,6 +18,11 @@ export class CategoryRepository implements ICategoryRepository {
 
   async deleteOneCategory(id: categoryT['id']) {
     await CategoryModel.deleteOne(id);
+  }
+
+  async findCategoryByIds(ids: categoryT['id'][]) {
+    invariant(ids !== null, new BadRequestError('id에 해당하는 카테고리가 존재하지 않습니다.'));
+    return CategoryModel.find({ _id: ids });
   }
 
   async findAllCategory() {

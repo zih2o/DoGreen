@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
-import { editValidation } from '../yup';
+import { editValidation } from '../auth/yup';
 import { InputContainer } from '../InputContainer';
-import { FormInput, IputError, InputButton } from '../FormsAboutInput';
+import { ImgContainer } from '../ImgContainer';
+
+import { FormInput, IputError, InputButton, ImgInput } from '../FormsAboutInput';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
 
 interface IEditInputProps {
@@ -54,23 +56,10 @@ export const FormEditUserInfo = () => {
       <div className={className.container}>
         <p className={className.title}>내 정보 수정</p>
         <form onSubmit={handleSubmit(onSubmit)} className={className.form}>
-          <InputContainer inputProp="profileImg" label="">
-            <input
-              id="profileImg"
-              type="file"
-              className="hidden"
-              accept="image/gif, image/jpeg, image/png, image/jpg"
-              {...register('profileImg')}
-            />
-            <img className={'rounded-full w-[150px] h-[150px] shadow-xl'} src={imgPreview} alt="펭귄" />
-            <label
-              htmlFor="profileImg"
-              className="w-[120px] border-[3px] border-garden1 box-border rounded bg-gardenBG text-center"
-            >
-              프로필 사진 변경
-            </label>
+          <ImgContainer src={imgPreview} label="프로필 사진 변경" inputProp="profileImg">
+            <ImgInput type="file" id="profileImg" />
             <IputError>{errors.confimrPassword && errors.confimrPassword.message}</IputError>
-          </InputContainer>
+          </ImgContainer>
 
           <InputContainer inputProp="username" label="이름">
             <Controller

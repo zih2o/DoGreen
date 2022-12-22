@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 import { useMemo } from 'react';
-import { passwordRegExp } from '../util/validateUtil';
+import { passwordRegExp } from '../../util/validateUtil';
 
 export const userValidation = () => {
   const schema = useMemo(() => {
