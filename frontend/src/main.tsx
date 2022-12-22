@@ -7,7 +7,7 @@ import Admin from './pages/Admin';
 import Home from './pages/Home';
 import './index.css';
 import CategoriesPage from './pages/CategoriesPage';
-import MyPage from './pages/MyPage';
+import { MyPage } from './pages/MyPage';
 import NewsPage from './pages/NewsPage';
 import { MyHome, MyInfoEditTab, MySubscribe } from './components/mypage/DetailPage';
 import RegisterPage from './pages/RegisterPage';
