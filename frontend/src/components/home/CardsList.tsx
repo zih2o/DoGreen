@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { CardLayout } from '../layout/GlobalLayout';
 import { CardType, TextType, WrapperType } from '../common/theme';
@@ -48,6 +47,24 @@ const CardsList = () => {
       </>
     );
   });
+  const tabCards2 = categoryInfo?.map((card, index) => {
+    return (
+      <>
+        <li key={index} className={CardType.size}>
+          <Link to="#" className={CardType.layout}>
+            <div className={CardType.imgWrapper}>
+              <img className={CardType.img} src={card.mascotImage} alt="default card" />
+            </div>
+            <div className={CardType.text}>
+              <h2>
+                {card.mascotName}이 전하는 오늘의 {card.categoryName}
+              </h2>
+            </div>
+          </Link>
+        </li>
+      </>
+    );
+  });
 
   return (
     <CardLayout isHome>
@@ -66,7 +83,7 @@ const CardsList = () => {
           {tabCards1}
         </ul>
         <ul id="leftMove" className={WrapperType.cardListLeftWrapper}>
-          {tabCards1}
+          {tabCards2}
         </ul>
       </div>
     </CardLayout>
