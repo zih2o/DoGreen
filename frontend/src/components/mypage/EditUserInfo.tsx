@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 import { editValidation } from '../auth/yup';
 import { InputContainer } from '../InputContainer';
 import { ImgContainer } from '../ImgContainer';
 
-import { FormInput, IputError, InputButton, ImgInput } from '../FormsAboutInput';
+import { FormInput, IputError, InputButton } from '../FormsAboutInput';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
 
 interface IEditInputProps {
@@ -14,7 +14,7 @@ interface IEditInputProps {
   currentPassword: string;
   password: string;
   confimrPassword: string;
-  profileImg: FileList;
+  imgUrl: FileList;
   bio: string;
 }
 export const FormEditUserInfo = () => {
@@ -23,7 +23,6 @@ export const FormEditUserInfo = () => {
     handleSubmit,
     control,
     watch,
-    register,
     formState: { errors },
   } = useForm<IEditInputProps>({
     mode: 'onSubmit',
@@ -31,7 +30,7 @@ export const FormEditUserInfo = () => {
   });
 
   const [imgPreview, setImgPreview] = useState('/src/assets/penguin.jpeg');
-  const image = watch('profileImg');
+  const image = watch('imgUrl');
   useEffect(() => {
     if (image && image.length > 0) {
       console.log(image);
@@ -46,7 +45,7 @@ export const FormEditUserInfo = () => {
     alert(JSON.stringify(data));
   };
   const className = {
-    container: 'flex-col w-full mb-[60px] py-5 pl-10 flex-1',
+    container: 'flex-col justify-center w-full mb-[60px] w-[700px] py-5 pl-10 flex-1',
     title: 'text-center p-10 text-3xl font-bold',
     form: 'flex-col w-full px-3',
   };
@@ -56,11 +55,12 @@ export const FormEditUserInfo = () => {
       <div className={className.container}>
         <p className={className.title}>내 정보 수정</p>
         <form onSubmit={handleSubmit(onSubmit)} className={className.form}>
-          <ImgContainer src={imgPreview} label="프로필 사진 변경" inputProp="profileImg">
-            <ImgInput type="file" id="profileImg" />
+          <ImgContainer src={imgPreview} label="프로필 사진 변경" inputProp="imgUrl" type="file" id="imgUrl">
             <IputError>{errors.confimrPassword && errors.confimrPassword.message}</IputError>
           </ImgContainer>
-
+          <InputContainer inputProp="email" label="이메일">
+            <p>디비에서 불러오는 이메일</p>
+          </InputContainer>
           <InputContainer inputProp="username" label="이름">
             <Controller
               name="username"
@@ -76,9 +76,6 @@ export const FormEditUserInfo = () => {
             <IputError>{errors.username && errors.username.message}</IputError>
           </InputContainer>
 
-          <InputContainer inputProp="email" label="이메일">
-            <p>디비에서 불러오는 이메일</p>
-          </InputContainer>
           <InputContainer inputProp="currentPassword" label="현재 비밀번호">
             <Controller
               name="currentPassword"
@@ -136,7 +133,7 @@ export const FormEditUserInfo = () => {
               control={control}
               defaultValue=""
               render={({ field }) => {
-                return <FormInput type="text" id="bio" placeholder="자기소개 한 줄 입력해 보세요." {...field} />;
+                return <FormInput type="textarea" id="bio" placeholder="자기소개 한 줄 입력해 보세요." {...field} />;
               }}
             />
             <IputError>{errors.confimrPassword && errors.confimrPassword.message}</IputError>

@@ -5,22 +5,25 @@ interface IInputContainer {
   label: string;
   inputProp: string;
   children: React.ReactNode;
+  type?: string;
+  id: string;
 }
 
 const className = {
-  container: 'flex justify-center w-full ',
-  label: 'flex justify-center border-garden1 box-border rounded bg-gardenBG',
+  container: 'flex flex-col justify-center items-center w-full ',
+  label: 'mx-3 p-1 bg-gardenBG',
+  img: 'mb-3 w-[150px] h-[150px] rounded-full shadow-xl',
   inputBox: 'flex flex-col justify-center items-center  ',
-  img: 'rounded-full w-[150px] h-[150px] shadow-xl',
 };
 
-export const ImgContainer = ({ src, label, inputProp, children }: IInputContainer) => {
+export const ImgContainer = ({ src, label, inputProp, children, type, id, ...field }: IInputContainer) => {
   return (
     <div className={className.container}>
       <img className={className.img} src={src} alt="프로필사진" />
-      <label htmlFor={inputProp} className="">
+      <label htmlFor={inputProp} className={className.label}>
         {label}
       </label>
+      <input type={type} id={id} className="hidden" {...field} />
       <div className={className.inputBox}>{children}</div>
     </div>
   );

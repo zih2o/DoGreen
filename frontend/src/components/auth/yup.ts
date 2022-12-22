@@ -55,7 +55,7 @@ export const editValidation = () => {
         .min(4, '비밀번호는 4자리 이상이어야 합니다.')
         .matches(passwordRegExp, '알파벳, 숫자, 공백을 제외한 특수문자를 모두 포함한 8자리 이상 입력해주세요.'),
       conforimPassword: yup.string().oneOf([yup.ref('password'), null], '비밀번호가 일치하지 않습니다.'),
-      profileImg: yup.mixed(),
+      imgUrl: yup.mixed(),
       bio: yup.string().max(40, '자기소개는 40자 이하이어야 합니다.'),
     });
   }, []);
