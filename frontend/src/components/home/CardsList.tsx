@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { CardLayout } from '../layout/GlobalLayout';
 import { CardType, TextType, WrapperType } from '../common/theme';
-
+import { checkName } from '../../util/functionUtil';
 const serverURL = 'http://localhost:3000';
 
 interface ICategories {
@@ -39,7 +39,8 @@ const CardsList = () => {
             </div>
             <div className={CardType.text}>
               <h2>
-                {card.mascotName}이 전하는 오늘의 {card.categoryName}
+                {checkName(card.mascotName)} 전하는 <br></br>
+                <span className="text-garden1">{card.categoryName}</span>
               </h2>
             </div>
           </Link>
@@ -57,7 +58,8 @@ const CardsList = () => {
             </div>
             <div className={CardType.text}>
               <h2>
-                {card.mascotName}이 전하는 오늘의 {card.categoryName}
+                {checkName(card.mascotName)} 전하는 <br></br>
+                <span className="text-garden1">{card.categoryName}</span>
               </h2>
             </div>
           </Link>
