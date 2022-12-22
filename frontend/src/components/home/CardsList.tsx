@@ -1,42 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { CardLayout } from '../layout/GlobalLayout';
 import { CardType, TextType, WrapperType } from '../common/theme';
+import useCategory from '../../hooks/useCategory';
 import { checkName } from '../../util/functionUtil';
-const serverURL = 'http://localhost:3000';
-
-interface ICategories {
-  id: string;
-  categoryName: string;
-  mascotName: string;
-  mascotImage: string;
-  posts: Array<string>;
-}
-
-const getCategories = async () => {
-  const response = await axios.get(`${serverURL}/category`);
-  return response.data;
-};
 
 const CardsList = () => {
-  const [categoryInfo, setCategoryInfo] = useState<ICategories[] | null>(null);
+  const {
+    catQuery: { data: categories },
+  } = useCategory();
 
-  useEffect(() => {
-    const data = getCategories();
-    data.then((res) => {
-      setCategoryInfo(res);
-    });
-  }, []);
-
-  const tabCards1 = categoryInfo?.map((card, index) => {
-    console.log(index, card);
-    const range = categoryInfo?.length / 2;
+  const tabCards1 = categories?.map((card, index) => {
+    const range = categories.length / 2;
     return (
       <>
-        {index <= range && (
+        {index < range && (
           <li key={index} className={CardType.size}>
-            <Link to="#" className={CardType.layout}>
+            <Link to={`/categories/${card.categoryName}`} className={CardType.layout}>
               <div className={CardType.imgWrapper}>
                 <img className={CardType.img} src={card.mascotImage} alt="default card" />
               </div>
@@ -52,13 +32,13 @@ const CardsList = () => {
       </>
     );
   });
-  const tabCards2 = categoryInfo?.map((card, index) => {
-    const range = categoryInfo?.length / 2;
+  const tabCards2 = categories?.map((card, index) => {
+    const range = categories.length / 2;
     return (
       <>
-        {index > range && (
+        {index >= range && (
           <li key={index} className={CardType.size}>
-            <Link to="#" className={CardType.layout}>
+            <Link to={`/categories/${card.categoryName}`} className={CardType.layout}>
               <div className={CardType.imgWrapper}>
                 <img className={CardType.img} src={card.mascotImage} alt="default card" />
               </div>
