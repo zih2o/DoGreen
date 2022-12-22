@@ -1,6 +1,6 @@
 import React from 'react';
 import MyPageMain from './MyPageMain';
-import { FormEditUserInfo } from '../EditUserInfo';
+import { FormEditUserInfo } from './EditUserInfo';
 import SubscribeTab from './SubscribeTab';
 import ChallengeInfo from './ChallengeInfo';
 

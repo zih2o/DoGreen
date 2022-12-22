@@ -5,8 +5,8 @@ import { Controller, useForm } from 'react-hook-form';
 import { loginValidation } from './yup';
 import axios from 'axios';
 
-import { InputContainer } from './InputContainer';
-import { FormInput, IputError, InputButton } from './FormsAboutInput';
+import { InputContainer } from '../InputContainer';
+import { FormInput, IputError, InputButton } from '../FormsAboutInput';
 
 interface ILoginInputProps {
   email: string;
