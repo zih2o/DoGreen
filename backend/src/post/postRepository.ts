@@ -23,7 +23,7 @@ export class PostRepository implements IPostRepository {
   }
 
   async findPost(id: PostT['id']) {
-    const postInfo = await PostModel.findById(id);
+    const postInfo = await PostModel.findById(id.id);
     return postInfo;
   }
 
