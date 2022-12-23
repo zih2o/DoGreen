@@ -7,11 +7,15 @@ interface ICardLayoutProps {
   children: ReactNode;
   isHome?: boolean;
 }
+
 export const GlobalLayout = ({ children }: ILayoutProps) => {
   return <div className="w-full min-h-screen mx-auto">{children}</div>;
 };
 export const HomeLayout = ({ children }: ILayoutProps) => {
   return <div className="container flex w-full lg:mt-[113.99px] mx-auto px-5">{children}</div>;
+};
+export const CategoryLayout = ({ children }: ILayoutProps) => {
+  return <div className="container w-full lg:mt-[113.99px] pt-10 lg:pt-0 mb-24 mx-auto px-5">{children}</div>;
 };
 export const CardLayout = ({ children, isHome }: ICardLayoutProps) => {
   return (

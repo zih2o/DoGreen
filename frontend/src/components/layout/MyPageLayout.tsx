@@ -12,7 +12,9 @@ export const MyPageBarLayout = ({ children }: IMyPageLayoutProps) => {
 export const MyPageTabLayout = ({ children }: IMyPageLayoutProps) => {
   return (
     <div className="xl:w-80 lg:w-60 lg:block hidden ">
-      <div className="lg:flex-col md:flex mt-20 rounded-lg bg-garden4/5 ">{children}</div>
+      <div className="lg:flex-col md:flex mt-20 rounded-lg bg-white/50 border border-gray-200 dark:bg-[#292524] dark:border-garden4 ">
+        {children}
+      </div>
     </div>
   );
 };
