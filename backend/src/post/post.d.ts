@@ -29,6 +29,7 @@ type PostT = {
     imageList: string[],
     likes: LikeT,
     comments?: CommentT, // comment를 분리?
+    commentArray: array,
     timestamps: Date
 }
 type updatePostDto = Pick<PostT, 'id', 'category', 'content' >; // user이름 바뀌면 안됌? | 카드와 컨첸츠와 타이틀만바뀜
