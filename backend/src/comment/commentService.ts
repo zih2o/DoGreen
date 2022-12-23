@@ -41,6 +41,5 @@ export class CommentService {
     if (isExist === null) {
       await personalCommentRepository.createList(findUser.id, newComment.id);
     } else await personalCommentRepository.pushList(findUser.id, newComment.id);
-    ;
   }
 }
