@@ -83,9 +83,9 @@ export class UserService implements IUserService {
 
   // update, softdeletebyuser 가능
   async updateUser(email: UserT['email'], userInfo: Partial<Omit<UserT, 'email' | 'auth' | 'isDeleted'>>) {
-    if (userInfo.username && await this.isDuplicatedUsername(userInfo.username)) {
-      throw new ConflictError('다른 유저가 사용하고 있는 닉네임입니다.');
-    }
+    // if (userInfo.username && await this.isDuplicatedUsername(userInfo.username)) {
+    //   throw new ConflictError('다른 유저가 사용하고 있는 닉네임입니다.');
+    // }
     await UserModel.updateOne(
       { email }, // filter
       {
