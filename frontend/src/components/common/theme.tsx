@@ -45,6 +45,7 @@ interface IButtonType {
   newsLetterBtn: string;
   subscribeBtn: string;
   subscribingBtn: string;
+  subCancelBtn: string;
 }
 export const LinkType: ILinkType = {
   mypageTab: 'mb-12 pl-8',
@@ -96,4 +97,6 @@ export const BtnType: IButtonType = {
     'rotation-y-180 focus:outline-none text-white bg-garden1 hover:bg-green-800 focus:ring-2 focus:ring-green-800 rounded-xl text-xl font-bold px-5 py-2.5 mr-2 mb-2 dark:bg-green-700 dark:hover:bg-green-600 dark:focus:ring-green-600',
   subscribingBtn:
     'rotation-y-180 text-white bg-garden1 opacity-75 rounded-xl text-xl font-bold px-5 py-2.5 mr-2 mb-2 dark:bg-green-700 cursor-not-allowed',
+  subCancelBtn:
+    'rotation-y-180 focus:outline-none text-white bg-red-500 hover:bg-red-600 focus:ring-2 focus:ring-red-600 rounded-xl text-xl font-bold px-5 py-2.5 mr-2 mb-2 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-600',
 };

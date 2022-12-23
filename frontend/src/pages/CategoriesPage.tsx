@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CardLayout, CategoryLayout } from '../components/layout/GlobalLayout';
 import CardSkeleton from '../components/loadings/CardSkeleton';
 import { CardType, TextType, BtnType, WrapperType } from '../components/common/theme';
 import useCategory, { ICategory } from '../hooks/useCategory';
-import useSubscription from '../hooks/useSubscription';
+import { useSubscription } from '../hooks/useSubscription';
 import { checkName } from '../util/functionUtil';
 import Modal from '../components/Modal';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -12,17 +12,18 @@ import { AiOutlineClose } from 'react-icons/ai';
 interface ISubscriptionInfo {
   categoryId: string;
   categoryName: string;
+  subStatus: boolean;
 }
-
 export const CategoriesPage = () => {
   const [isModal, setIsModal] = useState<boolean>(false);
   const [subStatus, setSubStatus] = useState<string>('구독하기 ✅');
-  const [categoryName, setCategoryName] = useState<string>('');
-  const [categoryId, setCategoryId] = useState<string>('');
+  // const [categoryName, setCategoryName] = useState<string>('');
+  // const [categoryId, setCategoryId] = useState<string>('');
   const [subInfo, setSubInfo] = useState<ISubscriptionInfo[]>([]);
   const [newSubInfo, setNewSubInfo] = useState<ISubscriptionInfo>({
     categoryId: '',
     categoryName: '',
+    subStatus: false,
   });
 
   const {
@@ -30,21 +31,28 @@ export const CategoriesPage = () => {
   } = useCategory();
 
   const { subMutation } = useSubscription(newSubInfo.categoryId as string);
-  const handleSubButton = async (category: ICategory) => {
+  const handleSubButton = (category: ICategory) => {
     console.log('111', category._id, category.categoryName);
-    await setNewSubInfo({ categoryId: category._id, categoryName: category.categoryName });
+    setNewSubInfo((prev) => ({ categoryId: category._id, categoryName: category.categoryName, subStatus: true }));
     setIsModal(!isModal);
     console.log('222', newSubInfo);
-  };
-  const applySubscription = (categoryId: string) => {
-    // setNewSubInfo({ categoryId: categoryId, categoryName: categoryName });
+  }; //비동기라서 바로 업데이트안되고 새로 리렌더링해줘야함 바로 보여줄거면 useRef
+  const applySubscription = () => {
     setSubInfo([...subInfo, newSubInfo]);
     console.log('newSubInfo', newSubInfo.categoryId);
     console.log('subInfo', subInfo);
     subMutation.mutate();
-
-    setSubStatus('구독중 ✅');
+    // setSubStatus('구독중 ✅');
+    //card list 만들어서 카테고리 id
+    //리액트 쿼리
+    // 하나는 객체로 만들어서 key 값
     setIsModal(!isModal);
+  };
+  const handleSubStatus = (id: string) => {
+    subInfo.map((e) => {
+      e.categoryId = id;
+      setSubStatus('구독중');
+    });
   };
   const skeletonCards = Array(15).fill(0);
   return (
@@ -63,7 +71,7 @@ export const CategoriesPage = () => {
                 </li>
               ))}
             {categories &&
-              categories.map((category) => (
+              categories.map((category, idx) => (
                 <li className={CardType.size + CardType.flipContent} key={category._id}>
                   <div key={`back-${category._id}`} className={CardType.layout + CardType.back}>
                     <button type="button" className={BtnType.newsLetterBtn}>
@@ -78,11 +86,10 @@ export const CategoriesPage = () => {
                       disabled={subStatus !== '구독하기 ✅' ? true : false}
                       onClick={() => {
                         handleSubButton(category);
-                        setCategoryId(category._id);
-                        // setSubStatus('');
+                        // handleSubStatus(category._id);
                       }}
                     >
-                      {subStatus}
+                      {subInfo[idx]?.subStatus === true ? '구독중' : '구독하기 '}
                     </button>
                   </div>
                   <div key={`front-${category._id}`} className={CardType.layout + CardType.front}>
@@ -120,13 +127,14 @@ export const CategoriesPage = () => {
                     </button>
                     <div className="px-16 py-8 text-center">
                       <h3 className="mt-5 mb-8 text-xl font-bold text-gray-500 dark:text-gray-400">
-                        <span className={TextType.categoryNameText}>{categoryName}</span> 토픽을 구독하시겠습니까?
+                        <span className={TextType.categoryNameText}>{newSubInfo.categoryName}</span> 토픽을
+                        구독하시겠습니까?
                       </h3>
                       <button
                         data-modal-toggle="popup-modal"
                         type="button"
                         className="text-white bg-red-400 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-400 font-medium rounded-lg text-lg inline-flex items-center px-5 py-2.5 text-center mr-2"
-                        onClick={() => applySubscription(categoryId)}
+                        onClick={() => applySubscription()}
                       >
                         네
                       </button>

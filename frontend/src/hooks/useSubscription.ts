@@ -1,12 +1,16 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { AuthStore } from '../hooks/useAuth';
 
 interface ISubscription {
   _id: string | undefined;
+  categoryName: string;
+  mascotName: string;
+  mascotImage: string;
+  posts: [];
 }
 
-export default function useSubscription(catId: string) {
+export function useSubscription(catId: string) {
   const queryClient = useQueryClient();
   const accessToken = AuthStore((state) => state.token);
   const subMutation = useMutation<ISubscription>({
@@ -30,4 +34,23 @@ export default function useSubscription(catId: string) {
   });
 
   return { subMutation };
+}
+
+export function useSubquery() {
+  const accessToken = AuthStore((state) => state.token);
+  const subQuery = useQuery<ISubscription[]>({
+    queryKey: ['categories'],
+    queryFn: async () => {
+      return axios
+        .get('/subscribe', {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then((res) => res.data);
+    },
+    staleTime: 1000 * 60,
+  });
+
+  return { subQuery };
 }
