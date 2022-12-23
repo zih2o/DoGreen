@@ -5,24 +5,20 @@ import { loginValidation } from './yup';
 
 import { InputContainer } from '../InputContainer';
 import { FormInput, IputError, InputButton } from '../FormsAboutInput';
-import useLogin from '../../hooks/useLogin';
+import { useLogin, IAuthInput } from './authApi';
 
-interface ILoginInputProps {
-  email: string;
-  password: string;
-}
 export const Login = () => {
   const { schema } = loginValidation();
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<ILoginInputProps>({
+  } = useForm<IAuthInput>({
     mode: 'onSubmit',
     resolver: yupResolver(schema),
   });
   const { mutation: loginMutation } = useLogin();
-  const onSubmit = async (data: ILoginInputProps) => {
+  const onSubmit = async (data: IAuthInput) => {
     loginMutation.mutate(data);
   };
 

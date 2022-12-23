@@ -9,7 +9,7 @@ import { ImgContainer } from '../ImgContainer';
 import { FormInput, IputError, InputButton, ClickButton } from '../FormsAboutInput';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
 import useUserData, { IUserData } from '../../hooks/useUserData';
-import uesEditUserData from '../../hooks/uesEditUserData';
+import uesEditUserData from './editUserInfoApi';
 import { Userwithdraw } from './Userwithdraw';
 import { useValUserName } from '../../hooks/useValUserData';
 import Modal from '../Modal';
@@ -64,27 +64,18 @@ export const FormEditUserInfo = () => {
   //수정하기
   const { mutation: editMutation } = uesEditUserData();
   const onSubmit = async (data: IEditInputData) => {
-    try {
-      const { username, oldPassword, password, bio } = data;
-      alert('수정하시겠습니까?');
-      const editData = { username, oldPassword, password, bio };
-      editMutation.mutate(editData);
-      //data 값중에 oldPassword 필수 추가필요
-      //비밀번호는 password 하나만
-      //비밀번호 확인 내용은 넣으면 안됨
-
-      alert('수정되었습니다.');
-    } catch (error) {
-      console.log(error);
-      alert('애러입니다');
-    }
+    const { username, oldPassword, password, bio } = data;
+    const editData = { username, oldPassword, password, bio };
+    editMutation.mutate(editData);
   };
-
   //유저네임 실시간 밸리데이션
+  //문제점 :  로딩이 false 가 되면 정상적으로 표시해주지않음. 😰
   const currUsername = watch('username');
   const [usernameError, setUsernameError] = useState(false);
-  const { valQuery } = useValUserName(currUsername?.length > 2 ? currUsername : '##');
-  const usernameVal = valQuery?.data?.username;
+  const {
+    valQuery: { data: valUsername },
+  } = useValUserName(currUsername?.length > 2 ? currUsername : '##');
+  const usernameVal = valUsername?.username;
 
   useEffect(() => {
     console.log(currUsername, usernameVal);
@@ -140,7 +131,7 @@ export const FormEditUserInfo = () => {
               }}
             />
             <IputError>
-              {usernameError ? <p>동일한 이름이 존재합니다.</p> : errors.username && errors.username.message}
+              {usernameError ? <span>동일한 이름이 존재합니다.</span> : errors.username && errors.username.message}
             </IputError>
           </InputContainer>
 

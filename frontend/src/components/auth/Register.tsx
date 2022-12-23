@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
 import { userValidation } from './yup';
 
 import { InputContainer } from '../InputContainer';
 import { FormInput, IputError, InputButton } from '../FormsAboutInput';
-import useResiter from '../../hooks/useResiter';
+import { useResiter, IAuthInput } from './authApi';
 import { useValUserName, useValEmail } from '../../hooks/useValUserData';
-
-interface IRegisterInputProps {
+interface IRegisterInputProps extends IAuthInput {
   username: string;
-  email: string;
-  password: string;
   confimrPassword: string;
 }
 
@@ -28,54 +24,37 @@ export const Register = () => {
     resolver: yupResolver(schema),
   });
 
-  // console.log('### errors', errors);
-
   //데이터 전달
   const { mutation: registerMutation } = useResiter();
-  const navigate = useNavigate();
-  const onSubmit = async (data: IRegisterInputProps) => {
-    try {
-      const { username, email, password } = data;
-      console.log(data);
-      console.log({ username, email, password });
-      registerMutation.mutate({ username, email, password });
-      alert(`정상적으로 회원가입되었습니다.
-      해당 창은 모달형태로 대체될 예정입니다.`);
-      navigate('/');
-    } catch (error: any) {
-      alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요:
-      ${error.message}
-      해당 창은 모달형태로 대체될 예정입니다.`);
-      console.log(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요:
-    ${error.message}`);
-    }
+  const onSubmit = (data: IRegisterInputProps) => {
+    const { username, email, password } = data;
+    registerMutation.mutate({ username, email, password });
   };
 
   //유저네임 실시간 밸리데이션
   const currUsername = watch('username');
   const [usernameError, setUsernameError] = useState(false);
-  const { valQuery: usernameValQuery } = useValUserName(currUsername?.length > 1 ? currUsername : '##');
-  const usernameVal = usernameValQuery?.data?.username;
-  const isUserNameLoading = usernameValQuery?.isLoading;
+  const {
+    valQuery: { data: valUsername, isLoading: isUserNameLoading },
+  } = useValUserName(currUsername?.length > 2 ? currUsername : '##');
+  const usernameVal = valUsername?.username;
 
   useEffect(() => {
     if (usernameVal) {
       setUsernameError(true);
-      console.log('중복임 사용불가');
     } else {
       setUsernameError(false);
-      console.log('사용가능 ');
     }
     console.log(currUsername, usernameVal);
-    console.log(usernameValQuery);
   }, [currUsername, isUserNameLoading]);
 
   //유저이메일 실시간 밸리데이션
   const currEmail = watch('email');
   const [emailError, setEmailError] = useState(false);
-  const { valQuery: emailValQuery } = useValEmail(currEmail?.length > 2 ? currEmail : '##');
-  const eamilVal = emailValQuery?.data?.email;
-  const isEmailLoading = emailValQuery?.isLoading;
+  const {
+    valQuery: { data: valEmail, isLoading: isEmailLoading },
+  } = useValEmail(currEmail?.length > 2 ? currEmail : '##');
+  const eamilVal = valEmail?.email;
 
   useEffect(() => {
     console.log(currEmail, eamilVal);

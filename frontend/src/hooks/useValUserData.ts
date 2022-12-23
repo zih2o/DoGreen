@@ -1,13 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import { api } from '../util/api';
 
-export interface IUsernameData {
+export interface IvalUserIfon {
   username?: string;
+  email?: string;
 }
 
 //유저네임
 export function useValUserName(username: string) {
-  const valQuery = useQuery<IUsernameData>({
+  const valQuery = useQuery<IvalUserIfon>({
     queryKey: ['user', username],
     queryFn: async () => {
       return api
@@ -21,13 +22,9 @@ export function useValUserName(username: string) {
   return { valQuery };
 }
 
-export interface IEmailData {
-  email?: string;
-}
-
 //이메일
 export function useValEmail(email: string) {
-  const valQuery = useQuery<IEmailData>({
+  const valQuery = useQuery<IvalUserIfon>({
     queryKey: ['user', email],
     queryFn: async () => {
       return api

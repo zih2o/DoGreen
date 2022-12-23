@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import { api } from '../util/api';
 import create from 'zustand';
 import axios from 'axios';
 interface IAuthState {
