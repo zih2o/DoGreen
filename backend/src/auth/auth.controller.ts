@@ -22,13 +22,14 @@ export class AuthController {
   };
 
   async isDuplicated(req: Request, res: Response) {
-    const { body } = await zParse(isDuplicatedSchema, req);
+    const { query } = await zParse(isDuplicatedSchema, req);
+
     const result = { } as Partial<{ email: boolean, username: boolean }>;
-    if (body.email) {
-      result.email = await userService.isDuplicatedEmail(body.email);
+    if (query.email) {
+      result.email = await userService.isDuplicatedEmail(query.email);
     }
-    if (body.username) {
-      result.username = await userService.isDuplicatedUsername(body.username);
+    if (query.username) {
+      result.username = await userService.isDuplicatedUsername(query.username);
     }
     res.status(200).json(result);
   }

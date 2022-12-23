@@ -21,7 +21,7 @@ export const loginSchema = z.object({
 });
 
 export const isDuplicatedSchema = z.object({
-  body: createUserSchema.pick({
+  query: createUserSchema.pick({
     email: true,
     username: true
   }).partial()
