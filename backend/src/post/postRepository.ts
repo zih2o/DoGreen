@@ -13,7 +13,7 @@ export class PostRepository implements IPostRepository {
     return commentArray;
   }
 
-  async addcommentList(postId: PostT['id'], commentId:Types.ObjectId) {
+  async addcommentList(postId: PostT['id'], commentId: Types.ObjectId) {
     await PostModel.findByIdAndUpdate(postId, { $push: { comments: commentId } });
   }
 
@@ -33,12 +33,14 @@ export class PostRepository implements IPostRepository {
       content: newPost.content,
       imageList: newPost.imageList
     });
-    await CategoryModel.updateOne({ id }, { $push: newPostId.id });
+    await CategoryModel.findByIdAndUpdate(id, { $push: { posts: newPostId.id } });
   }
 
-  async deleteOne(id:PostT['id']) {
-    await PostModel.findByIdAndDelete(id.id);
-    await CategoryModel.updateOne({ $pull: { posts: id.id } });
+  async deleteOne(id: PostT['id']) {
+    const findPost = await PostModel.findById(id.id);
+    console.log(`${findPost}`);
+    await CategoryModel.findByIdAndUpdate(findPost?.category, { $pull: { posts: findPost?.id } });
+    await PostModel.deleteOne({ id: findPost?.id });
   }
 
   async updateOne(id: PostT['id'], toUpdatePost: updatePostDto) {
