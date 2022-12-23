@@ -127,7 +127,7 @@ export const CategoriesPage = () => {
                     </button>
                     <div className="px-16 py-8 text-center">
                       <h3 className="mt-5 mb-8 text-xl font-bold text-gray-500 dark:text-gray-400">
-                        <span className={TextType.categoryNameText}>{newSubInfo.categoryName}</span> 토픽을
+                        <span className={TextType.categoryNameText}>{newSubInfo.categoryName}</span> <br></br>토픽을
                         구독하시겠습니까?
                       </h3>
                       <button

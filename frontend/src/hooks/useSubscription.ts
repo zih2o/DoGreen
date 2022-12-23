@@ -15,7 +15,7 @@ export function useSubscription(catId: string) {
   const accessToken = AuthStore((state) => state.token);
   const subMutation = useMutation<ISubscription>({
     mutationFn: async () => {
-      return axios
+      return await axios
         .post(
           `/subscribe/${catId}`,
           {},
@@ -41,7 +41,7 @@ export function useSubquery() {
   const subQuery = useQuery<ISubscription[]>({
     queryKey: ['userCategories'],
     queryFn: async () => {
-      return axios
+      return await axios
         .get('/subscribe', {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -60,7 +60,7 @@ export function useDelSubscription(catId: string) {
   const accessToken = AuthStore((state) => state.token);
   const delMutation = useMutation<ISubscription>({
     mutationFn: async () => {
-      return axios
+      return await axios
         .delete(`/subscribe/${catId}`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,

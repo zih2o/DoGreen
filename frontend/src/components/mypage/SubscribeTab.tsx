@@ -17,17 +17,16 @@ const SubscribeTab = () => {
     subQuery: { isLoading, data: subInfo },
   } = useSubquery();
   const { delMutation } = useDelSubscription(cancelId);
-  const cancel = cancelId;
+
   const cancelSubscription = () => {
-    console.log(cancelId);
     delMutation.mutate();
     setIsModal(!isModal);
+    window.location.reload();
   };
   useEffect(() => {
     setSubscriptionData(subInfo!);
   }, []);
 
-  console.log(subInfo);
   const tabCards = subInfo?.map((card) => (
     <li className={CardType.size + CardType.flipContent} key={card._id}>
       <div key={`back-${card._id}`} className={CardType.layout + CardType.back}>
@@ -41,10 +40,8 @@ const SubscribeTab = () => {
           data-id={card._id}
           id={card._id}
           onClick={() => {
-            {
-              setCancelId(card._id!);
-              setIsModal(!isModal);
-            }
+            setCancelId(card._id!);
+            setIsModal(!isModal);
           }}
         >
           {'구독취소 '}
@@ -106,9 +103,7 @@ const SubscribeTab = () => {
                           data-modal-toggle="popup-modal"
                           type="button"
                           className="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-400 dark:focus:ring-red-400 font-medium rounded-lg text-lg inline-flex items-center px-5 py-2.5 text-center mr-2"
-                          onClick={() => {
-                            cancelSubscription();
-                          }}
+                          onClick={cancelSubscription}
                         >
                           네
                         </button>
