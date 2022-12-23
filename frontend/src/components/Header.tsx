@@ -20,7 +20,7 @@ function Header() {
     }
   }, [darkMode]);
   return (
-    <header className="fixed top-0 inset-x-0">
+    <header className="fixed top-0 inset-x-0 z-10">
       <div className="grid grid-cols-10 items-center col-span-full top-0 px-6 py-[39px] bg-garden3">
         <div className="grid col-span-7 md:col-span-8">
           <span className="text-5xl font-pacifico">
@@ -30,11 +30,7 @@ function Header() {
           </span>
         </div>
         <button className="col-start-8 md:col-start-9 flex justify-end" onClick={toggleDarkMode}>
-          {darkMode ? (
-            <BsFillMoonFill className="w-9 h-9 p-1" />
-          ) : (
-            <BsSun className="w-9 h-9 p-1" />
-          )}
+          {darkMode ? <BsFillMoonFill className="w-9 h-9 p-1" /> : <BsSun className="w-9 h-9 p-1" />}
         </button>
         <button
           className="col-start-9 col-span-2 md:col-start10 md:col-span-1 flex justify-end"
