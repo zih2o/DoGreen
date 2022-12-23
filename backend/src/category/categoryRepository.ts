@@ -6,6 +6,12 @@ import { CategorySchema } from './categorySchema';
 const CategoryModel = model<categoryT>('categories', CategorySchema);
 
 export class CategoryRepository implements ICategoryRepository {
+  async findCategory(category: categoryT) {
+    // id필드값만 반환하게 하면 좀 더 메모리가 덜 들 것 같은데 추후에..
+    const categoryId = await CategoryModel.findOne().where('categoryName').equals(category);
+    return categoryId;
+  }
+
   async updateOneCategory(toUpdate:updateCategoryDto, id:updateCategoryDto['id']) {
     await CategoryModel.updateOne({ _id: id }, toUpdate);
   }

@@ -1,19 +1,33 @@
 import { model, ObjectId, Types } from 'mongoose';
 import { PostSchema } from './postSchema';
 import { PostRepository } from './postRepository';
+import { CategoryRepository } from '../category/categoryRepository';
 
 const postRepository = new PostRepository();
+const cateogryRepository = new CategoryRepository();
+
 export class PostService implements IPostService {
-  async createPost(createPostInfo:createPostDto) {
-    await postRepository.createOne(createPostInfo);
+  async createPost(createPostInfo: createPostDto) {
+    // 카테고리 존재 검증
+    const categoryId = await cateogryRepository.findCategory(createPostInfo.category);
+    if (!categoryId?.id) {
+      throw new Error(`${createPostInfo.category} 카테고리가 존재하지 않습니다.`);
+    } else await postRepository.createOne(createPostInfo, categoryId?.id);
   }
 
   async deletePost(id:PostT['id']) {
     await postRepository.deleteOne(id);
   }
 
-  async updatePost(updatedContents:updatePostDto) {
-    await postRepository.updateOne(updatedContents);
+  async updatePost(updatedContents: updatePostDto, id: PostT['id']) {
+    const { category, content, imageList } = updatedContents;
+
+    const toUpdatePost = {
+      ...(category && { category }),
+      ...(content && { content }),
+      ...(imageList && { imageList })
+    };
+    await postRepository.updateOne(id, toUpdatePost);
   }
 
   async findAllPost() {

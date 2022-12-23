@@ -1,12 +1,14 @@
 import bodyParser from 'body-parser';
 import compression from 'compression';
-import cors from 'cors';
 import express, { Request, Response, NextFunction } from 'express';
+import cors from 'cors';
 import routes from './routes';
 import logger from './logger';
 import ApplicationError from './errors/ApplicationError';
 
 const app = express();
+
+app.use(cors());
 
 function logResponseTime(req: Request, res: Response, next: NextFunction) {
   // 요청이 들어온 시간

@@ -1,9 +1,22 @@
 import { model, Types } from 'mongoose';
+import { CategorySchema } from '../category/categorySchema';
+import invariant from '../invariant';
 import { PostSchema } from './postSchema';
 
 const PostModel = model<PostT>('posts', PostSchema);
+const CategoryModel = model<categoryT>('categories', CategorySchema);
 
 export class PostRepository implements IPostRepository {
+  async findAllCommentAtPost(postId: CommentT['refPost']) {
+    const commentArray = await PostModel.findById(postId.id).select('comments').populate('comments');
+    console.log(`${commentArray} 제대로 찍혔는가 내가원하는 커멘트들이 나왔는가`);
+    return commentArray;
+  }
+
+  async addcommentList(postId: PostT['id'], commentId:Types.ObjectId) {
+    await PostModel.findByIdAndUpdate(postId, { $push: { comments: commentId } });
+  }
+
   async findAll() {
     const totalPost = await PostModel.find({});
     return totalPost;
@@ -14,16 +27,32 @@ export class PostRepository implements IPostRepository {
     return postInfo;
   }
 
-  async createOne(newPost: createPostDto) {
-    await PostModel.create(newPost);
+  async createOne(newPost: createPostDto, id: createCategoryDto) {
+    const newPostId = await PostModel.create({
+      category: id,
+      content: newPost.content,
+      imageList: newPost.imageList
+    });
+    await CategoryModel.updateOne({ id }, { $push: newPostId.id });
   }
 
   async deleteOne(id:PostT['id']) {
-    await PostModel.deleteOne({ _id: id });
+    await PostModel.findByIdAndDelete(id.id);
+    await CategoryModel.updateOne({ $pull: { posts: id.id } });
   }
 
-  async updateOne(postInfo :updatePostDto) {
-    await PostModel.updateOne({ _id: postInfo.id }, { content: postInfo.content });
+  async updateOne(id: PostT['id'], toUpdatePost: updatePostDto) {
+    const findCategoryId = await CategoryModel.findOne({ id });
+    // 카테고리 이름 변경
+    await CategoryModel.findByIdAndUpdate(
+      findCategoryId?.id,
+      { categoryName: toUpdatePost.category }
+    );
+    // 포스트 정보 변경
+    await PostModel.updateMany(
+      { _id: id },
+      { content: toUpdatePost.content, imageList: toUpdatePost.imageList }
+    );
   }
 }
 

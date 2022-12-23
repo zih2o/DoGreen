@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import SVG from './SVG';
+import SVG from './X_SVG';
 
 type svgLink = {
   url: string;
