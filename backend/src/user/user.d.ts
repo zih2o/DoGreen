@@ -49,5 +49,5 @@ interface IUserService {
     // findUserByAuthId:(authId:string)=> Promise<UserT['name']>;
     getInactiveUsers:()=> Promise<UserDto[] | null>;
     getActiveUsers:()=> Promise<UserDto[] | null>;
-    withdraw: (email: UserT['email']) => Promise<void>;
+    withdraw: (email: UserT['email'], currentPassword: AuthT['password']) => Promise<void>;
 }

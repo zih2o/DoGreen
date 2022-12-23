@@ -1,5 +1,6 @@
 import { model, mongo } from 'mongoose';
 import { AuthService } from '../auth/auth.service';
+import { BadRequestError } from '../errors/BadRequestError';
 import { ConflictError } from '../errors/ConflictError';
 import invariant from '../invariant';
 import { UserSchema } from './user.schema';
@@ -96,7 +97,10 @@ export class UserService implements IUserService {
     );
   }
 
-  async withdraw(email: UserT['email']) {
+  async withdraw(email: UserT['email'], password: AuthT['password']) {
+    if (!await authService.isPasswordCorrect(password, email)) {
+      throw new BadRequestError('비밀번호가 틀렸습니다.');
+    }
     await UserModel.updateOne(
       { email }, // filter
       { isDeleted: true } // update
