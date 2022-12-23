@@ -9,7 +9,6 @@ const CategoryModel = model<categoryT>('categories', CategorySchema);
 export class PostRepository implements IPostRepository {
   async findAllCommentAtPost(postId: CommentT['refPost']) {
     const commentArray = await PostModel.findById(postId.id).select('comments').populate('comments');
-    console.log(`${commentArray} 제대로 찍혔는가 내가원하는 커멘트들이 나왔는가`);
     return commentArray;
   }
 
@@ -38,7 +37,6 @@ export class PostRepository implements IPostRepository {
 
   async deleteOne(id: PostT['id']) {
     const findPost = await PostModel.findById(id.id);
-    console.log(`${findPost}`);
     await CategoryModel.findByIdAndUpdate(findPost?.category, { $pull: { posts: findPost?.id } });
     await PostModel.deleteOne({ id: findPost?.id });
   }
