@@ -17,7 +17,8 @@ export class UserController {
 
   async withdrawMyself(req: Request, res: Response) {
     const { email } = req.context.currentUser;
-    await userService.withdraw(email);
+    const { currentPassword } = req.body;
+    await userService.withdraw(email, currentPassword);
     res.status(200).end();
   }
 

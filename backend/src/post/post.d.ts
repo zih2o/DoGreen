@@ -3,11 +3,6 @@ type LikeT = {
     likesNum: Number
 }
 
-type CommentT = {
-    userName: UserT['username'],
-    content: string
-}
-
 type categoryT = {
     id:Types.ObjectId,
     categoryName: string,
@@ -31,7 +26,7 @@ type PostT = {
     id: Types.ObjectId, // mongoDB가 자동생성함
     category: categoryT,
     content: string,
-    image: string,
+    imageList: string[],
     likes: LikeT,
     comments?: CommentT, // comment를 분리?
     timestamps: Date
