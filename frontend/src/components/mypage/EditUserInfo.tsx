@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 import { editValidation } from '../auth/yup';
-import axios from 'axios';
 
 import { InputContainer } from '../InputContainer';
 import { ImgContainer } from '../ImgContainer';
 import { FormInput, IputError, InputButton, ClickButton } from '../FormsAboutInput';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
 import useUserData, { IUserData } from '../../hooks/useUserData';
-import useUserInfo from '../../hooks/userInfo';
+import uesEditUserData from '../../hooks/uesEditUserData';
+import useDeleteUserData from '../../hooks/useDeleteUserData';
 
 interface IEditInputData extends Omit<IUserData, 'imgUrl'> {
   oldPassword: string;
@@ -18,15 +18,12 @@ interface IEditInputData extends Omit<IUserData, 'imgUrl'> {
   imgUrl: FileList;
 }
 
-const serverURL = 'http://localhost:3000';
-
 export const FormEditUserInfo = () => {
   //유저데이터부르기
   const {
     userQuery: { data: userData },
   } = useUserData();
-
-  // console.log(userData);
+  console.log(useUserData());
   //react-hook-form yup
   const { schema } = editValidation();
   const {
@@ -51,7 +48,7 @@ export const FormEditUserInfo = () => {
     }
   }, [userData]);
 
-  //이미지 변경 -> 이미지 컴포넌트 내에서
+  //이미지 변경
   const [imgPreview, setImgPreview] = useState('');
   const image = watch('imgUrl');
   useEffect(() => {
@@ -62,18 +59,14 @@ export const FormEditUserInfo = () => {
   }, [image]);
 
   //수정하기
-  const { mutation } = useUserInfo();
+  const { mutation: editMutation } = uesEditUserData();
   const onSubmit = async (data: IEditInputData) => {
     try {
       const { username, oldPassword, password, bio } = data;
       alert('수정하시겠습니까?');
       const editData = { username, oldPassword, password, bio };
       console.log(editData);
-      mutation.mutate(editData);
-
-      // const res = await axios.patch('/user/me', editData);
-      // console.log(res);
-
+      editMutation.mutate(editData);
       //data 값중에 oldPassword 필수 추가필요
       //비밀번호는 password 하나만
       //비밀번호 확인 내용은 넣으면 안됨
@@ -86,11 +79,13 @@ export const FormEditUserInfo = () => {
   };
 
   //탈퇴하기
+  const { mutation: deleteMutation } = useDeleteUserData();
   const onClickWithdraw = async () => {
     try {
       console.log('회원탈퇴');
       alert('정말로 회원탈퇴하시겠습니까?');
       // const res = await axios.patch(`${serverURL}/user/me/withdraw`);
+      deleteMutation.mutate();
       alert('탈퇴되었습니다');
     } catch (error) {
       console.log(error);

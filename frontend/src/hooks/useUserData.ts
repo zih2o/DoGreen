@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { api } from '../util/api';
 import create from 'zustand';
-
+import axios from 'axios';
 interface IAuthState {
   token: string | null;
 }
@@ -18,6 +18,7 @@ export default function useUserData() {
     token: sessionStorage.getItem('token'),
   }));
   const accessToken = AuthStore((state) => state.token);
+
   const userQuery = useQuery<IUserData>({
     queryKey: ['user'],
     queryFn: async () => {
