@@ -1,5 +1,5 @@
+import { api } from '../util/api';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 
 interface ICategory {
   _id: string;
@@ -14,7 +14,7 @@ export default function useCategory() {
   const catQuery = useQuery<ICategory[]>({
     queryKey: ['categories'],
     queryFn: async () => {
-      return axios.get('/category').then((res) => res.data);
+      return api.get('/category').then((res) => res.data);
     },
     staleTime: 1000 * 60,
   });
