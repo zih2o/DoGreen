@@ -15,11 +15,12 @@ const CardsList = () => {
     return (
       <>
         {index < range && (
-          <li key={index} className={CardType.size}>
+          <li key={card._id} className={CardType.size}>
             <Link to={`/categories/${card.categoryName}`} className={CardType.layout}>
               <div className={CardType.imgWrapper}>
                 <img className={CardType.img} src={card.mascotImage} alt="default card" />
               </div>
+
               <div className={CardType.text}>
                 <h2>
                   <span className={TextType.mascotNameText}>{checkName(card.mascotName)}</span> 전하는 <br></br>
@@ -32,12 +33,13 @@ const CardsList = () => {
       </>
     );
   });
+
   const tabCards2 = categories?.map((card, index) => {
     const range = categories.length / 2;
     return (
       <>
         {index >= range && (
-          <li key={index} className={CardType.size}>
+          <li key={card._id} className={CardType.size}>
             <Link to={`/categories/${card.categoryName}`} className={CardType.layout}>
               <div className={CardType.imgWrapper}>
                 <img className={CardType.img} src={card.mascotImage} alt="default card" />
@@ -58,7 +60,8 @@ const CardsList = () => {
   return (
     <CardLayout isHome>
       <div className="container mx-auto flex mt-12">
-        <div className={TextType.titleText}>{'어떤 주제가 궁금한가요?'} &nbsp;</div>
+        <div className={TextType.titleText}>{'어떤 토픽이 궁금한가요?'} &nbsp;</div>
+
         <div className={TextType.titleText + ' text-garden1'}>
           <Link to="/categories">
             {'>'} &nbsp;
