@@ -40,27 +40,29 @@ interface IInputSubmitButton {
 
 export const InputButton = ({ value }: IInputSubmitButton) => {
   return (
-    <input
-      type="submit"
-      value={value}
-      className="flex justify-center w-full bg-white hover:bg-gray-100 text-xl text-garden4 font-semibold py-2 mb-2 mt-3 border-garden1 border-[2px] rounded shadow"
-    ></input>
+    <div className="flex justify-center mt-3">
+      <input
+        type="submit"
+        value={value}
+        className="flex justify-center w-[60%] bg-white hover:bg-gray-100 text-xl text-garden4 font-semibold py-2 mb-2 mt-3 border-garden1 border-[2px] rounded shadow"
+      ></input>
+    </div>
   );
 };
 
 interface IClickButton {
-  value: string;
-  onClick: () => void;
+  onClick?: () => void;
+  children: React.ReactNode;
 }
-export const ClickButton = ({ value, onClick }: IClickButton) => {
+export const ClickButton = ({ onClick, children }: IClickButton) => {
   return (
-    <div className="w-full px-3 mt-3">
-      <input
-        type="submit"
-        value={value}
+    <div className="flex justify-center w-full px-3 mt-3">
+      <button
         onClick={onClick}
-        className="flex justify-center w-full bg-white hover:bg-gray-100 text-xl text-garden4 font-semibold py-2 mb-2 mt-3 border-garden1 border-[2px] rounded shadow"
-      ></input>
+        className="flex justify-center items-center w-[60%] mb-2 mt-3 py-2 bg-forest3 text-xl text-forest4 font-semibold rounded border-garden1 border-[2px] shadow hover:bg-[#d49e53]"
+      >
+        {children}
+      </button>
     </div>
   );
 };

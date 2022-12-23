@@ -5,7 +5,7 @@ const config: AxiosRequestConfig = {
   headers: {
     ContentType: 'application/json',
   },
-  withCredentials: true,
+  // withCredentials: true,
 };
 
 export const api: AxiosInstance = axios.create(config);

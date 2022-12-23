@@ -1,21 +1,19 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../util/api';
 
-interface IuserInfo {
-  username?: string;
-  oldPassword: string;
-  password?: string;
-  imgUrl?: FileList;
-  bio?: string;
+interface IRegisterInput {
+  username: string;
+  email: string;
+  password: string;
 }
 
-export default function useEditUserData() {
+export default function useResiter() {
   const queryClient = useQueryClient();
-  const editMutate = async (newData: IuserInfo) => {
-    return await api.patch('/user/me', newData);
+  const registerMutate = async (data: IRegisterInput) => {
+    return await api.post('/auth/register', data);
   };
   const mutation = useMutation({
-    mutationFn: editMutate,
+    mutationFn: registerMutate,
     onSuccess: () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ['user'] });

@@ -1,24 +1,42 @@
 import { useQuery } from '@tanstack/react-query';
 import { api } from '../util/api';
-import create from 'zustand';
 
-export interface IUserData {
-  email?: string;
+export interface IUsernameData {
   username?: string;
 }
 
-export default function useValUserData() {
-  const validateQuery = api.get('/auth/exists', { params: data }).then((res) => res.data);
-  const userQuery = useQuery<IUserData>({
-    queryKey: ['user'],
-    queryFn: async ({ username, email }) => {
+//유저네임
+export function useValUserName(username: string) {
+  const valQuery = useQuery<IUsernameData>({
+    queryKey: ['user', username],
+    queryFn: async () => {
       return api
         .get('/auth/exists', {
-          params: { username, email },
+          params: { username: username },
         })
         .then((res) => res.data);
     },
     staleTime: 1000 * 60,
   });
-  return { userQuery };
+  return { valQuery };
+}
+
+export interface IEmailData {
+  email?: string;
+}
+
+//이메일
+export function useValEmail(email: string) {
+  const valQuery = useQuery<IEmailData>({
+    queryKey: ['user', email],
+    queryFn: async () => {
+      return api
+        .get('/auth/exists', {
+          params: { email: email },
+        })
+        .then((res) => res.data);
+    },
+    staleTime: 1000 * 60,
+  });
+  return { valQuery };
 }
