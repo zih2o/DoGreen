@@ -9,10 +9,10 @@ const cateogryRepository = new CategoryRepository();
 export class PostService implements IPostService {
   async createPost(createPostInfo: createPostDto) {
     // 카테고리 존재 검증
-    const categoryId:any = await cateogryRepository.findCategory(createPostInfo.category);
-    if (!categoryId) {
+    const categoryId = await cateogryRepository.findCategory(createPostInfo.category);
+    if (!categoryId?.id) {
       throw new Error(`${createPostInfo.category} 카테고리가 존재하지 않습니다.`);
-    } else await postRepository.createOne(createPostInfo, categoryId.id);
+    } else await postRepository.createOne(createPostInfo, categoryId?.id);
   }
 
   async deletePost(id:PostT['id']) {
@@ -20,11 +20,12 @@ export class PostService implements IPostService {
   }
 
   async updatePost(updatedContents: updatePostDto, id: PostT['id']) {
-    const { category, content } = updatedContents;
+    const { category, content, imageList } = updatedContents;
 
     const toUpdatePost = {
       ...(category && { category }),
-      ...(content && { content })
+      ...(content && { content }),
+      ...(imageList && { imageList })
     };
     await postRepository.updateOne(id, toUpdatePost);
   }
