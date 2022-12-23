@@ -15,7 +15,7 @@ const CardsList = () => {
     return (
       <>
         {index < range && (
-          <li key={index} className={CardType.size}>
+          <li key={card._id} className={CardType.size}>
             <Link to={`/categories/${card.categoryName}`} className={CardType.layout}>
               <div className={CardType.imgWrapper}>
                 <img className={CardType.img} src={card.mascotImage} alt="default card" />
@@ -33,12 +33,13 @@ const CardsList = () => {
       </>
     );
   });
+
   const tabCards2 = categories?.map((card, index) => {
     const range = categories.length / 2;
     return (
       <>
         {index >= range && (
-          <li key={index} className={CardType.size}>
+          <li key={card._id} className={CardType.size}>
             <Link to={`/categories/${card.categoryName}`} className={CardType.layout}>
               <div className={CardType.imgWrapper}>
                 <img className={CardType.img} src={card.mascotImage} alt="default card" />

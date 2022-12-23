@@ -75,7 +75,7 @@ const SubscribeTab = () => {
         <div className={TextType.titleText + ' text-center'}>구독 정보가 없습니다</div>
         <br></br>
         <div className="text-2xl text-center leading-10 font-bold text-garden1 underline">
-          <Link to="/categories">구독 바로가기</Link>
+          <Link to="/categories">구독 하러가기</Link>
         </div>
       </div>
     </MyPageContentsLayout>
