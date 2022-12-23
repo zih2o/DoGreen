@@ -39,7 +39,7 @@ export function useSubscription(catId: string) {
 export function useSubquery() {
   const accessToken = AuthStore((state) => state.token);
   const subQuery = useQuery<ISubscription[]>({
-    queryKey: ['categories'],
+    queryKey: ['userCategories'],
     queryFn: async () => {
       return axios
         .get('/subscribe', {
