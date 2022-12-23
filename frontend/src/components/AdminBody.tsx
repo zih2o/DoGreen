@@ -4,8 +4,8 @@ import { useAdminCategoryStore } from '../hooks/useAdminCategory';
 
 import useUserData from '../hooks/useUserData';
 import NewsCategory from './adminPage/NewsCategory';
-import MascotCategory from './adminPage/MascotCategory';
 
+import RightBody from './adminPage/RightBody';
 import LeftSide from './adminPage/LeftSide';
 
 function AdminBody() {
@@ -20,7 +20,7 @@ function AdminBody() {
   return (
     <>
       <LeftSide />
-      <MascotCategory name={adminCategory} />
+      <RightBody name={adminCategory} />
     </>
   );
 }

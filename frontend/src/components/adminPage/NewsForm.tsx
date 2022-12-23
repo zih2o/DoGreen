@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-export default function CategoryCardForm() {
+
+export default function NewsForm() {
   const [formValue, setFormValue] = useState({
     category: '',
     content: '',
