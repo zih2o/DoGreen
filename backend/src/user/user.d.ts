@@ -43,6 +43,7 @@ interface IUserService {
     register: (userInfo: CreateUserDto, auth: AuthT) => Promise<void>; // register
     findUserByEmail: (email: UserT['email']) => Promise<UserDto>; // 유저가 다른 유저의 유저네임으로 유저정보를 조회함 Url : username
     // 이미 존재하는 이메일인지 확인하는 것
+    findUsernameByAuthId:(authId: string)=> Promise<UserT['username']>
     isDuplicatedEmail: (userEmail: UserT['email'])=> Promise<boolean>;
     isDuplicatedUsername: (userEmail: UserT['username'])=> Promise<boolean>;
     findUsernameByAuthId:(authId:string)=> string;
