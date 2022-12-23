@@ -15,7 +15,7 @@ interface IPathProps {
 
 export const MyPageNavModalLayout = ({ children }: IMyPageNavModalLayoutProps) => {
   return (
-    <div className="fixed w-full  max-w-xs top-px mt-48 rounded-lg shadow-lg text-base font-semibold bg-white border border-gray-200 dark:bg-[#292524] dark:border-garden4">
+    <div className="fixed w-full z-10 max-w-xs top-px mt-48 rounded-lg shadow-lg text-base font-semibold bg-white border border-gray-200 dark:bg-[#292524] dark:border-garden4">
       {children}
     </div>
   );

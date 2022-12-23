@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import { AuthStore } from '../hooks/useAuth';
+import { AuthStore } from './useAuth';
 
 export interface ISubscription {
   _id: string | undefined;

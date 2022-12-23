@@ -4,21 +4,20 @@ import { CardLayout, CategoryLayout } from '../components/layout/GlobalLayout';
 import CardSkeleton from '../components/loadings/CardSkeleton';
 import { CardType, TextType, BtnType, WrapperType } from '../components/common/theme';
 import useCategory, { ICategory } from '../hooks/useCategory';
-import { useSubscription } from '../hooks/useSubscription';
+import { useSubscription, useSubquery } from '../hooks/useSubscription';
 import { checkName } from '../util/functionUtil';
 import Modal from '../components/Modal';
 import { AiOutlineClose } from 'react-icons/ai';
+import Category from '../components/wastebasket/X_Category';
 
 interface ISubscriptionInfo {
   categoryId: string;
   categoryName: string;
   subStatus: boolean;
 }
+
 export const CategoriesPage = () => {
   const [isModal, setIsModal] = useState<boolean>(false);
-  const [subStatus, setSubStatus] = useState<string>('구독하기 ✅');
-  // const [categoryName, setCategoryName] = useState<string>('');
-  // const [categoryId, setCategoryId] = useState<string>('');
   const [subInfo, setSubInfo] = useState<ISubscriptionInfo[]>([]);
   const [newSubInfo, setNewSubInfo] = useState<ISubscriptionInfo>({
     categoryId: '',
@@ -29,30 +28,25 @@ export const CategoriesPage = () => {
   const {
     catQuery: { isLoading, data: categories },
   } = useCategory();
+  const {
+    subQuery: { data: subscriptions },
+  } = useSubquery();
 
   const { subMutation } = useSubscription(newSubInfo.categoryId as string);
   const handleSubButton = (category: ICategory) => {
-    console.log('111', category._id, category.categoryName);
     setNewSubInfo((prev) => ({ categoryId: category._id, categoryName: category.categoryName, subStatus: true }));
     setIsModal(!isModal);
-    console.log('222', newSubInfo);
-  }; //비동기라서 바로 업데이트안되고 새로 리렌더링해줘야함 바로 보여줄거면 useRef
+  };
   const applySubscription = () => {
     setSubInfo([...subInfo, newSubInfo]);
-    console.log('newSubInfo', newSubInfo.categoryId);
-    console.log('subInfo', subInfo);
     subMutation.mutate();
-    // setSubStatus('구독중 ✅');
-    //card list 만들어서 카테고리 id
-    //리액트 쿼리
-    // 하나는 객체로 만들어서 key 값
     setIsModal(!isModal);
+    window.location.reload();
   };
-  const handleSubStatus = (id: string) => {
-    subInfo.map((e) => {
-      e.categoryId = id;
-      setSubStatus('구독중');
-    });
+  const handleSubStatus = (category: ICategory) => {
+    const status =
+      subscriptions && subscriptions.filter((cat) => category._id === cat._id).length > 0 ? '구독중 💌' : '구독하기 ✅';
+    return status;
   };
   const skeletonCards = Array(15).fill(0);
   return (
@@ -71,7 +65,7 @@ export const CategoriesPage = () => {
                 </li>
               ))}
             {categories &&
-              categories.map((category, idx) => (
+              categories.map((category) => (
                 <li className={CardType.size + CardType.flipContent} key={category._id}>
                   <div key={`back-${category._id}`} className={CardType.layout + CardType.back}>
                     <button type="button" className={BtnType.newsLetterBtn}>
@@ -80,16 +74,17 @@ export const CategoriesPage = () => {
                     </button>
                     <button
                       type="button"
-                      className={subStatus === '구독하기 ✅' ? BtnType.subscribeBtn : BtnType.subscribingBtn}
+                      className={
+                        handleSubStatus(category) === '구독하기 ✅' ? BtnType.subscribeBtn : BtnType.subscribingBtn
+                      }
                       data-id={category._id}
                       id={category._id}
-                      disabled={subStatus !== '구독하기 ✅' ? true : false}
+                      disabled={handleSubStatus(category) !== '구독하기 ✅' ? true : false}
                       onClick={() => {
                         handleSubButton(category);
-                        // handleSubStatus(category._id);
                       }}
                     >
-                      {subInfo[idx]?.subStatus === true ? '구독중' : '구독하기 '}
+                      {handleSubStatus(category)}
                     </button>
                   </div>
                   <div key={`front-${category._id}`} className={CardType.layout + CardType.front}>

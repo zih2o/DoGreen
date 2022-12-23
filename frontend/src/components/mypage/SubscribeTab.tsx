@@ -12,7 +12,6 @@ import { AiOutlineClose } from 'react-icons/ai';
 const SubscribeTab = () => {
   const [isModal, setIsModal] = useState<boolean>(false);
   const [cancelId, setCancelId] = useState<string>('');
-  const [subscriptionData, setSubscriptionData] = useState<ISubscription[]>();
   const {
     subQuery: { isLoading, data: subInfo },
   } = useSubquery();
@@ -23,9 +22,6 @@ const SubscribeTab = () => {
     setIsModal(!isModal);
     window.location.reload();
   };
-  useEffect(() => {
-    setSubscriptionData(subInfo!);
-  }, []);
 
   const tabCards = subInfo?.map((card) => (
     <li className={CardType.size + CardType.flipContent} key={card._id}>
