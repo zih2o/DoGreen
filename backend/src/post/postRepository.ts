@@ -2,15 +2,31 @@ import { model, Types } from 'mongoose';
 import { CategorySchema } from '../category/categorySchema';
 import invariant from '../invariant';
 import { PostSchema } from './postSchema';
+import { UserSchema } from '../user/user.schema';
+import { CommentSchema } from '../comment/commentSchema';
 
 const PostModel = model<PostT>('posts', PostSchema);
 const CategoryModel = model<categoryT>('categories', CategorySchema);
+const UserModel = model('users', UserSchema);
+const CommentModel = model('comments', CommentSchema);
 
 export class PostRepository implements IPostRepository {
+  async deletePostCommentId(commentId: string) {
+    const findPostId = await CommentModel.findById(commentId);
+    await PostModel.findByIdAndUpdate(findPostId?.refPost, { $pull: { comments: commentId } });
+  }
+
   async findAllCommentAtPost(postId: CommentT['refPost']) {
-    const commentArray = await PostModel.findById(postId.id).select('comments').populate('comments');
-    console.log(`${commentArray} 제대로 찍혔는가 내가원하는 커멘트들이 나왔는가`);
-    return commentArray;
+    const commentArray = await PostModel.findById(postId.id)
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'userId',
+          select: 'username'
+        }
+      });
+
+    return commentArray?.comments;
   }
 
   async addcommentList(postId: PostT['id'], commentId: Types.ObjectId) {
@@ -23,7 +39,7 @@ export class PostRepository implements IPostRepository {
   }
 
   async findPost(id: PostT['id']) {
-    const postInfo = await PostModel.findById(id.id);
+    const postInfo = await PostModel.findById(id);
     return postInfo;
   }
 
@@ -38,7 +54,6 @@ export class PostRepository implements IPostRepository {
 
   async deleteOne(id: PostT['id']) {
     const findPost = await PostModel.findById(id.id);
-    console.log(`${findPost}`);
     await CategoryModel.findByIdAndUpdate(findPost?.category, { $pull: { posts: findPost?.id } });
     await PostModel.deleteOne({ id: findPost?.id });
   }
