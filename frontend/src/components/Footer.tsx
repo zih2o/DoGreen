@@ -13,9 +13,9 @@ function Footer() {
     { name: 'BsGithub', url: '#' },
   ];
   return (
-    <footer className="fixed bottom-0 inset-x-0 inset-y-50 p-4 bg-gardenBG sm:p-6 dark:bg-gray-900">
+    <footer className="fixed bottom-0 inset-x-0 inset-y-50 p-4 bg-garden3 sm:p-6 ">
       <div className="sm:flex sm:items-center sm:justify-between">
-        <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
+        <span className="text-sm text-garden4/80 sm:text-center ">
           © 2022
           <a href="/" className="hover:underline">
             Do Green™
@@ -32,10 +32,10 @@ function Footer() {
           React.createElement(svgComponent, {});
           * 1개의 object 안에 name, url 존재
           ** 위에서 Components[name] 을 가지게 만들기 */}
-          <BsFacebook className='w-5 h-5 fill-gray-500/100'/>
-          <BsInstagram className='w-5 h-5 fill-gray-500/100'/>
-          <BsTwitter className='w-5 h-5 fill-gray-500/100'/>
-          <BsGithub className='w-5 h-5 fill-gray-500/100'/>
+          <BsFacebook className='w-5 h-5 fill-garden4/80'/>
+          <BsInstagram className='w-5 h-5 fill-garden4/80'/>
+          <BsTwitter className='w-5 h-5 fill-garden4/80'/>
+          <BsGithub className='w-5 h-5 fill-garden4/80'/>
         </div>
       </div>
     </footer>
