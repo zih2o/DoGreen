@@ -12,7 +12,7 @@ interface INews {
 }
 
 export default function useNews() {
-  const catQuery = useQuery<INews[]>({
+  const newsQuery = useQuery<INews[]>({
     queryKey: ['news'],
     queryFn: async () => {
       return api.get('/post').then((res) => res.data);
@@ -20,5 +20,5 @@ export default function useNews() {
     staleTime: 1000 * 60,
   });
 
-  return { catQuery };
+  return { newsQuery };
 }

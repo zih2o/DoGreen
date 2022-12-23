@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Categorys from './adminPage/Category';
 import LoginForm from './hamburger/LoginForm';
-import { useHamburgerStore } from '../hooks/store';
+import { useHamburgerStore } from '../hooks/useHamburger';
 
 function Hamburger(props) {
   const { hamburgerOpen, toggleHamburger } = useHamburgerStore();

@@ -4,7 +4,8 @@ import Hamburger from './Hamburger';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { FaUserCircle } from 'react-icons/fa';
 import { BsSun, BsFillMoonFill } from 'react-icons/bs';
-import { useDarkModeStore, useHamburgerStore } from '../hooks/store';
+import {useHamburgerStore } from '../hooks/useHamburger';
+import {useDarkModeStore}from '../hooks/useDarkMode'
 
 function Header() {
   const { hamburgerOpen, toggleHamburger } = useHamburgerStore();
