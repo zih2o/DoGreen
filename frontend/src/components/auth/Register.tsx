@@ -1,27 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
 import { userValidation } from './yup';
-import axios from 'axios';
 
 import { InputContainer } from '../InputContainer';
 import { FormInput, IputError, InputButton } from '../FormsAboutInput';
-
-interface IRegisterInputProps {
+import { useResiter, IAuthInput } from '../../hooks/authApi';
+import { useValUserName, useValEmail } from '../../hooks/useValUserData';
+interface IRegisterInputProps extends IAuthInput {
   username: string;
-  email: string;
-  password: string;
   confimrPassword: string;
 }
 
-const serverURL = 'http://localhost:3000';
-
 export const Register = () => {
-  const navigate = useNavigate();
   const { schema } = userValidation();
   const {
     handleSubmit,
+    watch,
     control,
     formState: { errors },
   } = useForm<IRegisterInputProps>({
@@ -29,31 +24,48 @@ export const Register = () => {
     resolver: yupResolver(schema),
   });
 
-  console.log('### errors', errors);
+  //데이터 전달
+  const { mutation: registerMutation } = useResiter();
+  const onSubmit = (data: IRegisterInputProps) => {
+    const { username, email, password } = data;
+    registerMutation.mutate({ username, email, password });
+  };
 
-  const onSubmit = async (data: IRegisterInputProps) => {
-    try {
-      console.log(`입력값 : ${data}`);
-      const res = await axios.post(`${serverURL}/auth/register`, data);
-      console.log(res);
-      alert(`정상적으로 회원가입되었습니다.
-      해당 창은 모달형태로 대체될 예정입니다.`);
-      navigate('/');
-    } catch (error: any) {
-      alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요:
-      ${error.message}
-      해당 창은 모달형태로 대체될 예정입니다.`);
-      console.log(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요:
-    ${error.message}`);
+  //유저네임 실시간 밸리데이션
+  const currUsername = watch('username');
+  const [usernameError, setUsernameError] = useState(false);
+  const {
+    valQuery: { data: valUsername, isLoading: isUserNameLoading },
+  } = useValUserName(currUsername?.length > 2 ? currUsername : '##');
+  const usernameVal = valUsername?.username;
+
+  useEffect(() => {
+    if (usernameVal) {
+      setUsernameError(true);
+    } else {
+      setUsernameError(false);
     }
-  };
+    console.log(currUsername, usernameVal);
+  }, [currUsername, isUserNameLoading]);
 
-  const className = {
-    container:
-      'w-[560px] h-[600px] flex flex-col items-center justify-start px-11 border-[3px] border-garden1 box-border rounded bg-gardenBG shadow-[0_0_30px_rgba(30, 30, 30, 0.185)]',
-    form: 'flex-col w-full px-3',
-    title: 'justify-self-start text-center my-16 pb-2 text-garden1 font-pacifico text-4xl  ',
-  };
+  //유저이메일 실시간 밸리데이션
+  const currEmail = watch('email');
+  const [emailError, setEmailError] = useState(false);
+  const {
+    valQuery: { data: valEmail, isLoading: isEmailLoading },
+  } = useValEmail(currEmail?.length > 2 ? currEmail : '##');
+  const eamilVal = valEmail?.email;
+
+  useEffect(() => {
+    console.log(currEmail, eamilVal);
+    if (eamilVal) {
+      setEmailError(true);
+      console.log('중복임 사용불가');
+    } else {
+      setEmailError(false);
+      console.log('사용가능 ');
+    }
+  }, [emailError, isEmailLoading]);
 
   return (
     <div className={className.container}>
@@ -65,36 +77,50 @@ export const Register = () => {
             control={control}
             defaultValue=""
             render={({ field }) => {
-              const test = errors.username ? 'error' : '';
-              return <FormInput id="username" placeholder="3자이상 20자이하로 등록해주세요." error={test} {...field} />;
+              const errorDisplay = usernameError || errors.username ? 'error' : '';
+              return (
+                <FormInput
+                  id="username"
+                  placeholder="3자이상 20자이하로 등록해주세요."
+                  error={errorDisplay}
+                  {...field}
+                />
+              );
             }}
           />
-          <IputError>{errors.username && errors.username.message}</IputError>
+          <IputError>
+            {usernameError ? <span>동일한 이름이 존재합니다.</span> : errors.username && errors.username.message}
+          </IputError>
         </InputContainer>
 
-        <InputContainer inputProp="username" label="이메일">
+        <InputContainer inputProp="email" label="이메일">
           <Controller
             name="email"
             control={control}
             defaultValue=""
             render={({ field }) => {
-              return <FormInput id="email" placeholder="이메일 입력해주세요." {...field} />;
+              const errorDisplay = emailError || errors.email ? 'error' : '';
+              return <FormInput id="email" placeholder="이메일 입력해주세요." error={errorDisplay} {...field} />;
             }}
           />
-          <IputError>{errors.email && errors.email.message}</IputError>
+          <IputError>
+            {emailError ? <span>동일한 이메일이 존재합니다.</span> : errors.email && errors.email.message}
+          </IputError>
         </InputContainer>
 
-        <InputContainer inputProp="username" label="비밀번호">
+        <InputContainer inputProp="password" label="비밀번호">
           <Controller
             name="password"
             control={control}
             defaultValue=""
             render={({ field }) => {
+              const errorDisplay = errors.password ? 'error' : '';
               return (
                 <FormInput
                   type="password"
                   id="password"
                   placeholder="특수문자와 숫자를 최소 1개씩 포함해주세요."
+                  error={errorDisplay}
                   {...field}
                 />
               );
@@ -103,17 +129,19 @@ export const Register = () => {
           <IputError>{errors.password && errors.password.message}</IputError>
         </InputContainer>
 
-        <InputContainer inputProp="username" label="비밀번호 확인">
+        <InputContainer inputProp="confimrPassword" label="비밀번호 확인">
           <Controller
             name="confimrPassword"
             control={control}
             defaultValue=""
             render={({ field }) => {
+              const errorDisplay = errors.confimrPassword ? 'error' : '';
               return (
                 <FormInput
                   type="password"
                   id="confimrPassword"
                   placeholder="동일한 비밀번호를 입력해주세요."
+                  error={errorDisplay}
                   {...field}
                 />
               );
@@ -125,4 +153,11 @@ export const Register = () => {
       </form>
     </div>
   );
+};
+
+const className = {
+  container:
+    'w-[560px] h-[600px] flex flex-col items-center justify-start px-11 border-[3px] border-garden1 box-border rounded bg-gardenBG shadow-[0_0_30px_rgba(30, 30, 30, 0.185)]',
+  form: 'flex-col w-full px-3',
+  title: 'justify-self-start text-center my-16 pb-2 text-garden1 font-pacifico text-4xl  ',
 };

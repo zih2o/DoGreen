@@ -1,22 +1,23 @@
 import { api } from '../util/api';
 import { useQuery } from '@tanstack/react-query';
-
-interface IUserData {
+import create from 'zustand';
+interface IAuthState {
+  token: string | null;
+}
+export interface IUserData {
   role: string;
   email: string;
   username: string;
   bio: string;
   imgUrl: string;
 }
-export const InitialData: IUserData = {
-  role: '',
-  email: '',
-  username: '',
-  bio: '',
-  imgUrl: '',
-};
 
-export default function useUserData(accessToken: string | null) {
+export default function useUserData() {
+  const AuthStore = create<IAuthState>(() => ({
+    token: sessionStorage.getItem('token'),
+  }));
+  const accessToken = AuthStore((state) => state.token);
+
   const userQuery = useQuery<IUserData>({
     queryKey: ['user'],
     queryFn: async () => {
