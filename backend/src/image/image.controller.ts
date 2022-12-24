@@ -1,14 +1,20 @@
-import { Request, Response } from 'express';
+import {
+  Request, Response
+} from 'express';
 import { BadRequestError } from '../errors/BadRequestError';
 import invariant from '../invariant';
-import { generateUploadUrl } from './presigned-url.router';
+import { ImageService } from './image.service';
 
-class ImageController {
-  async generateUrl(req: Request, res: Response) {
-    const { type } = req.body;
-    invariant(type !== undefined && type !== null, new BadRequestError('invalid format error'));
-    const url = await generateUploadUrl({ type });
-    res.status(200).json(url);
+const imageService = new ImageService();
+export class ImageController {
+  async uploadFileToS3(req: Request, res: Response) {
+    invariant(
+      req.file !== null && req.file !== undefined,
+      new BadRequestError('이미지 파일이 필요합니다.')
+    );
+
+    const fileData: Express.Multer.File = req.file;
+    await imageService.uploadFileToS3(fileData);
+    res.status(201).end();
   }
 }
-export { ImageController };
