@@ -1,15 +1,13 @@
 import React from 'react';
 import { TextType } from '../common/theme';
 import { MyPageMessageLayout } from '../layout/MyPageLayout';
-import { AuthStore } from '../../hooks/useAuth';
 import useUserData from '../../hooks/useUserData';
 import { MessageSkeleton } from '../loadings/MessageSkeleton';
 
 export const UserMessage = () => {
-  const accessToken = AuthStore((state) => state.token);
   const {
     userQuery: { isLoading, data: userData },
-  } = useUserData(accessToken);
+  } = useUserData();
 
   return (
     <>

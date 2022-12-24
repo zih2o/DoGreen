@@ -28,7 +28,7 @@ const SubscribeTab = () => {
       <div key={`back-${card._id}`} className={CardType.layout + CardType.back}>
         <button type="button" className={BtnType.newsLetterBtn}>
           {' '}
-          <Link to={`/categories/${card.categoryName}`}>뉴스레터 📰</Link>
+          <Link to={`/categories/${card._id}`}>뉴스레터 📰</Link>
         </button>
         <button
           type="button"
