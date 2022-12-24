@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CardLayout, CategoryLayout } from '../components/layout/GlobalLayout';
 import CardSkeleton from '../components/loadings/CardSkeleton';
 import { CardType, TextType, BtnType, WrapperType } from '../components/common/theme';
@@ -27,16 +27,27 @@ export const CategoriesPage = () => {
   const {
     catQuery: { isLoading, data: categories },
   } = useCategory();
+
   const {
     subQuery: { data: subscriptions },
   } = useSubquery();
 
   const { subMutation } = useSubscription(newSubInfo.categoryId as string);
+  const token = sessionStorage.getItem('token');
+  const navigate = useNavigate();
+
+  const checkLogin = () => {
+    if (!token) {
+      alert('로그인 후 이용 가능합니다');
+      navigate('/login');
+    }
+  };
   const handleSubButton = (category: ICategory) => {
     setNewSubInfo((prev) => ({ categoryId: category._id, categoryName: category.categoryName, subStatus: true }));
     setIsModal(!isModal);
   };
   const applySubscription = () => {
+    checkLogin();
     setSubInfo([...subInfo, newSubInfo]);
     subMutation.mutate();
     setIsModal(!isModal);
