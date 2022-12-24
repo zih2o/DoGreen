@@ -9,7 +9,6 @@ const postRouter = Router();
 postRouter.post('/create', loginRequired, adminRequired, postController.createPost);
 postRouter.patch('/:id', loginRequired, adminRequired, postController.updatePost);
 postRouter.delete('/:id', loginRequired, adminRequired, postController.deletePost);
-postRouter.get('/posts', postController.paginationPost);
 postRouter.get('/:id', postController.findOnePost);
 postRouter.get('/', postController.findAllPost);
 
