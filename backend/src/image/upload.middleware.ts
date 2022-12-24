@@ -24,7 +24,6 @@ const s3Client = new S3Client({
   credentials,
   region: 'ap-northeast-2'
 });
-logger.debug(JSON.stringify(credentials));
 
 const upload = multer({
   storage: multerS3({
