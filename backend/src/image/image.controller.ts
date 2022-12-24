@@ -1,14 +1,16 @@
-import { Request, Response } from 'express';
+import {
+  Request, Response
+} from 'express';
 import { BadRequestError } from '../errors/BadRequestError';
 import invariant from '../invariant';
-import { generateUploadUrl } from './presigned-url.router';
 
-class ImageController {
-  async generateUrl(req: Request, res: Response) {
-    const { type } = req.body;
-    invariant(type !== undefined && type !== null, new BadRequestError('invalid format error'));
-    const url = await generateUploadUrl({ type });
-    res.status(200).json(url);
+export class ImageController {
+  async post(req: Request, res: Response) {
+    invariant(
+      req.file !== null && req.file !== undefined,
+      new BadRequestError('이미지 파일이 필요합니다.')
+    );
+
+    res.status(200).send(req.file.location);
   }
 }
-export { ImageController };

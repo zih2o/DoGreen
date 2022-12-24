@@ -13,7 +13,8 @@ declare global {
           role: Role,
           email: string,
         }
-      }
+      },
+      file: MulterS3.File
     }
   }
 }
