@@ -19,18 +19,26 @@ export function useSubscription(catId: string) {
       queryClient.invalidateQueries({ queryKey: ['subscription'] });
       console.log('구독 성공');
     },
+    onError: (err: any) => {
+      console.log(err.response.data.error);
+    },
   });
 
   return { subMutation };
 }
 
 export function useSubquery() {
+  // const queryClient = useQueryClient();
   const subQuery = useQuery<ISubscription[]>({
     queryKey: ['userCategories'],
     queryFn: async () => {
       return await api.get('/subscribe').then((res) => res.data);
     },
     staleTime: 1000 * 60,
+    // onSuccess: () => {
+    //   queryClient.invalidateQueries({ queryKey: ['subQuery'] });
+    //   console.log('구독 조회');
+    // },
   });
 
   return { subQuery };

@@ -2,8 +2,8 @@ import create from 'zustand';
 
 interface IUserLogin {
   token: null | string;
-  isLogined: boolean;
-  what: () => void;
+  isLogin: boolean;
+  handleLogin: () => void;
 }
 
 interface IAdminLogin {
@@ -14,8 +14,8 @@ interface IAdminLogin {
 
 export const useUserLoginStore = create<IUserLogin>((set) => ({
   token: window.sessionStorage.getItem('token'),
-  isLogined: false,
-  what: () => set((state) => ({ isLogined: !state.isLogined })),
+  isLogin: false,
+  handleLogin: () => set((state) => ({ isLogin: !state.isLogin })),
 }));
 
 export const useAdminLoginStore = create<IAdminLogin>((set) => ({

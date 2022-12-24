@@ -69,7 +69,7 @@ export const CategoriesPage = () => {
                   <div key={`back-${category._id}`} className={CardType.layout + CardType.back}>
                     <button type="button" className={BtnType.newsLetterBtn}>
                       {' '}
-                      <Link to={`/categories/${category.categoryName}`}>뉴스레터 📰</Link>
+                      <Link to={`/categories/${category._id}`}>뉴스레터 📰</Link>
                     </button>
                     <button
                       type="button"
