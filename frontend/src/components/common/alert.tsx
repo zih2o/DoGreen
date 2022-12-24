@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Modal from '../../components/Modal';
 
 interface IAlertModal {
@@ -7,8 +8,12 @@ interface IAlertModal {
 }
 export const AlertModal = (props: IAlertModal) => {
   const [handleModal, setHandleModal] = useState<boolean>(true);
+  const navigate = useNavigate();
   const onClose = () => {
     setHandleModal(!handleModal);
+  };
+  const pageMove = () => {
+    navigate('/login');
   };
   console.log('모달 실행', handleModal);
   return (
@@ -35,7 +40,7 @@ export const AlertModal = (props: IAlertModal) => {
                   data-modal-toggle="defaultModal"
                   type="button"
                   className="mr-6 text-gray-500 bg-white hover:bg-gray-100 focus:ring-2 focus:outline-none focus:ring-gray-300 rounded-lg border border-gray-200 text-md font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-                  onClick={onClose}
+                  onClick={() => pageMove()}
                 >
                   확인
                 </button>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { CardLayout, CategoryLayout } from '../components/layout/GlobalLayout';
 import CardSkeleton from '../components/loadings/CardSkeleton';
 import { CardType, TextType, BtnType, WrapperType } from '../components/common/theme';
@@ -18,6 +18,7 @@ interface ISubscriptionInfo {
 
 export const CategoriesPage = () => {
   const [isModal, setIsModal] = useState<boolean>(false);
+  const [isLogined, setIsLogined] = useState<boolean>(true);
   const [subInfo, setSubInfo] = useState<ISubscriptionInfo[]>([]);
   const [newSubInfo, setNewSubInfo] = useState<ISubscriptionInfo>({
     categoryId: '',
@@ -30,21 +31,21 @@ export const CategoriesPage = () => {
   } = useCategory();
 
   const {
-    subQuery: { data: subscriptions, refetch },
+    subQuery: { data: subscriptions, refetch, error },
   } = useSubquery();
-  refetch();
+  // refetch();
   const { subMutation } = useSubscription(newSubInfo.categoryId as string);
   const token = sessionStorage.getItem('token');
-  const navigate = useNavigate();
+  if (error) {
+    // setAlertMessage(error.response.data.error);
+  } else {
+    refetch();
+  }
 
-  const alertModal = () => {
-    return <AlertModal title="title" message="이거야이거" />;
-  };
   const checkLogin = () => {
     if (!token) {
-      alertModal();
-      alert('로그인 후 이용 가능합니다');
-      // navigate('/login');
+      setIsLogined(false);
+      setIsModal(!isModal);
     }
   };
   const handleSubButton = (category: ICategory) => {
@@ -56,8 +57,6 @@ export const CategoriesPage = () => {
     setSubInfo([...subInfo, newSubInfo]);
     subMutation.mutate();
     setIsModal(!isModal);
-    window.alert('구독완료!');
-    //alertModal({ title: 'title', message: 'message' });
   };
   const handleSubStatus = (category: ICategory) => {
     const status =
@@ -67,15 +66,14 @@ export const CategoriesPage = () => {
   const skeletonCards = Array(15).fill(0);
   return (
     <>
-      <AlertModal title="로그인 안내" message=" 로그인하셔야 이용 가능합니다" />
       <CategoryLayout>
         <CardLayout>
-          <div className={TextType.titleText}>{'See all the Greens!'} &nbssp;</div>
+          <div className={TextType.titleText}>{'See all the Greens!'}</div>
           <div className={TextType.introduceText}>
             {'관심있는 토픽에 대한 뉴스레터를 둘러보거나 구독해보아요!'} &nbsp;
           </div>
 
-          {isModal && <AlertModal title="로그인 안내" message=" 로그인하셔야 이용 가능합니다" />}
+          {!isLogined && <AlertModal title="로그인 안내" message=" 로그인 후 이용해주세요" />}
           <div className={WrapperType.cardContentsWrapper}>
             <ul className={WrapperType.cardListWrapper}>
               {isLoading &&
@@ -149,12 +147,9 @@ export const CategoriesPage = () => {
                           data-modal-toggle="popup-modal"
                           type="button"
                           className="text-white bg-red-400 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-400 font-medium rounded-lg text-lg inline-flex items-center px-5 py-2.5 text-center mr-2"
-                          onClick={
-                            () => {
-                              applySubscription();
-                            }
-                            // alertModal({ title: 'title', message: 'subtitle' });
-                          }
+                          onClick={() => {
+                            applySubscription();
+                          }}
                         >
                           네
                         </button>
