@@ -10,7 +10,7 @@ interface IFormInput {
 
 export const FormInput = ({ type, placeholder, id, error, disabled, ...field }: IFormInput) => {
   const className = {
-    input: `w-full  px-3 py-2 bg-white rounded-md border border-gray-300 text-gray-900  placeholder:text-[13px] placeholder-gray-400 focus:z-10 focus:border-forest1 focus:outline-none focus:ring-forest3 ${
+    input: `w-full  px-3 py-2 bg-white rounded-md border border-gray-300 text-gray-900  placeholder:text-[12px] placeholder-gray-400 focus:z-10 focus:border-forest1 focus:outline-none focus:ring-forest3 ${
       error && 'border-forest3'
     }`,
     disabled: 'w-full px-3 py-2 bg-gardenBG',

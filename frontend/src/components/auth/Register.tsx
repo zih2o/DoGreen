@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { userValidation } from './yup';
 
 import { InputContainer } from '../InputContainer';
@@ -16,7 +16,6 @@ export const Register = () => {
   const { schema } = userValidation();
   const {
     handleSubmit,
-    watch,
     control,
     formState: { errors },
   } = useForm<IRegisterInputProps>({
@@ -31,40 +30,25 @@ export const Register = () => {
     registerMutation.mutate({ username, email, password });
   };
 
+  const [currUsername, currEmail] = useWatch({ control, name: ['username', 'email'] });
   //유저네임 실시간 밸리데이션
-  const currUsername = watch('username');
   const [usernameError, setUsernameError] = useState(false);
-  const {
-    valQuery: { data: valUsername, isLoading: isUserNameLoading },
-  } = useValUserName(currUsername?.length > 2 ? currUsername : '##');
+  const { data: valUsername, isLoading: isUserNameLoading } = useValUserName(
+    currUsername?.length > 2 ? currUsername : '##',
+  );
   const usernameVal = valUsername?.username;
 
   useEffect(() => {
-    if (usernameVal) {
-      setUsernameError(true);
-    } else {
-      setUsernameError(false);
-    }
-    console.log(currUsername, usernameVal);
+    usernameVal && setUsernameError(Boolean(usernameVal));
   }, [currUsername, isUserNameLoading]);
 
   //유저이메일 실시간 밸리데이션
-  const currEmail = watch('email');
   const [emailError, setEmailError] = useState(false);
-  const {
-    valQuery: { data: valEmail, isLoading: isEmailLoading },
-  } = useValEmail(currEmail?.length > 2 ? currEmail : '##');
+  const { data: valEmail, isLoading: isEmailLoading } = useValEmail(currEmail?.length > 2 ? currEmail : '##');
   const eamilVal = valEmail?.email;
 
   useEffect(() => {
-    console.log(currEmail, eamilVal);
-    if (eamilVal) {
-      setEmailError(true);
-      console.log('중복임 사용불가');
-    } else {
-      setEmailError(false);
-      console.log('사용가능 ');
-    }
+    eamilVal && setEmailError(Boolean(eamilVal));
   }, [emailError, isEmailLoading]);
 
   return (
@@ -119,7 +103,7 @@ export const Register = () => {
                 <FormInput
                   type="password"
                   id="password"
-                  placeholder="특수문자와 숫자를 최소 1개씩 포함해주세요."
+                  placeholder="알파벳,숫자,공백을 제외한 특수문자 8자리 이상 입력해주세요"
                   error={errorDisplay}
                   {...field}
                 />
@@ -157,7 +141,7 @@ export const Register = () => {
 
 const className = {
   container:
-    'w-[560px] h-[600px] flex flex-col items-center justify-start px-11 border-[3px] border-garden1 box-border rounded bg-gardenBG shadow-[0_0_30px_rgba(30, 30, 30, 0.185)]',
+    'w-[560px] h-[670px] flex flex-col items-center justify-start px-6 border-[3px] border-garden1 box-border rounded bg-gardenBG shadow-[0_0_30px_rgba(30, 30, 30, 0.185)]',
   form: 'flex-col w-full px-3',
   title: 'justify-self-start text-center my-16 pb-2 text-garden1 font-pacifico text-4xl  ',
 };

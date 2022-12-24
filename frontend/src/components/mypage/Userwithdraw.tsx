@@ -4,8 +4,8 @@ import { ClickButton } from '../FormsAboutInput';
 
 import { useWithDrawData } from '../../hooks/authApi';
 
-export const Userwithdraw = () => {
-  const { mutation: widthdra } = useWithDrawData();
+const Userwithdraw = () => {
+  const widthdra = useWithDrawData();
   const pwdRef = useRef<HTMLInputElement>(null);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -53,3 +53,5 @@ const className = {
     'w-full mb-10 px-3 py-2  bg-white rounded-md border border-gray-300 text-gray-900  placeholder:text-[13px] placeholder-gray-400 focus:z-10 focus:border-forest1 focus:outline-none focus:ring-forest3',
   notice: 'my-3 text-forest3',
 };
+
+export default Userwithdraw;

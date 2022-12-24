@@ -8,7 +8,7 @@ export interface IvalUserIfon {
 
 //유저네임
 export function useValUserName(username: string) {
-  const valQuery = useQuery<IvalUserIfon>({
+  return useQuery<IvalUserIfon>({
     queryKey: ['user', username],
     queryFn: async () => {
       return api
@@ -19,12 +19,11 @@ export function useValUserName(username: string) {
     },
     staleTime: 1000 * 60,
   });
-  return { valQuery };
 }
 
 //이메일
 export function useValEmail(email: string) {
-  const valQuery = useQuery<IvalUserIfon>({
+  return useQuery<IvalUserIfon>({
     queryKey: ['user', email],
     queryFn: async () => {
       return api
@@ -35,5 +34,4 @@ export function useValEmail(email: string) {
     },
     staleTime: 1000 * 60,
   });
-  return { valQuery };
 }

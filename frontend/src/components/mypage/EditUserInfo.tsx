@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { editValidation } from '../auth/yup';
 import { AiOutlineClose } from 'react-icons/ai';
 
@@ -10,7 +10,7 @@ import { FormInput, IputError, InputButton, ClickButton } from '../FormsAboutInp
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
 import useUserData, { IUserData } from '../../hooks/useUserData';
 import uesEditUserData from '../../hooks/editUserInfoApi';
-import { Userwithdraw } from './Userwithdraw';
+import Userwithdraw from './Userwithdraw';
 import { useValUserName } from '../../hooks/useValUserData';
 import Modal from '../Modal';
 
@@ -21,7 +21,7 @@ interface IEditInputData extends Omit<IUserData, 'imgUrl'> {
   imgUrl: FileList;
 }
 
-export const FormEditUserInfo = () => {
+const EditUserInfo = () => {
   //유저데이터부르기
   const {
     userQuery: { data: userData },
@@ -33,8 +33,7 @@ export const FormEditUserInfo = () => {
     handleSubmit,
     control,
     register,
-    setValue,
-    watch,
+    reset,
     formState: { errors },
   } = useForm<IEditInputData>({
     mode: 'onSubmit',
@@ -44,16 +43,27 @@ export const FormEditUserInfo = () => {
   //초기값
   useEffect(() => {
     if (userData) {
-      setValue('email', userData.email);
-      setValue('bio', userData.bio);
-      setValue('username', userData.username);
+      reset({
+        username: userData.username,
+        email: userData.email,
+        bio: userData.bio,
+      });
       setImgPreview(userData.imgUrl);
     }
   }, [userData]);
 
+  //수정하기
+  const editMutation = uesEditUserData();
+  const onSubmit = async (data: IEditInputData) => {
+    const { username, oldPassword, password, bio } = data;
+    const editData = { username, oldPassword, password, bio };
+    editMutation.mutate(editData);
+  };
+
+  const [image, currUsername] = useWatch({ control, name: ['imgUrl', 'username'] });
+
   //이미지 변경
   const [imgPreview, setImgPreview] = useState('');
-  const image = watch('imgUrl');
   useEffect(() => {
     if (image && image.length > 0) {
       const file = image?.[0];
@@ -61,20 +71,9 @@ export const FormEditUserInfo = () => {
     }
   }, [image]);
 
-  //수정하기
-  const { mutation: editMutation } = uesEditUserData();
-  const onSubmit = async (data: IEditInputData) => {
-    const { username, oldPassword, password, bio } = data;
-    const editData = { username, oldPassword, password, bio };
-    editMutation.mutate(editData);
-  };
   //유저네임 실시간 밸리데이션
-  //문제점 :  로딩이 false 가 되면 정상적으로 표시해주지않음. 😰
-  const currUsername = watch('username');
   const [usernameError, setUsernameError] = useState(false);
-  const {
-    valQuery: { data: valUsername },
-  } = useValUserName(currUsername?.length > 2 ? currUsername : '##');
+  const { data: valUsername, isLoading } = useValUserName(currUsername?.length > 2 ? currUsername : '##');
   const usernameVal = valUsername?.username;
 
   useEffect(() => {
@@ -86,7 +85,7 @@ export const FormEditUserInfo = () => {
       setUsernameError(false);
       console.log('사용가능 ');
     }
-  }, [currUsername]);
+  }, [currUsername, isLoading]);
 
   //회원탈퇴 모달
   const [handleModal, setHandleModal] = useState<boolean>(false);
@@ -108,6 +107,7 @@ export const FormEditUserInfo = () => {
             <Controller
               name="email"
               control={control}
+              defaultValue=""
               render={({ field }) => {
                 return <FormInput id="email" disabled {...field} />;
               }}
@@ -118,6 +118,7 @@ export const FormEditUserInfo = () => {
             <Controller
               name="username"
               control={control}
+              defaultValue=""
               render={({ field }) => {
                 const errorDisplay = usernameError || errors.username ? 'error' : '';
                 return (
@@ -139,6 +140,7 @@ export const FormEditUserInfo = () => {
             <Controller
               name="oldPassword"
               control={control}
+              defaultValue=""
               render={({ field }) => {
                 const errorDisplay = errors.oldPassword ? 'error' : '';
 
@@ -201,6 +203,7 @@ export const FormEditUserInfo = () => {
             <Controller
               name="bio"
               control={control}
+              defaultValue=""
               render={({ field }) => {
                 const errorDisplay = errors.bio ? 'error' : '';
                 return (
@@ -243,3 +246,5 @@ const className = {
   form: 'flex-col w-full px-3',
   closeButton: 'self-center absolute top-0 right-0 float-right p-5',
 };
+
+export default EditUserInfo;

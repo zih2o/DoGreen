@@ -57,7 +57,7 @@ export function useWithDrawData() {
   const withdrawMutate = async (currentPassword: string) => {
     return await api.patch('/user/me/withdraw', currentPassword);
   };
-  const mutation = useMutation({
+  return useMutation({
     mutationFn: withdrawMutate,
     onMutate: () => {
       alert('탈퇴하시겠습니까?');
@@ -72,5 +72,4 @@ export function useWithDrawData() {
       alert(error?.response?.data?.error);
     },
   });
-  return { mutation };
 }
