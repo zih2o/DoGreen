@@ -6,6 +6,15 @@ import { PostService } from './postService';
 const postService = new PostService();
 
 export class PostController {
+  async paginationPost(req: Request, res: Response, next: NextFunction) {
+    const { categoryId } = req.query;
+    const page = Number(req.query.page || 1);
+    const perPage = Number(req.query.perPage || 10);
+    // console.log(`${categoryId} : 카테고리ID \n ${page},${perPage} : 페이지, 펄페이지`);
+    const pagingPosts = await postService.paginationPost(categoryId, page, perPage);
+    res.status(201).json(pagingPosts);
+  }
+
   async createPost(req: Request, res: Response, next: NextFunction) {
     const createPostInfo = req.body;
     await postService.createPost(createPostInfo);

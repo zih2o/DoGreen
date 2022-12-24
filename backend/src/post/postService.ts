@@ -7,6 +7,11 @@ const postRepository = new PostRepository();
 const cateogryRepository = new CategoryRepository();
 
 export class PostService implements IPostService {
+  async paginationPost(categoryId: categoryT['id'] | string, page: number, perPage: number) {
+    const pagingPosts = await postRepository.paginationPost(categoryId, page, perPage);
+    return pagingPosts;
+  }
+
   async createPost(createPostInfo: createPostDto) {
     // 카테고리 존재 검증
     const categoryId = await cateogryRepository.findCategory(createPostInfo.category);
