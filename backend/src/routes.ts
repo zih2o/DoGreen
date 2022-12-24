@@ -7,6 +7,7 @@ import { userRouter } from './user/user.router';
 import { categoryRouter } from './category/categoryRouter';
 import { subscribeRouter } from './subscribe/subscribe.router';
 import { postRouter } from './post/postRouter';
+import { commentRouter } from './comment/commentRouter';
 // import { imageRouter } from './image/image.router';
 import apiSpec from '../openapi.json' assert { type: 'json' };
 
@@ -18,6 +19,7 @@ router.use('/user', userRouter);
 router.use('/post', postRouter);
 router.use('/category', categoryRouter);
 router.use('/subscribe', subscribeRouter);
+router.use('/comment', commentRouter);
 // router.use('/image', imageRouter);
 // Dev routes
 if (process.env.NODE_ENV === 'development') {

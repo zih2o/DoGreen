@@ -5,7 +5,7 @@ import { userValidation } from './yup';
 
 import { InputContainer } from '../InputContainer';
 import { FormInput, IputError, InputButton } from '../FormsAboutInput';
-import { useResiter, IAuthInput } from './authApi';
+import { useResiter, IAuthInput } from '../../hooks/authApi';
 import { useValUserName, useValEmail } from '../../hooks/useValUserData';
 interface IRegisterInputProps extends IAuthInput {
   username: string;

@@ -1,7 +1,7 @@
 import { api } from '../util/api';
 import { useQuery } from '@tanstack/react-query';
 
-interface ICategory {
+export interface ICategory {
   _id: string;
   categoryName: string;
   mascotName: string;

@@ -1,5 +1,6 @@
 import { model, mongo } from 'mongoose';
 import { AuthService } from '../auth/auth.service';
+import { BadRequestError } from '../errors/BadRequestError';
 import { ConflictError } from '../errors/ConflictError';
 import invariant from '../invariant';
 import { UserSchema } from './user.schema';
@@ -55,10 +56,10 @@ export class UserService implements IUserService {
     return userToUserDto(user);
   }
 
-  async findUsernameByAuthId(authId: string) {
-    const user = await UserModel.findOne({ auth: authId }).select('username');
-    invariant(user !== null, '유저정보가 존재하지 않습니다.');
-    return user.username;
+  async findUserByAuthId(authId: string) {
+    const username = await UserModel.findOne({ auth: authId });
+    invariant(username !== null, '유저정보가 존재하지 않습니다.');
+    return username;
   }
 
   async findUserByEmail(email: UserT['email']) {
@@ -83,9 +84,9 @@ export class UserService implements IUserService {
 
   // update, softdeletebyuser 가능
   async updateUser(email: UserT['email'], userInfo: Partial<Omit<UserT, 'email' | 'auth' | 'isDeleted'>>) {
-    if (userInfo.username && await this.isDuplicatedUsername(userInfo.username)) {
-      throw new ConflictError('다른 유저가 사용하고 있는 닉네임입니다.');
-    }
+    // if (userInfo.username && await this.isDuplicatedUsername(userInfo.username)) {
+    //   throw new ConflictError('다른 유저가 사용하고 있는 닉네임입니다.');
+    // }
     await UserModel.updateOne(
       { email }, // filter
       {
@@ -96,7 +97,10 @@ export class UserService implements IUserService {
     );
   }
 
-  async withdraw(email: UserT['email']) {
+  async withdraw(email: UserT['email'], password: AuthT['password']) {
+    if (!await authService.isPasswordCorrect(password, email)) {
+      throw new BadRequestError('비밀번호가 틀렸습니다.');
+    }
     await UserModel.updateOne(
       { email }, // filter
       { isDeleted: true } // update

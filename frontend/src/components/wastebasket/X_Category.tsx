@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CategorysContext } from '../adminPage/Category';
+import { CategorysContext } from './X_Category2';
 //과거의 잔흔 사용하지않는 component
 export default function Category() {
   const { categorys } = useContext(CategorysContext);

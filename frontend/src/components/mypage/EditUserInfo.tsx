@@ -9,7 +9,7 @@ import { ImgContainer } from '../ImgContainer';
 import { FormInput, IputError, InputButton, ClickButton } from '../FormsAboutInput';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
 import useUserData, { IUserData } from '../../hooks/useUserData';
-import uesEditUserData from './editUserInfoApi';
+import uesEditUserData from '../../hooks/editUserInfoApi';
 import { Userwithdraw } from './Userwithdraw';
 import { useValUserName } from '../../hooks/useValUserData';
 import Modal from '../Modal';

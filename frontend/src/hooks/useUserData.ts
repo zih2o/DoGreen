@@ -1,6 +1,6 @@
+import { api } from '../util/api';
 import { useQuery } from '@tanstack/react-query';
 import create from 'zustand';
-import axios from 'axios';
 interface IAuthState {
   token: string | null;
 }
@@ -21,7 +21,7 @@ export default function useUserData() {
   const userQuery = useQuery<IUserData>({
     queryKey: ['user'],
     queryFn: async () => {
-      return axios
+      return api
         .get('/user/me', {
           headers: {
             Authorization: `Bearer ${accessToken}`,

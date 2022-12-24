@@ -2,18 +2,34 @@ import { model, Types } from 'mongoose';
 import { CategorySchema } from '../category/categorySchema';
 import invariant from '../invariant';
 import { PostSchema } from './postSchema';
+import { UserSchema } from '../user/user.schema';
+import { CommentSchema } from '../comment/commentSchema';
 
 const PostModel = model<PostT>('posts', PostSchema);
 const CategoryModel = model<categoryT>('categories', CategorySchema);
+const UserModel = model('users', UserSchema);
+const CommentModel = model('comments', CommentSchema);
 
 export class PostRepository implements IPostRepository {
-  async findAllCommentAtPost(postId: CommentT['refPost']) {
-    const commentArray = await PostModel.findById(postId.id).select('comments').populate('comments');
-    console.log(`${commentArray} 제대로 찍혔는가 내가원하는 커멘트들이 나왔는가`);
-    return commentArray;
+  async deletePostCommentId(commentId: string) {
+    const findPostId = await CommentModel.findById(commentId);
+    await PostModel.findByIdAndUpdate(findPostId?.refPost, { $pull: { comments: commentId } });
   }
 
-  async addcommentList(postId: PostT['id'], commentId:Types.ObjectId) {
+  async findAllCommentAtPost(postId: CommentT['refPost']) {
+    const commentArray = await PostModel.findById(postId.id)
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'userId',
+          select: 'username'
+        }
+      });
+
+    return commentArray?.comments;
+  }
+
+  async addcommentList(postId: PostT['id'], commentId: Types.ObjectId) {
     await PostModel.findByIdAndUpdate(postId, { $push: { comments: commentId } });
   }
 
@@ -33,12 +49,13 @@ export class PostRepository implements IPostRepository {
       content: newPost.content,
       imageList: newPost.imageList
     });
-    await CategoryModel.updateOne({ id }, { $push: newPostId.id });
+    await CategoryModel.findByIdAndUpdate(id, { $push: { posts: newPostId.id } });
   }
 
-  async deleteOne(id:PostT['id']) {
-    await PostModel.findByIdAndDelete(id.id);
-    await CategoryModel.updateOne({ $pull: { posts: id.id } });
+  async deleteOne(id: PostT['id']) {
+    const findPost = await PostModel.findById(id.id);
+    await CategoryModel.findByIdAndUpdate(findPost?.category, { $pull: { posts: findPost?.id } });
+    await PostModel.deleteOne({ id: findPost?.id });
   }
 
   async updateOne(id: PostT['id'], toUpdatePost: updatePostDto) {

@@ -5,7 +5,7 @@ import { loginValidation } from './yup';
 
 import { InputContainer } from '../InputContainer';
 import { FormInput, IputError, InputButton } from '../FormsAboutInput';
-import { useLogin, IAuthInput } from './authApi';
+import { useLogin, IAuthInput } from '../../hooks/authApi';
 
 export const Login = () => {
   const { schema } = loginValidation();

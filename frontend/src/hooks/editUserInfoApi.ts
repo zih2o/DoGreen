@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { api } from '../../util/api';
+import { api } from '../util/api';
 import { useNavigate } from 'react-router';
 
 interface IuserInfo {
