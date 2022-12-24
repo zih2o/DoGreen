@@ -15,7 +15,6 @@ export const AlertModal = (props: IAlertModal) => {
   const pageMove = () => {
     navigate('/login');
   };
-  console.log('모달 실행', handleModal);
   return (
     <>
       {handleModal && (

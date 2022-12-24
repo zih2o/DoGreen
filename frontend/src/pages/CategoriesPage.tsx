@@ -33,11 +33,10 @@ export const CategoriesPage = () => {
   const {
     subQuery: { data: subscriptions, refetch, error },
   } = useSubquery();
-  // refetch();
   const { subMutation } = useSubscription(newSubInfo.categoryId as string);
   const token = sessionStorage.getItem('token');
   if (error) {
-    // setAlertMessage(error.response.data.error);
+    error;
   } else {
     refetch();
   }

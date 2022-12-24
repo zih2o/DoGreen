@@ -17,11 +17,10 @@ export function useSubscription(catId: string) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['subscription'] });
-      console.log('구독 성공');
     },
-    onError: (err: any) => {
-      console.log(err.response.data.error);
-    },
+    // onError: (err: any) => {
+    //   console.log(err.response.data.error);
+    // },
   });
 
   return { subMutation };
