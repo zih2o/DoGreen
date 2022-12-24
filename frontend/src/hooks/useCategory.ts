@@ -5,8 +5,8 @@ export interface ICategory {
   _id: string;
   categoryName: string;
   mascotName: string;
-  mascotImage: string;
-  posts: any[];
+  mascotImage: URL;
+  posts: string[];
   __v: number;
 }
 
@@ -16,7 +16,7 @@ export default function useCategory() {
     queryFn: async () => {
       return api.get('/category').then((res) => res.data);
     },
-    staleTime: 1000 * 60,
+    staleTime: 1000 * 60 * 5,
   });
 
   return { catQuery };
