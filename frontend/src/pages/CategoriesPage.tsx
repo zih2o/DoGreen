@@ -7,6 +7,7 @@ import useCategory, { ICategory } from '../hooks/useCategory';
 import { useSubscription, useSubquery } from '../hooks/useSubscription';
 import { checkName } from '../util/functionUtil';
 import Modal from '../components/Modal';
+import { alertModal } from '../components/common/alert';
 import { AiOutlineClose } from 'react-icons/ai';
 
 interface ISubscriptionInfo {
@@ -29,9 +30,9 @@ export const CategoriesPage = () => {
   } = useCategory();
 
   const {
-    subQuery: { data: subscriptions },
+    subQuery: { data: subscriptions, refetch },
   } = useSubquery();
-
+  refetch();
   const { subMutation } = useSubscription(newSubInfo.categoryId as string);
   const token = sessionStorage.getItem('token');
   const navigate = useNavigate();
@@ -51,7 +52,8 @@ export const CategoriesPage = () => {
     setSubInfo([...subInfo, newSubInfo]);
     subMutation.mutate();
     setIsModal(!isModal);
-    window.location.reload();
+    window.alert('구독완료!');
+    //alertModal({ title: 'title', message: 'message' });
   };
   const handleSubStatus = (category: ICategory) => {
     const status =
@@ -66,6 +68,8 @@ export const CategoriesPage = () => {
         <div className={TextType.introduceText}>
           {'관심있는 토픽에 대한 뉴스레터를 둘러보거나 구독해보아요!'} &nbsp;
         </div>
+
+        {/* {isModal && alertModal({ title: 'title', message: 'message' })} */}
         <div className={WrapperType.cardContentsWrapper}>
           <ul className={WrapperType.cardListWrapper}>
             {isLoading &&
@@ -139,7 +143,12 @@ export const CategoriesPage = () => {
                         data-modal-toggle="popup-modal"
                         type="button"
                         className="text-white bg-red-400 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-400 font-medium rounded-lg text-lg inline-flex items-center px-5 py-2.5 text-center mr-2"
-                        onClick={() => applySubscription()}
+                        onClick={
+                          () => {
+                            applySubscription();
+                          }
+                          // alertModal({ title: 'title', message: 'subtitle' });
+                        }
                       >
                         네
                       </button>

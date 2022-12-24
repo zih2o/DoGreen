@@ -13,14 +13,13 @@ const SubscribeTab = () => {
   const [isModal, setIsModal] = useState<boolean>(false);
   const [cancelId, setCancelId] = useState<string>('');
   const {
-    subQuery: { isLoading, data: subInfo },
+    subQuery: { isLoading, data: subInfo, refetch },
   } = useSubquery();
   const { delMutation } = useDelSubscription(cancelId);
-
+  refetch();
   const cancelSubscription = () => {
     delMutation.mutate();
     setIsModal(!isModal);
-    window.location.reload();
   };
 
   const tabCards = subInfo?.map((card) => (
