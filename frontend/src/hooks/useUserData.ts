@@ -1,32 +1,18 @@
 import { api } from '../util/api';
 import { useQuery } from '@tanstack/react-query';
-
-interface IUserData {
+export interface IUserData {
   role: string;
   email: string;
   username: string;
   bio: string;
   imgUrl: string;
 }
-export const InitialData: IUserData = {
-  role: '',
-  email: '',
-  username: '',
-  bio: '',
-  imgUrl: '',
-};
 
-export default function useUserData(accessToken: string | null) {
+export default function useUserData() {
   const userQuery = useQuery<IUserData>({
     queryKey: ['user'],
     queryFn: async () => {
-      return api
-        .get('/user/me', {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        })
-        .then((res) => res.data);
+      return api.get('/user/me').then((res) => res.data);
     },
     staleTime: 1000 * 60,
   });

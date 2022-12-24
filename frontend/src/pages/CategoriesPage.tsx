@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CardLayout, CategoryLayout } from '../components/layout/GlobalLayout';
 import CardSkeleton from '../components/loadings/CardSkeleton';
 import { CardType, TextType, BtnType, WrapperType } from '../components/common/theme';
@@ -8,7 +8,6 @@ import { useSubscription, useSubquery } from '../hooks/useSubscription';
 import { checkName } from '../util/functionUtil';
 import Modal from '../components/Modal';
 import { AiOutlineClose } from 'react-icons/ai';
-import Category from '../components/wastebasket/X_Category';
 
 interface ISubscriptionInfo {
   categoryId: string;
@@ -28,16 +27,27 @@ export const CategoriesPage = () => {
   const {
     catQuery: { isLoading, data: categories },
   } = useCategory();
+
   const {
     subQuery: { data: subscriptions },
   } = useSubquery();
 
   const { subMutation } = useSubscription(newSubInfo.categoryId as string);
+  const token = sessionStorage.getItem('token');
+  const navigate = useNavigate();
+
+  const checkLogin = () => {
+    if (!token) {
+      alert('로그인 후 이용 가능합니다');
+      navigate('/login');
+    }
+  };
   const handleSubButton = (category: ICategory) => {
     setNewSubInfo((prev) => ({ categoryId: category._id, categoryName: category.categoryName, subStatus: true }));
     setIsModal(!isModal);
   };
   const applySubscription = () => {
+    checkLogin();
     setSubInfo([...subInfo, newSubInfo]);
     subMutation.mutate();
     setIsModal(!isModal);
@@ -70,7 +80,7 @@ export const CategoriesPage = () => {
                   <div key={`back-${category._id}`} className={CardType.layout + CardType.back}>
                     <button type="button" className={BtnType.newsLetterBtn}>
                       {' '}
-                      <Link to={`/categories/${category.categoryName}`}>뉴스레터 📰</Link>
+                      <Link to={`/categories/${category._id}`}>뉴스레터 📰</Link>
                     </button>
                     <button
                       type="button"
