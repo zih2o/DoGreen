@@ -11,6 +11,22 @@ const UserModel = model('users', UserSchema);
 const CommentModel = model('comments', CommentSchema);
 
 export class PostRepository implements IPostRepository {
+  async paginationPost(categoryId: categoryT['id'] | string, page: number, perPage: number) {
+    // 해당 카테고리에 총 갯수를 구하는 쿼리
+    const findPosts = await CategoryModel.findById(categoryId, { posts: 1 });
+    const total:any = findPosts?.posts?.length;
+
+    // 총갯수로 posts 갯수 정하기
+    const posts: any = await CategoryModel.findById(categoryId).populate('posts').select('posts');
+
+    const result = posts.posts.slice((perPage * (page - 1)), perPage);
+    const totalPage = Math.ceil(total / perPage);
+
+    return {
+      page, perPage, result, totalPage
+    };
+  }
+
   async deletePostCommentId(commentId: string) {
     const findPostId = await CommentModel.findById(commentId);
     await PostModel.findByIdAndUpdate(findPostId?.refPost, { $pull: { comments: commentId } });
