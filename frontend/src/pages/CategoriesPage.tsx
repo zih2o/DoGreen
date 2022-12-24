@@ -8,7 +8,6 @@ import { useSubscription, useSubquery } from '../hooks/useSubscription';
 import { checkName } from '../util/functionUtil';
 import Modal from '../components/Modal';
 import { AiOutlineClose } from 'react-icons/ai';
-import Category from '../components/wastebasket/X_Category';
 
 interface ISubscriptionInfo {
   categoryId: string;
