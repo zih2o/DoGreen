@@ -1,11 +1,13 @@
-import express from 'express';
+import { Router } from 'express';
 import upload from './upload.middleware';
 import { ImageController } from './image.controller';
 import { nextError } from '../nextError';
+import { loginRequired } from '../middleware/loginRequired';
 
 const imageController = new ImageController();
+const imageRouter = Router();
 
-const imageRouter = express.Router();
+imageRouter.use(loginRequired);
 
 imageRouter.post('/', upload.single('image'), nextError(imageController.post));
 
