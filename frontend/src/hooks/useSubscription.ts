@@ -1,6 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
-import { AuthStore } from './useAuth';
+import { api } from '../util/api';
 
 export interface ISubscription {
   _id: string | undefined;
@@ -12,24 +11,16 @@ export interface ISubscription {
 
 export function useSubscription(catId: string) {
   const queryClient = useQueryClient();
-  const accessToken = AuthStore((state) => state.token);
   const subMutation = useMutation<ISubscription>({
     mutationFn: async () => {
-      return await axios
-        .post(
-          `/subscribe/${catId}`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          },
-        )
-        .then((res) => res.data);
+      return await api.post(`/subscribe/${catId}`).then((res) => res.data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['subscription'] });
       console.log('구독 성공');
+    },
+    onError: (err: any) => {
+      console.log(err.response.data.error);
     },
   });
 
@@ -37,19 +28,14 @@ export function useSubscription(catId: string) {
 }
 
 export function useSubquery() {
-  const accessToken = AuthStore((state) => state.token);
+  const token = sessionStorage.getItem('token');
   const subQuery = useQuery<ISubscription[]>({
     queryKey: ['userCategories'],
     queryFn: async () => {
-      return await axios
-        .get('/subscribe', {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        })
-        .then((res) => res.data);
+      return await api.get('/subscribe').then((res) => res.data);
     },
     staleTime: 1000 * 60,
+    enabled: !!token,
   });
 
   return { subQuery };
@@ -57,16 +43,10 @@ export function useSubquery() {
 
 export function useDelSubscription(catId: string) {
   const queryClient = useQueryClient();
-  const accessToken = AuthStore((state) => state.token);
+
   const delMutation = useMutation<ISubscription>({
     mutationFn: async () => {
-      return await axios
-        .delete(`/subscribe/${catId}`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        })
-        .then((res) => res.data);
+      return await api.delete(`/subscribe/${catId}`).then((res) => res.data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['cancelSub'] });

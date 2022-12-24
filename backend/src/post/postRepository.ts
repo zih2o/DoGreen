@@ -22,7 +22,7 @@ export class PostRepository implements IPostRepository {
         path: 'comments',
         populate: {
           path: 'userId',
-          select: 'username'
+          select: 'username imgUrl'
         }
       });
 
