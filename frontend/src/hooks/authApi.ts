@@ -51,3 +51,26 @@ export function useResiter() {
   });
   return { mutation };
 }
+
+export function useWithDrawData() {
+  const navigate = useNavigate();
+  const withdrawMutate = async (currentPassword: string) => {
+    return await api.patch('/user/me/withdraw', currentPassword);
+  };
+  const mutation = useMutation({
+    mutationFn: withdrawMutate,
+    onMutate: () => {
+      alert('탈퇴하시겠습니까?');
+    },
+    onSuccess: () => {
+      console.log('회원탈퇴');
+      alert('회원탈퇴 되었습니다.');
+      navigate('/');
+    },
+    onError: (error) => {
+      console.error('에러 발생했지롱');
+      alert(error?.response?.data?.error);
+    },
+  });
+  return { mutation };
+}

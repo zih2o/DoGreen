@@ -2,21 +2,20 @@ import React, { useRef } from 'react';
 import { InputContainer } from '../InputContainer';
 import { ClickButton } from '../FormsAboutInput';
 
-import useWithDrawData from '../../hooks/useWithDrawData';
+import { useWithDrawData } from '../../hooks/authApi';
 
 export const Userwithdraw = () => {
   const { mutation: widthdra } = useWithDrawData();
   const pwdRef = useRef<HTMLInputElement>(null);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    try {
-      event.preventDefault();
-      if (pwdRef.current) {
-        const currentPassword = pwdRef.current.value;
-        widthdra.mutate(currentPassword);
-      }
-    } catch (error: any) {
-      alert('비밀번호가 다릅니다.');
+    event.preventDefault();
+    if (!pwdRef.current?.value) {
+      alert('비밀번호를 입력해주세요.');
+      return;
+    } else if (pwdRef.current.value) {
+      const currentPassword = pwdRef.current.value;
+      widthdra.mutate(currentPassword);
     }
   };
 
