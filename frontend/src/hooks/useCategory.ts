@@ -5,12 +5,12 @@ export interface ICategory {
   _id: string;
   categoryName: string;
   mascotName: string;
-  mascotImage: URL;
+  mascotImage: string;
   posts: string[];
   __v: number;
 }
 
-export default function useCategory() {
+export default function useCategory(catId?: string) {
   const catQuery = useQuery<ICategory[]>({
     queryKey: ['categories'],
     queryFn: async () => {
@@ -19,5 +19,13 @@ export default function useCategory() {
     staleTime: 1000 * 60 * 5,
   });
 
-  return { catQuery };
+  const categoryQuery = useQuery<ICategory>({
+    queryKey: [catId],
+    queryFn: async () => {
+      return api.get(`category/${catId}`).then((res) => res.data);
+    },
+    staleTime: 1000 * 60 * 5,
+  });
+
+  return { catQuery, categoryQuery };
 }
