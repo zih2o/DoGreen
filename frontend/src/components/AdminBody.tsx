@@ -7,20 +7,15 @@ import NewsCategory from './adminPage/NewsCategory';
 
 import RightBody from './adminPage/RightBody';
 import LeftSide from './adminPage/LeftSide';
+import Modal from './adminPage/Modal';
 
 function AdminBody() {
-  const { adminCategory } = useAdminCategoryStore();
-  // const accessToken = AuthStore((state) => state.token);
-  // const {
-  //   userQuery: { data: user },
-  // } = useUserData(accessToken);
-  // console.log("=======================토큰, 유저=======================");
-  // console.log(accessToken, user);
-  // console.log("================================================");
+  const { adminCategory, adminModal } = useAdminCategoryStore();
   return (
     <>
       <LeftSide />
       <RightBody name={adminCategory} />
+      {adminModal && <Modal />}
     </>
   );
 }
