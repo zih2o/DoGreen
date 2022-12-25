@@ -12,6 +12,7 @@ import useUserData, { IUserData } from '../../hooks/useUserData';
 import uesEditUserData from '../../hooks/editUserInfoApi';
 import Userwithdraw from './Userwithdraw';
 import { useValUserName } from '../../hooks/useValUserData';
+import createUrl from '../../hooks/presignedUrlApi';
 import Modal from '../Modal';
 
 interface IEditInputData extends Omit<IUserData, 'imgUrl'> {
@@ -52,22 +53,18 @@ const EditUserInfo = () => {
     }
   }, [userData]);
 
-  //수정하기
-  const editMutation = uesEditUserData();
-  const onSubmit = async (data: IEditInputData) => {
-    const { username, oldPassword, password, bio } = data;
-    const editData = { username, oldPassword, password, bio };
-    editMutation.mutate(editData);
-  };
-
   const [image, currUsername] = useWatch({ control, name: ['imgUrl', 'username'] });
-
+  //presinedUrl
+  const presignedUrlMutation = createUrl();
   //이미지 변경
   const [imgPreview, setImgPreview] = useState('');
   useEffect(() => {
     if (image && image.length > 0) {
       const file = image?.[0];
+      console.log('file : ', file);
+
       setImgPreview(URL.createObjectURL(file));
+      presignedUrlMutation.mutate(file);
     }
   }, [image]);
 
@@ -91,6 +88,14 @@ const EditUserInfo = () => {
   const [handleModal, setHandleModal] = useState<boolean>(false);
   const onClose = () => {
     setHandleModal(!handleModal);
+  };
+
+  //수정하기
+  const editMutation = uesEditUserData();
+  const onSubmit = async (data: IEditInputData) => {
+    const { username, oldPassword, password, bio } = data;
+    const editData = { username, oldPassword, password, bio };
+    editMutation.mutate(editData);
   };
 
   return (

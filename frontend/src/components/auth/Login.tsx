@@ -17,7 +17,8 @@ export const Login = () => {
     mode: 'onSubmit',
     resolver: yupResolver(schema),
   });
-  const { mutation: loginMutation } = useLogin();
+  const loginMutation = useLogin();
+  console.log(loginMutation);
   const onSubmit = async (data: IAuthInput) => {
     loginMutation.mutate(data);
   };

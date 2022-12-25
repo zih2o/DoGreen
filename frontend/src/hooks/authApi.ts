@@ -16,7 +16,7 @@ export function useLogin() {
     const token = res.data;
     return token;
   };
-  const mutation = useMutation({
+  return useMutation({
     mutationFn: registerMutate,
     onSuccess: (token) => {
       queryClient.invalidateQueries({ queryKey: ['user'] });
@@ -30,7 +30,6 @@ export function useLogin() {
       alert(error?.response?.data?.error);
     },
   });
-  return { mutation };
 }
 
 export function useResiter() {
