@@ -7,14 +7,14 @@ import useNews from '../../hooks/useNews';
 
 export default function NewsCards() {
   const {
-    newsQuery: { data: news },
+    newsQuery: { isLoading, data: news },
   } = useNews();
   return (
-    <div className='flex flex-wrap'>
-      {news === undefined ? (
+    <div className="flex flex-wrap">
+      {isLoading ? (
         <CardSkeleton />
       ) : (
-        news.map((item) => <Card key={item._id} img="" name={item.category} description={item.content} />)
+        news.map((item) => <Card id={item._id} key={item._ids} img="" name={item.category} description={item.content} />)
       )}
     </div>
   );
