@@ -4,7 +4,7 @@ import { CardLayout, CategoryLayout } from '../components/layout/GlobalLayout';
 import CardSkeleton from '../components/loadings/CardSkeleton';
 import { CardType, TextType, BtnType, WrapperType } from '../components/common/theme';
 import useCategory, { ICategory } from '../hooks/useCategory';
-import { useSubscription, useSubquery } from '../hooks/useSubscription';
+import { useSubscription } from '../hooks/useSubscription';
 import { checkName } from '../util/functionUtil';
 import Modal from '../components/Modal';
 import { AlertModal } from '../components/common/AlertModal';
@@ -26,10 +26,14 @@ export const CategoriesPage = () => {
     subStatus: false,
   });
 
-  const { isLoading, data: categories } = useCategory();
+  const {
+    catQuery: { isLoading, data: categories },
+  } = useCategory();
 
-  const { data: subscriptions, refetch, error } = useSubquery();
-  const { subMutation } = useSubscription(newSubInfo.categoryId as string);
+  const {
+    subsQuery: { data: subscriptions, refetch, error },
+    subsMutation,
+  } = useSubscription(newSubInfo.categoryId as string);
   const token = sessionStorage.getItem('token');
   if (error) {
     error;
@@ -50,7 +54,7 @@ export const CategoriesPage = () => {
   const applySubscription = async () => {
     try {
       setSubInfo([...subInfo, newSubInfo]);
-      subMutation.mutate();
+      subsMutation.mutate();
       setIsModal(!isModal);
     } catch {
       checkLogin();

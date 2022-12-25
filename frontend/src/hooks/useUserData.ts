@@ -9,11 +9,12 @@ export interface IUserData {
 }
 
 export default function useUserData() {
-  return useQuery<IUserData>({
+  const userQuery = useQuery<IUserData>({
     queryKey: ['user'],
     queryFn: async () => {
       return api.get('/user/me').then((res) => res.data);
     },
     staleTime: 1000 * 60,
   });
+  return { userQuery };
 }

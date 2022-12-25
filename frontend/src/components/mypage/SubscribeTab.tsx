@@ -4,7 +4,7 @@ import { CardType, TextType, WrapperType, BtnType } from '../common/theme';
 import CardSkeleton from '../loadings/CardSkeleton';
 import { CardLayout } from '../layout/GlobalLayout';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
-import { useSubquery, useDelSubscription } from '../../hooks/useSubscription';
+import { useSubscription } from '../../hooks/useSubscription';
 import { checkName } from '../../util/functionUtil';
 import Modal from '../../components/Modal';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -12,8 +12,12 @@ import { AiOutlineClose } from 'react-icons/ai';
 const SubscribeTab = () => {
   const [isModal, setIsModal] = useState<boolean>(false);
   const [cancelId, setCancelId] = useState<string>('');
-  const { isLoading, data: subInfo, refetch } = useSubquery();
-  const { delMutation } = useDelSubscription(cancelId);
+
+  const {
+    subsQuery: { isLoading, data: subInfo, refetch },
+    delMutation,
+  } = useSubscription(cancelId);
+
   refetch();
   const cancelSubscription = () => {
     delMutation.mutate();

@@ -6,7 +6,9 @@ import useCategory from '../../hooks/useCategory';
 import { checkName } from '../../util/functionUtil';
 
 const CardsList = () => {
-  const { data: categories } = useCategory();
+  const {
+    catQuery: { data: categories },
+  } = useCategory();
 
   const tabCards1 = categories?.map((card, index) => {
     const range = categories.length / 2;

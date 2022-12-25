@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../util/api';
+import { useUserLoginStore } from './store';
 
 export interface ISubscription {
   _id: string | undefined;
@@ -11,23 +12,8 @@ export interface ISubscription {
 
 export function useSubscription(catId: string) {
   const queryClient = useQueryClient();
-  const subMutation = useMutation<ISubscription>({
-    mutationFn: async () => {
-      return await api.post(`/subscribe/${catId}`).then((res) => res.data);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['subscription'] });
-    },
-    // onError: (err: any) => {
-    //   console.log(err.response.data.error);
-    // },
-  });
-  return { subMutation };
-}
-
-export function useSubquery() {
-  const token = sessionStorage.getItem('token');
-  return useQuery<ISubscription[]>({
+  const token = useUserLoginStore((state) => state.token);
+  const subsQuery = useQuery<ISubscription[]>({
     queryKey: ['userCategories'],
     queryFn: async () => {
       return await api.get('/subscribe').then((res) => res.data);
@@ -35,11 +21,14 @@ export function useSubquery() {
     staleTime: 1000 * 60,
     enabled: !!token,
   });
-}
-
-export function useDelSubscription(catId: string) {
-  const queryClient = useQueryClient();
-
+  const subsMutation = useMutation<ISubscription>({
+    mutationFn: async () => {
+      return await api.post(`/subscribe/${catId}`).then((res) => res.data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['subscription'] });
+    },
+  });
   const delMutation = useMutation<ISubscription>({
     mutationFn: async () => {
       return await api.delete(`/subscribe/${catId}`).then((res) => res.data);
@@ -49,5 +38,5 @@ export function useDelSubscription(catId: string) {
       console.log('구독 취소');
     },
   });
-  return { delMutation };
+  return { subsQuery, subsMutation, delMutation };
 }
