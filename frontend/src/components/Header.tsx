@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Hamburger from './Hamburger';
+
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { FaUserCircle } from 'react-icons/fa';
 import { BsSun, BsFillMoonFill } from 'react-icons/bs';
+
 import {useHamburgerStore } from '../hooks/useHamburger';
 import {useDarkModeStore}from '../hooks/useDarkMode'
 
@@ -42,8 +44,7 @@ function Header() {
             <span className="sr-only">Hamburger svg</span>
           </div>
         </button>
-
-        {hamburgerOpen ? <Hamburger name="Elice" rank="Earth Gardian" /> : null}
+        {hamburgerOpen && <Hamburger/>}
       </div>
     </header>
   );
