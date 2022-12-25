@@ -27,4 +27,8 @@ if (process.env.NODE_ENV === 'development') {
   router.get('/dev/api-docs', swaggerUi.setup(apiSpec));
 }
 
+router.get('/', (req, res) => {
+  res.send('pong!');
+});
+
 export default router;
