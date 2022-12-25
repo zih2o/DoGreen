@@ -1,4 +1,5 @@
 import { model, ObjectId, Types } from 'mongoose';
+import { ParamsDictionary } from 'express-serve-static-core';
 import { PostSchema } from './postSchema';
 import { PostRepository } from './postRepository';
 import { CategoryRepository } from '../category/categoryRepository';
@@ -7,6 +8,23 @@ const postRepository = new PostRepository();
 const cateogryRepository = new CategoryRepository();
 
 export class PostService implements IPostService {
+  // eslint-disable-next-line consistent-return
+  async addlikeUserId(currentAuthId: string, postId: string): Promise<boolean | undefined> {
+    // 이미 좋아요 했는지 검증
+    const isLiked = await postRepository.isExist(currentAuthId);
+
+    // 좋아요를 누르지 않았다면 ->좋아요 증가
+    if (isLiked === null) {
+      await postRepository.addLike(currentAuthId, postId);
+      return true;
+
+    // 좋아요를 눌렀다면 -> 좋아요 감소
+    } if (isLiked !== null) {
+      await postRepository.subtractLike(currentAuthId, postId);
+      return false;
+    }
+  }
+
   async paginationPost(categoryId: categoryT['id'] | string, page: number, perPage: number) {
     const pagingPosts = await postRepository.paginationPost(categoryId, page, perPage);
     return pagingPosts;
