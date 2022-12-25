@@ -19,7 +19,7 @@ export const userValidation = () => {
         .string()
         .required('비밀번호를 입력해주세요.')
         .max(15, '비밀번호는 15자리 이하여야 합니다.')
-        .min(4, '비밀번호는 4자리 이상이어야 합니다.')
+        .min(4, '비밀번호는 8자리 이상이어야 합니다.')
         .matches(passwordRegExp, '알파벳, 숫자, 공백을 제외한 특수문자를 모두 포함한 8자리 이상 입력해주세요.'),
       conforimPassword: yup.string().oneOf([yup.ref('password'), null], '비밀번호가 일치하지 않습니다.'),
     });
@@ -46,16 +46,20 @@ export const editValidation = () => {
         .mixed()
         .test(
           'usernameLength',
-          '이름은 15자리 이하여야 합니다.',
+          '이름은 2자리 이상, 15자리 이하여야 합니다.',
           (value) => value.length === 0 || (value.length > 1 && value.length < 16),
         ),
+      oldPassword: yup.string().required('현재 비밀번호를 입력해주세요.'),
       password: yup
         .string()
+        .notRequired()
         .max(15, '비밀번호는 15자리 이하이어야 합니다.')
-        .min(4, '비밀번호는 4자리 이상이어야 합니다.')
+        .min(4, '비밀번호는 8자리 이상이어야 합니다.')
         .matches(passwordRegExp, '알파벳, 숫자, 공백을 제외한 특수문자를 모두 포함한 8자리 이상 입력해주세요.'),
-      currentPassword: yup.string().required('현재 비밀번호를 입력해주세요.'),
-      conforimPassword: yup.string().oneOf([yup.ref('password'), null], '비밀번호가 일치하지 않습니다.'),
+      conforimPassword: yup
+        .string()
+        .notRequired()
+        .oneOf([yup.ref('password'), null], '비밀번호가 일치하지 않습니다.'),
       imgUrl: yup.mixed(),
       bio: yup.string().notRequired().max(40, '자기소개는 40자 이하이어야 합니다.'),
     });

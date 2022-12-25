@@ -1,6 +1,5 @@
 import React from 'react';
 import { ImageType, WrapperType } from '../common/theme';
-import { AuthStore } from '../../hooks/useAuth';
 import useUserData from '../../hooks/useUserData';
 import { ProfileSkeleton } from '../loadings/ProfileSkeleton';
 interface IMyPageTopBarProps {
@@ -8,10 +7,9 @@ interface IMyPageTopBarProps {
 }
 
 export const ProfileInfo = (props: IMyPageTopBarProps) => {
-  const accessToken = AuthStore((state) => state.token);
   const {
     userQuery: { isLoading, data: userData },
-  } = useUserData(accessToken);
+  } = useUserData();
 
   return (
     <>

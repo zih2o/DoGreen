@@ -2,15 +2,52 @@ import { model, Types } from 'mongoose';
 import { CategorySchema } from '../category/categorySchema';
 import invariant from '../invariant';
 import { PostSchema } from './postSchema';
+import { UserSchema } from '../user/user.schema';
+import { CommentSchema } from '../comment/commentSchema';
 
 const PostModel = model<PostT>('posts', PostSchema);
 const CategoryModel = model<categoryT>('categories', CategorySchema);
+const UserModel = model('users', UserSchema);
+const CommentModel = model('comments', CommentSchema);
 
 export class PostRepository implements IPostRepository {
+  async paginationPost(categoryId: categoryT['id'] | string, page: number, perPage: number) {
+    // 해당 카테고리에 총 갯수를 구하는 쿼리
+    const findPosts = await CategoryModel.findById(categoryId, { posts: 1 });
+    const total:any = findPosts?.posts?.length;
+
+    // 총갯수로 posts 갯수 정하기
+    const posts = await CategoryModel.findById(categoryId, { posts: 1 })
+      .populate('posts').where('posts')
+      .sort({ createdAt: -1 })
+      .skip(perPage * (page - 1))
+      .limit(perPage);
+
+    const totalPage = Math.ceil(total / perPage);
+    console.log(`${posts} : 포스트들`);
+    // console.log(`${totalPage} : 전체 페이지`);
+
+    return {
+      page, perPage, posts, totalPage
+    };
+  }
+
+  async deletePostCommentId(commentId: string) {
+    const findPostId = await CommentModel.findById(commentId);
+    await PostModel.findByIdAndUpdate(findPostId?.refPost, { $pull: { comments: commentId } });
+  }
+
   async findAllCommentAtPost(postId: CommentT['refPost']) {
-    const commentArray = await PostModel.findById(postId.id).select('comments').populate('comments');
-    console.log(`${commentArray} 제대로 찍혔는가 내가원하는 커멘트들이 나왔는가`);
-    return commentArray;
+    const commentArray = await PostModel.findById(postId.id)
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'userId',
+          select: 'username'
+        }
+      });
+
+    return commentArray?.comments;
   }
 
   async addcommentList(postId: PostT['id'], commentId: Types.ObjectId) {
@@ -23,7 +60,7 @@ export class PostRepository implements IPostRepository {
   }
 
   async findPost(id: PostT['id']) {
-    const postInfo = await PostModel.findById(id.id);
+    const postInfo = await PostModel.findById(id);
     return postInfo;
   }
 
@@ -38,7 +75,6 @@ export class PostRepository implements IPostRepository {
 
   async deleteOne(id: PostT['id']) {
     const findPost = await PostModel.findById(id.id);
-    console.log(`${findPost}`);
     await CategoryModel.findByIdAndUpdate(findPost?.category, { $pull: { posts: findPost?.id } });
     await PostModel.deleteOne({ id: findPost?.id });
   }
