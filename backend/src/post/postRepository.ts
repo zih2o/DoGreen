@@ -17,18 +17,13 @@ export class PostRepository implements IPostRepository {
     const total:any = findPosts?.posts?.length;
 
     // 총갯수로 posts 갯수 정하기
-    const posts = await CategoryModel.findById(categoryId, { posts: 1 })
-      .populate('posts').where('posts')
-      .sort({ createdAt: -1 })
-      .skip(perPage * (page - 1))
-      .limit(perPage);
+    const posts: any = await CategoryModel.findById(categoryId).populate('posts').select('posts');
 
+    const result = posts.posts.slice((perPage * (page - 1)), perPage);
     const totalPage = Math.ceil(total / perPage);
-    console.log(`${posts} : 포스트들`);
-    // console.log(`${totalPage} : 전체 페이지`);
 
     return {
-      page, perPage, posts, totalPage
+      page, perPage, result, totalPage
     };
   }
 
@@ -43,7 +38,7 @@ export class PostRepository implements IPostRepository {
         path: 'comments',
         populate: {
           path: 'userId',
-          select: 'username'
+          select: 'username imgUrl'
         }
       });
 
