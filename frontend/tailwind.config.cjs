@@ -60,7 +60,7 @@ module.exports = {
             transform: 'translateX(50px)',
           },
           '100%': {
-            transform: 'translateX(-850px)',
+            transform: 'translateX(-900px)',
           },
         },
         rightMove: {
