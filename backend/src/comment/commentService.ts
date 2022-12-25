@@ -12,6 +12,11 @@ const postRepository = new PostRepository();
 const userService = new UserService();
 
 export class CommentService {
+  async paginationPost(postId: PostT['id'] |string, page: number, perPage: number) {
+    const pagingComment = await commentRepository.paginationComment(postId, page, perPage);
+    return pagingComment;
+  }
+
   async deleteComment(commentId: string, currentAuthId: string) {
     // personal 배열에서 삭제
     await personalCommentRepository.deletePersonalCommentId(commentId, currentAuthId);

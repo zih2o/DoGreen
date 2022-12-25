@@ -6,6 +6,15 @@ import { PostService } from './postService';
 const postService = new PostService();
 
 export class PostController {
+  async addlikeUserId(req: Request, res: Response, next: NextFunction) {
+    const currentAuthId = req.context.currentUser.authId;
+    const postId = req.params.id;
+
+    // true, false 반환 true면 좋아요를 누른 상태, false면 좋아요를 취소한상태
+    const isLiked = await postService.addlikeUserId(currentAuthId, postId);
+    res.status(200).json(isLiked);
+  }
+
   async paginationPost(req: Request, res: Response, next: NextFunction) {
     const { categoryId } = req.query;
     const page = Number(req.query.page || 1);

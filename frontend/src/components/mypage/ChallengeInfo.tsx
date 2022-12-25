@@ -2,6 +2,8 @@ import React from 'react';
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
 
+const startDate = new Date('2022-09-01');
+const endDate = new Date('2022-12-31');
 const ChallengeInfo = () => {
   return (
     <div className="w-full mt-12 mb-24">
@@ -13,8 +15,8 @@ const ChallengeInfo = () => {
         </div>
         <div className="show_status flex items-center mt-8 w-96 ">
           <CalendarHeatmap
-            startDate={new Date('2022-09-01')}
-            endDate={new Date('2022-12-31')}
+            startDate={startDate}
+            endDate={endDate}
             values={[
               { date: '2022-09-10', count: 4 },
               { date: '2022-10-22', count: 2 },
