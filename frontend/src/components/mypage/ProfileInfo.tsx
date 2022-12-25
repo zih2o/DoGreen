@@ -7,9 +7,7 @@ interface IMyPageTopBarProps {
 }
 
 export const ProfileInfo = (props: IMyPageTopBarProps) => {
-  const {
-    userQuery: { isLoading, data: userData },
-  } = useUserData();
+  const { isLoading, data: userData } = useUserData();
 
   return (
     <>

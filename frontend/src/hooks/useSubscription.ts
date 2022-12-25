@@ -22,13 +22,12 @@ export function useSubscription(catId: string) {
     //   console.log(err.response.data.error);
     // },
   });
-
   return { subMutation };
 }
 
 export function useSubquery() {
   const token = sessionStorage.getItem('token');
-  const subQuery = useQuery<ISubscription[]>({
+  return useQuery<ISubscription[]>({
     queryKey: ['userCategories'],
     queryFn: async () => {
       return await api.get('/subscribe').then((res) => res.data);
@@ -36,8 +35,6 @@ export function useSubquery() {
     staleTime: 1000 * 60,
     enabled: !!token,
   });
-
-  return { subQuery };
 }
 
 export function useDelSubscription(catId: string) {
@@ -52,6 +49,5 @@ export function useDelSubscription(catId: string) {
       console.log('구독 취소');
     },
   });
-
   return { delMutation };
 }

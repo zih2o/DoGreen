@@ -26,13 +26,9 @@ export const CategoriesPage = () => {
     subStatus: false,
   });
 
-  const {
-    catQuery: { isLoading, data: categories },
-  } = useCategory();
+  const { isLoading, data: categories } = useCategory();
 
-  const {
-    subQuery: { data: subscriptions, refetch, error },
-  } = useSubquery();
+  const { data: subscriptions, refetch, error } = useSubquery();
   const { subMutation } = useSubscription(newSubInfo.categoryId as string);
   const token = sessionStorage.getItem('token');
   if (error) {

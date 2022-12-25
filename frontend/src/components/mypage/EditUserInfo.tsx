@@ -23,9 +23,7 @@ interface IEditInputData extends Omit<IUserData, 'imgUrl'> {
 
 export const FormEditUserInfo = () => {
   //유저데이터부르기
-  const {
-    userQuery: { data: userData },
-  } = useUserData();
+  const { data: userData } = useUserData();
 
   //react-hook-form yup
   const { schema } = editValidation();

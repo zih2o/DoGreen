@@ -5,9 +5,7 @@ import useUserData from '../../hooks/useUserData';
 import { MessageSkeleton } from '../loadings/MessageSkeleton';
 
 export const UserMessage = () => {
-  const {
-    userQuery: { isLoading, data: userData },
-  } = useUserData();
+  const { isLoading, data: userData } = useUserData();
 
   return (
     <>

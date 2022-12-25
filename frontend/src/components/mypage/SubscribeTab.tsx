@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CardType, TextType, WrapperType, BtnType } from '../common/theme';
 import CardSkeleton from '../loadings/CardSkeleton';
 import { CardLayout } from '../layout/GlobalLayout';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
-import { useSubquery, useDelSubscription, ISubscription } from '../../hooks/useSubscription';
+import { useSubquery, useDelSubscription } from '../../hooks/useSubscription';
 import { checkName } from '../../util/functionUtil';
 import Modal from '../../components/Modal';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -12,9 +12,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 const SubscribeTab = () => {
   const [isModal, setIsModal] = useState<boolean>(false);
   const [cancelId, setCancelId] = useState<string>('');
-  const {
-    subQuery: { isLoading, data: subInfo, refetch },
-  } = useSubquery();
+  const { isLoading, data: subInfo, refetch } = useSubquery();
   const { delMutation } = useDelSubscription(cancelId);
   refetch();
   const cancelSubscription = () => {

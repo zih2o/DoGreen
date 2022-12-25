@@ -11,13 +11,11 @@ export interface ICategory {
 }
 
 export default function useCategory() {
-  const catQuery = useQuery<ICategory[]>({
+  return useQuery<ICategory[]>({
     queryKey: ['categories'],
     queryFn: async () => {
       return api.get('/category').then((res) => res.data);
     },
     staleTime: 1000 * 60,
   });
-
-  return { catQuery };
 }
