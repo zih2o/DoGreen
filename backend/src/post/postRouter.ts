@@ -7,6 +7,7 @@ const postController = new PostController();
 const postRouter = Router();
 
 postRouter.post('/create', loginRequired, adminRequired, postController.createPost);
+postRouter.get('/like/:id', loginRequired, postController.addlikeUserId);
 postRouter.patch('/:id', loginRequired, adminRequired, postController.updatePost);
 postRouter.delete('/:id', loginRequired, adminRequired, postController.deletePost);
 postRouter.get('/posts', postController.paginationPost);
