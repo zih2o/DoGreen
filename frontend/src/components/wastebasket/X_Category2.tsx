@@ -21,7 +21,7 @@ export default function Category({ name }: IName) {
       { name: '뉴스레터카드 관리', url: '#' },
     ],
     nav: [
-      { name: '마이페이지', url: '#' },
+      { name: '마이페이지', url: '/mypage' },
       { name: '동물', url: '#' },
       { name: '토픽', url: '#' },
       { name: '로그아웃', url: '#' },
@@ -33,7 +33,7 @@ export default function Category({ name }: IName) {
       {datas?.map((data: ICategoryDatas) => {
         return (
           <Link to={data.url} key={data.name} className="hover:underline">
-            <li className="text-l mt-5 md:text-xl font-bold">{data.name}</li>
+            <li className="text-l mt-5 md:text-xl font-bold text-garden2">{data.name}</li>
           </Link>
         );
       })}

@@ -17,6 +17,7 @@ export default function CategoryCards() {
         categories.map((category) => 
           <Card
             key={category._id}
+            id={category._id}
             img={category.mascotImage}
             name={category.mascotName}
             description={category.categoryName}
