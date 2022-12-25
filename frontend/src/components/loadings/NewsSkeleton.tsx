@@ -1,8 +1,8 @@
 import React, { Dispatch, RefObject, SetStateAction } from 'react';
 
-export default function NewsSkeleton(props: Record<'instance', () => void>) {
+export default function NewsSkeleton(props?: Record<'instance', () => void>) {
   return (
-    <div ref={props.instance} className="flex justify-center w-full h-full py-6 bg-gardenBG">
+    <div ref={props && props.instance} className="flex justify-center w-full h-full py-6 bg-gardenBG">
       <div className="flex flex-col items-center mr-4">
         <div className={'w-12 h-12 rounded-full bg-zinc-300 shadow-xl animate-pulse'} />
       </div>

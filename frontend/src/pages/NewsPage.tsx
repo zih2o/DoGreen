@@ -13,11 +13,10 @@ export default function NewsPage() {
     categoryQuery: { data: category },
   } = useCategory(catId);
   const {
-    postQuery: { status, fetchNextPage, isFetchingNextPage, hasNextPage, data },
+    postQuery: { status, fetchNextPage, hasNextPage, data },
   } = usePost(catId || 'null');
 
   useEffect(() => {
-    console.log('보였당', data);
     if (inView) {
       fetchNextPage();
     }
@@ -33,13 +32,14 @@ export default function NewsPage() {
                 categoryName={category.mascotName}
                 categoryImg={category.mascotImage}
                 content={post.content}
+                newsId={post._id}
                 createdAt={post.createdAt}
                 key={post._id}
               />
             ))}
         </Fragment>
       ))}
-      {hasNextPage && <NewsSkeleton instance={ref} />}
+      {(hasNextPage || status === 'loading') && <NewsSkeleton instance={ref} />}
     </div>
   );
 }
