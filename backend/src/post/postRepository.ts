@@ -18,8 +18,7 @@ export class PostRepository implements IPostRepository {
 
     // 총갯수로 posts 갯수 정하기
     const posts: any = await CategoryModel.findById(categoryId).populate('posts').select('posts');
-
-    const result = posts.posts.slice((perPage * (page - 1)), perPage);
+    const result = posts.posts.slice((perPage * (page - 1)), perPage * page);
     const totalPage = Math.ceil(total / perPage);
 
     return {
