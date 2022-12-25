@@ -8,23 +8,27 @@ import { InputContainer } from '../InputContainer';
 import { ImgContainer } from '../ImgContainer';
 import { FormInput, IputError, InputButton, ClickButton } from '../FormsAboutInput';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
-import useUserData, { IUserData, useEditUserData } from '../../hooks/useUserData';
+import useUserData from '../../hooks/useUserData';
 import Userwithdraw from './Userwithdraw';
 import { useValUserName } from '../../hooks/useValUserData';
 import createUrl from '../../hooks/imgUrlApi';
 import Modal from '../Modal';
 
-interface IEditInputData extends Omit<IUserData, 'imgUrl'> {
+interface IEditInputData {
+  email: string;
+  username: string;
   oldPassword: string;
   password: string;
   confimrPassword: string;
   imgUrl: FileList;
+  bio: string;
 }
 
 const EditUserInfo = () => {
   //유저데이터부르기
   const {
     userQuery: { data: userData },
+    userMutation: editMutation,
   } = useUserData();
 
   //react-hook-form yup
@@ -90,7 +94,6 @@ const EditUserInfo = () => {
   };
 
   //수정하기
-  const editMutation = useEditUserData();
   const onSubmit = async (data: IEditInputData) => {
     const { username, oldPassword, password, bio } = data;
     const editData = { username, oldPassword, password, bio };

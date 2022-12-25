@@ -24,7 +24,7 @@ export const Register = () => {
   });
 
   //데이터 전달
-  const { mutation: registerMutation } = useResiter();
+  const registerMutation = useResiter();
   const onSubmit = (data: IRegisterInputProps) => {
     const { username, email, password } = data;
     registerMutation.mutate({ username, email, password });

@@ -18,7 +18,7 @@ export const Login = () => {
     resolver: yupResolver(schema),
   });
   const loginMutation = useLogin();
-  console.log(loginMutation);
+
   const onSubmit = async (data: IAuthInput) => {
     loginMutation.mutate(data);
   };
