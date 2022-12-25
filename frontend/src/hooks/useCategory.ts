@@ -18,6 +18,5 @@ export default function useCategory() {
     },
     staleTime: 1000 * 60,
   });
-
   return { catQuery };
 }
