@@ -16,7 +16,11 @@ build:
     # 빌드한 컨테이너를 push해서 올림
     - docker push $CI_REGISTRY/$CI_PROJECT_PATH:latest
   tags:
-    - docker 
+    - docker
+  only:
+  - main
+  - merge_requests
+
 deploy:
   stage: deploy
   script:
@@ -36,5 +40,8 @@ deploy:
     - ssh $DEPLOYMENT_SERVER_USERNAME@$DEPLOYMENT_SERVER_IP docker-compose -f $DOCKER_COMPOSE_FILE_PATH/$DOCKER_COMPOSE_FILE_NAME up -d $CI_PROJECT_NAME
   only:
     - main
+    - merge_requests
   tags:
     - docker
+  rules:
+    - if: $CI_MERGE_REQUEST_APPROVED
