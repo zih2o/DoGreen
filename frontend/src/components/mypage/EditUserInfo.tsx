@@ -4,15 +4,15 @@ import { Controller, useForm, useWatch } from 'react-hook-form';
 import { editValidation } from '../auth/yup';
 import { AiOutlineClose } from 'react-icons/ai';
 
-import { InputContainer } from '../InputContainer';
-import { ImgContainer } from '../ImgContainer';
+import { InputContainer } from '../common/InputContainer';
+import { ImgContainer } from '../common/ImgContainer';
 import { FormInput, IputError, InputButton, ClickButton } from '../FormsAboutInput';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
 import useUserData from '../../hooks/useUserData';
 import Userwithdraw from './Userwithdraw';
 import { useValUserName } from '../../hooks/useValUserData';
 import createUrl from '../../hooks/imgUrlApi';
-import Modal from '../Modal';
+import Modal from '../common/Modal';
 
 interface IEditInputData {
   email: string;
@@ -106,7 +106,7 @@ const EditUserInfo = () => {
         <p className={className.title}>내 정보 수정</p>
         <form onSubmit={handleSubmit(onSubmit)} className={className.form}>
           <ImgContainer src={imgPreview} label="프로필 사진 변경" inputProp="imgUrl">
-            <input type="file" id="imgUrl" className="hidden" {...register('imgUrl')} />
+            <input type="file" id="imgUrl" className="hidden" {...register('imgUrl')} ref={null} />
             <IputError>{errors.imgUrl && errors.imgUrl.message}</IputError>
           </ImgContainer>
 
@@ -115,8 +115,8 @@ const EditUserInfo = () => {
               name="email"
               control={control}
               defaultValue=""
-              render={({ field }) => {
-                return <FormInput id="email" disabled {...field} />;
+              render={({ field: { name } }) => {
+                return <FormInput id="email" disabled name={name} />;
               }}
             />
           </InputContainer>
@@ -126,14 +126,14 @@ const EditUserInfo = () => {
               name="username"
               control={control}
               defaultValue=""
-              render={({ field }) => {
+              render={({ field: { name } }) => {
                 const errorDisplay = usernameError || errors.username ? 'error' : '';
                 return (
                   <FormInput
                     id="username"
                     placeholder="2자이상 20자이하로 등록해주세요."
                     error={errorDisplay}
-                    {...field}
+                    name={name}
                   />
                 );
               }}
@@ -148,7 +148,7 @@ const EditUserInfo = () => {
               name="oldPassword"
               control={control}
               defaultValue=""
-              render={({ field }) => {
+              render={({ field: { name } }) => {
                 const errorDisplay = errors.oldPassword ? 'error' : '';
 
                 return (
@@ -157,7 +157,7 @@ const EditUserInfo = () => {
                     id="oldPassword"
                     placeholder="현재 비밀번호를 입력해주세요"
                     error={errorDisplay}
-                    {...field}
+                    name={name}
                   />
                 );
               }}
@@ -169,7 +169,7 @@ const EditUserInfo = () => {
             <Controller
               name="password"
               control={control}
-              render={({ field }) => {
+              render={({ field: { name } }) => {
                 const errorDisplay = errors.password ? 'error' : '';
 
                 return (
@@ -178,7 +178,7 @@ const EditUserInfo = () => {
                     id="password"
                     placeholder="변경하실 비밀번호를 입력해주세요"
                     error={errorDisplay}
-                    {...field}
+                    name={name}
                   />
                 );
               }}
@@ -189,7 +189,7 @@ const EditUserInfo = () => {
             <Controller
               name="confimrPassword"
               control={control}
-              render={({ field }) => {
+              render={({ field: { name } }) => {
                 const errorDisplay = errors.confimrPassword ? 'error' : '';
 
                 return (
@@ -198,7 +198,7 @@ const EditUserInfo = () => {
                     id="confimrPassword"
                     placeholder="비밀번호 확인"
                     error={errorDisplay}
-                    {...field}
+                    name={name}
                   />
                 );
               }}
@@ -211,7 +211,7 @@ const EditUserInfo = () => {
               name="bio"
               control={control}
               defaultValue=""
-              render={({ field }) => {
+              render={({ field: { name } }) => {
                 const errorDisplay = errors.bio ? 'error' : '';
                 return (
                   <FormInput
@@ -219,7 +219,7 @@ const EditUserInfo = () => {
                     id="bio"
                     placeholder="자기소개 한 줄 입력해 보세요."
                     error={errorDisplay}
-                    {...field}
+                    name={name}
                   />
                 );
               }}

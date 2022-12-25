@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
-import { InputContainer } from '../InputContainer';
+import { InputContainer } from '../common/InputContainer';
 import { ClickButton } from '../FormsAboutInput';
 
-import { useWithDrawData } from '../../hooks/useUserData';
+import useUserData from '../../hooks/useUserData';
 
 const Userwithdraw = () => {
-  const widthdra = useWithDrawData();
+  const { withdrawMutaiton: widthdraw } = useUserData();
   const pwdRef = useRef<HTMLInputElement>(null);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -15,7 +15,7 @@ const Userwithdraw = () => {
       return;
     } else if (pwdRef.current.value) {
       const currentPassword = pwdRef.current.value;
-      widthdra.mutate(currentPassword);
+      widthdraw.mutate(currentPassword);
     }
   };
 

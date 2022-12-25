@@ -6,9 +6,10 @@ interface IFormInput {
   placeholder?: string;
   error?: string;
   disabled?: boolean;
+  name: string;
 }
 
-export const FormInput = ({ type, placeholder, id, error, disabled, ...field }: IFormInput) => {
+export const FormInput = ({ type, placeholder, id, error, disabled, name }: IFormInput) => {
   const className = {
     input: `w-full  px-3 py-2 bg-white rounded-md border border-gray-300 text-gray-900  placeholder:text-[12px] placeholder-gray-400 focus:z-10 focus:border-forest1 focus:outline-none focus:ring-forest3 ${
       error && 'border-forest3'
@@ -19,11 +20,11 @@ export const FormInput = ({ type, placeholder, id, error, disabled, ...field }: 
   if (disabled)
     return (
       <>
-        <input type={type} id={id} placeholder={placeholder} className={className.disabled} disabled {...field} />
+        <input type={type} id={id} placeholder={placeholder} className={className.disabled} disabled name={name} />
         <div className={className.disabledContainer}></div>
       </>
     );
-  return <input type={type} id={id} placeholder={placeholder} className={className.input} {...field} />;
+  return <input type={type} id={id} placeholder={placeholder} className={className.input} name={name} />;
 };
 
 interface IInputError {

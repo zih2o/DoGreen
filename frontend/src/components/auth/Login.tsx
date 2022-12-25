@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 import { loginValidation } from './yup';
 
-import { InputContainer } from '../InputContainer';
+import { InputContainer } from '../common/InputContainer';
 import { FormInput, IputError, InputButton } from '../FormsAboutInput';
 import { useLogin, IAuthInput } from '../../hooks/authApi';
 
@@ -32,9 +32,9 @@ export const Login = () => {
             name="email"
             control={control}
             defaultValue=""
-            render={({ field }) => {
+            render={({ field: { name } }) => {
               const errorDisplay = errors.email ? 'error' : '';
-              return <FormInput id="email" placeholder="당신의 이메일" error={errorDisplay} {...field} />;
+              return <FormInput id="email" placeholder="당신의 이메일" error={errorDisplay} name={name} />;
             }}
           />
           <IputError>{errors.email && errors.email.message}</IputError>
@@ -45,7 +45,7 @@ export const Login = () => {
             name="password"
             control={control}
             defaultValue=""
-            render={({ field }) => {
+            render={({ field: { name } }) => {
               const errorDisplay = errors.password ? 'error' : '';
               return (
                 <FormInput
@@ -53,7 +53,7 @@ export const Login = () => {
                   id="password"
                   placeholder="당신의 비밀번호"
                   error={errorDisplay}
-                  {...field}
+                  name={name}
                 />
               );
             }}

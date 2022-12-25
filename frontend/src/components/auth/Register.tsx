@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { userValidation } from './yup';
 
-import { InputContainer } from '../InputContainer';
+import { InputContainer } from '../common/InputContainer';
 import { FormInput, IputError, InputButton } from '../FormsAboutInput';
 import { useResiter, IAuthInput } from '../../hooks/authApi';
 import { useValUserName, useValEmail } from '../../hooks/useValUserData';
@@ -60,14 +60,14 @@ export const Register = () => {
             name="username"
             control={control}
             defaultValue=""
-            render={({ field }) => {
+            render={({ field: { name } }) => {
               const errorDisplay = usernameError || errors.username ? 'error' : '';
               return (
                 <FormInput
                   id="username"
                   placeholder="3자이상 20자이하로 입력해주세요."
                   error={errorDisplay}
-                  {...field}
+                  name={name}
                 />
               );
             }}
@@ -82,9 +82,9 @@ export const Register = () => {
             name="email"
             control={control}
             defaultValue=""
-            render={({ field }) => {
+            render={({ field: { name } }) => {
               const errorDisplay = emailError || errors.email ? 'error' : '';
-              return <FormInput id="email" placeholder="이메일 입력해주세요." error={errorDisplay} {...field} />;
+              return <FormInput id="email" placeholder="이메일 입력해주세요." error={errorDisplay} name={name} />;
             }}
           />
           <IputError>
@@ -97,7 +97,7 @@ export const Register = () => {
             name="password"
             control={control}
             defaultValue=""
-            render={({ field }) => {
+            render={({ field: { name } }) => {
               const errorDisplay = errors.password ? 'error' : '';
               return (
                 <FormInput
@@ -105,7 +105,7 @@ export const Register = () => {
                   id="password"
                   placeholder="알파벳,숫자,공백을 제외한 특수문자 8자리 이상 입력해주세요"
                   error={errorDisplay}
-                  {...field}
+                  name={name}
                 />
               );
             }}
@@ -118,7 +118,7 @@ export const Register = () => {
             name="confimrPassword"
             control={control}
             defaultValue=""
-            render={({ field }) => {
+            render={({ field: { name } }) => {
               const errorDisplay = errors.confimrPassword ? 'error' : '';
               return (
                 <FormInput
@@ -126,7 +126,7 @@ export const Register = () => {
                   id="confimrPassword"
                   placeholder="동일한 비밀번호를 입력해주세요."
                   error={errorDisplay}
-                  {...field}
+                  name={name}
                 />
               );
             }}
