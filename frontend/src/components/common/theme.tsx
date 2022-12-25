@@ -74,8 +74,8 @@ export const WrapperType: IWrapperType = {
   textWrapper: 'flex flex-col w-3/5 font-bold text-center ',
   cardContentsWrapper: 'flex mt-20 mb-20 mx-0 ',
   cardListWrapper: 'flex flex-wrap gap-y-14 gap-x-12',
-  cardListRightWrapper: 'flex absolute w-[4428px] top-0 gap-x-3 animate-slider1',
-  cardListLeftWrapper: 'flex absolute w-[4400px] bottom-1 gap-x-3 animate-slider2',
+  cardListRightWrapper: 'flex absolute top-0 gap-x-3 animate-slider1',
+  cardListLeftWrapper: 'flex absolute bottom-1 gap-x-3 animate-slider2',
 };
 export const CardType: ICardType = {
   size: 'w-56 h-72',
