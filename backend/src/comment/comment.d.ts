@@ -3,6 +3,7 @@ type CommentT = {
     refPost: Types.ObjectId,
     userId: Types.ObjectId,
     comment: string,
+    comments? : Types.ObjectId[]
 
 }
 

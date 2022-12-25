@@ -1,8 +1,3 @@
-type LikeT = {
-    likedUserList: UserT['username'][],
-    likesNum: Number
-}
-
 type categoryT = {
     id:Types.ObjectId,
     categoryName: string,
@@ -27,7 +22,8 @@ type PostT = {
     category: categoryT,
     content: string,
     imageList: string[],
-    likes: LikeT,
+    likeUserList?: Types.ObjectId,
+    likesNum:number,
     comments?: CommentT, // comment를 분리?
     commentArray: array,
     timestamps: Date

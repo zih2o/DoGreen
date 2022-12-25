@@ -11,24 +11,37 @@ const UserModel = model('users', UserSchema);
 const CommentModel = model('comments', CommentSchema);
 
 export class PostRepository implements IPostRepository {
+  async subtractLike(currentAuthId: string, postId: string) {
+    await PostModel.findByIdAndUpdate(
+      postId,
+      { $pull: { likeUserList: currentAuthId }, $inc: { likesNum: -1 } }
+    );
+  }
+
+  async addLike(currentAuthId: string, postId: string) {
+    await PostModel.findByIdAndUpdate(
+      postId,
+      { $push: { likeUserList: currentAuthId }, $inc: { likesNum: 1 } }
+    );
+  }
+
+  async isExist(currentAuthId: string) {
+    const isLiked = await PostModel.exists({ likeUserList: currentAuthId });
+    return isLiked;
+  }
+
   async paginationPost(categoryId: categoryT['id'] | string, page: number, perPage: number) {
     // 해당 카테고리에 총 갯수를 구하는 쿼리
     const findPosts = await CategoryModel.findById(categoryId, { posts: 1 });
     const total:any = findPosts?.posts?.length;
 
     // 총갯수로 posts 갯수 정하기
-    const posts = await CategoryModel.findById(categoryId, { posts: 1 })
-      .populate('posts').where('posts')
-      .sort({ createdAt: -1 })
-      .skip(perPage * (page - 1))
-      .limit(perPage);
-
+    const posts: any = await CategoryModel.findById(categoryId).populate('posts').select('posts');
+    const result = posts.posts.slice((perPage * (page - 1)), perPage * page);
     const totalPage = Math.ceil(total / perPage);
-    console.log(`${posts} : 포스트들`);
-    // console.log(`${totalPage} : 전체 페이지`);
 
     return {
-      page, perPage, posts, totalPage
+      page, perPage, result, totalPage
     };
   }
 
@@ -43,7 +56,7 @@ export class PostRepository implements IPostRepository {
         path: 'comments',
         populate: {
           path: 'userId',
-          select: 'username'
+          select: 'username imgUrl'
         }
       });
 
