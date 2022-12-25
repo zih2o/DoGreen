@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 # Add package file
 COPY package.json ./
 COPY yarn.lock ./
-COPY scripts/dev.sh ./scripts/dev.sh
+# COPY scripts/dev.sh ./scripts/dev.sh
 
 # Install deps
 RUN yarn install
