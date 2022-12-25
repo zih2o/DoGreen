@@ -19,8 +19,8 @@ interface ISubscriptionInfo {
 export const CategoriesPage = () => {
   const [isModal, setIsModal] = useState<boolean>(false);
   const [isLogined, setIsLogined] = useState<boolean>(true);
-  const [subInfo, setSubInfo] = useState<ISubscriptionInfo[]>([]);
-  const [newSubInfo, setNewSubInfo] = useState<ISubscriptionInfo>({
+  const [subsInfoArr, setSubsInfoArr] = useState<ISubscriptionInfo[]>([]);
+  const [newSubsInfo, setNewSubsInfo] = useState<ISubscriptionInfo>({
     categoryId: '',
     categoryName: '',
     subStatus: false,
@@ -33,7 +33,7 @@ export const CategoriesPage = () => {
   const {
     subsQuery: { data: subscriptions, refetch, error },
     subsMutation,
-  } = useSubscription(newSubInfo.categoryId as string);
+  } = useSubscription(newSubsInfo.categoryId as string);
   const token = sessionStorage.getItem('token');
   if (error) {
     error;
@@ -48,12 +48,12 @@ export const CategoriesPage = () => {
     setIsModal(!isModal);
   };
   const handleSubButton = (category: ICategory) => {
-    setNewSubInfo((prev) => ({ categoryId: category._id, categoryName: category.categoryName, subStatus: true }));
+    setNewSubsInfo((prev) => ({ categoryId: category._id, categoryName: category.categoryName, subStatus: true }));
     setIsModal(!isModal);
   };
   const applySubscription = async () => {
     try {
-      setSubInfo([...subInfo, newSubInfo]);
+      setSubsInfoArr([...subsInfoArr, newSubsInfo]);
       subsMutation.mutate();
       setIsModal(!isModal);
     } catch {
@@ -144,7 +144,7 @@ export const CategoriesPage = () => {
                       </button>
                       <div className="px-16 py-8 text-center">
                         <h3 className="mt-5 mb-8 text-xl font-bold text-gray-500 dark:text-gray-400">
-                          <span className={TextType.categoryNameText}>{newSubInfo.categoryName}</span> <br></br>토픽을
+                          <span className={TextType.categoryNameText}>{newSubsInfo.categoryName}</span> <br></br>토픽을
                           구독하시겠습니까?
                         </h3>
                         <button
