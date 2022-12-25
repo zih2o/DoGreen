@@ -10,9 +10,7 @@ export class PostController {
     const { categoryId } = req.query;
     const page = Number(req.query.page || 1);
     const perPage = Number(req.query.perPage || 10);
-    // console.log(`${categoryId} : 카테고리ID \n ${page},${perPage} : 페이지, 펄페이지`);
     const pagingPosts = await postService.paginationPost(categoryId, page, perPage);
-    console.log(pagingPosts);
     res.status(201).json(pagingPosts);
   }
 
