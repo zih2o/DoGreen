@@ -4,7 +4,7 @@ import MyPageTab from '../components/mypage/MyPageTab';
 import MyPageTopBar from '../components/mypage/MyPageTopBar';
 import { GlobalLayout } from '../components/layout/GlobalLayout';
 import { MyPageLayout } from '../components/layout/MyPageLayout';
-import { AlertModal } from '../components/common/alert';
+import { AlertModal } from '../components/common/AlertModal';
 
 export const MyPage = () => {
   const [isLogined, setIsLogined] = useState<boolean>(true);

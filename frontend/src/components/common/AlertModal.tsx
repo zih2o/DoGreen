@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Modal from '../../components/Modal';
+import Modal from '../Modal';
 
 interface IAlertModal {
   title: string;
@@ -18,7 +18,7 @@ export const AlertModal = (props: IAlertModal) => {
   return (
     <>
       {handleModal && (
-        <Modal onClose={onClose}>
+        <Modal onClose={() => ''}>
           <div className="relative w-full h-full max-w-xl w-xl md:h-auto">
             <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
               <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">

@@ -7,7 +7,7 @@ import useCategory, { ICategory } from '../hooks/useCategory';
 import { useSubscription, useSubquery } from '../hooks/useSubscription';
 import { checkName } from '../util/functionUtil';
 import Modal from '../components/Modal';
-import { AlertModal } from '../components/common/alert';
+import { AlertModal } from '../components/common/AlertModal';
 import { AiOutlineClose } from 'react-icons/ai';
 
 interface ISubscriptionInfo {
@@ -44,18 +44,23 @@ export const CategoriesPage = () => {
   const checkLogin = () => {
     if (!token) {
       setIsLogined(false);
-      setIsModal(!isModal);
     }
+    setIsModal(!isModal);
   };
   const handleSubButton = (category: ICategory) => {
     setNewSubInfo((prev) => ({ categoryId: category._id, categoryName: category.categoryName, subStatus: true }));
     setIsModal(!isModal);
   };
-  const applySubscription = () => {
-    checkLogin();
-    setSubInfo([...subInfo, newSubInfo]);
-    subMutation.mutate();
-    setIsModal(!isModal);
+  const applySubscription = async () => {
+    try {
+      setSubInfo([...subInfo, newSubInfo]);
+      subMutation.mutate();
+      setIsModal(!isModal);
+    } catch {
+      checkLogin();
+    } finally {
+      checkLogin();
+    }
   };
   const handleSubStatus = (category: ICategory) => {
     const status =
