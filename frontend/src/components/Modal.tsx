@@ -4,11 +4,6 @@ interface IModalDefaultType {
   children: React.ReactNode;
 }
 
-interface ISubscriptionModal extends IModalDefaultType {
-  categoryId?: string;
-  categoryName?: string;
-}
-
 //모달 컴포넌트를 사용하기위해서는 아래의 CSS를 동일하게 적용해야함.(수정하면 안됨)
 const className = {
   container: 'flex items-center fixed z-10 w-full h-screen',
@@ -17,7 +12,7 @@ const className = {
   background: 'fixed top-0 left-0 z-[9998] w-[100%] h-screen bg-black bg-opacity-25 dark:bg-white/60',
 };
 
-function Modal({ onClose, children }: PropsWithChildren<ISubscriptionModal>) {
+function Modal({ onClose, children }: PropsWithChildren<IModalDefaultType>) {
   return (
     <div className={className.container}>
       <dialog className={className.dialog}>
