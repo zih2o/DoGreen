@@ -65,7 +65,7 @@ export const Register = () => {
               return (
                 <FormInput
                   id="username"
-                  placeholder="3자이상 20자이하로 등록해주세요."
+                  placeholder="3자이상 20자이하로 입력해주세요."
                   error={errorDisplay}
                   {...field}
                 />

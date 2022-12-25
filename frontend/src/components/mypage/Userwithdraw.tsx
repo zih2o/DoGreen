@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { InputContainer } from '../InputContainer';
 import { ClickButton } from '../FormsAboutInput';
 
-import { useWithDrawData } from '../../hooks/authApi';
+import { useWithDrawData } from '../../hooks/useUserData';
 
 const Userwithdraw = () => {
   const widthdra = useWithDrawData();

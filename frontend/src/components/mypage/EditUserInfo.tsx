@@ -8,11 +8,10 @@ import { InputContainer } from '../InputContainer';
 import { ImgContainer } from '../ImgContainer';
 import { FormInput, IputError, InputButton, ClickButton } from '../FormsAboutInput';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
-import useUserData, { IUserData } from '../../hooks/useUserData';
-import uesEditUserData from '../../hooks/editUserInfoApi';
+import useUserData, { IUserData, useEditUserData } from '../../hooks/useUserData';
 import Userwithdraw from './Userwithdraw';
 import { useValUserName } from '../../hooks/useValUserData';
-import createUrl from '../../hooks/presignedUrlApi';
+import createUrl from '../../hooks/imgUrlApi';
 import Modal from '../Modal';
 
 interface IEditInputData extends Omit<IUserData, 'imgUrl'> {
@@ -91,7 +90,7 @@ const EditUserInfo = () => {
   };
 
   //수정하기
-  const editMutation = uesEditUserData();
+  const editMutation = useEditUserData();
   const onSubmit = async (data: IEditInputData) => {
     const { username, oldPassword, password, bio } = data;
     const editData = { username, oldPassword, password, bio };
