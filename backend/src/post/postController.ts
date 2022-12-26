@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { ObjectId, Types } from 'mongoose';
+import { BadRequestError } from '../errors/BadRequestError';
+import invariant from '../invariant';
 import { PostRepository } from './postRepository';
 import { PostService } from './postService';
 
@@ -17,22 +19,25 @@ export class PostController {
 
   async paginationPost(req: Request, res: Response, next: NextFunction) {
     const { categoryId } = req.query;
+    // categoryId가 왔는지 검증
+    invariant(typeof categoryId === 'string', new BadRequestError('쿼리에 categoryId 가 없거나, 하나가 아닙니다.'));
+
     const page = Number(req.query.page || 1);
     const perPage = Number(req.query.perPage || 10);
     const pagingPosts = await postService.paginationPost(categoryId, page, perPage);
-    res.status(201).json(pagingPosts);
+    res.status(200).json(pagingPosts);
   }
 
   async createPost(req: Request, res: Response, next: NextFunction) {
     const createPostInfo = req.body;
     await postService.createPost(createPostInfo);
-    res.status(200).end();
+    res.status(201).end();
   }
 
   async deletePost(req: Request, res: Response, next: NextFunction) {
-    const id = req.params;
+    const { id } = req.params;
     await postService.deletePost(id);
-    res.status(200).end();
+    res.status(204).end();
   }
 
   async updatePost(req: Request, res: Response, next: NextFunction) {
@@ -42,15 +47,15 @@ export class PostController {
   }
 
   async findOnePost(req: Request, res: Response, next: NextFunction) {
-    const id = req.params;
+    const { id } = req.params;
     const postInfo = await postService.findOnePost(id);
-    res.status(201).json(postInfo);
+    res.status(200).json(postInfo);
   }
 
   async findAllPost(req: Request, res: Response, next: NextFunction) {
     try {
       const postInfo = await postService.findAllPost();
-      res.status(201).json(postInfo);
+      res.status(200).json(postInfo);
     } catch (err) {
       next(err);
     }
