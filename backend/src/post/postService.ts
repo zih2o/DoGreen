@@ -3,6 +3,8 @@ import { ParamsDictionary } from 'express-serve-static-core';
 import { PostSchema } from './postSchema';
 import { PostRepository } from './postRepository';
 import { CategoryRepository } from '../category/categoryRepository';
+import ApplicationError from '../errors/ApplicationError';
+import invariant from '../invariant';
 
 const postRepository = new PostRepository();
 const cateogryRepository = new CategoryRepository();
@@ -11,7 +13,7 @@ export class PostService implements IPostService {
   // eslint-disable-next-line consistent-return
   async addlikeUserId(currentAuthId: string, postId: string): Promise<boolean | undefined> {
     // 이미 좋아요 했는지 검증
-    const isLiked = await postRepository.isExist(currentAuthId);
+    const isLiked = await postRepository.isLikedByPostId(currentAuthId, postId);
 
     // 좋아요를 누르지 않았다면 ->좋아요 증가
     if (isLiked === null) {
@@ -25,7 +27,7 @@ export class PostService implements IPostService {
     }
   }
 
-  async paginationPost(categoryId: categoryT['id'] | string, page: number, perPage: number) {
+  async paginationPost(categoryId: string | string, page: number, perPage: number) {
     const pagingPosts = await postRepository.paginationPost(categoryId, page, perPage);
     return pagingPosts;
   }
@@ -33,16 +35,16 @@ export class PostService implements IPostService {
   async createPost(createPostInfo: createPostDto) {
     // 카테고리 존재 검증
     const categoryId = await cateogryRepository.findCategory(createPostInfo.category);
-    if (!categoryId?.id) {
-      throw new Error(`${createPostInfo.category} 카테고리가 존재하지 않습니다.`);
-    } else await postRepository.createOne(createPostInfo, categoryId?.id);
+    invariant(categoryId !== null, new ApplicationError(`${createPostInfo.category} 카테고리가 존재하지 않습니다.`, 404));
+
+    await postRepository.createOne(createPostInfo, categoryId._id);
   }
 
-  async deletePost(id:PostT['id']) {
-    await postRepository.deleteOne(id);
+  async deletePost(postId: string) {
+    await postRepository.deleteOne(postId);
   }
 
-  async updatePost(updatedContents: updatePostDto, id: PostT['id']) {
+  async updatePost(updatedContents: updatePostDto, postId: string) {
     const { category, content, imageList } = updatedContents;
 
     const toUpdatePost = {
@@ -50,7 +52,7 @@ export class PostService implements IPostService {
       ...(content && { content }),
       ...(imageList && { imageList })
     };
-    await postRepository.updateOne(id, toUpdatePost);
+    await postRepository.updateOne(postId, toUpdatePost);
   }
 
   async findAllPost() {
@@ -58,7 +60,7 @@ export class PostService implements IPostService {
     return totalPostInfo;
   }
 
-  async findOnePost(id:PostT['id']) {
+  async findOnePost(id: string) {
     const postInfo = await postRepository.findPost(id);
     return postInfo;
   }

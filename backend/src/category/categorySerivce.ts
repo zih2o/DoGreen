@@ -1,10 +1,12 @@
+import { BadRequestError } from '../errors/BadRequestError';
+import invariant from '../invariant';
 import { CategoryRepository } from './categoryRepository';
 import { CategorySchema } from './categorySchema';
 
 const categoryRepository = new CategoryRepository();
 
 export class CategoryService {
-  async updateCategory(data: updateCategoryDto, id:updateCategoryDto['id']) {
+  async updateCategory(data: updateCategoryDto, categoryId: string) {
     const { categoryName, mascotName, mascotImage } = data;
 
     // 비교
@@ -13,11 +15,11 @@ export class CategoryService {
       ...(mascotName && { mascotName }),
       ...(mascotImage && { mascotImage })
     };
-    await categoryRepository.updateOneCategory(toUpdate, id);
+    await categoryRepository.updateOneCategory(toUpdate, categoryId);
   }
 
-  async deleteOneCategory(id:categoryT['id']) {
-    await categoryRepository.deleteOneCategory(id);
+  async deleteOneCategory(categoryId: string) {
+    await categoryRepository.deleteOneCategory(categoryId);
   }
 
   async findAllCategory() {
@@ -25,12 +27,12 @@ export class CategoryService {
     return allCategory;
   }
 
-  async findCategoryByIds(ids: categoryT['id'][]) {
-    return categoryRepository.findCategoryByIds(ids);
+  async findCategoryByIds(categoryIds: string[]) {
+    return categoryRepository.findCategoryByIds(categoryIds);
   }
 
-  async findOneCategory(id: categoryT['id']) {
-    const oneCategory = await categoryRepository.findOneCategory(id);
+  async findOneCategory(categoryId: string) {
+    const oneCategory = await categoryRepository.findOneCategory(categoryId);
     return oneCategory;
   }
 

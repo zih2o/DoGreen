@@ -2,12 +2,11 @@ import { model, Types } from 'mongoose';
 import { CategorySchema } from '../category/categorySchema';
 import invariant from '../invariant';
 import { PostSchema } from './postSchema';
-import { UserSchema } from '../user/user.schema';
 import { CommentSchema } from '../comment/commentSchema';
+import ApplicationError from '../errors/ApplicationError';
 
 const PostModel = model<PostT>('posts', PostSchema);
 const CategoryModel = model<categoryT>('categories', CategorySchema);
-const UserModel = model('users', UserSchema);
 const CommentModel = model('comments', CommentSchema);
 
 export class PostRepository implements IPostRepository {
@@ -25,33 +24,41 @@ export class PostRepository implements IPostRepository {
     );
   }
 
-  async isExist(currentAuthId: string) {
-    const isLiked = await PostModel.exists({ likeUserList: currentAuthId });
-    return isLiked;
+  async isLikedByPostId(currentAuthId: string, postId: string): Promise<boolean> {
+    const isLiked = await PostModel.exists({ _id: postId, likeUserList: currentAuthId });
+    return isLiked !== null;
   }
 
-  async paginationPost(categoryId: categoryT['id'] | string, page: number, perPage: number) {
+  async paginationPost(categoryId: string | string, page: number, perPage: number) {
     // 해당 카테고리에 총 갯수를 구하는 쿼리
-    const findPosts = await CategoryModel.findById(categoryId, { posts: 1 });
-    const total:any = findPosts?.posts?.length;
+    const category = await CategoryModel.findById(categoryId, undefined, {
+      populate: {
+        path: 'posts',
+        options: {
+          skip: (page - 1) * perPage,
+          limit: perPage
+        }
+      }
+    });
 
-    // 총갯수로 posts 갯수 정하기
-    const posts: any = await CategoryModel.findById(categoryId).populate('posts').select('posts');
-    const result = posts.posts.slice((perPage * (page - 1)), perPage * page);
+    invariant(category !== null, new ApplicationError('해당하는 카테고리가 존재하지 않습니다.', 404));
+
+    const total = await PostModel.count({ category: categoryId });
     const totalPage = Math.ceil(total / perPage);
 
     return {
-      page, perPage, result, totalPage
+      page, perPage, result: category.posts, totalPage
     };
   }
 
   async deletePostCommentId(commentId: string) {
-    const findPostId = await CommentModel.findById(commentId);
-    await PostModel.findByIdAndUpdate(findPostId?.refPost, { $pull: { comments: commentId } });
+    const comment = await CommentModel.findById(commentId);
+    invariant(comment !== null, new ApplicationError('해당하는 코멘트가 존재하지 않습니다.', 404));
+    await PostModel.findByIdAndUpdate(comment.refPost, { $pull: { comments: commentId } });
   }
 
   async findAllCommentAtPost(postId: CommentT['refPost']) {
-    const commentArray = await PostModel.findById(postId.id)
+    const post = await PostModel.findById(postId.id)
       .populate({
         path: 'comments',
         populate: {
@@ -60,10 +67,11 @@ export class PostRepository implements IPostRepository {
         }
       });
 
-    return commentArray?.comments;
+    invariant(post !== null, new ApplicationError('해당하는 포스트가 존재하지 않습니다.', 404));
+    return post.comments!;
   }
 
-  async addcommentList(postId: PostT['id'], commentId: Types.ObjectId) {
+  async addcommentList(postId: string, commentId: Types.ObjectId) {
     await PostModel.findByIdAndUpdate(postId, { $push: { comments: commentId } });
   }
 
@@ -72,37 +80,39 @@ export class PostRepository implements IPostRepository {
     return totalPost;
   }
 
-  async findPost(id: PostT['id']) {
-    const postInfo = await PostModel.findById(id);
-    return postInfo;
+  async findPost(postId: string) {
+    const post = await PostModel.findById(postId);
+    invariant(post !== null, new ApplicationError('해당하는 Post가 존재하지 않습니다.', 404));
+    return post;
   }
 
-  async createOne(newPost: createPostDto, id: createCategoryDto) {
+  async createOne(newPost: createPostDto, categoryId: createCategoryDto) {
     const newPostId = await PostModel.create({
-      category: id,
+      category: categoryId,
       content: newPost.content,
       imageList: newPost.imageList
     });
-    await CategoryModel.findByIdAndUpdate(id, { $push: { posts: newPostId.id } });
+    await CategoryModel.findByIdAndUpdate(categoryId, { $push: { posts: newPostId.id } });
   }
 
-  async deleteOne(id: PostT['id']) {
-    const findPost = await PostModel.findById(id.id);
-    await CategoryModel.findByIdAndUpdate(findPost?.category, { $pull: { posts: findPost?.id } });
-    await PostModel.deleteOne({ id: findPost?.id });
+  async deleteOne(postId: string) {
+    const post = await PostModel.findById(postId);
+    invariant(post !== null, new ApplicationError('해당하는 Post가 존재하지 않습니다.', 404));
+    await CategoryModel.findByIdAndUpdate(post.category, { $pull: { posts: postId } });
+    await PostModel.deleteOne({ id: postId });
   }
 
-  async updateOne(id: PostT['id'], toUpdatePost: updatePostDto) {
-    const findCategoryId = await CategoryModel.findOne({ id });
-    // 카테고리 이름 변경
-    await CategoryModel.findByIdAndUpdate(
-      findCategoryId?.id,
-      { categoryName: toUpdatePost.category }
-    );
+  async updateOne(postId: string, toUpdatePost: updatePostDto) {
+    const category = await CategoryModel.exists({ categoryName: toUpdatePost.category });
+    invariant(category !== null, new ApplicationError('해당하는 카테고리가 존재하지 않습니다.', 404));
     // 포스트 정보 변경
     await PostModel.updateMany(
-      { _id: id },
-      { content: toUpdatePost.content, imageList: toUpdatePost.imageList }
+      { _id: postId },
+      {
+        category: category._id,
+        content: toUpdatePost.content,
+        imageList: toUpdatePost.imageList
+      }
     );
   }
 }

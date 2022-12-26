@@ -262,8 +262,8 @@ const EditUserInfo = () => {
 
 const className = {
   container:
-    'mt-[100px] flex flex-col justify-center items-center flex-1 w-[700px] mb-[100px] py-5 px-14 border-2 border-solid border-garden1 rounded-xl	',
-  title: 'text-center p-10 text-3xl font-bold text-garden1',
+    'container flex flex-col justify-center items-center flex-1 w-[800px] mx-auto mt-5 mb-[100px] py-5 px-14 lg:px-15 border-2 border-solid border-garden1 rounded-xl',
+  title: 'text-center p-10 mb-5 text-4xl font-bold text-garden1',
   form: 'flex-col w-full px-3',
   closeButton: 'self-center absolute top-0 right-0 float-right p-5',
 };

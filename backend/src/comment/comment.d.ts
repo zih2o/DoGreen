@@ -1,14 +1,13 @@
 type CommentT = {
-    id: Types.ObjectId,
+    _id: Types.ObjectId,
     refPost: Types.ObjectId,
-    userId: Types.ObjectId,
+    authId: Types.ObjectId,
     comment: string,
-    comments? : Types.ObjectId[]
-
+    // comments? : Types.ObjectId[]
 }
 
-type updateCommentDto = Pick<CommentT, 'id', 'comment'>
+type updateCommentDto = Partial<Pick<CommentT, 'comment'>>
 interface ICommentRepository {
-    createComment: (comment: CommentT['comment'], postId: CommentT[refPost], userId: CommentT['userId']) => Promise<Object>
+    createComment: (comment: CommentT['comment'], postId: string, userId: string) => Promise<CommentT>
 
 }
