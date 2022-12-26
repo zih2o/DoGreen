@@ -2,6 +2,7 @@ import { api } from '../util/api';
 import { useQuery } from '@tanstack/react-query';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
+import { AxiosError } from 'axios';
 
 interface IUserData {
   role: string;

@@ -7,15 +7,16 @@ interface IFormInput {
   error?: string;
   disabled?: boolean;
   name: string;
-  onChange?: (...event: any[]) => void;
+  onChange?: (...event: []) => void;
   value: string;
+  isRequired?: boolean;
 }
 
 export const FormInput = ({ type, placeholder, id, error, disabled, name, onChange, value }: IFormInput) => {
   const className = {
     input: `w-full px-3 py-2 bg-white dark:bg-[#292524] rounded-lg border border-gray-300 dark:border-[#4f4846] text-gray-900 dark:text-white placeholder:text-[12px] placeholder-gray-400 dark:placeholder-[#8c807d] focus:z-10 focus:border-forest1 focus:outline-none focus:ring-forest3 ${
       error && 'border-red-500 dark:border-red-500'
-    }`,
+    } `,
     disabled: 'w-full px-3 py-2 bg-gardenBG font-semibold',
     disabledContainer: 'mt-1 min-h-[30px]',
   };
@@ -66,7 +67,7 @@ export const InputButton = ({ value }: IInputSubmitButton) => {
       <input
         type="submit"
         value={value}
-        className="flex justify-center w-[50%] mb-2 py-2 border-garden4 border-[2px] rounded-full dark:border-[#65D26D] bg-garden1 font-semibold text-xl text-garden2 dark:text-gray-700 hover:bg-[#6f8f76] dark:hover:bg-[#6edb76] hover:drop-shadow-lg hover:scale-[0.98] transition ease-in-oout delay-75"
+        className="flex justify-center w-[50%] h-[45px] mb-2 py-2 rounded-full bg-garden1 font-semibold text-xl text-garden2 dark:text-gray-700 hover:bg-[#6f8f76] dark:hover:bg-[#6edb76] hover:drop-shadow-lg active:scale-[1.02] transition ease-in-oout delay-75 cursor-pointer"
       ></input>
     </div>
   );
@@ -81,7 +82,7 @@ export const ClickButton = ({ onClick, children }: IClickButton) => {
     <div className="flex justify-center w-full px-3 mt-3">
       <button
         onClick={onClick}
-        className="flex justify-center items-center w-[50%] mb-2 mt-3 py-2 rounded-full border-garden4 dark:border-red-400 border-[2px] bg-red-500 font-semibold text-xl text-white dark:text-white font-semiboldshadow hover:bg-[#f54c4c] hover:drop-shadow-lg hover:scale-[0.98] transition ease-in-oout delay-75"
+        className="flex justify-center items-center w-[50%] h-[45px] mb-2 mt-3 py-2 rounded-full bg-red-500 font-semibold text-xl text-white dark:text-white font-semiboldshadow hover:bg-[#f54c4c] hover:drop-shadow-lg active:scale-[1.02] transition ease-in-oout delay-75 cursor-pointer"
       >
         {children}
       </button>
