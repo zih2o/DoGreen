@@ -12,7 +12,7 @@ import useUserData, { IUserData } from '../../hooks/useUserData';
 import uesEditUserData from '../../hooks/editUserInfoApi';
 import { Userwithdraw } from './Userwithdraw';
 import { useValUserName } from '../../hooks/useValUserData';
-import Modal from '../Modal';
+import Modal from '../common/Modal';
 
 interface IEditInputData extends Omit<IUserData, 'imgUrl'> {
   oldPassword: string;

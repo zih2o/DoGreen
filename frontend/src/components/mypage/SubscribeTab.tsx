@@ -6,7 +6,7 @@ import { CardLayout } from '../layout/GlobalLayout';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
 import { useSubscription } from '../../hooks/useSubscription';
 import { checkName } from '../../util/functionUtil';
-import Modal from '../../components/Modal';
+import Modal from '../common/Modal';
 import { AiOutlineClose } from 'react-icons/ai';
 
 const SubscribeTab = () => {

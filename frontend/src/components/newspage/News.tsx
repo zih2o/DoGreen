@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { BsFillHeartFill } from 'react-icons/bs';
 import { ImBubble } from 'react-icons/im';
-import Modal from '../Modal';
+import Modal from '../common/Modal';
 
 export default function NewsCard() {
   const [clickHeart, setClickHeart] = useState<boolean>(false);

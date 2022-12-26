@@ -6,7 +6,7 @@ import { CardType, TextType, BtnType, WrapperType } from '../components/common/t
 import useCategory, { ICategory } from '../hooks/useCategory';
 import { useSubscription } from '../hooks/useSubscription';
 import { checkName } from '../util/functionUtil';
-import Modal from '../components/Modal';
+import Modal from '../components/common/Modal';
 import { AlertModal } from '../components/common/AlertModal';
 import { AiOutlineClose } from 'react-icons/ai';
 
