@@ -16,9 +16,9 @@ type PostT = {
     createdAt: Date
     updatedAt: Date
 }
-type updatePostDto = Partial<Pick<PostT, 'category' | 'content' | 'imageList'>>; // user이름 바뀌면 안됌? | 카드와 컨첸츠와 타이틀만바뀜
+type updatePostDto = Partial<Pick<PostT, 'content' | 'imageList'> & { category: string }>; // user이름 바뀌면 안됌? | 카드와 컨첸츠와 타이틀만바뀜
 // createDTO 만들기
-type createPostDto = Pick<PostT, 'category' | 'content' | 'imageList'>
+type createPostDto = Pick<PostT, 'content' | 'imageList'> & { category: string }
 
 interface IPostRepository {
     createOne: (newPost: createPostDto, id:createPostDto['_id']) => Promise<void>
