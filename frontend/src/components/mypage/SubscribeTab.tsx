@@ -6,7 +6,7 @@ import { CardLayout } from '../layout/GlobalLayout';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
 import { useSubscription } from '../../hooks/useSubscription';
 import { checkName } from '../../util/functionUtil';
-import Modal from '../../components/Modal';
+import Modal from '../common/Modal';
 import { AiOutlineClose } from 'react-icons/ai';
 
 const SubscribeTab = () => {
@@ -65,7 +65,7 @@ const SubscribeTab = () => {
           <div className={TextType.titleText}>{'My Greens'}</div>
           <div className={TextType.introduceText}>{'내가 구독 중인 토픽을 확인하고 관리해보세요!'} &nbsp;</div>
           <div className={WrapperType.cardContentsWrapper}>
-            <ul className={WrapperType.cardListWrapper}>
+            <ul className={WrapperType.cardListWrapper_mypage}>
               {isLoading &&
                 skeletonCards.map((e, i) => (
                   <li className={CardType.size} key={`{skeleton-${i}}`}>

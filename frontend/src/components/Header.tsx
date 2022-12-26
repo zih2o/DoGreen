@@ -5,9 +5,8 @@ import Hamburger from './Hamburger';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { FaUserCircle } from 'react-icons/fa';
 import { BsSun, BsFillMoonFill } from 'react-icons/bs';
-
-import {useHamburgerStore } from '../hooks/useHamburger';
-import {useDarkModeStore}from '../hooks/useDarkMode'
+import { useHamburgerStore } from '../hooks/useHamburger';
+import { useDarkModeStore } from '../hooks/useDarkMode';
 
 function Header() {
   const { hamburgerOpen, toggleHamburger } = useHamburgerStore();
@@ -32,7 +31,7 @@ function Header() {
           </span>
         </div>
         <button className="col-start-8 md:col-start-9 flex justify-end" onClick={toggleDarkMode}>
-          {darkMode ? <BsFillMoonFill className="w-9 h-9 p-1" /> : <BsSun className="w-9 h-9 p-1" />}
+          {darkMode ? <BsSun className="w-9 h-9 p-1" /> : <BsFillMoonFill className="w-9 h-9 p-1" />}
         </button>
         <button
           className="col-start-9 col-span-2 md:col-start10 md:col-span-1 flex justify-end"
