@@ -26,6 +26,7 @@ interface IWrapperType {
   textWrapper: string;
   cardContentsWrapper: string;
   cardListWrapper: string;
+  cardListWrapper_mypage: string;
   cardListRightWrapper: string;
   cardListLeftWrapper: string;
 }
@@ -72,8 +73,10 @@ export const WrapperType: IWrapperType = {
   profileTotalWrapper: 'flex items-center ',
   profileWrapper: 'w-2/5',
   textWrapper: 'flex flex-col w-3/5 font-bold text-center ',
-  cardContentsWrapper: 'flex mt-20 mb-20 mx-0 ',
-  cardListWrapper: 'flex flex-wrap gap-y-14 gap-x-12',
+  cardContentsWrapper: 'flex mt-20 mb-20 mx-auto ',
+  // cardListWrapper: 'flex flex-wrap gap-y-14 gap-x-12',
+  cardListWrapper: 'grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-x-12 gap-y-14 ',
+  cardListWrapper_mypage: 'grid lg:grid-cols-3 grid-cols-2 gap-x-14 gap-y-14 ',
   cardListRightWrapper: 'flex absolute top-0 gap-x-3 animate-slider1',
   cardListLeftWrapper: 'flex absolute bottom-1 gap-x-3 animate-slider2',
 };
