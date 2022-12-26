@@ -43,7 +43,7 @@ export const Login = () => {
                   error={errorDisplay}
                   name={name}
                   onChange={onChange}
-                  value={value}
+                  value={value || ''}
                 />
               );
             }}
@@ -66,7 +66,7 @@ export const Login = () => {
                   error={errorDisplay}
                   name={name}
                   onChange={onChange}
-                  value={value}
+                  value={value || ''}
                 />
               );
             }}

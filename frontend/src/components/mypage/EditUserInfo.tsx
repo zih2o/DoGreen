@@ -34,10 +34,10 @@ const EditUserInfo = () => {
   //react-hook-form yup
   const { schema } = editValidation();
   const {
-    handleSubmit,
     control,
     register,
     reset,
+    handleSubmit,
     formState: { errors },
   } = useForm<IEditIData>({
     mode: 'onSubmit',
@@ -57,17 +57,16 @@ const EditUserInfo = () => {
   }, [userData]);
 
   const [image, currUsername] = useWatch({ control, name: ['imgUrl', 'username'] });
-  //presinedUrl
-  const presignedUrlMutation = createUrl();
+  //imgUrl
+  const imgUrlMutation = createUrl();
   //이미지 변경
   const [imgPreview, setImgPreview] = useState('');
   useEffect(() => {
     if (image && image.length > 0) {
       const file = image?.[0];
       console.log('file : ', file);
-
       setImgPreview(URL.createObjectURL(file));
-      presignedUrlMutation.mutate(file);
+      imgUrlMutation.mutate(file);
     }
   }, [image]);
 
@@ -77,7 +76,6 @@ const EditUserInfo = () => {
   const usernameVal = valUsername?.username;
 
   useEffect(() => {
-    console.log(currUsername, usernameVal);
     if (usernameVal && userData?.username !== currUsername) {
       setUsernameError(true);
       console.log('중복임 사용불가');
@@ -96,16 +94,18 @@ const EditUserInfo = () => {
   //수정하기
   const onSubmit = async (data: IEditIData) => {
     const { username, oldPassword, password, bio } = data;
-    const editData = { username, oldPassword, password, bio };
+    const imgUrl = imgUrlMutation.data;
+    const editData = { username, oldPassword, password, bio, imgUrl };
     editMutation.mutate(editData);
+    console.log(data);
   };
-  return isUserDataLoading ? (
+  return !isUserDataLoading ? (
     <MyPageContentsLayout>
       <div className={className.container}>
         <p className={className.title}>내 정보 수정</p>
         <form onSubmit={handleSubmit(onSubmit)} className={className.form}>
           <ImgContainer src={imgPreview} label="프로필 사진 변경" inputProp="imgUrl">
-            <input type="file" id="imgUrl" className="hidden" {...register('imgUrl')} ref={null} />
+            <input type="file" id="imgUrl" className="hidden" {...register('imgUrl')} />
             <IputError>{errors.imgUrl && errors.imgUrl.message}</IputError>
           </ImgContainer>
 
@@ -115,7 +115,7 @@ const EditUserInfo = () => {
               control={control}
               defaultValue=""
               render={({ field: { name, value } }) => {
-                return <FormInput id="email" disabled name={name} value={value} />;
+                return <FormInput id="email" disabled name={name} value={value || ''} />;
               }}
             />
           </InputContainer>
@@ -134,7 +134,7 @@ const EditUserInfo = () => {
                     error={errorDisplay}
                     name={name}
                     onChange={onChange}
-                    value={value}
+                    value={value || ''}
                   />
                 );
               }}
@@ -160,7 +160,7 @@ const EditUserInfo = () => {
                     error={errorDisplay}
                     name={name}
                     onChange={onChange}
-                    value={value}
+                    value={value || ''}
                   />
                 );
               }}
@@ -183,7 +183,7 @@ const EditUserInfo = () => {
                     error={errorDisplay}
                     name={name}
                     onChange={onChange}
-                    value={value}
+                    value={value || ''}
                   />
                 );
               }}
@@ -205,7 +205,7 @@ const EditUserInfo = () => {
                     error={errorDisplay}
                     name={name}
                     onChange={onChange}
-                    value={value}
+                    value={value || ''}
                   />
                 );
               }}
@@ -228,7 +228,7 @@ const EditUserInfo = () => {
                     error={errorDisplay}
                     name={name}
                     onChange={onChange}
-                    value={value}
+                    value={value || ''}
                   />
                 );
               }}

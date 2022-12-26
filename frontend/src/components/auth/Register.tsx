@@ -39,7 +39,7 @@ export const Register = () => {
   const usernameVal = valUsername?.username;
 
   useEffect(() => {
-    usernameVal && setUsernameError(Boolean(usernameVal));
+    usernameVal ? setUsernameError(Boolean(usernameVal)) : setUsernameError(Boolean(usernameVal));
   }, [currUsername, isUserNameLoading]);
 
   //유저이메일 실시간 밸리데이션
@@ -48,7 +48,7 @@ export const Register = () => {
   const eamilVal = valEmail?.email;
 
   useEffect(() => {
-    eamilVal && setEmailError(Boolean(eamilVal));
+    eamilVal ? setEmailError(Boolean(eamilVal)) : setEmailError(Boolean(eamilVal));
   }, [emailError, isEmailLoading]);
 
   return (
@@ -69,7 +69,7 @@ export const Register = () => {
                   error={errorDisplay}
                   name={name}
                   onChange={onChange}
-                  value={value}
+                  value={value || ''}
                 />
               );
             }}
@@ -93,7 +93,7 @@ export const Register = () => {
                   error={errorDisplay}
                   name={name}
                   onChange={onChange}
-                  value={value}
+                  value={value || ''}
                 />
               );
             }}
@@ -118,7 +118,7 @@ export const Register = () => {
                   error={errorDisplay}
                   name={name}
                   onChange={onChange}
-                  value={value}
+                  value={value || ''}
                 />
               );
             }}
@@ -141,7 +141,7 @@ export const Register = () => {
                   error={errorDisplay}
                   name={name}
                   onChange={onChange}
-                  value={value}
+                  value={value || ''}
                 />
               );
             }}

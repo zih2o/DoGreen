@@ -14,7 +14,7 @@ interface IEditData {
   username?: string;
   oldPassword: string;
   password?: string;
-  imgUrl?: FileList;
+  imgUrl?: string;
   bio?: string;
 }
 
