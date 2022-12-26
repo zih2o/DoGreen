@@ -30,7 +30,6 @@ export function useLogin() {
     },
     onError: (error) => {
       console.error('에러 발생했지롱');
-      //error 에서 메시지 가져오는 법.....어떻게 타입오류 제거하지??
       alert(error?.response?.data?.error);
       console.log('test');
     },
