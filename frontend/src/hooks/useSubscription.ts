@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../util/api';
-import { useUserLoginStore } from './store';
+import { AuthStore } from './useAuth';
 
 export interface ISubscription {
   _id: string | undefined;
@@ -12,7 +12,7 @@ export interface ISubscription {
 
 export function useSubscription(catId: string) {
   const queryClient = useQueryClient();
-  const token = useUserLoginStore((state) => state.token);
+  const token = AuthStore((state) => state.token);
   const subsQuery = useQuery<ISubscription[]>({
     queryKey: ['userCategories'],
     queryFn: async () => {
