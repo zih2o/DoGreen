@@ -238,7 +238,7 @@ export const FormEditUserInfo = () => {
 };
 
 const className = {
-  container: 'flex flex-col justify-center items-center w-full mb-[100px] w-[700px] py-5 pl-10 flex-1',
+  container: 'container flex flex-col justify-center items-center mx-auto mt-5 mb-[100px] py-5 px-12 lg:px-36 flex-1',
   title: 'text-center p-10 text-3xl font-bold',
   form: 'flex-col w-full px-3',
   closeButton: 'self-center absolute top-0 right-0 float-right p-5',
