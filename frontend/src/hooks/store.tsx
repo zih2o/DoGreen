@@ -1,15 +1,23 @@
 import create from 'zustand';
+import { api } from '../util/api';
 
 interface IUserLogin {
   token: null | string;
   isLogin: boolean;
   handleLogin: () => void;
 }
+interface IUserInfo {
+  role: string;
+  email: string;
+  username: string;
+  bio: string;
+  imgUrl: string;
+}
 
-interface IAdminLogin {
-  token: null | string;
-  isLogined: boolean;
-  what: () => void;
+interface IGetUserInfo {
+  existUser: boolean | Error;
+  userInfo: IUserInfo;
+  getUserInfo: () => void;
 }
 
 export const useUserLoginStore = create<IUserLogin>((set) => ({
@@ -18,8 +26,17 @@ export const useUserLoginStore = create<IUserLogin>((set) => ({
   handleLogin: () => set((state) => ({ isLogin: !state.isLogin })),
 }));
 
-export const useAdminLoginStore = create<IAdminLogin>((set) => ({
-  token: window.sessionStorage.getItem('token'),
-  isLogined: false,
-  what: () => set((state) => ({ isLogined: !state.isLogined })),
+export const useUserInfo = create<IGetUserInfo>((set) => ({
+  existUser: false,
+  userInfo: { role: '', email: '', username: '', bio: '', imgUrl: '' },
+  getUserInfo: async () => {
+    try {
+      const { data } = await api('/user/me');
+      set(() => ({ existUser: true }));
+      set(() => ({ userInfo: { ...data } }));
+    } catch (err) {
+      set(() => ({ existUser: new Error }));
+      set(() => ({ userInfo: { role: '', email: '', username: '', bio: '', imgUrl: '' }}));
+    }
+  },
 }));
