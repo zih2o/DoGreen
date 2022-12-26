@@ -67,8 +67,8 @@ export class PostRepository implements IPostRepository {
         }
       });
 
-    invariant(post !== null, new ApplicationError('해당하는 카테고리가 존재하지 않습니다.', 404));
-    return post.comments;
+    invariant(post !== null, new ApplicationError('해당하는 포스트가 존재하지 않습니다.', 404));
+    return post.comments!;
   }
 
   async addcommentList(postId: string, commentId: Types.ObjectId) {
@@ -103,11 +103,13 @@ export class PostRepository implements IPostRepository {
   }
 
   async updateOne(postId: string, toUpdatePost: updatePostDto) {
+    const category = await CategoryModel.exists({ categoryName: toUpdatePost.category });
+    invariant(category !== null, new ApplicationError('해당하는 카테고리가 존재하지 않습니다.', 404));
     // 포스트 정보 변경
     await PostModel.updateMany(
       { _id: postId },
       {
-        category: toUpdatePost.category,
+        category: category._id,
         content: toUpdatePost.content,
         imageList: toUpdatePost.imageList
       }

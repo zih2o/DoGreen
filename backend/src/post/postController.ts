@@ -36,6 +36,7 @@ export class PostController {
 
   async deletePost(req: Request, res: Response, next: NextFunction) {
     const { id } = req.params;
+    invariant(typeof id === 'string', new BadRequestError('포스트의 id 가 없습니다.'));
     await postService.deletePost(id);
     res.status(204).end();
   }
@@ -48,6 +49,7 @@ export class PostController {
 
   async findOnePost(req: Request, res: Response, next: NextFunction) {
     const { id } = req.params;
+    invariant(typeof id === 'string', new BadRequestError('포스트의 id 가 없습니다.'));
     const postInfo = await postService.findOnePost(id);
     res.status(200).json(postInfo);
   }
