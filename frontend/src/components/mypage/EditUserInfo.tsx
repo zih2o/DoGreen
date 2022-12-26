@@ -130,7 +130,7 @@ const EditUserInfo = () => {
                 return (
                   <FormInput
                     id="username"
-                    placeholder="2자이상 20자이하로 등록해주세요."
+                    placeholder="이름을 변경하시려면 2자이상 20자이하로 등록해주세요."
                     error={errorDisplay}
                     name={name}
                     onChange={onChange}
@@ -144,7 +144,7 @@ const EditUserInfo = () => {
             </IputError>
           </InputContainer>
 
-          <InputContainer inputProp="oldPassword" label="현재 비밀번호">
+          <InputContainer inputProp="oldPassword" label="현재 비밀번호" isRequired>
             <Controller
               name="oldPassword"
               control={control}
@@ -156,7 +156,7 @@ const EditUserInfo = () => {
                   <FormInput
                     type="password"
                     id="oldPassword"
-                    placeholder="현재 비밀번호를 입력해주세요"
+                    placeholder="내 정보를 수정하려면 현재 비밀번호를 꼭 입력해주세요."
                     error={errorDisplay}
                     name={name}
                     onChange={onChange}
@@ -168,7 +168,7 @@ const EditUserInfo = () => {
             <IputError>{errors.oldPassword && errors.oldPassword.message}</IputError>
           </InputContainer>
 
-          <InputContainer inputProp="password" label="비밀번호 변경">
+          <InputContainer inputProp="password" label="새 비밀번호">
             <Controller
               name="password"
               control={control}
@@ -179,7 +179,7 @@ const EditUserInfo = () => {
                   <FormInput
                     type="password"
                     id="password"
-                    placeholder="변경하실 비밀번호를 입력해주세요"
+                    placeholder="비밀번호를 변경하시려면 새 비밀번호를 입력해주세요."
                     error={errorDisplay}
                     name={name}
                     onChange={onChange}
@@ -190,7 +190,7 @@ const EditUserInfo = () => {
             />
             <IputError>{errors.password && errors.password.message}</IputError>
           </InputContainer>
-          <InputContainer inputProp="confimrPassword" label="비밀번호 확인">
+          <InputContainer inputProp="confimrPassword" label="새 비밀번호 확인">
             <Controller
               name="confimrPassword"
               control={control}
@@ -201,7 +201,7 @@ const EditUserInfo = () => {
                   <FormInput
                     type="password"
                     id="confimrPassword"
-                    placeholder="비밀번호 확인"
+                    placeholder="새 비밀번호를 한번 더 입력해주세요."
                     error={errorDisplay}
                     name={name}
                     onChange={onChange}
@@ -224,7 +224,7 @@ const EditUserInfo = () => {
                   <FormInput
                     type="textarea"
                     id="bio"
-                    placeholder="자기소개 한 줄 입력해 보세요."
+                    placeholder="자기소개 한 줄 입력해 보세요. 최대 40자 까지 가능합니다."
                     error={errorDisplay}
                     name={name}
                     onChange={onChange}
@@ -265,7 +265,7 @@ const className = {
     'container flex flex-col justify-center items-center flex-1 w-[800px] mx-auto mt-5 mb-[100px] py-5 px-14 lg:px-15 border-2 border-solid border-garden1 rounded-xl',
   title: 'text-center p-10 mb-5 text-4xl font-bold text-garden1',
   form: 'flex-col w-full px-3',
-  closeButton: 'self-center absolute top-0 right-0 float-right p-5',
+  closeButton: 'self-center absolute top-2 right-2 float-right p-2 rounded-xl active:bg-white active:opacity-60',
 };
 
 export default EditUserInfo;

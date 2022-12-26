@@ -27,7 +27,8 @@ export const Register = () => {
   const registerMutation = useResiter();
   const onSubmit = (data: IRegisterData) => {
     const { username, email, password } = data;
-    registerMutation.mutate({ username, email, password });
+    const role = 'USER';
+    registerMutation.mutate({ username, email, password, role });
   };
 
   const [currUsername, currEmail] = useWatch({ control, name: ['username', 'email'] });
@@ -65,7 +66,7 @@ export const Register = () => {
               return (
                 <FormInput
                   id="username"
-                  placeholder="2자리 이상, 20자리 이하로 입력해주세요."
+                  placeholder="2자리 이상, 20자 이하로 입력해주세요."
                   error={errorDisplay}
                   name={name}
                   onChange={onChange}
@@ -89,7 +90,7 @@ export const Register = () => {
               return (
                 <FormInput
                   id="email"
-                  placeholder="이메일 입력해주세요."
+                  placeholder="이메일을 입력해주세요."
                   error={errorDisplay}
                   name={name}
                   onChange={onChange}
@@ -114,7 +115,7 @@ export const Register = () => {
                 <FormInput
                   type="password"
                   id="password"
-                  placeholder="공백을 제외한 특수문자, 알파벳, 숫자를 포함한 8자리 이상 입력해주세요."
+                  placeholder="공백을 제외한 특수문자, 알파벳, 숫자를 포함한 8자 이상 입력해주세요."
                   error={errorDisplay}
                   name={name}
                   onChange={onChange}
