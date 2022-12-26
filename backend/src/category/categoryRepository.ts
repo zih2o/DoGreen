@@ -15,10 +15,14 @@ export class CategoryRepository implements ICategoryRepository {
   }
 
   async updateOneCategory(toUpdate:updateCategoryDto, id: string) {
+    const category = await CategoryModel.exists({ _id: id });
+    invariant(category !== null, new ApplicationError('id에 해당하는 카테고리가 존재하지 않습니다.', 404));
     await CategoryModel.updateOne({ _id: id }, toUpdate);
   }
 
   async deleteOneCategory(categoryId: string) {
+    const category = await CategoryModel.exists({ _id: categoryId });
+    invariant(category !== null, new ApplicationError('id에 해당하는 카테고리가 존재하지 않습니다.', 404));
     await CategoryModel.deleteOne({ _id: categoryId });
   }
 

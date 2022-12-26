@@ -6,7 +6,7 @@ const categoryService = new CategoryService();
 export class CategoryController {
   async updateCategory(req:Request, res:Response) {
     await categoryService.updateCategory(req.body, req.params.id);
-    res.json(200).end();
+    res.status(200).end();
   }
 
   async createCategory(req: Request, res: Response) {
