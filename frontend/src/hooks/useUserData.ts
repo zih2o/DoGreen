@@ -12,12 +12,15 @@ interface IUserData {
 }
 interface IEditData {
   username?: string;
-  oldPassword?: string;
+  oldPassword: string;
   password?: string;
   imgUrl?: FileList;
   bio?: string;
 }
 
+interface IAuthData {
+  currentPassword: string;
+}
 export default function useUserData() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -48,7 +51,7 @@ export default function useUserData() {
     },
   });
 
-  const withdrawMutate = async (currentPassword: string) => {
+  const withdrawMutate = async (currentPassword: IAuthData) => {
     return await api.patch('/user/me/withdraw', currentPassword);
   };
   const withdrawMutaiton = useMutation({

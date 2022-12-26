@@ -67,3 +67,13 @@ export const editValidation = () => {
 
   return { schema };
 };
+
+export const withDrawValidation = () => {
+  const schema = useMemo(() => {
+    return yup.object({
+      currentPassword: yup.string().required('비밀번호를 입력해주세요.'),
+    });
+  }, []);
+
+  return { schema };
+};

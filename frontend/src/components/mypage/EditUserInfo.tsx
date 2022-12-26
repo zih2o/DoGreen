@@ -6,15 +6,15 @@ import { AiOutlineClose } from 'react-icons/ai';
 
 import { InputContainer } from '../common/InputContainer';
 import { ImgContainer } from '../common/ImgContainer';
-import { FormInput, IputError, InputButton, ClickButton } from '../FormsAboutInput';
+import { FormInput, IputError, InputButton, ClickButton } from '../common/FormsAboutInput';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
 import useUserData from '../../hooks/useUserData';
 import Userwithdraw from './Userwithdraw';
 import { useValUserName } from '../../hooks/useValUserData';
 import createUrl from '../../hooks/imgUrlApi';
 import Modal from '../common/Modal';
-
-interface IEditInputData {
+import EditSkeleton from '../loadings/EditSkeleton';
+interface IEditIData {
   email: string;
   username: string;
   oldPassword: string;
@@ -27,7 +27,7 @@ interface IEditInputData {
 const EditUserInfo = () => {
   //유저데이터부르기
   const {
-    userQuery: { data: userData },
+    userQuery: { data: userData, isLoading: isUserDataLoading },
     userMutation: editMutation,
   } = useUserData();
 
@@ -39,7 +39,7 @@ const EditUserInfo = () => {
     register,
     reset,
     formState: { errors },
-  } = useForm<IEditInputData>({
+  } = useForm<IEditIData>({
     mode: 'onSubmit',
     resolver: yupResolver(schema),
   });
@@ -94,13 +94,12 @@ const EditUserInfo = () => {
   };
 
   //수정하기
-  const onSubmit = async (data: IEditInputData) => {
+  const onSubmit = async (data: IEditIData) => {
     const { username, oldPassword, password, bio } = data;
     const editData = { username, oldPassword, password, bio };
     editMutation.mutate(editData);
   };
-
-  return (
+  return isUserDataLoading ? (
     <MyPageContentsLayout>
       <div className={className.container}>
         <p className={className.title}>내 정보 수정</p>
@@ -115,8 +114,8 @@ const EditUserInfo = () => {
               name="email"
               control={control}
               defaultValue=""
-              render={({ field: { name } }) => {
-                return <FormInput id="email" disabled name={name} />;
+              render={({ field: { name, value } }) => {
+                return <FormInput id="email" disabled name={name} value={value} />;
               }}
             />
           </InputContainer>
@@ -126,7 +125,7 @@ const EditUserInfo = () => {
               name="username"
               control={control}
               defaultValue=""
-              render={({ field: { name } }) => {
+              render={({ field: { name, onChange, value } }) => {
                 const errorDisplay = usernameError || errors.username ? 'error' : '';
                 return (
                   <FormInput
@@ -134,6 +133,8 @@ const EditUserInfo = () => {
                     placeholder="2자이상 20자이하로 등록해주세요."
                     error={errorDisplay}
                     name={name}
+                    onChange={onChange}
+                    value={value}
                   />
                 );
               }}
@@ -148,7 +149,7 @@ const EditUserInfo = () => {
               name="oldPassword"
               control={control}
               defaultValue=""
-              render={({ field: { name } }) => {
+              render={({ field: { name, onChange, value } }) => {
                 const errorDisplay = errors.oldPassword ? 'error' : '';
 
                 return (
@@ -158,6 +159,8 @@ const EditUserInfo = () => {
                     placeholder="현재 비밀번호를 입력해주세요"
                     error={errorDisplay}
                     name={name}
+                    onChange={onChange}
+                    value={value}
                   />
                 );
               }}
@@ -169,7 +172,7 @@ const EditUserInfo = () => {
             <Controller
               name="password"
               control={control}
-              render={({ field: { name } }) => {
+              render={({ field: { name, onChange, value } }) => {
                 const errorDisplay = errors.password ? 'error' : '';
 
                 return (
@@ -179,6 +182,8 @@ const EditUserInfo = () => {
                     placeholder="변경하실 비밀번호를 입력해주세요"
                     error={errorDisplay}
                     name={name}
+                    onChange={onChange}
+                    value={value}
                   />
                 );
               }}
@@ -189,7 +194,7 @@ const EditUserInfo = () => {
             <Controller
               name="confimrPassword"
               control={control}
-              render={({ field: { name } }) => {
+              render={({ field: { name, onChange, value } }) => {
                 const errorDisplay = errors.confimrPassword ? 'error' : '';
 
                 return (
@@ -199,6 +204,8 @@ const EditUserInfo = () => {
                     placeholder="비밀번호 확인"
                     error={errorDisplay}
                     name={name}
+                    onChange={onChange}
+                    value={value}
                   />
                 );
               }}
@@ -211,7 +218,7 @@ const EditUserInfo = () => {
               name="bio"
               control={control}
               defaultValue=""
-              render={({ field: { name } }) => {
+              render={({ field: { name, onChange, value } }) => {
                 const errorDisplay = errors.bio ? 'error' : '';
                 return (
                   <FormInput
@@ -220,6 +227,8 @@ const EditUserInfo = () => {
                     placeholder="자기소개 한 줄 입력해 보세요."
                     error={errorDisplay}
                     name={name}
+                    onChange={onChange}
+                    value={value}
                   />
                 );
               }}
@@ -244,12 +253,17 @@ const EditUserInfo = () => {
         )}
       </div>
     </MyPageContentsLayout>
+  ) : (
+    <MyPageContentsLayout>
+      <EditSkeleton />
+    </MyPageContentsLayout>
   );
 };
 
 const className = {
-  container: 'flex flex-col justify-center items-center w-full mb-[100px] w-[700px] py-5 pl-10 flex-1',
-  title: 'text-center p-10 text-3xl font-bold',
+  container:
+    'mt-[100px] flex flex-col justify-center items-center flex-1 w-[700px] mb-[100px] py-5 px-14 border-2 border-solid border-garden1 rounded-xl	',
+  title: 'text-center p-10 text-3xl font-bold text-garden1',
   form: 'flex-col w-full px-3',
   closeButton: 'self-center absolute top-0 right-0 float-right p-5',
 };

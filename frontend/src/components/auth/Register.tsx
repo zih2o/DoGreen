@@ -4,10 +4,10 @@ import { Controller, useForm, useWatch } from 'react-hook-form';
 import { userValidation } from './yup';
 
 import { InputContainer } from '../common/InputContainer';
-import { FormInput, IputError, InputButton } from '../FormsAboutInput';
-import { useResiter, IAuthInput } from '../../hooks/authApi';
+import { FormInput, IputError, InputButton } from '../common/FormsAboutInput';
+import { useResiter, IAuthData } from '../../hooks/authApi';
 import { useValUserName, useValEmail } from '../../hooks/useValUserData';
-interface IRegisterInputProps extends IAuthInput {
+interface IRegisterData extends IAuthData {
   username: string;
   confimrPassword: string;
 }
@@ -18,14 +18,14 @@ export const Register = () => {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<IRegisterInputProps>({
+  } = useForm<IRegisterData>({
     mode: 'onSubmit',
     resolver: yupResolver(schema),
   });
 
   //데이터 전달
   const registerMutation = useResiter();
-  const onSubmit = (data: IRegisterInputProps) => {
+  const onSubmit = (data: IRegisterData) => {
     const { username, email, password } = data;
     registerMutation.mutate({ username, email, password });
   };
@@ -60,14 +60,16 @@ export const Register = () => {
             name="username"
             control={control}
             defaultValue=""
-            render={({ field: { name } }) => {
+            render={({ field: { name, onChange, value } }) => {
               const errorDisplay = usernameError || errors.username ? 'error' : '';
               return (
                 <FormInput
                   id="username"
-                  placeholder="3자이상 20자이하로 입력해주세요."
+                  placeholder="2자리 이상, 20자리 이하로 입력해주세요."
                   error={errorDisplay}
                   name={name}
+                  onChange={onChange}
+                  value={value}
                 />
               );
             }}
@@ -82,9 +84,18 @@ export const Register = () => {
             name="email"
             control={control}
             defaultValue=""
-            render={({ field: { name } }) => {
+            render={({ field: { name, onChange, value } }) => {
               const errorDisplay = emailError || errors.email ? 'error' : '';
-              return <FormInput id="email" placeholder="이메일 입력해주세요." error={errorDisplay} name={name} />;
+              return (
+                <FormInput
+                  id="email"
+                  placeholder="이메일 입력해주세요."
+                  error={errorDisplay}
+                  name={name}
+                  onChange={onChange}
+                  value={value}
+                />
+              );
             }}
           />
           <IputError>
@@ -97,15 +108,17 @@ export const Register = () => {
             name="password"
             control={control}
             defaultValue=""
-            render={({ field: { name } }) => {
+            render={({ field: { name, onChange, value } }) => {
               const errorDisplay = errors.password ? 'error' : '';
               return (
                 <FormInput
                   type="password"
                   id="password"
-                  placeholder="알파벳,숫자,공백을 제외한 특수문자 8자리 이상 입력해주세요"
+                  placeholder="공백을 제외한 특수문자, 알파벳, 숫자를 포함한 8자리 이상 입력해주세요."
                   error={errorDisplay}
                   name={name}
+                  onChange={onChange}
+                  value={value}
                 />
               );
             }}
@@ -118,7 +131,7 @@ export const Register = () => {
             name="confimrPassword"
             control={control}
             defaultValue=""
-            render={({ field: { name } }) => {
+            render={({ field: { name, onChange, value } }) => {
               const errorDisplay = errors.confimrPassword ? 'error' : '';
               return (
                 <FormInput
@@ -127,6 +140,8 @@ export const Register = () => {
                   placeholder="동일한 비밀번호를 입력해주세요."
                   error={errorDisplay}
                   name={name}
+                  onChange={onChange}
+                  value={value}
                 />
               );
             }}
@@ -141,7 +156,7 @@ export const Register = () => {
 
 const className = {
   container:
-    'w-[560px] h-[670px] flex flex-col items-center justify-start px-6 border-[3px] border-garden1 box-border rounded bg-gardenBG shadow-[0_0_30px_rgba(30, 30, 30, 0.185)]',
+    'flex flex-col items-center justify-start w-[580px] h-[610px] mb-[100px] px-6  border-[3px] border-garden1 box-border rounded-xl bg-gardenBG shadow-[0_0_30px_rgba(30, 30, 30, 0.185)]',
   form: 'flex-col w-full px-3',
   title: 'justify-self-start text-center my-16 pb-2 text-garden1 font-pacifico text-4xl  ',
 };

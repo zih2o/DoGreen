@@ -8,8 +8,8 @@ interface IInputContainer {
 
 const className = {
   container: 'flex items-start justify-between w-full space-y-2',
-  label: 'flex text-xl text-garden4 font-semibold pt-4',
-  inputBox: 'flex flex-col w-2/3',
+  label: 'flex text-xl pt-4 text-garden4 font-semibold dark:text-[#dedad9]',
+  inputBox: 'flex flex-col w-3/4 rounded-sm ',
 };
 
 export const InputContainer = ({ label, inputProp, children }: IInputContainer) => {
