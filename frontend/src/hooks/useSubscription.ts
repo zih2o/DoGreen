@@ -18,6 +18,7 @@ export function useSubscription(catId: string) {
     queryFn: async () => {
       return await api.get('/subscribe').then((res) => res.data);
     },
+    staleTime: 1000 * 60,
     enabled: !!token,
   });
   const subsMutation = useMutation<ISubscription>({

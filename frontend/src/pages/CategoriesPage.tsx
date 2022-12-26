@@ -19,9 +19,9 @@ interface ISubscriptionInfo {
 
 export const CategoriesPage = () => {
   const token = AuthStore((state) => state.token);
-  const { isOpen, handleToggle } = useModalState();
-  const [handleModal, setHandleModal] = useState(isOpen);
-  //const [isModal, setIsModal] = useState<boolean>(false);
+  // const { isOpen, handleToggle } = useModalState();
+  // const [handleModal, setHandleModal] = useState(isOpen);
+  const [isModal, setIsModal] = useState<boolean>(false);
   const [isLogined, setIsLogined] = useState<boolean>(true);
   const [subsInfoArr, setSubsInfoArr] = useState<ISubscriptionInfo[]>([]);
   const [newSubsInfo, setNewSubsInfo] = useState<ISubscriptionInfo>({
@@ -29,10 +29,11 @@ export const CategoriesPage = () => {
     categoryName: '',
     subStatus: false,
   });
-  const closeModal = () => {
-    handleToggle();
-    setHandleModal(!handleModal);
-  };
+
+  // const closeModal = () => {
+  //   handleToggle();
+  //   setHandleModal(!handleModal);
+  // };
   const {
     catQuery: { isLoading, data: categories },
   } = useCategory();
@@ -52,22 +53,22 @@ export const CategoriesPage = () => {
     if (!token) {
       setIsLogined(false);
     }
-    closeModal();
+    console.log(token, isLogined);
+    setIsModal(!isModal);
   };
-  const handleSubButton = (category: ICategory) => {
-    setNewSubsInfo((prev) => ({ categoryId: category._id, categoryName: category.categoryName, subStatus: true }));
-    closeModal();
+  const handleSubButton = async (category: ICategory) => {
+    setNewSubsInfo((prev) => ({
+      categoryId: category._id,
+      categoryName: category.categoryName,
+      subStatus: true,
+    }));
+    setIsModal(!isModal);
   };
   const applySubscription = async () => {
-    try {
-      setSubsInfoArr([...subsInfoArr, newSubsInfo]);
-      subsMutation.mutate();
-      handleModal;
-    } catch {
-      checkLogin();
-    } finally {
-      checkLogin();
-    }
+    checkLogin();
+    setSubsInfoArr([...subsInfoArr, newSubsInfo]);
+    subsMutation.mutate();
+    setIsModal(!isModal);
   };
   const handleSubStatus = (category: ICategory) => {
     const status =
@@ -130,15 +131,15 @@ export const CategoriesPage = () => {
                     </div>
                   </li>
                 ))}
-              {handleModal && categories && (
-                <Modal onClose={closeModal}>
+              {isModal && categories && (
+                <Modal onClose={() => setIsModal(!isModal)}>
                   <div className="relative w-full h-full max-w-md md:h-auto">
                     <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                       <button
                         type="button"
                         className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
                         data-modal-toggle="popup-modal"
-                        onClick={closeModal}
+                        onClick={() => setIsModal(!isModal)}
                       >
                         <AiOutlineClose size="24" />
                         <span className="sr-only">Close modal</span>
@@ -152,9 +153,7 @@ export const CategoriesPage = () => {
                           data-modal-toggle="popup-modal"
                           type="button"
                           className="text-white bg-red-400 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-400 font-medium rounded-lg text-lg inline-flex items-center px-5 py-2.5 text-center mr-2"
-                          onClick={() => {
-                            applySubscription();
-                          }}
+                          onClick={() => applySubscription()}
                         >
                           네
                         </button>
@@ -162,7 +161,7 @@ export const CategoriesPage = () => {
                           data-modal-toggle="popup-modal"
                           type="button"
                           className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-lg font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-                          onClick={closeModal}
+                          onClick={() => setIsModal(!isModal)}
                         >
                           아니요
                         </button>
