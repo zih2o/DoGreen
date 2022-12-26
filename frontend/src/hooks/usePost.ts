@@ -1,4 +1,4 @@
-import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
+import { useQuery, useInfiniteQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import create from 'zustand/react';
 import { api } from '../util/api';
@@ -11,6 +11,8 @@ export interface IPost {
   comments: string[];
   createdAt: string;
   updatedAt: string;
+  likesNum: number;
+  likeUserList: string[];
   __v: number;
 }
 interface IPage {
@@ -35,6 +37,8 @@ interface IPage {
 // }));
 
 export default function usePost(catId: string) {
+  const queryClient = useQueryClient();
+
   const postQuery = useInfiniteQuery({
     queryKey: ['posts'],
     queryFn: async ({ pageParam = 1 }) => {
@@ -44,5 +48,6 @@ export default function usePost(catId: string) {
     },
     getNextPageParam: (lastPage) => (lastPage.nextPage <= lastPage.totalPage ? lastPage.nextPage : undefined),
   });
+
   return { postQuery };
 }

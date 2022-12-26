@@ -1,3 +1,4 @@
+import { AxiosError, AxiosResponse } from 'axios';
 import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../util/api';
 
@@ -27,7 +28,7 @@ export default function useComment(postId?: string) {
     getNextPageParam: (lastPage) => (lastPage.nextPage <= lastPage.totalPage ? lastPage.nextPage : undefined),
   });
 
-  const addComment = useMutation({
+  const addComment = useMutation<AxiosResponse, AxiosError, Record<'postId' | 'comment', string>>({
     mutationFn: async () => {
       return await api.post(`/comment`).then((res) => res.data);
     },

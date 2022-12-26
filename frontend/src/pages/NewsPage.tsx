@@ -33,7 +33,9 @@ export default function NewsPage() {
                 categoryImg={category.mascotImage}
                 content={post.content}
                 newsId={post._id}
+                imageList={post.imageList}
                 createdAt={post.createdAt}
+                likeNum={post.likesNum}
                 key={post._id}
               />
             ))}
