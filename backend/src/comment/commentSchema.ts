@@ -6,9 +6,9 @@ const CommentSchema = new Schema<CommentT>(
       type: Schema.Types.ObjectId,
       ref: 'posts'
     },
-    userId: {
+    authId: {
       type: Schema.Types.ObjectId,
-      ref: 'users'
+      ref: 'auths'
     },
     comment: {
       type: String,
