@@ -11,6 +11,8 @@ import { DialogModal } from '../components/common/DialogModal';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useUserInfo } from '../hooks/store';
 import { useModalState } from '../hooks/useModalState';
+import { toast } from 'react-toastify';
+
 interface ISubscriptionInfo {
   categoryId: string;
   categoryName: string;
@@ -63,12 +65,12 @@ export const CategoriesPage = () => {
     }));
     handleOpen();
   };
-
   const applySubscription = async () => {
     if (existUser) {
       setSubsInfoArr([...subsInfoArr, newSubsInfo]);
       subsMutation.mutate();
       handleClose();
+      toast.success('구독 완료!');
       refetch();
     } else {
       checkLogin();

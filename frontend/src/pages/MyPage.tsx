@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import MyPageTab from '../components/mypage/MyPageTab';
 import MyPageTopBar from '../components/mypage/MyPageTopBar';

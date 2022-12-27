@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
 import { CardType, TextType, WrapperType, BtnType } from '../common/theme';
 import CardSkeleton from '../loadings/CardSkeleton';
 import { CardLayout } from '../layout/GlobalLayout';
@@ -9,6 +10,7 @@ import { checkName } from '../../util/functionUtil';
 import Modal from '../common/Modal';
 import { useModalState } from '../../hooks/useModalState';
 import { AiOutlineClose } from 'react-icons/ai';
+import { toast } from 'react-toastify';
 
 const SubscribeTab = () => {
   const { isOpen, handleClose, handleToggle } = useModalState();
@@ -25,6 +27,7 @@ const SubscribeTab = () => {
   refetch();
   const cancelSubscription = () => {
     delMutation.mutate();
+    toast.success('구독 취소!');
     handleClose();
   };
 
