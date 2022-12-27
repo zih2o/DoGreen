@@ -38,7 +38,8 @@ export class PostRepository implements IPostRepository {
       populate: {
         path: 'posts',
         options: {
-          sort: ({ createAt: -1 }),
+          // eslint-disable-next-line quote-props
+          sort: { 'createdAt': -1 },
           skip: (page - 1) * perPage,
           limit: perPage
         }

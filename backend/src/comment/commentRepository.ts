@@ -16,6 +16,8 @@ export class CommentRepository implements ICommentRepository {
       populate: {
         path: 'comments',
         options: {
+          // eslint-disable-next-line quote-props
+          sort: { 'createdAt': -1 },
           skip: (page - 1) * perPage,
           limit: perPage
         }
@@ -25,7 +27,7 @@ export class CommentRepository implements ICommentRepository {
     invariant(post !== null, new NotFoundError('해당하는 포스트가 존재하지 않습니다.'));
     invariant(post.comments !== undefined, new ApplicationError('해당하는 댓글이 존재하지 않습니다.', 404));
 
-    const total = await CommentModel.count({ post: postId });
+    const total = await CommentModel.count({ refPost: postId });
     const totalPage = Math.ceil(total / perPage);
     const authIdList = post.comments.map(comment => comment.authId);
 
