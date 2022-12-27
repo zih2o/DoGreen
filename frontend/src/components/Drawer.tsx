@@ -4,7 +4,7 @@ import LoginForm from './hamburger/LoginForm';
 import { useDrawerStore } from '../hooks/useDrawer';
 
 import Loading from './loadings/Loading';
-import { useUserInfo } from './wastebasket/store';
+import { useUserInfo } from '../hooks/store';
 
 function Drawer() {
   const { drawerOpen, toggleDrawer } = useDrawerStore();

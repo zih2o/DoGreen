@@ -6,7 +6,7 @@ import { ImBubble } from 'react-icons/im';
 import useComment, { IComment } from '../../hooks/useComment';
 import Loading from '../loadings/Loading';
 import Modal from '../common/Modal';
-import { useUserLoginStore } from '../wastebasket/store';
+import { useUserLoginStore } from '../../hooks/store';
 import { AlertModal } from '../common/AlertModal';
 import NewsCarousel from './NewsCarousel';
 
