@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { withDrawValidation } from '../auth/yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -6,12 +6,17 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { InputContainer } from '../common/InputContainer';
 import { FormInput, IputError, ClickButton } from '../common/FormsAboutInput';
 import useUserData from '../../hooks/useUserData';
+import { DialogModal } from '../common/DialogModal';
+import { alertStore } from '../../store/alertStore';
 
 const Userwithdraw = () => {
   interface IAuthInput {
     currentPassword: string;
   }
-  const { withdrawMutaiton: widthdraw } = useUserData();
+  const { errorMsg, confirmMsg } = alertStore();
+  const {
+    withdrawMutaiton: { mutate, isError, isSuccess },
+  } = useUserData();
   const { schema } = withDrawValidation();
   const {
     handleSubmit,
@@ -23,8 +28,8 @@ const Userwithdraw = () => {
   });
 
   const onSubmit = async (currentPassword: IAuthInput) => {
-    console.log(currentPassword);
-    widthdraw.mutate(currentPassword);
+    mutate(currentPassword);
+    console.log(currentPassword, confirm);
   };
 
   return (
@@ -60,6 +65,8 @@ const Userwithdraw = () => {
           <br /> 3개월 동안 동일한 계정으로 가입하실 수 없습니다.
         </p>
       </form>
+      <>{isError ? <DialogModal title="에러" message={errorMsg} type="alert" /> : null}</>
+      <>{isSuccess ? <DialogModal title="확인" message={confirmMsg} type="alert" navigate="/" /> : null}</>
     </div>
   );
 };

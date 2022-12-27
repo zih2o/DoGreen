@@ -3,7 +3,7 @@ import { api } from '../util/api';
 import { useNavigate } from 'react-router';
 import { Navigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
-import { errorStore } from './errorStore';
+import { alertStore } from '../store/alertStore';
 export interface IAuthData {
   username?: string;
   email: string;
@@ -31,10 +31,8 @@ export function useLogin() {
       navigate('/');
     },
     onError: (error: AxiosError) => {
-      // console.error('에러 발생했지롱');
       console.log(error?.response?.data?.error);
-      errorStore.setState({ errorMsg: error?.response?.data?.error });
-      console.log('test:', errorStore.getState()?.errorMsg);
+      alertStore.setState({ errorMsg: error?.response?.data?.error });
     },
   });
 }
@@ -49,13 +47,12 @@ export function useResiter() {
     mutationFn: registerMutate,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user'] });
+      alertStore.setState({ confirmMsg: '회원가입 되셨습니다.' });
       console.log('성공');
-      navigate('/');
     },
     onError: (error) => {
-      console.error('에러 발생했지롱');
       alert(error?.response?.data?.error);
-      errorStore.setState({ errorMsg: error?.response?.data?.error });
+      alertStore.setState({ errorMsg: error?.response?.data?.error });
     },
   });
 }

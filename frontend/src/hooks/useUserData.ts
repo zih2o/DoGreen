@@ -1,9 +1,7 @@
 import { api } from '../util/api';
 import { useQuery } from '@tanstack/react-query';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from 'react-router';
-import { AxiosError } from 'axios';
-
+import { alertStore } from '../store/alertStore';
 interface IUserData {
   role: string;
   email: string;
@@ -24,7 +22,6 @@ interface IAuthData {
 }
 export default function useUserData() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
 
   const userQuery = useQuery<IUserData>({
     queryKey: ['user'],
@@ -45,10 +42,10 @@ export default function useUserData() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user'] });
       console.log('성공');
-      navigate('/');
     },
     onError: (error) => {
       alert(error?.response?.data?.error);
+      alertStore.setState({ errorMsg: error?.response?.data?.error });
     },
   });
 
@@ -57,16 +54,13 @@ export default function useUserData() {
   };
   const withdrawMutaiton = useMutation({
     mutationFn: withdrawMutate,
-    onMutate: () => {
-      alert('탈퇴하시겠습니까?');
-    },
     onSuccess: () => {
       console.log('회원탈퇴');
-      alert('회원탈퇴 되었습니다.');
-      navigate('/');
+      alertStore.setState({ confirmMsg: '회원탈퇴 되었습니다.' });
     },
     onError: (error) => {
-      alert(error?.response?.data?.error);
+      // alert(error?.response?.data?.error);
+      alertStore.setState({ errorMsg: error?.response?.data?.error });
     },
   });
   return { userQuery, userMutation, withdrawMutaiton };

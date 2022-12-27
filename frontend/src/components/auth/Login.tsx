@@ -7,7 +7,7 @@ import { InputContainer } from '../common/InputContainer';
 import { FormInput, IputError, InputButton } from '../common/FormsAboutInput';
 import { useLogin, IAuthData } from '../../hooks/authApi';
 import { DialogModal } from '../common/DialogModal';
-import { errorStore } from '../../hooks/errorStore';
+import { alertStore } from '../../store/alertStore';
 
 export const Login = () => {
   const { schema } = loginValidation();
@@ -19,19 +19,16 @@ export const Login = () => {
     mode: 'onSubmit',
     resolver: yupResolver(schema),
   });
-  const { mutate, isError, isSuccess, data } = useLogin();
-  const errorMassage = errorStore.getState()?.errorMsg;
+  const { mutate, isError, isSuccess } = useLogin();
+  const errorMassage = alertStore.getState()?.errorMsg;
 
   const onSubmit = async (data: IAuthData) => {
     console.log(data);
     mutate(data);
-    // (isError)? <DialogModal title="로그인 에러" />
     console.log('store', errorMassage);
-
     console.log('isSuccess:', isSuccess);
     console.log('isError', isError);
     console.log('data', data);
-    isError ? <DialogModal title="에러" message={errorMassage} type="alert" /> : '';
   };
 
   return (
@@ -91,6 +88,7 @@ export const Login = () => {
           Create account
         </a>
       </div>
+      <>{isError ? <DialogModal title="에러" message={errorMassage} type="alert" /> : null}</>
     </div>
   );
 };

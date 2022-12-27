@@ -8,7 +8,7 @@ import { FormInput, IputError, InputButton } from '../common/FormsAboutInput';
 import { useResiter, IAuthData } from '../../hooks/authApi';
 import { useValUserName, useValEmail } from '../../hooks/useValUserData';
 import { DialogModal } from '../common/DialogModal';
-import { errorStore } from '../../hooks/errorStore';
+import { alertStore } from '../../store/alertStore';
 
 interface IRegisterData extends IAuthData {
   username: string;
@@ -27,7 +27,8 @@ export const Register = () => {
   });
 
   //데이터 전달
-  const errorMassage = errorStore.getState()?.errorMsg;
+  const { confirmMsg, errorMsg } = alertStore();
+
   const { mutate, isError, isSuccess } = useResiter();
   const onSubmit = (data: IRegisterData) => {
     const { username, email, password } = data;
@@ -57,9 +58,7 @@ export const Register = () => {
     eamilVal ? setEmailError(Boolean(eamilVal)) : setEmailError(Boolean(eamilVal));
   }, [emailError, isEmailLoading]);
 
-  return isError ? (
-    <DialogModal title="에러" message={errorMassage} type="alert" />
-  ) : (
+  return (
     <div className={className.container}>
       <form onSubmit={handleSubmit(onSubmit)} className={className.form}>
         <p className={className.title}>Do it together!</p>
@@ -158,6 +157,8 @@ export const Register = () => {
         </InputContainer>
         <InputButton value="가입하기" />
       </form>
+      <>{isError ? <DialogModal title="에러" message={errorMsg} type="alert" /> : null}</>
+      <>{isSuccess ? <DialogModal title="가입완료" message={confirmMsg} type="alert" navigate="/" /> : null}</>
     </div>
   );
 };

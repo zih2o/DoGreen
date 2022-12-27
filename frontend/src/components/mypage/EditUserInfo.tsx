@@ -14,6 +14,8 @@ import { useValUserName } from '../../hooks/useValUserData';
 import createUrl from '../../hooks/imgUrlApi';
 import Modal from '../common/Modal';
 import EditSkeleton from '../loadings/EditSkeleton';
+import { DialogModal } from '../common/DialogModal';
+import { alertStore } from '../../store/alertStore';
 interface IEditIData {
   email: string;
   username: string;
@@ -28,7 +30,7 @@ const EditUserInfo = () => {
   //유저데이터부르기
   const {
     userQuery: { data: userData, isLoading: isUserDataLoading },
-    userMutation: editMutation,
+    userMutation: { mutate: editMutation, isError: isEditError },
   } = useUserData();
 
   //react-hook-form yup
@@ -78,10 +80,8 @@ const EditUserInfo = () => {
   useEffect(() => {
     if (usernameVal && userData?.username !== currUsername) {
       setUsernameError(true);
-      console.log('중복임 사용불가');
     } else {
       setUsernameError(false);
-      console.log('사용가능 ');
     }
   }, [currUsername, isLoading]);
 
@@ -92,11 +92,18 @@ const EditUserInfo = () => {
   };
 
   //수정하기
+  const [confirm, setConfirm] = useState<boolean>(false);
+  const { errorMsg, confirmMsg, handleResponse } = alertStore();
+  alertStore.setState({ confirmMsg: '수정하시겠습니까?' });
+
   const onSubmit = async (data: IEditIData) => {
+    setConfirm(true);
     const { username, oldPassword, password, bio } = data;
     const imgUrl = imgUrlMutation.data;
     const editData = { username, oldPassword, password, bio, imgUrl };
-    editMutation.mutate(editData);
+    editMutation(editData);
+    handleResponse();
+
     console.log(data);
   };
   return !isUserDataLoading ? (
@@ -252,6 +259,8 @@ const EditUserInfo = () => {
           </div>
         )}
       </div>
+      <>{confirm ? <DialogModal title="확인" message={confirmMsg} type="confirm" /> : null}</>
+      <>{isEditError ? <DialogModal title="에러" message={errorMsg} type="alert" /> : null}</>
     </MyPageContentsLayout>
   ) : (
     <MyPageContentsLayout>
