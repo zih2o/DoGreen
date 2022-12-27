@@ -23,8 +23,6 @@ export class UserService implements IUserService {
     // https://mongoosejs.com/docs/populate.html#field-selection
     const authIds = await authService.findAll();
     const users = await UserModel.find({ auth: authIds }, undefined, {
-    // 아니 role을 그냥 userSchema에 넣으면 populate안해도되는데 왜 user스키마에 자신의 롤을
-    // 넣지않은거니
       populate: {
         path: 'auth',
         select: 'role'
