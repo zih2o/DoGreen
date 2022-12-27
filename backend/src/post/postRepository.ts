@@ -177,7 +177,7 @@ export class PostRepository implements IPostRepository {
     const post = await PostModel.findById(postId);
     invariant(post !== null, new ApplicationError('해당하는 Post가 존재하지 않습니다.', 404));
     await CategoryModel.findByIdAndUpdate(post.category, { $pull: { posts: postId } });
-    await PostModel.deleteOne({ id: postId });
+    await PostModel.findByIdAndDelete(postId);
   }
 
   async updateOne(postId: string, toUpdatePost: updatePostDto) {
