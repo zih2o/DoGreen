@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../util/api';
 import { useNavigate } from 'react-router';
-import { AlertModal } from '../components/common/AlertModal';
 import { Navigate } from 'react-router-dom';
-
+import { AxiosError } from 'axios';
+import { errorStore } from './errorStore';
 export interface IAuthData {
   username?: string;
   email: string;
@@ -30,10 +30,11 @@ export function useLogin() {
       window.sessionStorage.setItem('token', token);
       navigate('/');
     },
-    onError: (error) => {
-      console.error('에러 발생했지롱');
-      alert(error?.response?.data?.error);
-      console.log('test');
+    onError: (error: AxiosError) => {
+      // console.error('에러 발생했지롱');
+      console.log(error?.response?.data?.error);
+      errorStore.setState({ errorMsg: error?.response?.data?.error });
+      console.log('test:', errorStore.getState()?.errorMsg);
     },
   });
 }
@@ -54,6 +55,7 @@ export function useResiter() {
     onError: (error) => {
       console.error('에러 발생했지롱');
       alert(error?.response?.data?.error);
+      errorStore.setState({ errorMsg: error?.response?.data?.error });
     },
   });
 }

@@ -6,6 +6,8 @@ import { loginValidation } from './yup';
 import { InputContainer } from '../common/InputContainer';
 import { FormInput, IputError, InputButton } from '../common/FormsAboutInput';
 import { useLogin, IAuthData } from '../../hooks/authApi';
+import { DialogModal } from '../common/DialogModal';
+import { errorStore } from '../../hooks/errorStore';
 
 export const Login = () => {
   const { schema } = loginValidation();
@@ -17,11 +19,19 @@ export const Login = () => {
     mode: 'onSubmit',
     resolver: yupResolver(schema),
   });
-  const loginMutation = useLogin();
+  const { mutate, isError, isSuccess, data } = useLogin();
+  const errorMassage = errorStore.getState()?.errorMsg;
 
   const onSubmit = async (data: IAuthData) => {
     console.log(data);
-    loginMutation.mutate(data);
+    mutate(data);
+    // (isError)? <DialogModal title="로그인 에러" />
+    console.log('store', errorMassage);
+
+    console.log('isSuccess:', isSuccess);
+    console.log('isError', isError);
+    console.log('data', data);
+    isError ? <DialogModal title="에러" message={errorMassage} type="alert" /> : '';
   };
 
   return (

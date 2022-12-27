@@ -7,6 +7,9 @@ import { InputContainer } from '../common/InputContainer';
 import { FormInput, IputError, InputButton } from '../common/FormsAboutInput';
 import { useResiter, IAuthData } from '../../hooks/authApi';
 import { useValUserName, useValEmail } from '../../hooks/useValUserData';
+import { DialogModal } from '../common/DialogModal';
+import { errorStore } from '../../hooks/errorStore';
+
 interface IRegisterData extends IAuthData {
   username: string;
   confimrPassword: string;
@@ -24,11 +27,13 @@ export const Register = () => {
   });
 
   //데이터 전달
-  const registerMutation = useResiter();
+  const errorMassage = errorStore.getState()?.errorMsg;
+  const { mutate, isError, isSuccess } = useResiter();
   const onSubmit = (data: IRegisterData) => {
     const { username, email, password } = data;
     const role = 'USER';
-    registerMutation.mutate({ username, email, password, role });
+    mutate({ username, email, password, role });
+    console.log(isError);
   };
 
   const [currUsername, currEmail] = useWatch({ control, name: ['username', 'email'] });
@@ -52,7 +57,9 @@ export const Register = () => {
     eamilVal ? setEmailError(Boolean(eamilVal)) : setEmailError(Boolean(eamilVal));
   }, [emailError, isEmailLoading]);
 
-  return (
+  return isError ? (
+    <DialogModal title="에러" message={errorMassage} type="alert" />
+  ) : (
     <div className={className.container}>
       <form onSubmit={handleSubmit(onSubmit)} className={className.form}>
         <p className={className.title}>Do it together!</p>
