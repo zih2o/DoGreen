@@ -37,7 +37,7 @@ module.exports = {
         gardenBG: 'var(--color-bg-gardenBG)',
         navBg: 'var(--color-bg-navBg)',
         leftSide: 'var(--color-bg-leftSide)',
-        navbarBG: 'var(--color-bg-navbarBG)'
+        navbarBG: 'var(--color-bg-navbarBG)',
       },
       textColor: {
         garden1: 'var(--color-text-garden1)',
@@ -53,13 +53,14 @@ module.exports = {
       spacing: {
         320: '80rem',
       },
+
       keyframes: {
         leftMove: {
           '0%': {
             transform: 'translateX(50px)',
           },
           '100%': {
-            transform: 'translateX(-850px)',
+            transform: 'translateX(-900px)',
           },
         },
         rightMove: {
@@ -71,6 +72,7 @@ module.exports = {
           },
         },
       },
+
       animation: {
         slider1: 'rightMove 20s linear infinite',
         slider2: 'leftMove 20s linear infinite',

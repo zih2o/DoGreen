@@ -26,6 +26,7 @@ interface IWrapperType {
   textWrapper: string;
   cardContentsWrapper: string;
   cardListWrapper: string;
+  cardListWrapper_mypage: string;
   cardListRightWrapper: string;
   cardListLeftWrapper: string;
 }
@@ -72,18 +73,20 @@ export const WrapperType: IWrapperType = {
   profileTotalWrapper: 'flex items-center ',
   profileWrapper: 'w-2/5',
   textWrapper: 'flex flex-col w-3/5 font-bold text-center ',
-  cardContentsWrapper: 'flex mt-20 mb-20 mx-0 ',
-  cardListWrapper: 'flex flex-wrap gap-y-14 gap-x-12',
-  cardListRightWrapper: 'flex absolute w-[4428px] top-0 gap-x-12 animate-slider1',
-  cardListLeftWrapper: 'flex absolute w-[4400px] bottom-0 gap-x-12 animate-slider2',
+  cardContentsWrapper: 'flex mt-20 mb-20 mx-auto ',
+  // cardListWrapper: 'flex flex-wrap gap-y-14 gap-x-12',
+  cardListWrapper: 'grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-x-12 gap-y-14 ',
+  cardListWrapper_mypage: 'grid lg:grid-cols-3 grid-cols-2 gap-x-14 gap-y-14 ',
+  cardListRightWrapper: 'flex absolute top-0 gap-x-3 animate-slider1',
+  cardListLeftWrapper: 'flex absolute bottom-1 gap-x-3 animate-slider2',
 };
 export const CardType: ICardType = {
   size: 'w-56 h-72',
   layout:
     'flex flex-col h-full items-center justify-center rounded-xl shadow-md overflow-hidden bg-white border border-gray-200 dark:bg-[#292524] dark:border-garden4',
-  imgWrapper: 'h-2/3 p-5',
+  imgWrapper: 'h-1/2 p-5',
   img: 'w-32 h-32 mb-4 rounded-full shadow-lg',
-  text: 'h-1/3 p-5 text-center text-xl font-bold ',
+  text: 'h-1/2 py-10 px-3 text-center text-xl font-bold ',
   front: ' absolute w-full backface-hidden',
   back: ' absolute w-full rotate-y-180 ',
   flipContent:

@@ -27,7 +27,7 @@ function LoginModalPage() {
   const className = {
     pageContainer: 'flex flex-col items-center w-full h-screen p-[300px]',
     pageText: 'text-center',
-    closeButton: 'self-center absolute top-0 right-0 float-right p-5',
+    closeButton: 'self-center absolute top-2 right-2 float-right p-2 rounded-xl active:bg-white active:opacity-60',
     background: 'fixed top-0 z-[9998] w-full h-screen bg-black bg-opacity-25',
     modalCotrolBtn: 'w-[160px] h-[48px] bg-[#65D26D] text-white	text-sm font-normal rounded border-none cursor-pointer',
   };
