@@ -18,12 +18,12 @@ export class PostService implements IPostService {
     // 좋아요를 누르지 않았다면 ->좋아요 증가
     if (isLiked === null) {
       await postRepository.addLike(currentAuthId, postId);
-      return false;
+      return true;
 
     // 좋아요를 눌렀다면 -> 좋아요 감소
     } if (isLiked !== null) {
       await postRepository.subtractLike(currentAuthId, postId);
-      return true;
+      return false;
     }
   }
 
