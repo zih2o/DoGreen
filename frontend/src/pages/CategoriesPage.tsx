@@ -7,11 +7,7 @@ import useCategory, { ICategory } from '../hooks/useCategory';
 import { useSubscription } from '../hooks/useSubscription';
 import { checkName } from '../util/functionUtil';
 import Modal from '../components/common/Modal';
-<<<<<<< HEAD
-import { AlertModal } from '../components/common/AlertModal';
-=======
 import { DialogModal } from '../components/common/DialogModal';
->>>>>>> 73462ce5314ee0f4ba1f75c25a7cec6a1e34931f
 import { AiOutlineClose } from 'react-icons/ai';
 import { AuthStore } from '../hooks/useAuth';
 import { useModalState } from '../hooks/useModalState';

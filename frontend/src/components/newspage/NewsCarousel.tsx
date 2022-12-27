@@ -17,13 +17,13 @@ export default function NewsCarousel(props: Record<'imageList', string[]>) {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [style, setStyle] = useState(`flex ml-[-${currentIdx}00%]`);
   const ref = useRef<HTMLDivElement>(null);
-  const w = 32;
+  const w = 40;
   const h = 32;
   const favTheme =
-    'absolute top-32 w-16 h-16 z-10 text-white opacity-50 transition-all  hover:cursor-pointer hover:opacity-100 ';
+    'absolute top-16 w-16 h-16 z-10 text-white opacity-50 transition-all  hover:cursor-pointer hover:opacity-100 ';
 
   useEffect(() => {
-    setStyle(`flex ml-[-${currentIdx}00%] bg-black transition-all`);
+    setStyle(`flex ml-[-${currentIdx}00%] transition-all`);
   }, [currentIdx]);
 
   const handleClick = (i: number) => {
@@ -39,7 +39,7 @@ export default function NewsCarousel(props: Record<'imageList', string[]>) {
     <div className={`w-${w} h-${h} overflow-hidden bg-coral-400`}>
       <div ref={ref} className={style}>
         {images.map((url, i) => (
-          <img className={`flex-none w-${w} h-${h} object-contain `} src={url} alt={url} key={i} />
+          <img className={`flex-none w-${w} h-${h} object-cover `} src={url} alt={url} key={i} />
         ))}
       </div>
       <FaChevronLeft className={favTheme + 'left-5'} onClick={() => handleClick(-1)} />
