@@ -20,12 +20,6 @@ export class CommentService {
     await commentRepository.deleteComment(commentId);
   }
 
-  // async findMyComment(authId: string) {
-  //   const comments = await commentRepository.findMyComment(authId);
-  //   invariant(comments !== null, new NotFoundError('작성한 댓글이 존재하지 않습니다.'));
-  //   return comments;
-  // }
-
   async updateComment(comment: CommentT['comment'], commentId: string, currentAuthId:string) {
     // 코멘트 수정
 

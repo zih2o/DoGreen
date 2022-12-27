@@ -4,10 +4,12 @@ import invariant from '../invariant';
 import { PostSchema } from './postSchema';
 import { CommentSchema } from '../comment/commentSchema';
 import ApplicationError from '../errors/ApplicationError';
+import { UserSchema } from '../user/user.schema';
 
 const PostModel = model<PostT>('posts', PostSchema);
 const CategoryModel = model<categoryT>('categories', CategorySchema);
 const CommentModel = model('comments', CommentSchema);
+const UserModel = model<UserT>('users', UserSchema);
 
 export class PostRepository implements IPostRepository {
   async subtractLike(currentAuthId: string, postId: string) {
@@ -57,21 +59,54 @@ export class PostRepository implements IPostRepository {
     await PostModel.findByIdAndUpdate(comment.refPost, { $pull: { comments: commentId } });
   }
 
-  async findAllCommentAtPost(postId: CommentT['refPost']) {
-    const post = await PostModel.findById(postId.id)
+  // interface IComment {
+  //   _id: string;
+  //   refPost: string;
+  //   userId: {
+  //     _id: string;
+  //     username: string;
+  //     imgUrl: string;
+  //   };
+  //   comment: string;
+  //   createdAt: string;
+  //   updatedAt: string;
+  // }
+
+  async findAllCommentAtPost(postId: string) {
+    const post = await PostModel.findById(postId)
       .populate({
-        path: 'comments',
-        populate: {
-          path: 'userId',
-          select: 'username imgUrl'
-        }
+        path: 'comments'
       });
 
     invariant(post !== null, new ApplicationError('해당하는 포스트가 존재하지 않습니다.', 404));
-    return post.comments!;
+    invariant(post.comments !== undefined, new ApplicationError('해당하는 댓글이 존재하지 않습니다.', 404));
+
+    const authIdList = post.comments.map(comment => comment.authId);
+
+    const userList = await UserModel.find({ auth: authIdList }, undefined, {
+      select: 'auth username imgUrl'
+    });
+
+    const userMap = new Map<string, Pick<UserT, 'username' | 'imgUrl'> & { _id: string }>();
+    userList.forEach(user => {
+      const authId = String(user.auth);
+      userMap.set(authId, {
+        _id: String(user._id),
+        username: user.username,
+        imgUrl: user.imgUrl
+      });
+    });
+    return post.comments.map((comment, i) => ({
+      _id: comment._id,
+      refPost: comment.refPost,
+      userId: userMap.get(String(authIdList[i])),
+      comment: comment.comment,
+      createdAt: comment.createdAt,
+      updatedAt: comment.updatedAt
+    }));
   }
 
-  async addcommentList(postId: string, commentId: Types.ObjectId) {
+  async addcommentList(postId: string, commentId: string) {
     await PostModel.findByIdAndUpdate(postId, { $push: { comments: commentId } });
   }
 
