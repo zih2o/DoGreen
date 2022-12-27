@@ -8,8 +8,8 @@ const commentRouter = Router();
 
 commentRouter.use(loginRequired);
 
-commentRouter.get('/', nextError(commentController.paginationComment));
-commentRouter.get('/:id', nextError(commentController.findAllCommentAtPost));
+// commentRouter.get('/', nextError(commentController.paginationComment));
+commentRouter.get('/:id', nextError(commentController.findPaginatedCommentsAtPost));
 // commentRouter.get('/me', nextError(commentController.findMyComment));
 
 commentRouter.post('/', nextError(commentController.createComment));

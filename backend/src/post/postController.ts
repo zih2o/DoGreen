@@ -22,9 +22,14 @@ export class PostController {
     // categoryId가 왔는지 검증
     invariant(typeof categoryId === 'string', new BadRequestError('쿼리에 categoryId 가 없거나, 하나가 아닙니다.'));
 
-    const page = Number(req.query.page || 1);
-    const perPage = Number(req.query.perPage || 10);
-    const pagingPosts = await postService.paginationPost(categoryId, page, perPage);
+    const page = Number(req.query.page || '1');
+    const perPage = Number(req.query.perPage || '10');
+    const pagingPosts = await postService.paginationPost(
+      categoryId,
+      page,
+      perPage,
+      req.context.currentUser?.authId
+    );
     res.status(200).json(pagingPosts);
   }
 
@@ -55,11 +60,7 @@ export class PostController {
   }
 
   async findAllPost(req: Request, res: Response, next: NextFunction) {
-    try {
-      const postInfo = await postService.findAllPost();
-      res.status(200).json(postInfo);
-    } catch (err) {
-      next(err);
-    }
+    const postInfo = await postService.findAllPost();
+    res.status(200).json(postInfo);
   }
 }

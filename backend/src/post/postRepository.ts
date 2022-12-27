@@ -31,7 +31,7 @@ export class PostRepository implements IPostRepository {
     return isLiked !== null;
   }
 
-  async paginationPost(categoryId: string | string, page: number, perPage: number) {
+  async paginationPost(categoryId: string | string, page: number, perPage: number, authId: string) {
     // 해당 카테고리에 총 갯수를 구하는 쿼리
     const category = await CategoryModel.findById(categoryId, undefined, {
       populate: {
@@ -48,11 +48,51 @@ export class PostRepository implements IPostRepository {
     const total = await PostModel.count({ category: categoryId });
     const totalPage = Math.ceil(total / perPage);
 
+    const result = category.posts.map(post => {
+      const likeUserList = post.likeUserList.map(v => String(v));
+      return {
+        _id: post._id,
+        imageList: post.imageList,
+        content: post.content,
+        likeUserList,
+        likesNum: post.likesNum,
+        isLiked: likeUserList.includes(authId),
+        createdAt: post.createdAt,
+        updatedAt: post.updatedAt
+      };
+    });
+    // [
+    //   {
+    //     _id: '63a2eb68fc6fdb4c3748d98b',
+    //     imageList: [],
+    //     content: '날씨가 매우 추워 도로가 얼어붙었습니다.',
+    //     likeUserList: [],
+    //     likesNum: 0,
+    //     isLiked: true,
+    //     createdAt: '2022-12-21T11:18:00.379Z',
+    //     updatedAt: '2022-12-25T12:27:16.275Z'
+    //   }
+    // ];
+
+    // "category": "대충카테고리이름", // => GET /category/:categoryId
+    // "categoryImageUrl": "awss3저쩌고 이미지url",
+    // "comments": [], => // => GET /comment/:postId
     return {
-      page, perPage, result: category.posts, totalPage
+      page, perPage, result, totalPage
     };
   }
 
+  //   type PostT = {
+  //     _id: Types.ObjectId, // mongoDB가 자동생성함
+  //     category: categoryT,
+  //     content: string,
+  //     imageList: string[],
+  //     likeUserList?: Types.ObjectId,
+  //     likesNum: number,
+  //     comments?: CommentT[], // comment를 분리?
+  //     createdAt: Date
+  //     updatedAt: Date
+  // }
   async deletePostCommentId(commentId: string) {
     const comment = await CommentModel.findById(commentId);
     invariant(comment !== null, new ApplicationError('해당하는 코멘트가 존재하지 않습니다.', 404));
