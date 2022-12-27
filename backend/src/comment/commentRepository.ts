@@ -1,8 +1,8 @@
 import { model, Types } from 'mongoose';
 import { CommentSchema } from './commentSchema';
 import { PostSchema } from '../post/postSchema';
-import ApplicationError from '../errors/ApplicationError';
 import invariant from '../invariant';
+import { NotFoundError } from '../errors/NotFoundError';
 
 const CommentModel = model<CommentT>('comments', CommentSchema);
 const PostModel = model<PostT>('posts', PostSchema);
@@ -20,7 +20,7 @@ export class CommentRepository implements ICommentRepository {
       }
     });
 
-    invariant(post !== null, new ApplicationError('해당하는 포스트가 존재하지 않습니다.', 404));
+    invariant(post !== null, new NotFoundError('해당하는 포스트가 존재하지 않습니다.'));
 
     const total = await CommentModel.count({ post: postId });
     const totalPage = Math.ceil(total / perPage);
@@ -29,23 +29,6 @@ export class CommentRepository implements ICommentRepository {
       page, perPage, result: post.comments, totalPage
     };
   }
-
-  // async findUser(authId: string) {
-  //   const user = await UserModel.findOne({ auth: authId }, undefined, {
-  //     poplate: {
-  //       path: 'auth',
-  //       select: 'role'
-  //     }
-  //   });
-  //   invariant(user !== null, '유저정보가 존재하지 않습니다.'); // 타입스크립트가 null 뱉을 수 있다고 해서 추가해준 타입가드
-  //   return userToUserDto(user);
-  // }
-
-  // async findMyComment(authId: string):Promise<CommentT[]> {
-  //   const comments = await CommentModel.findOne({ authId });
-  //   invariant(comments !== null, new NotFoundError(''));
-  //   return comments;
-  // }
 
   async deleteComment(commentId: string) {
     await CommentModel.findByIdAndDelete(commentId);
