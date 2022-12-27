@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { CardType, TextType, WrapperType, BtnType } from '../common/theme';
 import CardSkeleton from '../loadings/CardSkeleton';
@@ -7,10 +7,11 @@ import { MyPageContentsLayout } from '../layout/MyPageLayout';
 import { useSubscription } from '../../hooks/useSubscription';
 import { checkName } from '../../util/functionUtil';
 import Modal from '../common/Modal';
+import { useModalState } from '../../hooks/useModalState';
 import { AiOutlineClose } from 'react-icons/ai';
 
 const SubscribeTab = () => {
-  const [isModal, setIsModal] = useState<boolean>(false);
+  const { isOpen, handleClose, handleToggle } = useModalState();
   const [cancelId, setCancelId] = useState<string>('');
 
   const {
@@ -18,10 +19,13 @@ const SubscribeTab = () => {
     delMutation,
   } = useSubscription(cancelId);
 
+  useEffect(() => {
+    handleClose();
+  }, []);
   refetch();
   const cancelSubscription = () => {
     delMutation.mutate();
-    setIsModal(!isModal);
+    handleClose();
   };
 
   const tabCards = subInfo?.map((card) => (
@@ -37,8 +41,8 @@ const SubscribeTab = () => {
           data-id={card._id}
           id={card._id}
           onClick={() => {
-            setCancelId(card._id!);
-            setIsModal(!isModal);
+            setCancelId(card._id);
+            handleToggle();
           }}
         >
           {'구독취소 '}
@@ -73,10 +77,10 @@ const SubscribeTab = () => {
                   </li>
                 ))}
               {tabCards}
-              {isModal && (
+              {isOpen && (
                 <Modal
                   onClose={() => {
-                    setIsModal(!isModal);
+                    handleToggle();
                   }}
                 >
                   <div className="relative w-full h-full max-w-md md:h-auto">
@@ -86,7 +90,7 @@ const SubscribeTab = () => {
                         className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
                         data-modal-toggle="popup-modal"
                         onClick={() => {
-                          setIsModal(!isModal);
+                          handleToggle();
                         }}
                       >
                         <AiOutlineClose size="24" />
@@ -109,7 +113,7 @@ const SubscribeTab = () => {
                           type="button"
                           className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-lg font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
                           onClick={() => {
-                            setIsModal(!isModal);
+                            handleToggle();
                           }}
                         >
                           아니요

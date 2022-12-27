@@ -16,7 +16,7 @@ export const MyPage = () => {
   return (
     <>
       {!existUser ? (
-        <DialogModal type="alert" title="로그인 안내" message="로그인 시 이용 가능합니다." />
+        <DialogModal type="alert" navigate="/login" title="로그인 안내" message="로그인 시 이용 가능합니다." />
       ) : (
         <GlobalLayout>
           <MyPageTopBar />
