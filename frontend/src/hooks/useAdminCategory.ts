@@ -13,7 +13,11 @@ interface IAdminCategory {
   toggleAdminModal: () => void;
   closeAdminModal: () => void;
 
-  currentCategoryCard: { mascotName: string; categoryName: string };
+  currentCategoryCard: { _id: string; mascotName: string; categoryName: string };
+  setCurrentCategoryCard: (_id: string, mascotName: string, categoryName: string) => void;
+
+  currentNewsCard: { _id: string; category: string; content: string };
+  setCurrentNewsCard: (_id: string, category: string, content: string) => void;
 }
 export const useAdminCategoryStore = create<IAdminCategory>((set) => ({
   adminCategory: 'Mascot',
@@ -28,5 +32,11 @@ export const useAdminCategoryStore = create<IAdminCategory>((set) => ({
   toggleAdminModal: () => set((state) => ({ adminModal: !state.adminModal })),
   closeAdminModal: () => set(() => ({ adminModal: false })),
 
-  currentCategoryCard: { mascotName: '', categoryName: '' },
+  currentCategoryCard: { _id: '', mascotName: '', categoryName: '' },
+  setCurrentCategoryCard: (_id, mascotName, categoryName) =>
+    set(() => ({ currentCategoryCard: { _id: _id, mascotName: mascotName, categoryName: categoryName } })),
+
+  currentNewsCard: { _id: '', category: '', content: '' },
+  setCurrentNewsCard: (_id, category, content) =>
+    set(() => ({ currentNewsCard: { _id: _id, category: category, content: content } })),
 }));

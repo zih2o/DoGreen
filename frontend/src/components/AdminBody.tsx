@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { AuthStore } from '../hooks/useAuth';
 import { useAdminCategoryStore } from '../hooks/useAdminCategory';
 
 import RightBody from './adminPage/RightBody';
@@ -12,7 +11,7 @@ function AdminBody() {
     <>
       <LeftSide />
       <RightBody name={adminCategory} />
-      {adminModal && <Modal />}
+      {adminModal && <Modal modalType={adminCategory}/>}
     </>
   );
 }
