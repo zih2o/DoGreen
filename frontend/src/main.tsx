@@ -14,7 +14,6 @@ import RegisterPage from './pages/RegisterPage';
 import LoginModalPage from './pages/LoginModalPage';
 import NotFound from './pages/NotFound';
 
-axios.defaults.baseURL = 'http://localhost:3000';
 const router = createBrowserRouter([
   {
     path: '/',
