@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import { AuthService } from '../auth/auth.service';
+import { BadRequestError } from '../errors/BadRequestError';
+import invariant from '../invariant';
 import { zParse } from '../zParse';
 import { UserService } from './user.service';
 import { updateSchema } from './user.zodSchema';
@@ -28,8 +30,13 @@ export class UserController {
       body: { oldPassword, newPassword, ...userInfo }
     } = await zParse(updateSchema, req);
 
+    invariant(oldPassword !== undefined, new BadRequestError('비밀번호가 필요합니다.'));
+
     const isExistUser = await authService.existUserByEmail(email);
     if (isExistUser === true) {
+      const isCurruentUserPasswordCorrect = await authService.isPasswordCorrect(oldPassword, email);
+      invariant(isCurruentUserPasswordCorrect === true, new BadRequestError('입력하신 비밀번호가 틀립니다'));
+
       await authService.updatePassword(oldPassword, {
         email,
         password: newPassword // 새 비밀번호
