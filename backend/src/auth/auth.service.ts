@@ -74,12 +74,11 @@ export class AuthService implements IAuthService {
       return;
     }
 
-    const isOldPasswordCorrect = await this.isPasswordCorrect(oldPassword, newAuth.email);
+    const isPasswordCorrect = await this.isPasswordCorrect(oldPassword, newAuth.email);
+    invariant(isPasswordCorrect, new BadRequestError('입력하신 비밀번호가 틀립니다'));
 
-    if (isOldPasswordCorrect === true) {
-      const newHash = await argon2.hash(newAuth.password);
-      await AuthModel.updateOne({ password: newHash });
-    }
+    const newHash = await argon2.hash(newAuth.password);
+    await AuthModel.updateOne({ password: newHash });
   }
 
   async findAll() {
