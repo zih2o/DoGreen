@@ -4,6 +4,8 @@ type CommentT = {
     authId: Types.ObjectId,
     comment: string,
     // comments? : Types.ObjectId[]
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 type updateCommentDto = Partial<Pick<CommentT, 'comment'>>
