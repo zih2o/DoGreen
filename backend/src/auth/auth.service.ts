@@ -71,7 +71,7 @@ export class AuthService implements IAuthService {
     newAuth: Partial<Pick<AuthT, 'email' | 'password'>>
   ) {
     if (!oldPassword || !newAuth.email || !newAuth.password) {
-      throw new BadRequestError('비밀번호, 이메일, 새로운 비밀번호 중 넣지 않은 값이 존재합니다.');
+      return;
     }
 
     const isOldPasswordCorrect = await this.isPasswordCorrect(oldPassword, newAuth.email);
