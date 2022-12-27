@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Hamburger from './Hamburger';
+import Drawer from './Drawer';
+
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { FaUserCircle } from 'react-icons/fa';
 import { BsSun, BsFillMoonFill } from 'react-icons/bs';
-import { useHamburgerStore } from '../hooks/useHamburger';
-import { useDarkModeStore } from '../hooks/useDarkMode';
+import { useDrawerStore, useDarkModeStore } from '../hooks/useDrawer';
 
 function Header() {
-  const { hamburgerOpen, toggleHamburger } = useHamburgerStore();
+  const { drawerOpen, toggleDrawer } = useDrawerStore();
   const { darkMode, toggleDarkMode } = useDarkModeStore();
   useEffect(() => {
     if (darkMode) {
@@ -32,18 +32,14 @@ function Header() {
         <button className="col-start-8 md:col-start-9 flex justify-end" onClick={toggleDarkMode}>
           {darkMode ? <BsSun className="w-9 h-9 p-1" /> : <BsFillMoonFill className="w-9 h-9 p-1" />}
         </button>
-        <button
-          className="col-start-9 col-span-2 md:col-start10 md:col-span-1 flex justify-end"
-          onClick={toggleHamburger}
-        >
+        <button className="col-start-9 col-span-2 md:col-start10 md:col-span-1 flex justify-end" onClick={toggleDrawer}>
           <div className="flex justify-between p-3 border-solid border-2 border-garden4/90 rounded-full py-2">
             <GiHamburgerMenu className="  mr-4" />
             <FaUserCircle className=" " />
-            <span className="sr-only">Hamburger svg</span>
+            <span className="sr-only">Drawer svg</span>
           </div>
         </button>
-
-        {hamburgerOpen ? <Hamburger name="Elice" rank="Earth Gardian" /> : null}
+        {drawerOpen && <Drawer />}
       </div>
     </header>
   );
