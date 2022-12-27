@@ -21,7 +21,8 @@ const PostSchema = new Schema<PostT>(
     }],
     likesNum: {
       type: Number,
-      default: 0
+      default: 0,
+      min: 0
     },
     comments: [{
       type: Schema.Types.ObjectId,

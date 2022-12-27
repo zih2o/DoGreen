@@ -1,4 +1,5 @@
 import { model, Types } from 'mongoose';
+import { timeStamp } from 'console';
 import { CategorySchema } from '../category/categorySchema';
 import invariant from '../invariant';
 import { PostSchema } from './postSchema';
@@ -26,9 +27,9 @@ export class PostRepository implements IPostRepository {
     );
   }
 
-  async isLikedByPostId(currentAuthId: string, postId: string): Promise<boolean> {
+  async isLikedByPostId(currentAuthId: string, postId: string): Promise<{} | null> {
     const isLiked = await PostModel.exists({ _id: postId, likeUserList: currentAuthId });
-    return isLiked !== null;
+    return isLiked;
   }
 
   async paginationPost(categoryId: string | string, page: number, perPage: number, authId: string) {
@@ -37,6 +38,7 @@ export class PostRepository implements IPostRepository {
       populate: {
         path: 'posts',
         options: {
+          sort: timeStamp,
           skip: (page - 1) * perPage,
           limit: perPage
         }
