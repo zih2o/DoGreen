@@ -8,7 +8,7 @@ import { categoryRouter } from './category/categoryRouter';
 import { subscribeRouter } from './subscribe/subscribe.router';
 import { postRouter } from './post/postRouter';
 import { commentRouter } from './comment/commentRouter';
-// import { imageRouter } from './image/image.router';
+import { imageRouter } from './image/image.router';
 import apiSpec from '../openapi.json' assert { type: 'json' };
 
 const router = Router();
@@ -20,11 +20,15 @@ router.use('/post', postRouter);
 router.use('/category', categoryRouter);
 router.use('/subscribe', subscribeRouter);
 router.use('/comment', commentRouter);
-// router.use('/image', imageRouter);
+router.use('/image', imageRouter);
 // Dev routes
 if (process.env.NODE_ENV === 'development') {
   router.use('/dev/api-docs', swaggerUi.serve);
   router.get('/dev/api-docs', swaggerUi.setup(apiSpec));
 }
+
+router.get('/', (req, res) => {
+  res.send('pong!');
+});
 
 export default router;

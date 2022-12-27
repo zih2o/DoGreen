@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { userValidation } from './yup';
 
-import { InputContainer } from '../InputContainer';
-import { FormInput, IputError, InputButton } from '../FormsAboutInput';
-import { useResiter, IAuthInput } from '../../hooks/authApi';
+import { InputContainer } from '../common/InputContainer';
+import { FormInput, IputError, InputButton } from '../common/FormsAboutInput';
+import { useResiter, IAuthData } from '../../hooks/authApi';
 import { useValUserName, useValEmail } from '../../hooks/useValUserData';
-interface IRegisterInputProps extends IAuthInput {
+interface IRegisterData extends IAuthData {
   username: string;
   confimrPassword: string;
 }
@@ -16,55 +16,40 @@ export const Register = () => {
   const { schema } = userValidation();
   const {
     handleSubmit,
-    watch,
     control,
     formState: { errors },
-  } = useForm<IRegisterInputProps>({
+  } = useForm<IRegisterData>({
     mode: 'onSubmit',
     resolver: yupResolver(schema),
   });
 
   //데이터 전달
-  const { mutation: registerMutation } = useResiter();
-  const onSubmit = (data: IRegisterInputProps) => {
+  const registerMutation = useResiter();
+  const onSubmit = (data: IRegisterData) => {
     const { username, email, password } = data;
-    registerMutation.mutate({ username, email, password });
+    const role = 'USER';
+    registerMutation.mutate({ username, email, password, role });
   };
 
+  const [currUsername, currEmail] = useWatch({ control, name: ['username', 'email'] });
   //유저네임 실시간 밸리데이션
-  const currUsername = watch('username');
   const [usernameError, setUsernameError] = useState(false);
-  const {
-    valQuery: { data: valUsername, isLoading: isUserNameLoading },
-  } = useValUserName(currUsername?.length > 2 ? currUsername : '##');
+  const { data: valUsername, isLoading: isUserNameLoading } = useValUserName(
+    currUsername?.length > 2 ? currUsername : '##',
+  );
   const usernameVal = valUsername?.username;
 
   useEffect(() => {
-    if (usernameVal) {
-      setUsernameError(true);
-    } else {
-      setUsernameError(false);
-    }
-    console.log(currUsername, usernameVal);
+    usernameVal ? setUsernameError(Boolean(usernameVal)) : setUsernameError(Boolean(usernameVal));
   }, [currUsername, isUserNameLoading]);
 
   //유저이메일 실시간 밸리데이션
-  const currEmail = watch('email');
   const [emailError, setEmailError] = useState(false);
-  const {
-    valQuery: { data: valEmail, isLoading: isEmailLoading },
-  } = useValEmail(currEmail?.length > 2 ? currEmail : '##');
+  const { data: valEmail, isLoading: isEmailLoading } = useValEmail(currEmail?.length > 2 ? currEmail : '##');
   const eamilVal = valEmail?.email;
 
   useEffect(() => {
-    console.log(currEmail, eamilVal);
-    if (eamilVal) {
-      setEmailError(true);
-      console.log('중복임 사용불가');
-    } else {
-      setEmailError(false);
-      console.log('사용가능 ');
-    }
+    eamilVal ? setEmailError(Boolean(eamilVal)) : setEmailError(Boolean(eamilVal));
   }, [emailError, isEmailLoading]);
 
   return (
@@ -76,14 +61,16 @@ export const Register = () => {
             name="username"
             control={control}
             defaultValue=""
-            render={({ field }) => {
+            render={({ field: { name, onChange, value } }) => {
               const errorDisplay = usernameError || errors.username ? 'error' : '';
               return (
                 <FormInput
                   id="username"
-                  placeholder="3자이상 20자이하로 등록해주세요."
+                  placeholder="2자리 이상, 20자 이하로 입력해주세요."
                   error={errorDisplay}
-                  {...field}
+                  name={name}
+                  onChange={onChange}
+                  value={value || ''}
                 />
               );
             }}
@@ -98,9 +85,18 @@ export const Register = () => {
             name="email"
             control={control}
             defaultValue=""
-            render={({ field }) => {
+            render={({ field: { name, onChange, value } }) => {
               const errorDisplay = emailError || errors.email ? 'error' : '';
-              return <FormInput id="email" placeholder="이메일 입력해주세요." error={errorDisplay} {...field} />;
+              return (
+                <FormInput
+                  id="email"
+                  placeholder="이메일을 입력해주세요."
+                  error={errorDisplay}
+                  name={name}
+                  onChange={onChange}
+                  value={value || ''}
+                />
+              );
             }}
           />
           <IputError>
@@ -113,15 +109,17 @@ export const Register = () => {
             name="password"
             control={control}
             defaultValue=""
-            render={({ field }) => {
+            render={({ field: { name, onChange, value } }) => {
               const errorDisplay = errors.password ? 'error' : '';
               return (
                 <FormInput
                   type="password"
                   id="password"
-                  placeholder="특수문자와 숫자를 최소 1개씩 포함해주세요."
+                  placeholder="공백을 제외한 특수문자, 알파벳, 숫자를 포함한 8자 이상 입력해주세요."
                   error={errorDisplay}
-                  {...field}
+                  name={name}
+                  onChange={onChange}
+                  value={value || ''}
                 />
               );
             }}
@@ -134,7 +132,7 @@ export const Register = () => {
             name="confimrPassword"
             control={control}
             defaultValue=""
-            render={({ field }) => {
+            render={({ field: { name, onChange, value } }) => {
               const errorDisplay = errors.confimrPassword ? 'error' : '';
               return (
                 <FormInput
@@ -142,7 +140,9 @@ export const Register = () => {
                   id="confimrPassword"
                   placeholder="동일한 비밀번호를 입력해주세요."
                   error={errorDisplay}
-                  {...field}
+                  name={name}
+                  onChange={onChange}
+                  value={value || ''}
                 />
               );
             }}
@@ -157,7 +157,7 @@ export const Register = () => {
 
 const className = {
   container:
-    'w-[560px] h-[600px] flex flex-col items-center justify-start px-11 border-[3px] border-garden1 box-border rounded bg-gardenBG shadow-[0_0_30px_rgba(30, 30, 30, 0.185)]',
+    'flex flex-col items-center justify-start w-[580px] h-[610px] mb-[100px] px-6  border-[3px] border-garden1 box-border rounded-xl bg-gardenBG shadow-[0_0_30px_rgba(30, 30, 30, 0.185)]',
   form: 'flex-col w-full px-3',
   title: 'justify-self-start text-center my-16 pb-2 text-garden1 font-pacifico text-4xl  ',
 };
