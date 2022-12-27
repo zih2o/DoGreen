@@ -21,6 +21,7 @@ export default function CategoryCards() {
             img={category.mascotImage}
             name={category.mascotName}
             description={category.categoryName}
+            cardtype="category"
           />
         )
       )}

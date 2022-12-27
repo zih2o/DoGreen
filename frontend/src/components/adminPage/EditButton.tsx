@@ -1,27 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { api } from '../../util/api';
 import { useMutation } from '@tanstack/react-query';
 import { useAdminCategoryStore } from '../../hooks/useAdminCategory';
-import useCategory from '../../hooks/useCategory';
 
-export default function EditButton({ id }) {
+export default function EditButton({ id, cardtype }) {
   const { toggleAdminModal, currentCategoryCard } = useAdminCategoryStore();
-  const {
-    catQuery: { data: categories },
-  } = useCategory();
-  const clickEditBtn = () => {
+  const [currentData, setCurrentData] = useState();
+  useEffect(() => {
+    const { data } = async () => await api(`/${cardtype}/${id}`);
+    setCurrentData(data);
+    resData();
+    console.log(resData());
+  }, []);
+  const clickEditBtn = async () => {
     toggleAdminModal();
-    const currentCard = categories.filter((category) => category._id === id);
-    useAdminCategoryStore.setState({
-      currentCategoryCard: {
-        mascotName: "아니이렇게 문자열은되는데",
-        categoryName: currentCard.categoryName,
-      },
-    });
-    console.log(currentCategoryCard);
   };
 
-  const deleteMutation = useMutation(() => api.delete(`/category${id}`));
+  const pathPost = { content: '' };
+  const pathCategory = { categoryName: '괔캌뫀맄', mascotName: '홀리몰리ㅣㅣㅣ' };
+
+  const patchMutation = useMutation(() => api.patch(`/${cardtype}/${id}`, ''));
+  const patchHandler = (event) => {
+    confirm('해당 카테고리를 삭제하시겠습니까?') ? patchMutation.mutate() : event.preventDefault();
+  };
+
+  const deleteMutation = useMutation(() => api.delete(`/${cardtype}/${id}`));
   const deleteHandler = (event) => {
     confirm('해당 카테고리를 삭제하시겠습니까?') ? deleteMutation.mutate() : event.preventDefault();
   };

@@ -36,7 +36,7 @@ export const useUserInfo = create<IGetUserInfo>((set) => ({
       set(() => ({ userInfo: { ...data } }));
     } catch (err) {
       set(() => ({ existUser: false }));
-      set(() => ({ userInfo: { role: '', email: '', username: '', bio: '', imgUrl: '' }}));
+      set(() => ({ userInfo: { role: '', email: '', username: '', bio: '', imgUrl: '' } }));
     }
   },
 }));

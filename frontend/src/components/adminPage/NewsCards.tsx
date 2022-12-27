@@ -14,7 +14,7 @@ export default function NewsCards() {
       {isLoading ? (
         <CardSkeleton />
       ) : (
-        news.map((item) => <Card id={item._id} key={item._ids} img="" name={item.category} description={item.content} />)
+        news.map((item) => <Card id={item._id} key={item._id} img="" name={item.category} description={item.content} cardtype="post"/>)
       )}
     </div>
   );

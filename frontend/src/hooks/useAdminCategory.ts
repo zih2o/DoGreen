@@ -1,5 +1,5 @@
 import create from 'zustand';
-//삭제예정인 필요없는 Hook
+
 interface IAdminCategory {
   adminCategory: 'Mascot' | 'News';
   setMascotCategory: () => void;
