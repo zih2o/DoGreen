@@ -15,17 +15,15 @@ export default function NewsCarousel(props: Record<'imageList', string[]>) {
     'https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2F0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
   ];
   const [currentIdx, setCurrentIdx] = useState(0);
-  const [style, setStyle] = useState(`flex ml-[-${currentIdx}00%]`);
+  const [style, setStyle] = useState({
+    marginLeft: `-${currentIdx}00%`,
+  });
   const ref = useRef<HTMLDivElement>(null);
-  const w = 40;
-  const h = 32;
   const favTheme =
-    'absolute top-16 w-16 h-16 z-10 text-white opacity-50 transition-all  hover:cursor-pointer hover:opacity-100 ';
-
+    'absolute top-1/2 w-10 h-10 z-10 text-garden4 opacity-50 transition-all dark:text-forest2 hover:cursor-pointer hover:opacity-100 ';
   useEffect(() => {
-    setStyle(`flex ml-[-${currentIdx}00%] transition-all`);
+    setStyle({ marginLeft: `-${currentIdx}00%` });
   }, [currentIdx]);
-
   const handleClick = (i: number) => {
     let nextIndex = currentIdx + i;
 
@@ -36,14 +34,16 @@ export default function NewsCarousel(props: Record<'imageList', string[]>) {
     console.log(ref.current?.className);
   };
   return (
-    <div className={`w-${w} h-${h} overflow-hidden bg-coral-400`}>
-      <div ref={ref} className={style}>
-        {images.map((url, i) => (
-          <img className={`flex-none w-${w} h-${h} object-cover `} src={url} alt={url} key={i} />
-        ))}
+    <>
+      <FaChevronLeft className={favTheme + 'left-10'} onClick={() => handleClick(-1)} />
+      <div className={`w-64 h-64 overflow-hidden`}>
+        <div ref={ref} className="flex transition-all " style={style}>
+          {images.map((url, i) => (
+            <img className={`flex-none w-64 h-64 object-contatin rounded-lg`} src={url} alt={url} key={i} />
+          ))}
+        </div>
       </div>
-      <FaChevronLeft className={favTheme + 'left-5'} onClick={() => handleClick(-1)} />
-      <FaChevronRight className={favTheme + 'right-5'} onClick={() => handleClick(1)} />
-    </div>
+      <FaChevronRight className={favTheme + 'right-10'} onClick={() => handleClick(1)} />
+    </>
   );
 }
