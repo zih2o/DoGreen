@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Modal from '../components/Modal';
-import { Login } from '../components/Login';
+import { Login } from '../components/auth/Login';
 import { AiOutlineClose } from 'react-icons/ai';
 
 function LoginModalPage() {
@@ -15,9 +15,9 @@ function LoginModalPage() {
   const [loginStatus, setLoginStatus] = useState<string>(initialLoginBtn);
   const logined = () => {
     if (isLogined === null) {
-      setLoginStatus('로그아웃');
       setHandleModal(!handleModal); //로그인 창 열기
     } else {
+      alert('로그아웃하시겠습니까? : 추후 모달형태로 진행예정');
       setLoginStatus('로그인');
       window.sessionStorage.clear();
     }

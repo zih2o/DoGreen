@@ -1,11 +1,59 @@
 import { model, Types } from 'mongoose';
 import { CategorySchema } from '../category/categorySchema';
+import invariant from '../invariant';
 import { PostSchema } from './postSchema';
+import { UserSchema } from '../user/user.schema';
+import { CommentSchema } from '../comment/commentSchema';
 
 const PostModel = model<PostT>('posts', PostSchema);
 const CategoryModel = model<categoryT>('categories', CategorySchema);
+const UserModel = model('users', UserSchema);
+const CommentModel = model('comments', CommentSchema);
 
 export class PostRepository implements IPostRepository {
+  async paginationPost(categoryId: categoryT['id'] | string, page: number, perPage: number) {
+    // 해당 카테고리에 총 갯수를 구하는 쿼리
+    const findPosts = await CategoryModel.findById(categoryId, { posts: 1 });
+    const total:any = findPosts?.posts?.length;
+
+    // 총갯수로 posts 갯수 정하기
+    const posts = await CategoryModel.findById(categoryId, { posts: 1 })
+      .populate('posts').where('posts')
+      .sort({ createdAt: -1 })
+      .skip(perPage * (page - 1))
+      .limit(perPage);
+
+    const totalPage = Math.ceil(total / perPage);
+    console.log(`${posts} : 포스트들`);
+    // console.log(`${totalPage} : 전체 페이지`);
+
+    return {
+      page, perPage, posts, totalPage
+    };
+  }
+
+  async deletePostCommentId(commentId: string) {
+    const findPostId = await CommentModel.findById(commentId);
+    await PostModel.findByIdAndUpdate(findPostId?.refPost, { $pull: { comments: commentId } });
+  }
+
+  async findAllCommentAtPost(postId: CommentT['refPost']) {
+    const commentArray = await PostModel.findById(postId.id)
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'userId',
+          select: 'username'
+        }
+      });
+
+    return commentArray?.comments;
+  }
+
+  async addcommentList(postId: PostT['id'], commentId: Types.ObjectId) {
+    await PostModel.findByIdAndUpdate(postId, { $push: { comments: commentId } });
+  }
+
   async findAll() {
     const totalPost = await PostModel.find({});
     return totalPost;
@@ -17,17 +65,32 @@ export class PostRepository implements IPostRepository {
   }
 
   async createOne(newPost: createPostDto, id: createCategoryDto) {
-    const newPostId = await PostModel.create({ category: id, content: newPost.content });
-    await CategoryModel.updateOne({ id }, { $push: { posts: newPostId } });
+    const newPostId = await PostModel.create({
+      category: id,
+      content: newPost.content,
+      imageList: newPost.imageList
+    });
+    await CategoryModel.findByIdAndUpdate(id, { $push: { posts: newPostId.id } });
   }
 
-  async deleteOne(id:PostT['id']) {
-    await PostModel.findByIdAndDelete(id.id);
-    await CategoryModel.updateOne({ $pull: { posts: id.id } });
+  async deleteOne(id: PostT['id']) {
+    const findPost = await PostModel.findById(id.id);
+    await CategoryModel.findByIdAndUpdate(findPost?.category, { $pull: { posts: findPost?.id } });
+    await PostModel.deleteOne({ id: findPost?.id });
   }
 
-  async updateOne(id: PostT['id'], toUpdatePost :updatePostDto) {
-    await PostModel.updateOne({ _id: id }, toUpdatePost);
+  async updateOne(id: PostT['id'], toUpdatePost: updatePostDto) {
+    const findCategoryId = await CategoryModel.findOne({ id });
+    // 카테고리 이름 변경
+    await CategoryModel.findByIdAndUpdate(
+      findCategoryId?.id,
+      { categoryName: toUpdatePost.category }
+    );
+    // 포스트 정보 변경
+    await PostModel.updateMany(
+      { _id: id },
+      { content: toUpdatePost.content, imageList: toUpdatePost.imageList }
+    );
   }
 }
 

@@ -1,5 +1,7 @@
-import { model } from 'mongoose';
+import { model, mongo } from 'mongoose';
 import { AuthService } from '../auth/auth.service';
+import { BadRequestError } from '../errors/BadRequestError';
+import { ConflictError } from '../errors/ConflictError';
 import invariant from '../invariant';
 import { UserSchema } from './user.schema';
 
@@ -54,6 +56,12 @@ export class UserService implements IUserService {
     return userToUserDto(user);
   }
 
+  async findUserByAuthId(authId: string) {
+    const username = await UserModel.findOne({ auth: authId });
+    invariant(username !== null, '유저정보가 존재하지 않습니다.');
+    return username;
+  }
+
   async findUserByEmail(email: UserT['email']) {
     const user = await UserModel.findOne({ email }, undefined, {
       populate: {
@@ -67,7 +75,7 @@ export class UserService implements IUserService {
   };
 
   // util 함수
-  async existUserByEmail(email: AuthT['email']) {
+  async isDuplicatedEmail(email: AuthT['email']) {
     // https://mongoosejs.com/docs/5.x/docs/api/model.html#model_Model.exists => 버전 5에서는 true | false
     // https://mongoosejs.com/docs/api/model.html#model_Model-exists => 버전 6에서는 { _id } | null
     const isUser = await UserModel.exists({ email });
@@ -76,6 +84,9 @@ export class UserService implements IUserService {
 
   // update, softdeletebyuser 가능
   async updateUser(email: UserT['email'], userInfo: Partial<Omit<UserT, 'email' | 'auth' | 'isDeleted'>>) {
+    // if (userInfo.username && await this.isDuplicatedUsername(userInfo.username)) {
+    //   throw new ConflictError('다른 유저가 사용하고 있는 닉네임입니다.');
+    // }
     await UserModel.updateOne(
       { email }, // filter
       {
@@ -86,7 +97,10 @@ export class UserService implements IUserService {
     );
   }
 
-  async withdraw(email: UserT['email']) {
+  async withdraw(email: UserT['email'], password: AuthT['password']) {
+    if (!await authService.isPasswordCorrect(password, email)) {
+      throw new BadRequestError('비밀번호가 틀렸습니다.');
+    }
     await UserModel.updateOne(
       { email }, // filter
       { isDeleted: true } // update
@@ -134,12 +148,25 @@ export class UserService implements IUserService {
       password: userInfo.password,
       role: userInfo.role ?? 'USER'
     });
-    await UserModel.create({
-      auth,
+    await new UserModel({
+      auth: auth._id,
       email: userInfo.email,
       username: userInfo.username,
       bio: userInfo.bio,
       imgUrl: userInfo.imgUrl
-    });
+    }).save()
+      .catch(e => {
+        if (e instanceof mongo.MongoServerError) {
+          const formatted = Object.entries(e.keyValue).map(entry => entry.join(' : ')).join(', ');
+          throw new ConflictError(`중복된 ${formatted}입니다.`);
+        }
+      });
+
+    await auth.save();
+  }
+
+  async isDuplicatedUsername(username: UserT['username']) {
+    const isUser = await UserModel.exists({ username });
+    return Boolean(isUser);
   }
 }

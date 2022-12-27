@@ -1,16 +1,16 @@
 import { Schema } from 'mongoose';
 
-const commentSchema = new Schema(
+const CommentSchema = new Schema<CommentT>(
   {
     refPost: {
       type: Schema.Types.ObjectId,
       ref: 'posts'
     },
-    username: {
+    userId: {
       type: Schema.Types.ObjectId,
       ref: 'users'
     },
-    content: {
+    comment: {
       type: String,
       required: true
     }
@@ -20,4 +20,4 @@ const commentSchema = new Schema(
   }
 );
 
-export { commentSchema };
+export { CommentSchema };

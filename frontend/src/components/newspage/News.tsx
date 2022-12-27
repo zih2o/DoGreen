@@ -8,7 +8,7 @@ export default function NewsCard() {
   const [clickComment, setClickComment] = useState<boolean>(false);
 
   return (
-    <div className="flex w-full h-full justify-center py-6 bg-gardenBG-light">
+    <div className="flex w-full h-full justify-center py-6 bg-gardenBG">
       <div className="flex flex-col mr-4 items-center">
         <img className={'rounded-full w-12 h-12 shadow-xl'} src="/src/assets/penguin.jpeg" alt="펭귄" />
         <span className="font-semibold">펭귄</span>
