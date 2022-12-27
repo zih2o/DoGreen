@@ -1,15 +1,9 @@
-import { ParamsDictionary } from 'express-serve-static-core';
-import { array } from 'zod';
-import { Types } from 'mongoose';
 import { PostRepository } from '../post/postRepository';
 import { CommentRepository } from './commentRepository';
-import { UserService } from '../user/user.service';
-import { PersonalCommentRepository } from '../personalComment/personalCommentRepository';
+import invariant from '../invariant';
 
 const commentRepository = new CommentRepository();
-const personalCommentRepository = new PersonalCommentRepository();
 const postRepository = new PostRepository();
-const userService = new UserService();
 
 export class CommentService {
   async paginationPost(postId: string, page: number, perPage: number) {
@@ -19,12 +13,18 @@ export class CommentService {
 
   async deleteComment(commentId: string, currentAuthId: string) {
     // personal 배열에서 삭제
-    await personalCommentRepository.deletePersonalCommentId(commentId, currentAuthId);
+    // await commentRepository.deletePersonalCommentId(commentId, currentAuthId);
     // posts 배열에서 삭제
     await postRepository.deletePostCommentId(commentId);
     // comment 삭제
     await commentRepository.deleteComment(commentId);
   }
+
+  // async findMyComment(authId: string) {
+  //   const comments = await commentRepository.findMyComment(authId);
+  //   invariant(comments !== null, new NotFoundError('작성한 댓글이 존재하지 않습니다.'));
+  //   return comments;
+  // }
 
   async updateComment(comment: CommentT['comment'], commentId: string, currentAuthId:string) {
     // 코멘트 수정
@@ -64,9 +64,9 @@ export class CommentService {
 
     // 이미 개인의 댓글 DB가 존재하는지 검증
     // 찾은 userId를 personalComment Schema에 할당
-    const isExist = await personalCommentRepository.isExist(authId);
-    if (isExist === null) {
-      await personalCommentRepository.createList(authId, newComment.id);
-    } else await personalCommentRepository.pushList(authId, newComment.id);
+    // const isExist = await comment.isExist(authId);
+    // if (isExist === null) {
+    //   await personalCommentRepository.createList(authId, newComment.id);
+    // } else await personalCommentRepository.pushList(authId, newComment.id);
   }
 }
