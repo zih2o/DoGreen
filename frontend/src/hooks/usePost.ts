@@ -36,8 +36,6 @@ export default function usePost(catId?: string) {
     onMutate: async (newPost: IPost) => {
       await queryClient.cancelQueries({ queryKey: ['posts', catId] });
       const previousData = queryClient.getQueryData(['posts', catId]);
-      console.log(previousData);
-      console.log(newPost);
       queryClient.setQueryData<InfiniteData<IPage>>(['posts', catId], (oldData) => ({
         ...oldData!,
         pages: oldData!.pages.map((page) => ({

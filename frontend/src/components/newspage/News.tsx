@@ -9,18 +9,27 @@ import { useUserInfo } from '../../hooks/store';
 import NewsCarousel from './NewsCarousel';
 import usePost, { IPost } from '../../hooks/usePost';
 
+const Theme = {
+  NewsTheme: {
+    postContainer:
+      'flex flex-col w-10/12 h-full  bg-slate-50 shadow-2xl rounded-lg overflow-hidden md:w-9/12 dark:bg-zinc-800 lg:w-8/12',
+    footer: 'flex justify-between  px-6 py-2 rounded-b-lg bg-gradient-to-r from-gardenBG to-garden4 dark:from-forest4',
+  },
+  CommentTheme: {
+    container: 'flex flex-col w-96 h-96 rounded-md bg-gray-50 dark:bg-zinc-800 overflow-hidden',
+    form: 'flex justify-between px-2 py-4 bg-gradient-to-r from-gardenBG to-garden4 dark:from-forest4',
+    input:
+      'flex-auto mx-2 py-1 rounded-md bg-slate-50 text-gray-800 focus:outline-none focus:ring-4 focus:ring-garden3',
+    button:
+      'mx-2 px-2 rounded-md bg-garden4 text-gray-50 font-semibold transition duration-0 hover:scale-110 hover:duration-700',
+  },
+};
+
 interface INews extends IPost {
   categoryName: string;
   categoryImg: string;
   categoryId: string;
 }
-
-const CommentTheme = {
-  form: 'flex justify-between px-2 py-4 bg-gradient-to-r from-gardenBG to-garden4 dark:from-forest4',
-  input: 'flex-auto mx-2 py-1 rounded-md bg-slate-50 text-gray-800 focus:outline-none focus:ring-4 focus:ring-garden3',
-  button:
-    'mx-2 px-2 rounded-md bg-garden4 text-gray-50 font-semibold transition duration-0 hover:scale-110 hover:duration-700',
-};
 
 export default function NewsCard(props: INews) {
   const [clickComment, setClickComment] = useState<boolean>(false);
@@ -70,16 +79,16 @@ export default function NewsCard(props: INews) {
         <img className={'rounded-full w-12 h-12 shadow-xl'} src={props.categoryImg} alt="펭귄" />
         <span className="font-semibold">{props.categoryName}</span>
       </div>
-      <div className="flex flex-col w-10/12 h-full  bg-slate-50 shadow-2xl rounded-lg overflow-hidden md:w-9/12 dark:bg-zinc-800 lg:w-8/12">
+      <div className={Theme.NewsTheme.postContainer}>
         <div className="flex relative justify-center mt-6 rounded-t-md">
           {props.imageList[0] !== '' && <NewsCarousel imageList={props.imageList} />}
         </div>
         <div className="w-full p-6 text-md dark:text-slate-50">{props.content}</div>
-        <div className="flex justify-between  px-6 py-2 rounded-b-lg bg-gradient-to-r from-gardenBG to-garden4 dark:from-forest4">
+        <div className={Theme.NewsTheme.footer}>
           <div className="flex items-center">
             <FaHeart
               className={
-                'mr-4 hover:cursor-pointer dark:text-slate-50 ' + (isLoggedIn && props.isLiked ? 'text-red-400' : '')
+                'mr-4 hover:cursor-pointer ' + (isLoggedIn && props.isLiked ? 'text-red-400' : 'dark:text-slate-50')
               }
               onClick={() =>
                 handleClickLike({
@@ -112,7 +121,7 @@ export default function NewsCard(props: INews) {
             setClickComment(!clickComment);
           }}
         >
-          <div className="flex flex-col w-96 h-96 rounded-md bg-gray-50 dark:bg-zinc-800 overflow-hidden">
+          <div className={Theme.CommentTheme.container}>
             <div className="flex-auto w-full overflow-y-scroll">
               {data?.pages.map((page, index) => (
                 <Fragment key={index}>
@@ -134,9 +143,9 @@ export default function NewsCard(props: INews) {
               ))}
               {(hasNextPage || status === 'loading') && <Loading instance={ref} />}
             </div>
-            <form onSubmit={handleSubmit} className={CommentTheme.form} onFocus={handleFocus}>
-              <input type="text" className={CommentTheme.input} onChange={handleChange} value={inputValue} />
-              <button className={CommentTheme.button}>ADD</button>
+            <form onSubmit={handleSubmit} className={Theme.CommentTheme.form} onFocus={handleFocus}>
+              <input type="text" className={Theme.CommentTheme.input} onChange={handleChange} value={inputValue} />
+              <button className={Theme.CommentTheme.button}>ADD</button>
             </form>
           </div>
         </Modal>
