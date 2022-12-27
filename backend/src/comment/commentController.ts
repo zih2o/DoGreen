@@ -16,6 +16,12 @@ export class CommentController {
     res.status(200).json(pagingComments);
   }
 
+  // async findMyComment(req:Request, res:Response) {
+  //   const myAuthId = req.context.currentUser.authId;
+  //   const comments = commentService.findMyComment(myAuthId);
+  //   res.status(200).json(comments);
+  // }
+
   async findAllCommentAtPost(req: Request, res: Response) {
     const { id } = req.params;
     const allComment = await commentService.findAllCommentAtPost(id);
