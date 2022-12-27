@@ -28,8 +28,24 @@ export class CommentRepository implements ICommentRepository {
     return {
       page, perPage, result: post.comments, totalPage
     };
-    // console.log(totalPage);
   }
+
+  // async findUser(authId: string) {
+  //   const user = await UserModel.findOne({ auth: authId }, undefined, {
+  //     poplate: {
+  //       path: 'auth',
+  //       select: 'role'
+  //     }
+  //   });
+  //   invariant(user !== null, '유저정보가 존재하지 않습니다.'); // 타입스크립트가 null 뱉을 수 있다고 해서 추가해준 타입가드
+  //   return userToUserDto(user);
+  // }
+
+  // async findMyComment(authId: string):Promise<CommentT[]> {
+  //   const comments = await CommentModel.findOne({ authId });
+  //   invariant(comments !== null, new NotFoundError(''));
+  //   return comments;
+  // }
 
   async deleteComment(commentId: string) {
     await CommentModel.findByIdAndDelete(commentId);
