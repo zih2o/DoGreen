@@ -1,10 +1,11 @@
-import { Schema } from 'mongoose';
+import { Schema, Types } from 'mongoose';
 
 const PostSchema = new Schema<PostT>(
   {
     category: {
       type: Schema.Types.ObjectId,
-      ref: 'categories'
+      ref: 'categories',
+      index: true
     },
     content: {
       type: String,
@@ -14,9 +15,13 @@ const PostSchema = new Schema<PostT>(
     imageList: [{
       type: String
     }],
-    likes: {
-      type: Schema.Types.ObjectId,
-      ref: 'likes'
+    likeUserList: [{
+      type: Types.ObjectId,
+      ref: 'auths'
+    }],
+    likesNum: {
+      type: Number,
+      default: 0
     },
     comments: [{
       type: Schema.Types.ObjectId,

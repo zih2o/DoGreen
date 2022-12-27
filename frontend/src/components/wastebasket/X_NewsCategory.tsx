@@ -1,6 +1,6 @@
 import React from 'react';
 import useNews from '../../hooks/useNews';
-import CategoryCards from './CategoryCards';
+import CategoryCards from '../adminPage/CategoryCards';
 import CreatCard from './CreatCard';
 import Card from '../Card';
 export default function NewsCategory() {

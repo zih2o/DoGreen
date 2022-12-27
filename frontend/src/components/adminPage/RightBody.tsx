@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useAdminCategoryStore } from '../../hooks/useAdminCategory';
 
 import CreateCategoryForm from './CategoryForm';
-import NewsCardForm from './NewsCardForm';
+import CreateNewsForm from './CreateNewsForm';
 
 import CategoryCards from './CategoryCards';
 import NewsCards from './NewsCards';
@@ -18,8 +18,10 @@ export default function RightBody({ name }) {
         </div>
         <div className="flex flex-wrap flex-row">
           <div className="text-center m-3 p-3 w-full font-bold text-xl bg-white border border-gray-200 rounded-lg shadow-md dark:bg-[#292524] dark:border-[#292524]">
-            <button onClick={() => toggleAdminCreateCardBtn()}>카드생성하기</button>
-            {adminCreateCardBtn && (adminCategory === 'Mascot' ? <CreateCategoryForm /> : <NewsCardForm />)}
+            <button className="w-full" onClick={() => toggleAdminCreateCardBtn()}>
+              {name} 카드생성하기
+            </button>
+            {adminCreateCardBtn && (adminCategory === 'Mascot' ? <CreateCategoryForm /> : <CreateNewsForm />)}
           </div>
         </div>
         {adminCategory === 'Mascot' ? <CategoryCards /> : <NewsCards />}
