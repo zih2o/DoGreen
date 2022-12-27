@@ -5,7 +5,7 @@ import MyPageTopBar from '../components/mypage/MyPageTopBar';
 import { GlobalLayout } from '../components/layout/GlobalLayout';
 import { MyPageLayout } from '../components/layout/MyPageLayout';
 import { AlertModal } from '../components/common/AlertModal';
-import { useUserLoginStore } from '../hooks/store';
+import { useUserLoginStore } from '../components/wastebasket/store';
 export const MyPage = () => {
   const [isLogined, setIsLogined] = useState<boolean>(true);
   const token = useUserLoginStore((state) => state.token);

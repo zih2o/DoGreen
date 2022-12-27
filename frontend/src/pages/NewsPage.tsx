@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import NewsSkeleton from '../components/loadings/NewsSkeleton';
 import News from '../components/newspage/News';
-import useCategory from '../hooks/useCategory';
+import { useOneCategory } from '../hooks/useCategory';
 import usePost, { IPost } from '../hooks/usePost';
 
 export default function NewsPage() {
@@ -11,7 +11,7 @@ export default function NewsPage() {
   const { ref, inView } = useInView();
   const {
     categoryQuery: { data: category },
-  } = useCategory(catId);
+  } = useOneCategory(catId);
   const {
     postQuery: { status, fetchNextPage, hasNextPage, data },
   } = usePost(catId || 'null');

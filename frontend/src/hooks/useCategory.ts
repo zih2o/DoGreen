@@ -10,7 +10,7 @@ export interface ICategory {
   __v: number;
 }
 
-export default function useCategory(catId?: string) {
+export default function useCategory() {
   const catQuery = useQuery<ICategory[]>({
     queryKey: ['categories'],
     queryFn: async () => {
@@ -19,6 +19,10 @@ export default function useCategory(catId?: string) {
     staleTime: 1000 * 60 * 5,
   });
 
+  return { catQuery };
+}
+
+export function useOneCategory(catId?: string) {
   const categoryQuery = useQuery<ICategory>({
     queryKey: [catId],
     queryFn: async () => {
@@ -26,6 +30,5 @@ export default function useCategory(catId?: string) {
     },
     staleTime: 1000 * 60 * 5,
   });
-
-  return { catQuery, categoryQuery };
+  return { categoryQuery };
 }

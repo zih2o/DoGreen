@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../util/api';
-import { useUserLoginStore } from './store';
+import { useUserLoginStore } from '../components/wastebasket/store';
 
 export interface ISubscription {
   _id: string | undefined;

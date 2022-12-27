@@ -6,7 +6,7 @@ import { ImBubble } from 'react-icons/im';
 import useComment, { IComment } from '../../hooks/useComment';
 import Loading from '../loadings/Loading';
 import Modal from '../common/Modal';
-import { useUserLoginStore } from '../../hooks/store';
+import { useUserLoginStore } from '../wastebasket/store';
 import { AlertModal } from '../common/AlertModal';
 import NewsCarousel from './NewsCarousel';
 
@@ -69,8 +69,8 @@ export default function NewsCard(props: INews) {
         <img className={'rounded-full w-12 h-12 shadow-xl'} src={props.categoryImg} alt="펭귄" />
         <span className="font-semibold">{props.categoryName}</span>
       </div>
-      <div className="flex flex-col w-10/12 shadow-2xl rounded-lg md:w-9/12 lg:w-8/12">
-        <div className="flex justify-center">
+      <div className="flex flex-col w-10/12 h-full shadow-2xl rounded-lg overflow-hidden md:w-9/12 lg:w-8/12">
+        <div className="relative flex justify-center bg-red-300 ">
           <NewsCarousel imageList={['']} />
         </div>
         <div className="w-full p-6 bg-slate-50  rounded-t-lg text-md sm:">{props.content}</div>
