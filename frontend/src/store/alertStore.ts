@@ -3,13 +3,11 @@ import create from 'zustand';
 interface IalertMsg {
   errorMsg: string;
   confirmMsg: string;
-  response: boolean;
-  handleResponse: () => void;
+  handleConfirmMsg: () => void;
 }
 
 export const alertStore = create<IalertMsg>((set) => ({
   errorMsg: 'Error Message',
   confirmMsg: 'Confirm Message',
-  response: false,
-  handleResponse: () => set((state) => ({ response: !state.response })),
+  handleConfirmMsg: () => set((state) => ({ confirmMsg: state.confirmMsg })),
 }));

@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../util/api';
 import { AuthStore } from './useAuth';
-
+import { useUserInfo } from '../hooks/store';
 export interface ISubscription {
   _id: string | undefined;
   categoryName: string;
@@ -12,14 +12,21 @@ export interface ISubscription {
 
 export function useSubscription(catId: string) {
   const queryClient = useQueryClient();
-  const token = AuthStore((state) => state.token);
+  const { existUser } = useUserInfo();
   const subsQuery = useQuery<ISubscription[]>({
     queryKey: ['userCategories'],
     queryFn: async () => {
       return await api.get('/subscribe').then((res) => res.data);
     },
-    staleTime: 1000 * 60,
-    enabled: !!token,
+    onSuccess: () => {
+      // queryClient.invalidateQueries({ queryKey: ['userCategories'] });
+      console.log('구독 조회');
+    },
+    onError: () => {
+      queryClient.invalidateQueries({ queryKey: ['userCategories'] });
+      console.log('구독 에러');
+    },
+    enabled: !!existUser,
   });
   const subsMutation = useMutation<ISubscription>({
     mutationFn: async () => {

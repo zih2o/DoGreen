@@ -1,5 +1,5 @@
 import create from 'zustand';
-import { api } from '../../util/api';
+import { api } from '../util/api';
 
 interface IUserLogin {
   token: null | string;

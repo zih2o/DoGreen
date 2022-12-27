@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../util/api';
-import { useNavigate } from 'react-router';
+import { AxiosError } from 'axios';
+import { alertStore } from '../store/alertStore';
 
 interface IuserInfo {
   username?: string;
@@ -11,8 +12,6 @@ interface IuserInfo {
 }
 
 export default function useEditUserData() {
-  const navigate = useNavigate();
-
   const queryClient = useQueryClient();
   const editMutate = async (newData: IuserInfo) => {
     return await api.patch('/user/me', newData);
@@ -23,13 +22,16 @@ export default function useEditUserData() {
       alert('수정하시겠습니까?');
     },
     onSuccess: () => {
+      alertStore.setState({ confirmMsg: '수정되었습니다.' });
       queryClient.invalidateQueries({ queryKey: ['user'] });
       console.log('성공');
-      navigate('/');
+      console.log(alertStore.getState().confirmMsg);
     },
     onError: (error) => {
-      console.error('에러 발생했지롱');
-      alert(error?.response?.data?.error);
+      if (error instanceof AxiosError) {
+        alert(error?.response?.data?.error);
+        alertStore.setState({ errorMsg: error?.response?.data?.error });
+      }
     },
   });
 }

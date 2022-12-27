@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../util/api';
 import { useNavigate } from 'react-router';
-import { Navigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { alertStore } from '../store/alertStore';
+
 export interface IAuthData {
   username?: string;
   email: string;
@@ -30,15 +30,16 @@ export function useLogin() {
       window.sessionStorage.setItem('token', token);
       navigate('/');
     },
-    onError: (error: AxiosError) => {
-      console.log(error?.response?.data?.error);
-      alertStore.setState({ errorMsg: error?.response?.data?.error });
+    onError: (error) => {
+      if (error instanceof AxiosError) {
+        console.log(error?.response?.data?.error);
+        alertStore.setState({ errorMsg: error?.response?.data?.error });
+      }
     },
   });
 }
 
 export function useResiter() {
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const registerMutate = async (data: IAuthData) => {
     return await api.post('/auth/register', data);
@@ -51,8 +52,10 @@ export function useResiter() {
       console.log('성공');
     },
     onError: (error) => {
-      alert(error?.response?.data?.error);
-      alertStore.setState({ errorMsg: error?.response?.data?.error });
+      if (error instanceof AxiosError) {
+        alert(error?.response?.data?.error);
+        alertStore.setState({ errorMsg: error?.response?.data?.error });
+      }
     },
   });
 }

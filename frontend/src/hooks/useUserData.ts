@@ -1,7 +1,9 @@
 import { api } from '../util/api';
-import { useQuery } from '@tanstack/react-query';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router';
+import { AxiosError } from 'axios';
 import { alertStore } from '../store/alertStore';
+
 interface IUserData {
   role: string;
   email: string;
@@ -16,7 +18,6 @@ interface IEditData {
   imgUrl?: string;
   bio?: string;
 }
-
 interface IAuthData {
   currentPassword: string;
 }
@@ -44,8 +45,9 @@ export default function useUserData() {
       console.log('성공');
     },
     onError: (error) => {
-      alert(error?.response?.data?.error);
-      alertStore.setState({ errorMsg: error?.response?.data?.error });
+      if (error instanceof AxiosError) {
+        alertStore.setState({ errorMsg: error?.response?.data?.error });
+      }
     },
   });
 
@@ -59,8 +61,9 @@ export default function useUserData() {
       alertStore.setState({ confirmMsg: '회원탈퇴 되었습니다.' });
     },
     onError: (error) => {
-      // alert(error?.response?.data?.error);
-      alertStore.setState({ errorMsg: error?.response?.data?.error });
+      if (error instanceof AxiosError) {
+        alertStore.setState({ errorMsg: error?.response?.data?.error });
+      }
     },
   });
   return { userQuery, userMutation, withdrawMutaiton };
