@@ -38,7 +38,7 @@ export class PostRepository implements IPostRepository {
       populate: {
         path: 'posts',
         options: {
-          sort: timeStamp,
+          sort: ({ createAt: -1 }),
           skip: (page - 1) * perPage,
           limit: perPage
         }
