@@ -4,7 +4,7 @@ import LoginForm from './hamburger/LoginForm';
 import { useDrawerStore } from '../hooks/useDrawer';
 
 import Loading from './loadings/Loading';
-import { useUserInfo } from '../hooks/store';
+import { useUserInfo } from './wastebasket/store';
 
 function Drawer() {
   const { drawerOpen, toggleDrawer } = useDrawerStore();
@@ -40,7 +40,10 @@ function Drawer() {
         )}
       </div>
       {handleModal && (
-        <button className="fixed -z-10 top-[13.4%] left-[0%] w-[30%] h-[78.1%] bg-navBg md:w-[70%]" onClick={closeModal} />
+        <button
+          className="fixed -z-10 top-[13.4%] left-[0%] w-[30%] h-[78.1%] bg-navBg md:w-[70%]"
+          onClick={closeModal}
+        />
       )}
     </>
   );
