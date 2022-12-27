@@ -1,9 +1,7 @@
 import { api } from '../util/api';
-import { useQuery } from '@tanstack/react-query';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 import { AxiosError } from 'axios';
-
 interface IUserData {
   role: string;
   email: string;
@@ -18,7 +16,6 @@ interface IEditData {
   imgUrl?: string;
   bio?: string;
 }
-
 interface IAuthData {
   currentPassword: string;
 }
@@ -48,7 +45,9 @@ export default function useUserData() {
       navigate('/');
     },
     onError: (error) => {
-      alert(error?.response?.data?.error);
+      if (error instanceof AxiosError) {
+        alert(error.response?.data.error);
+      }
     },
   });
 
@@ -66,7 +65,9 @@ export default function useUserData() {
       navigate('/');
     },
     onError: (error) => {
-      alert(error?.response?.data?.error);
+      if (error instanceof AxiosError) {
+        alert(error.response?.data.error);
+      }
     },
   });
   return { userQuery, userMutation, withdrawMutaiton };

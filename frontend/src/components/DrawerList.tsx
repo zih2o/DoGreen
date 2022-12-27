@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useUserInfo } from './wastebasket/store';
+import { useUserInfo } from '../hooks/store';
 import { useDrawerStore } from '../hooks/useDrawer';
 import Loading from './loadings/Loading';
 
