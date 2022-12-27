@@ -1,42 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { editValidation } from '../auth/yup';
 import { AiOutlineClose } from 'react-icons/ai';
 
-import { InputContainer } from '../InputContainer';
-import { ImgContainer } from '../ImgContainer';
-import { FormInput, IputError, InputButton, ClickButton } from '../FormsAboutInput';
+import { InputContainer } from '../common/InputContainer';
+import { ImgContainer } from '../common/ImgContainer';
+import { FormInput, IputError, InputButton, ClickButton } from '../common/FormsAboutInput';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
-import useUserData, { IUserData } from '../../hooks/useUserData';
-import uesEditUserData from '../../hooks/editUserInfoApi';
-import { Userwithdraw } from './Userwithdraw';
+import useUserData from '../../hooks/useUserData';
+import Userwithdraw from './Userwithdraw';
 import { useValUserName } from '../../hooks/useValUserData';
+import createUrl from '../../hooks/imgUrlApi';
 import Modal from '../common/Modal';
-
-interface IEditInputData extends Omit<IUserData, 'imgUrl'> {
+import EditSkeleton from '../loadings/EditSkeleton';
+interface IEditIData {
+  email: string;
+  username: string;
   oldPassword: string;
   password: string;
   confimrPassword: string;
   imgUrl: FileList;
+  bio: string;
 }
 
-export const FormEditUserInfo = () => {
+const EditUserInfo = () => {
   //유저데이터부르기
   const {
-    userQuery: { data: userData },
+    userQuery: { data: userData, isLoading: isUserDataLoading },
+    userMutation: editMutation,
   } = useUserData();
 
   //react-hook-form yup
   const { schema } = editValidation();
   const {
-    handleSubmit,
     control,
     register,
-    setValue,
-    watch,
+    reset,
+    handleSubmit,
     formState: { errors },
-  } = useForm<IEditInputData>({
+  } = useForm<IEditIData>({
     mode: 'onSubmit',
     resolver: yupResolver(schema),
   });
@@ -44,41 +47,35 @@ export const FormEditUserInfo = () => {
   //초기값
   useEffect(() => {
     if (userData) {
-      setValue('email', userData.email);
-      setValue('bio', userData.bio);
-      setValue('username', userData.username);
+      reset({
+        username: userData.username,
+        email: userData.email,
+        bio: userData.bio,
+      });
       setImgPreview(userData.imgUrl);
     }
   }, [userData]);
 
+  const [image, currUsername] = useWatch({ control, name: ['imgUrl', 'username'] });
+  //imgUrl
+  const imgUrlMutation = createUrl();
   //이미지 변경
   const [imgPreview, setImgPreview] = useState('');
-  const image = watch('imgUrl');
   useEffect(() => {
     if (image && image.length > 0) {
       const file = image?.[0];
+      console.log('file : ', file);
       setImgPreview(URL.createObjectURL(file));
+      imgUrlMutation.mutate(file);
     }
   }, [image]);
 
-  //수정하기
-  const { mutation: editMutation } = uesEditUserData();
-  const onSubmit = async (data: IEditInputData) => {
-    const { username, oldPassword, password, bio } = data;
-    const editData = { username, oldPassword, password, bio };
-    editMutation.mutate(editData);
-  };
   //유저네임 실시간 밸리데이션
-  //문제점 :  로딩이 false 가 되면 정상적으로 표시해주지않음. 😰
-  const currUsername = watch('username');
   const [usernameError, setUsernameError] = useState(false);
-  const {
-    valQuery: { data: valUsername },
-  } = useValUserName(currUsername?.length > 2 ? currUsername : '##');
+  const { data: valUsername, isLoading } = useValUserName(currUsername?.length > 2 ? currUsername : '##');
   const usernameVal = valUsername?.username;
 
   useEffect(() => {
-    console.log(currUsername, usernameVal);
     if (usernameVal && userData?.username !== currUsername) {
       setUsernameError(true);
       console.log('중복임 사용불가');
@@ -86,7 +83,7 @@ export const FormEditUserInfo = () => {
       setUsernameError(false);
       console.log('사용가능 ');
     }
-  }, [currUsername]);
+  }, [currUsername, isLoading]);
 
   //회원탈퇴 모달
   const [handleModal, setHandleModal] = useState<boolean>(false);
@@ -94,7 +91,15 @@ export const FormEditUserInfo = () => {
     setHandleModal(!handleModal);
   };
 
-  return (
+  //수정하기
+  const onSubmit = async (data: IEditIData) => {
+    const { username, oldPassword, password, bio } = data;
+    const imgUrl = imgUrlMutation.data;
+    const editData = { username, oldPassword, password, bio, imgUrl };
+    editMutation.mutate(editData);
+    console.log(data);
+  };
+  return !isUserDataLoading ? (
     <MyPageContentsLayout>
       <div className={className.container}>
         <p className={className.title}>내 정보 수정</p>
@@ -108,8 +113,9 @@ export const FormEditUserInfo = () => {
             <Controller
               name="email"
               control={control}
-              render={({ field }) => {
-                return <FormInput id="email" disabled {...field} />;
+              defaultValue=""
+              render={({ field: { name, value } }) => {
+                return <FormInput id="email" disabled name={name} value={value || ''} />;
               }}
             />
           </InputContainer>
@@ -118,14 +124,17 @@ export const FormEditUserInfo = () => {
             <Controller
               name="username"
               control={control}
-              render={({ field }) => {
+              defaultValue=""
+              render={({ field: { name, onChange, value } }) => {
                 const errorDisplay = usernameError || errors.username ? 'error' : '';
                 return (
                   <FormInput
                     id="username"
-                    placeholder="2자이상 20자이하로 등록해주세요."
+                    placeholder="이름을 변경하시려면 2자이상 20자이하로 등록해주세요."
                     error={errorDisplay}
-                    {...field}
+                    name={name}
+                    onChange={onChange}
+                    value={value || ''}
                   />
                 );
               }}
@@ -135,20 +144,23 @@ export const FormEditUserInfo = () => {
             </IputError>
           </InputContainer>
 
-          <InputContainer inputProp="oldPassword" label="현재 비밀번호">
+          <InputContainer inputProp="oldPassword" label="현재 비밀번호" isRequired>
             <Controller
               name="oldPassword"
               control={control}
-              render={({ field }) => {
+              defaultValue=""
+              render={({ field: { name, onChange, value } }) => {
                 const errorDisplay = errors.oldPassword ? 'error' : '';
 
                 return (
                   <FormInput
                     type="password"
                     id="oldPassword"
-                    placeholder="현재 비밀번호를 입력해주세요"
+                    placeholder="내 정보를 수정하려면 현재 비밀번호를 꼭 입력해주세요."
                     error={errorDisplay}
-                    {...field}
+                    name={name}
+                    onChange={onChange}
+                    value={value || ''}
                   />
                 );
               }}
@@ -156,40 +168,44 @@ export const FormEditUserInfo = () => {
             <IputError>{errors.oldPassword && errors.oldPassword.message}</IputError>
           </InputContainer>
 
-          <InputContainer inputProp="password" label="비밀번호 변경">
+          <InputContainer inputProp="password" label="새 비밀번호">
             <Controller
               name="password"
               control={control}
-              render={({ field }) => {
+              render={({ field: { name, onChange, value } }) => {
                 const errorDisplay = errors.password ? 'error' : '';
 
                 return (
                   <FormInput
                     type="password"
                     id="password"
-                    placeholder="변경하실 비밀번호를 입력해주세요"
+                    placeholder="비밀번호를 변경하시려면 새 비밀번호를 입력해주세요."
                     error={errorDisplay}
-                    {...field}
+                    name={name}
+                    onChange={onChange}
+                    value={value || ''}
                   />
                 );
               }}
             />
             <IputError>{errors.password && errors.password.message}</IputError>
           </InputContainer>
-          <InputContainer inputProp="confimrPassword" label="비밀번호 확인">
+          <InputContainer inputProp="confimrPassword" label="새 비밀번호 확인">
             <Controller
               name="confimrPassword"
               control={control}
-              render={({ field }) => {
+              render={({ field: { name, onChange, value } }) => {
                 const errorDisplay = errors.confimrPassword ? 'error' : '';
 
                 return (
                   <FormInput
                     type="password"
                     id="confimrPassword"
-                    placeholder="비밀번호 확인"
+                    placeholder="새 비밀번호를 한번 더 입력해주세요."
                     error={errorDisplay}
-                    {...field}
+                    name={name}
+                    onChange={onChange}
+                    value={value || ''}
                   />
                 );
               }}
@@ -201,15 +217,18 @@ export const FormEditUserInfo = () => {
             <Controller
               name="bio"
               control={control}
-              render={({ field }) => {
+              defaultValue=""
+              render={({ field: { name, onChange, value } }) => {
                 const errorDisplay = errors.bio ? 'error' : '';
                 return (
                   <FormInput
                     type="textarea"
                     id="bio"
-                    placeholder="자기소개 한 줄 입력해 보세요."
+                    placeholder="자기소개 한 줄 입력해 보세요. 최대 40자 까지 가능합니다."
                     error={errorDisplay}
-                    {...field}
+                    name={name}
+                    onChange={onChange}
+                    value={value || ''}
                   />
                 );
               }}
@@ -234,12 +253,19 @@ export const FormEditUserInfo = () => {
         )}
       </div>
     </MyPageContentsLayout>
+  ) : (
+    <MyPageContentsLayout>
+      <EditSkeleton />
+    </MyPageContentsLayout>
   );
 };
 
 const className = {
-  container: 'container flex flex-col justify-center items-center mx-auto mt-5 mb-[100px] py-5 px-12 lg:px-36 flex-1',
-  title: 'text-center p-10 text-3xl font-bold',
+  container:
+    'container flex flex-col justify-center items-center flex-1 sm:w-[600px] md:w-[700px] xl:w-[800px] mx-auto mt-5 mb-[100px] py-5 px-14 lg:px-15 border-2 border-solid border-garden1 rounded-xl',
+  title: 'text-center p-10 mb-5 text-4xl font-bold text-garden1',
   form: 'flex-col w-full px-3',
-  closeButton: 'self-center absolute top-0 right-0 float-right p-5',
+  closeButton: 'self-center absolute top-2 right-2 float-right p-2 rounded-xl active:bg-white active:opacity-60',
 };
+
+export default EditUserInfo;

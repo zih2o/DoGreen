@@ -3,9 +3,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 import { loginValidation } from './yup';
 
-import { InputContainer } from '../InputContainer';
-import { FormInput, IputError, InputButton } from '../FormsAboutInput';
-import { useLogin, IAuthInput } from '../../hooks/authApi';
+import { InputContainer } from '../common/InputContainer';
+import { FormInput, IputError, InputButton } from '../common/FormsAboutInput';
+import { useLogin, IAuthData } from '../../hooks/authApi';
 
 export const Login = () => {
   const { schema } = loginValidation();
@@ -13,12 +13,14 @@ export const Login = () => {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<IAuthInput>({
+  } = useForm<IAuthData>({
     mode: 'onSubmit',
     resolver: yupResolver(schema),
   });
-  const { mutation: loginMutation } = useLogin();
-  const onSubmit = async (data: IAuthInput) => {
+  const loginMutation = useLogin();
+
+  const onSubmit = async (data: IAuthData) => {
+    console.log(data);
     loginMutation.mutate(data);
   };
 
@@ -31,9 +33,19 @@ export const Login = () => {
             name="email"
             control={control}
             defaultValue=""
-            render={({ field }) => {
+            render={({ field: { name, onChange, value } }) => {
               const errorDisplay = errors.email ? 'error' : '';
-              return <FormInput id="email" placeholder="당신의 이메일" error={errorDisplay} {...field} />;
+              console.log(value);
+              return (
+                <FormInput
+                  id="email"
+                  placeholder="이메일을 입력해주세요."
+                  error={errorDisplay}
+                  name={name}
+                  onChange={onChange}
+                  value={value || ''}
+                />
+              );
             }}
           />
           <IputError>{errors.email && errors.email.message}</IputError>
@@ -44,15 +56,17 @@ export const Login = () => {
             name="password"
             control={control}
             defaultValue=""
-            render={({ field }) => {
+            render={({ field: { name, onChange, value } }) => {
               const errorDisplay = errors.password ? 'error' : '';
               return (
                 <FormInput
                   type="password"
                   id="password"
-                  placeholder="당신의 비밀번호"
+                  placeholder="비밀번호를 입력해주세요."
                   error={errorDisplay}
-                  {...field}
+                  name={name}
+                  onChange={onChange}
+                  value={value || ''}
                 />
               );
             }}
@@ -73,10 +87,10 @@ export const Login = () => {
 
 const className = {
   container:
-    'flex flex-col items-center justify-start w-[460px] h-[400px] px-8 border-[3px] border-garden1 box-border rounded bg-gardenBG shadow-[0_0_30px_rgba(30, 30, 30, 0.185)]',
+    'flex flex-col items-center justify-start w-[460px] h-[400px] px-8 border-[3px] border-garden1 box-border rounded-xl bg-gardenBG shadow-[0_0_30px_rgba(30, 30, 30, 0.185)]',
   title: 'justify-self-start text-center my-10 pb-3 text-garden1 font-pacifico text-4xl',
   form: 'flex-col w-full px-3',
-  accountContainer: 'flex p-1 mr-3 self-end text-xl ',
-  accountText: 'text-garden4 text-base',
-  accountLink: 'text-garden1 pl-3 accountContainer font-semibold',
+  accountContainer: 'flex py-2 px-1 mr-3 self-end text-xl ',
+  accountText: 'text-garden4 text-base dark:text-[#dedad9]',
+  accountLink: 'text-garden1 pl-3 accountContainer font-semibold hover:text-forest1 transition ease-in delay-75',
 };

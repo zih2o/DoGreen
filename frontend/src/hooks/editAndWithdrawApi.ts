@@ -17,7 +17,7 @@ export default function useEditUserData() {
   const editMutate = async (newData: IuserInfo) => {
     return await api.patch('/user/me', newData);
   };
-  const mutation = useMutation({
+  return useMutation({
     mutationFn: editMutate,
     onMutate: () => {
       alert('수정하시겠습니까?');
@@ -32,5 +32,4 @@ export default function useEditUserData() {
       alert(error?.response?.data?.error);
     },
   });
-  return { mutation };
 }
