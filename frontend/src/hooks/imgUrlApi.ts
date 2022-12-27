@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../util/api';
+import { AxiosError } from 'axios';
 
 export default function createUrl() {
   const queryClient = useQueryClient();
@@ -19,7 +20,9 @@ export default function createUrl() {
     },
     onError: (error) => {
       console.log('이미지에러');
-      alert(error?.response?.data?.error);
+      if (error instanceof AxiosError) {
+        alert(error?.response?.data?.error);
+      }
     },
   });
 }

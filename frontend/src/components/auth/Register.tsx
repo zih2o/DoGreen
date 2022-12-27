@@ -7,6 +7,9 @@ import { InputContainer } from '../common/InputContainer';
 import { FormInput, IputError, InputButton } from '../common/FormsAboutInput';
 import { useResiter, IAuthData } from '../../hooks/authApi';
 import { useValUserName, useValEmail } from '../../hooks/useValUserData';
+import { DialogModal } from '../common/DialogModal';
+import { alertStore } from '../../store/alertStore';
+
 interface IRegisterData extends IAuthData {
   username: string;
   confimrPassword: string;
@@ -24,11 +27,14 @@ export const Register = () => {
   });
 
   //데이터 전달
-  const registerMutation = useResiter();
+  const { confirmMsg, errorMsg } = alertStore();
+
+  const { mutate, isError, isSuccess } = useResiter();
   const onSubmit = (data: IRegisterData) => {
     const { username, email, password } = data;
     const role = 'USER';
-    registerMutation.mutate({ username, email, password, role });
+    mutate({ username, email, password, role });
+    console.log(isError);
   };
 
   const [currUsername, currEmail] = useWatch({ control, name: ['username', 'email'] });
@@ -151,6 +157,8 @@ export const Register = () => {
         </InputContainer>
         <InputButton value="가입하기" />
       </form>
+      <>{isError ? <DialogModal title="에러" message={errorMsg} type="alert" /> : null}</>
+      <>{isSuccess ? <DialogModal title="가입완료" message={confirmMsg} type="alert" navigate="/" /> : null}</>
     </div>
   );
 };

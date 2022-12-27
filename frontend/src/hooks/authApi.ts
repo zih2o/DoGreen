@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../util/api';
 import { useNavigate } from 'react-router';
-import { AlertModal } from '../components/common/AlertModal';
-import { Navigate } from 'react-router-dom';
+import { AxiosError } from 'axios';
+import { alertStore } from '../store/alertStore';
 
 export interface IAuthData {
   username?: string;
@@ -31,15 +31,15 @@ export function useLogin() {
       navigate('/');
     },
     onError: (error) => {
-      console.error('에러 발생했지롱');
-      alert(error?.response?.data?.error);
-      console.log('test');
+      if (error instanceof AxiosError) {
+        console.log(error?.response?.data?.error);
+        alertStore.setState({ errorMsg: error?.response?.data?.error });
+      }
     },
   });
 }
 
 export function useResiter() {
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const registerMutate = async (data: IAuthData) => {
     return await api.post('/auth/register', data);
@@ -48,12 +48,14 @@ export function useResiter() {
     mutationFn: registerMutate,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user'] });
+      alertStore.setState({ confirmMsg: '회원가입 되셨습니다.' });
       console.log('성공');
-      navigate('/');
     },
     onError: (error) => {
-      console.error('에러 발생했지롱');
-      alert(error?.response?.data?.error);
+      if (error instanceof AxiosError) {
+        alert(error?.response?.data?.error);
+        alertStore.setState({ errorMsg: error?.response?.data?.error });
+      }
     },
   });
 }
