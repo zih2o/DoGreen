@@ -26,6 +26,11 @@ export class CategoryRepository implements ICategoryRepository {
     await CategoryModel.deleteOne({ _id: categoryId });
   }
 
+  async isCategoryExists(id: string) {
+    const category = await CategoryModel.exists({ _id: id });
+    return category !== null;
+  }
+
   async findCategoryByIds(ids: string[]) {
     return CategoryModel.find({ _id: ids });
   }
