@@ -9,7 +9,7 @@ import { SubscribeSchema } from './subscribe.schema';
 const SubscribeModel = model<SubscribeT>('subscribes', SubscribeSchema);
 const categorySerivce = new CategoryService();
 
-export class SubscribeRepository {
+export class SubscribeService {
   async findSubscriptionByAuthId(authId: string) {
     const subscribe = await SubscribeModel.findOne({ authId });
     invariant(subscribe !== null, new BadRequestError('구독정보가 없습니다.')); // not found
