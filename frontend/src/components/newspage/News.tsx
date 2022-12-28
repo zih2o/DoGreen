@@ -74,7 +74,7 @@ export default function NewsCard(props: INews) {
   };
 
   return (
-    <div className="flex w-full h-full justify-center py-6 bg-gardenBG">
+    <div className="flex w-full h-full justify-center py-6 px-6 bg-gardenBG">
       <div className="flex flex-col mr-4 items-center">
         <img className={'rounded-full w-12 h-12 shadow-xl'} src={props.categoryImg} alt="펭귄" />
         <span className="font-semibold">{props.categoryName}</span>
@@ -88,7 +88,8 @@ export default function NewsCard(props: INews) {
           <div className="flex items-center">
             <FaHeart
               className={
-                'mr-4 hover:cursor-pointer ' + (isLoggedIn && props.isLiked ? 'text-red-400' : 'dark:text-slate-50')
+                ' w-6 h-6 mr-4 hover:cursor-pointer ' +
+                (isLoggedIn && props.isLiked ? 'text-red-400' : 'dark:text-slate-50')
               }
               onClick={() =>
                 handleClickLike({
@@ -103,11 +104,11 @@ export default function NewsCard(props: INews) {
               }
             />
             <ImBubble
-              className={'mr-4 hover:cursor-pointer dark:text-slate-50'}
+              className={'mr-4 w-6 h-6 hover:cursor-pointer dark:text-slate-50'}
               onClick={() => setClickComment(!clickComment)}
             />
             {props.likesNum !== 0 && (
-              <div className="text-sm text-garden4 font-semibold">{props.likesNum} 명이 이 글을 좋아합니다.</div>
+              <div className="pr-4 text-sm text-garden4 font-semibold">{props.likesNum} 명이 이 글을 좋아합니다.</div>
             )}
           </div>
           <span className=" text-slate-50 font-semibold text-sm">
