@@ -44,9 +44,3 @@ export class CategoryRepository implements ICategoryRepository {
     await CategoryModel.create(newCategory);
   }
 }
-
-// createOneCategory: (newCategory: any) => Promise<void>;
-//     deleteOneCategory: (targetCategory: string) => Promise<void>;
-//     updateOneCategory: (deleteCategory: any) => Promise<void>;
-//     findOneCategory: (id: Types.ObjectId) => Promise<categoryT | null>;
-//     findAllCategory: () => Promise<categoryT[]>;
