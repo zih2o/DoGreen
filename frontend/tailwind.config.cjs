@@ -60,12 +60,12 @@ module.exports = {
             transform: 'translateX(50px)',
           },
           '100%': {
-            transform: 'translateX(-900px)',
+            transform: 'translateX(-450px)',
           },
         },
         rightMove: {
           '0%': {
-            transform: 'translateX(-900px)',
+            transform: 'translateX(-450px)',
           },
           '100%': {
             transform: 'translateX(50px)',
