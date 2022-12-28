@@ -67,17 +67,20 @@ export class AuthService implements IAuthService {
   };
 
   async updatePassword(
-    oldPassword: AuthT['password'] | undefined,
-    newAuth: Partial<Pick<AuthT, 'email' | 'password'>>
-  ) {
-    if (!oldPassword || !newAuth.email || !newAuth.password) {
-      return;
+    oldPassword: AuthT['password'],
+    newAuth: {
+      email: AuthT['email'],
+      newPassword?: AuthT['password']
     }
-
+  ) {
     const isPasswordCorrect = await this.isPasswordCorrect(oldPassword, newAuth.email);
     invariant(isPasswordCorrect, new BadRequestError('입력하신 비밀번호가 틀립니다'));
 
-    const newHash = await argon2.hash(newAuth.password);
+    if (!newAuth.newPassword) {
+      return;
+    }
+
+    const newHash = await argon2.hash(newAuth.newPassword);
     await AuthModel.updateOne({ password: newHash });
   }
 
