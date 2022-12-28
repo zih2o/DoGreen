@@ -7,10 +7,10 @@ const loginOptional = (req: Request, res: Response, next: NextFunction) => {
   const userToken = req.headers['authorization']?.split(' ')[1];
 
   if (userToken === undefined || userToken !== '') {
-    next();
+    return next();
   }
 
-  loginRequired(req, res, next);
+  return loginRequired(req, res, next);
 };
 
 export { loginOptional };

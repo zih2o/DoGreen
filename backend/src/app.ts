@@ -5,6 +5,7 @@ import cors from 'cors';
 import routes from './routes';
 import logger from './logger';
 import ApplicationError from './errors/ApplicationError';
+import initEmptyContext from './middleware/initEmptyContext';
 
 const app = express();
 
@@ -34,6 +35,8 @@ function logResponseTime(req: Request, res: Response, next: NextFunction) {
 
   next();
 }
+
+app.use(initEmptyContext);
 
 app.use(logResponseTime);
 // response.body 압축해주는 역할
