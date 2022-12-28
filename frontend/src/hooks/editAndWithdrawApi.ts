@@ -24,12 +24,10 @@ export default function useEditUserData() {
     onSuccess: () => {
       alertStore.setState({ confirmMsg: '수정되었습니다.' });
       queryClient.invalidateQueries({ queryKey: ['user'] });
-      console.log('성공');
       console.log(alertStore.getState().confirmMsg);
     },
     onError: (error) => {
       if (error instanceof AxiosError) {
-        alert(error?.response?.data?.error);
         alertStore.setState({ errorMsg: error?.response?.data?.error });
       }
     },

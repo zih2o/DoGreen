@@ -25,6 +25,12 @@ function Drawer() {
   return (
     <>
       <div className={className.topDiv}>
+        {handleModal && (
+          <button
+            className="fixed -z-10 top-[13.4%] left-[0%] w-[30%] h-[78.1%] bg-navBg md:w-[70%]"
+            onClick={closeModal}
+          />
+        )}
         {existUser ? (
           <>
             <div className="flex flex-col mx-auto items-center">
@@ -39,12 +45,6 @@ function Drawer() {
           <LoginForm />
         )}
       </div>
-      {handleModal && (
-        <button
-          className="fixed -z-10 top-[13.4%] left-[0%] w-[30%] h-[78.1%] bg-navBg md:w-[70%]"
-          onClick={closeModal}
-        />
-      )}
     </>
   );
 }

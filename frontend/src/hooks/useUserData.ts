@@ -42,7 +42,7 @@ export default function useUserData() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user'] });
-      console.log('성공');
+      alertStore.setState({ confirmMsg: '정보가 수정 되었습니다.' });
     },
     onError: (error) => {
       if (error instanceof AxiosError) {
@@ -57,7 +57,6 @@ export default function useUserData() {
   const withdrawMutaiton = useMutation({
     mutationFn: withdrawMutate,
     onSuccess: () => {
-      console.log('회원탈퇴');
       alertStore.setState({ confirmMsg: '회원탈퇴 되었습니다.' });
     },
     onError: (error) => {

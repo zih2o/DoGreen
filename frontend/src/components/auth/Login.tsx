@@ -20,15 +20,10 @@ export const Login = () => {
     resolver: yupResolver(schema),
   });
   const { mutate, isError, isSuccess } = useLogin();
-  const errorMassage = alertStore.getState()?.errorMsg;
+  const { errorMsg, confirmMsg } = alertStore();
 
   const onSubmit = async (data: IAuthData) => {
-    console.log(data);
     mutate(data);
-    console.log('store', errorMassage);
-    console.log('isSuccess:', isSuccess);
-    console.log('isError', isError);
-    console.log('data', data);
   };
 
   return (
@@ -88,7 +83,10 @@ export const Login = () => {
           Create account
         </a>
       </div>
-      <>{isError ? <DialogModal title="에러" message={errorMassage} type="alert" /> : null}</>
+      <>
+        {isSuccess ? <DialogModal title="확인" message={confirmMsg} type="alert" refresh /> : null}
+        {isError ? <DialogModal title="에러" message={errorMsg} type="alert" /> : null}
+      </>
     </div>
   );
 };

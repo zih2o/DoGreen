@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, redirect } from 'react-router-dom';
 import Modal from './Modal';
 import { useModalState } from '../../hooks/useModalState';
 
@@ -8,17 +8,19 @@ export interface IModalType {
   message: string;
   type: string;
   navigate?: string;
+  refresh?: boolean;
 }
-export const DialogModal = ({ title, message, type, navigate }: IModalType) => {
+export const DialogModal = ({ title, message, type, navigate, refresh }: IModalType) => {
   const { isOpen, handleToggle } = useModalState();
   const [handleModal, setHandleModal] = useState(isOpen);
   const nav = useNavigate();
 
   console.log('isopen:', isOpen);
   const handleClose = () => {
+    console.log(isOpen);
     handleToggle();
-    console.log('버튼누름');
-    setHandleModal(!handleModal);
+    console.log(isOpen);
+    !refresh ? setHandleModal(!handleModal) : window.location.replace('/');
     navigate && nav(navigate);
   };
   const handleConfirm = () => {

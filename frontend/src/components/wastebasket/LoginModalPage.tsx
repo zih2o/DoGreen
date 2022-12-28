@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Modal from '../components/common/Modal';
-import { Login } from '../components/auth/Login';
+import Modal from '../common/Modal';
+import { Login } from '../auth/Login';
 import { AiOutlineClose } from 'react-icons/ai';
 
 function LoginModalPage() {
@@ -35,7 +35,6 @@ function LoginModalPage() {
   return (
     <main className={className.pageContainer}>
       <h3 className={className.pageText}>버튼이 있는 곳의 배경</h3>
-      {/*모달컴포넌트를 추가하려면 아래의 코드를 사용해야함 */}
       {handleModal && (
         <Modal onClose={onClose}>
           <button type="button" className={className.closeButton} onClick={onClose}>
@@ -43,19 +42,7 @@ function LoginModalPage() {
           </button>
           <Login />
         </Modal>
-        /* 기본 폼
-      <Modal onClose={onClose} handleBybutton={onClose}>
-
-        <모달로 띄우고싶은 컴포넌트 />
-        닫기버튼 추가할 경우,
-        1. 해당 위치에서, 모달을 닫고싶은 컴포넌트 및 태그를 추가 (postion : absolute 사용 권장)
-        2. 속성값으로  'onClick={onClose}' 값을 줌
-      
-      </Modal>
-      */
       )}
-
-      {/* 모달을 제어할 버튼 */}
       <button
         className={className.modalCotrolBtn}
         onClick={() => {
