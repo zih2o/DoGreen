@@ -37,13 +37,12 @@ const SubscribeTab = () => {
   const handleClickLink = (category: ICategory) => {
     setCategory(category);
   };
-
   const tabCards = subInfo?.map((card) => (
     <li className={CardType.size + CardType.flipContent} key={card._id}>
       <div key={`back-${card._id}`} className={CardType.layout + CardType.back}>
         <button type="button" className={BtnType.newsLetterBtn}>
           {' '}
-          <Link to={`/categories/${card.categoryName}`} onClick={() => handleClickLink(card)}>
+          <Link to={`/categories/${card._id}`} onClick={() => handleClickLink(card)}>
             뉴스레터 📰
           </Link>
         </button>

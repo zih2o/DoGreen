@@ -15,17 +15,13 @@ export const DialogModal = ({ title, message, type, navigate, refresh }: IModalT
   const [handleModal, setHandleModal] = useState(isOpen);
   const nav = useNavigate();
 
-  console.log('isopen:', isOpen);
   const handleClose = () => {
-    console.log(isOpen);
     handleToggle();
-    console.log(isOpen);
     !refresh ? setHandleModal(!handleModal) : window.location.replace('/');
     navigate && nav(navigate);
   };
   const handleConfirm = () => {
     handleToggle();
-    console.log('버튼누름');
     setHandleModal(!handleModal);
   };
   return isOpen ? (

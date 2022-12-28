@@ -42,15 +42,16 @@ export const CategoriesPage = () => {
   const setCategory = useSelectedCategory((state) => state.setCategory);
 
   if (error) {
-    //console.log('errorrrrrr');
+    error;
   } else {
-    refetch();
+    // refetch();
   }
   useEffect(() => {
     handleClose();
     getUserInfo();
-
-    refetch();
+    if (existUser) {
+      // refetch();
+    }
   }, [existUser]);
 
   const checkLogin = () => {
@@ -60,7 +61,7 @@ export const CategoriesPage = () => {
     handleClose();
   };
   const handleSubButton = (category: ICategory) => {
-    setNewSubsInfo((prev) => ({
+    setNewSubsInfo(() => ({
       categoryId: category._id,
       categoryName: category.categoryName,
       subStatus: true,
