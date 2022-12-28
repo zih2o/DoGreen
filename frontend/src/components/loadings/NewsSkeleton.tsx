@@ -1,4 +1,4 @@
-import React, { Dispatch, RefObject, SetStateAction } from 'react';
+import React from 'react';
 
 export default function NewsSkeleton(props?: Record<'instance', () => void>) {
   return (

@@ -53,5 +53,7 @@ export default function usePost(catId?: string) {
     },
   });
 
+  // const addPost = useMutation~~~~
+
   return { postQuery, addLike };
 }

@@ -5,7 +5,7 @@ import { ImBubble } from 'react-icons/im';
 import useComment, { IComment } from '../../hooks/useComment';
 import Loading from '../loadings/Loading';
 import Modal from '../common/Modal';
-import { useUserInfo } from '../../hooks/store';
+import { useUserInfo } from '../../hooks/useUser';
 import NewsCarousel from './NewsCarousel';
 import usePost, { IPost } from '../../hooks/usePost';
 
@@ -141,7 +141,7 @@ export default function NewsCard(props: INews) {
                   ))}
                 </Fragment>
               ))}
-              {(hasNextPage || status === 'loading') && <Loading instance={ref} />}
+              {(hasNextPage || status === 'loading') && <Loading ref={ref} />}
             </div>
             <form onSubmit={handleSubmit} className={Theme.CommentTheme.form} onFocus={handleFocus}>
               <input type="text" className={Theme.CommentTheme.input} onChange={handleChange} value={inputValue} />

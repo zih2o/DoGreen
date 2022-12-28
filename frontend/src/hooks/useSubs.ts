@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../util/api';
-import { useUserInfo } from '../hooks/store';
+import { useUserInfo } from './useUser';
 export interface ISubscription {
   _id: string;
   categoryName: string;
