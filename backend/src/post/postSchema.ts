@@ -7,6 +7,11 @@ const PostSchema = new Schema<PostT>(
       ref: 'categories',
       index: true
     },
+    authId: {
+      type: Schema.Types.ObjectId,
+      ref: 'auths',
+      required: true
+    },
     content: {
       type: String,
       minlength: 5,

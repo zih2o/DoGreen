@@ -41,14 +41,21 @@ export class PostController {
 
   async deletePost(req: Request, res: Response, next: NextFunction) {
     const { id } = req.params;
+    const currentAuthId = req.context.currentUser?.authId;
+
     invariant(typeof id === 'string', new BadRequestError('포스트의 id 가 없습니다.'));
-    await postService.deletePost(id);
+    invariant(currentAuthId !== undefined, new ForbiddenError('로그인해야 이용할 수 있는 서비스입니다.'));
+
+    await postService.deletePost(id, currentAuthId);
     res.status(204).end();
   }
 
   async updatePost(req: Request, res: Response, next: NextFunction) {
     const updatedContents = req.body;
-    await postService.updatePost(updatedContents, req.params.id);
+    const currentAuthId = req.context.currentUser?.authId;
+    invariant(currentAuthId !== undefined, new ForbiddenError('로그인해야 이용할 수 있는 서비스입니다.'));
+
+    await postService.updatePost(updatedContents, req.params.id, currentAuthId);
     res.status(200).end();
   }
 

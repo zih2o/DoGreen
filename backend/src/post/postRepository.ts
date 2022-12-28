@@ -6,6 +6,7 @@ import { CommentSchema } from '../comment/commentSchema';
 import ApplicationError from '../errors/ApplicationError';
 import { UserSchema } from '../user/user.schema';
 import { NotFoundError } from '../errors/NotFoundError';
+import { ForbiddenError } from '../errors/ForbiddenError';
 
 const PostModel = model<PostT>('posts', PostSchema);
 const CategoryModel = model<categoryT>('categories', CategorySchema);
@@ -70,10 +71,16 @@ export class PostRepository implements IPostRepository {
     };
   }
 
-  async deletePostByCommentId(commentId: string) {
+  async deletePostCommentId(commentId: string, currentAuthId: string) {
     const comment = await CommentModel.findById(commentId);
     invariant(comment !== null, new NotFoundError('해당하는 댓글이 존재하지 않습니다.'));
     await PostModel.findOneAndUpdate(comment.refPost, { $pull: { comments: commentId } });
+  }
+
+  async isWrittenByCurrentUser(postId: string, currentAuthId: string): Promise<void> {
+    const targetPost = await PostModel.findById(postId); // null
+    invariant(targetPost !== null, `${postId}에 해당하는 포스트가 존재하지 않습니다.`);
+    invariant(targetPost.authId !== currentAuthId, new ForbiddenError('작성자가 아니므로 권한이 존재하지 않습니다.'));
   }
 
   async findAllCommentAtPost(postId: string) {
@@ -134,17 +141,21 @@ export class PostRepository implements IPostRepository {
     await CategoryModel.findByIdAndUpdate(categoryId, { $push: { posts: newPostId.id } });
   }
 
-  async deleteOne(postId: string) {
+  async deleteOne(postId: string, currentAuthId: string) {
     const post = await PostModel.findById(postId);
     invariant(post !== null, new NotFoundError('해당하는 Post가 존재하지 않습니다.'));
+
+    await this.isWrittenByCurrentUser(postId, currentAuthId);
     await CategoryModel.findByIdAndUpdate(post.category, { $pull: { posts: postId } });
     await CommentModel.deleteMany({ _id: post.comments });
     await PostModel.findByIdAndDelete(postId);
   }
 
-  async updateOne(postId: string, toUpdatePost: updatePostDto) {
+  async updateOne(postId: string, toUpdatePost: updatePostDto, currentAuthId: string) {
     const category = await CategoryModel.exists({ categoryName: toUpdatePost.category });
     invariant(category !== null, new NotFoundError('해당하는 카테고리가 존재하지 않습니다.'));
+
+    await this.isWrittenByCurrentUser(postId, currentAuthId);
     // 포스트 정보 변경
     await PostModel.updateMany(
       { _id: postId },

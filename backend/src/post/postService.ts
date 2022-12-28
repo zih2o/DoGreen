@@ -34,21 +34,29 @@ export class PostService implements IPostService {
     await postRepository.createOne(createPostInfo, categoryId._id);
   }
 
-  async deletePost(postId: string) {
-    await postRepository.deleteOne(postId);
+  async deletePost(postId: string, currentAuthId: string) {
+    await this.isWrittenByCurrentUser(postId, currentAuthId);
+    await this.isWrittenByCurrentUser(postId, currentAuthId);
+    await postRepository.deleteOne(postId, currentAuthId);
   }
 
-  async updatePost(updatedContents: updatePostDto, postId: string) {
+  async isWrittenByCurrentUser(postId: string, currentAuthId: string) {
+    await postRepository.isWrittenByCurrentUser(postId, currentAuthId);
+  }
+
+  async updatePost(updatedContents: updatePostDto, postId: string, currentAuthId: string) {
     const { category, content, imageList } = updatedContents;
+    await this.isWrittenByCurrentUser(postId, currentAuthId);
 
     const toUpdatePost = {
       ...(category && { category }),
       ...(content && { content }),
       ...(imageList && { imageList })
     };
-    await postRepository.updateOne(postId, toUpdatePost);
+    await postRepository.updateOne(postId, toUpdatePost, currentAuthId);
   }
 
+  // ADMIN
   async findAllPost() {
     const totalPostInfo = await postRepository.findAll();
     return totalPostInfo;
