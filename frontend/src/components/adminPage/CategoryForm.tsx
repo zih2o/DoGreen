@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { api } from '../../util/api';
 import { useMutation } from '@tanstack/react-query';
-import createUrl from '../../hooks/imgUrlApi';
-
+import createUrl from '../../hooks/useImage';
 export default function CategoryForm() {
   const mascotNameRef = useRef();
   const categoryRef = useRef();
