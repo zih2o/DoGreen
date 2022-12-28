@@ -11,6 +11,7 @@ import Modal from '../common/Modal';
 import { useModalState } from '../../hooks/useModalState';
 import { AiOutlineClose } from 'react-icons/ai';
 import { toast } from 'react-toastify';
+import { ICategory, useSelectedCategory } from '../../hooks/useCategory';
 
 const SubscribeTab = () => {
   const { isOpen, handleClose, handleToggle } = useModalState();
@@ -20,6 +21,8 @@ const SubscribeTab = () => {
     subsQuery: { isLoading, data: subInfo, refetch },
     delMutation,
   } = useSubscription(cancelId);
+
+  const setCategory = useSelectedCategory((state) => state.setCategory);
 
   useEffect(() => {
     handleClose();
@@ -31,12 +34,18 @@ const SubscribeTab = () => {
     handleClose();
   };
 
+  const handleClickLink = (category: ICategory) => {
+    setCategory(category);
+  };
+
   const tabCards = subInfo?.map((card) => (
     <li className={CardType.size + CardType.flipContent} key={card._id}>
       <div key={`back-${card._id}`} className={CardType.layout + CardType.back}>
         <button type="button" className={BtnType.newsLetterBtn}>
           {' '}
-          <Link to={`/categories/${card._id}`}>뉴스레터 📰</Link>
+          <Link to={`/categories/${card.categoryName}`} onClick={() => handleClickLink(card)}>
+            뉴스레터 📰
+          </Link>
         </button>
         <button
           type="button"
