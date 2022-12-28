@@ -8,7 +8,7 @@ interface IInputContainer {
   isRequired?: boolean;
 }
 
-export const ImgContainer = ({ src, label, inputProp, children, isRequired }: IInputContainer) => {
+export const ImgContainer = ({ src, label, inputProp, children }: IInputContainer) => {
   return (
     <div className={className.container}>
       <label htmlFor={inputProp} className={className.label}>

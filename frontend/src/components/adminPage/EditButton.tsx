@@ -1,35 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { api } from '../../util/api';
 import { useMutation } from '@tanstack/react-query';
 import { useAdminCategoryStore } from '../../hooks/useAdminCategory';
 
-export default function EditButton({ id, cardtype }) {
-  const { toggleAdminModal, currentCategoryCard } = useAdminCategoryStore();
-  const [currentData, setCurrentData] = useState();
+export default function EditButton({ id, cardtype, setEditBtnHandler }) {
+  const { toggleAdminModal, setCurrentCategoryCard, setCurrentNewsCard } = useAdminCategoryStore();
   useEffect(() => {
-    const { data } = async () => await api(`/${cardtype}/${id}`);
-    setCurrentData(data);
+    const resData = async () =>
+      await api(`/${cardtype}/${id}`)
+        .then((res) => {
+          return res.data;
+        })
+        .then((data) => {
+          cardtype === 'category'
+            ? setCurrentCategoryCard(data._id, data.mascotName, data.categoryName)
+            : setCurrentNewsCard(data._id, data.category, data.content);
+        });
+
     resData();
-    console.log(resData());
   }, []);
+
   const clickEditBtn = async () => {
     toggleAdminModal();
-  };
-
-  const pathPost = { content: '' };
-  const pathCategory = { categoryName: '괔캌뫀맄', mascotName: '홀리몰리ㅣㅣㅣ' };
-
-  const patchMutation = useMutation(() => api.patch(`/${cardtype}/${id}`, ''));
-  const patchHandler = (event) => {
-    confirm('해당 카테고리를 삭제하시겠습니까?') ? patchMutation.mutate() : event.preventDefault();
+    setEditBtnHandler(false);
   };
 
   const deleteMutation = useMutation(() => api.delete(`/${cardtype}/${id}`));
   const deleteHandler = (event) => {
+    setEditBtnHandler(false);
     confirm('해당 카테고리를 삭제하시겠습니까?') ? deleteMutation.mutate() : event.preventDefault();
   };
   return (
-    <div id="dropdown" className="w-36 text-base bg-white divide-gray-100 rounded shadow">
+    <div id="dropdown" className="absolute mt-8 w-36 text-base bg-white divide-gray-100 rounded shadow">
       <ul className="py-1" aria-labelledby="dropdownButton">
         <button className="container text-start text-gray-700 block px-4 py-2 hover:bg-gray-100" onClick={clickEditBtn}>
           <li>Edit</li>

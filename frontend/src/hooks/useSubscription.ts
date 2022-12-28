@@ -1,9 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../util/api';
-import { AuthStore } from './useAuth';
 import { useUserInfo } from '../hooks/store';
 export interface ISubscription {
-  _id: string | undefined;
+  _id: string;
   categoryName: string;
   mascotName: string;
   mascotImage: string;
@@ -17,10 +16,6 @@ export function useSubscription(catId: string) {
     queryKey: ['userCategories'],
     queryFn: async () => {
       return await api.get('/subscribe').then((res) => res.data);
-    },
-    onSuccess: () => {
-      // queryClient.invalidateQueries({ queryKey: ['userCategories'] });
-      console.log('구독 조회');
     },
     onError: () => {
       queryClient.invalidateQueries({ queryKey: ['userCategories'] });

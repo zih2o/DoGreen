@@ -10,13 +10,13 @@ export default function Card({ id, img, name, description, cardtype }) {
         <button
           id="dropdownButton"
           data-dropdown-toggle="dropdown"
-          onClick={() => setEditBtnHandler(!editBtnHandler)}
+          onClick={() => setEditBtnHandler((editBtnHandler) => !editBtnHandler)}
           className="inline-flex items-center justify-center h-full px-2 text-gray-600 border-gray-100 hover:text-[#D7CCCC] rounded-r-md hover:[#292524]"
           type="button"
         >
           <BiDotsHorizontalRounded className="w-7 h-8 dark:hoverr:fill-white" />
         </button>
-        {editBtnHandler && <EditButton id={id} cardtype={cardtype}/>}
+        {editBtnHandler && <EditButton id={id} cardtype={cardtype} setEditBtnHandler={setEditBtnHandler}/>}
       </div>
       <div className="flex flex-col items-center">
         <img className="w-24 h-24 mb-4 rounded-full shadow-lg" src={img} alt="default card" />
