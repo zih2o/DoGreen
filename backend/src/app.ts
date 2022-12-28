@@ -8,12 +8,7 @@ import ApplicationError from './errors/ApplicationError';
 
 const app = express();
 
-const corsOptions = {
-  origin: ['https://localhost:5173', 'http://localhost:5173', 'https://do-green.vercel.app', 'http://do-green.vercel.app'],
-  credentials: true
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 
 function logResponseTime(req: Request, res: Response, next: NextFunction) {
   // 요청이 들어온 시간
