@@ -17,7 +17,8 @@ interface IRegisterData extends IAuthData {
 }
 
 export const Register = () => {
-  const { isOpen, handleClose } = useModalState();
+  const { isOpen, handleClose, handleOpen } = useModalState();
+
   const { schema } = userValidation();
   const {
     handleSubmit,
@@ -31,6 +32,7 @@ export const Register = () => {
   //데이터 전달
   const { mutate, isError, isSuccess, error } = useResiter();
   const onSubmit = (data: IRegisterData) => {
+    handleOpen();
     const { username, email, password } = data;
     const role = 'USER';
     mutate({ username, email, password, role });
@@ -57,7 +59,6 @@ export const Register = () => {
 
   //에러처리
   const errorMsg = error instanceof AxiosError ? error?.response?.data?.error : null;
-
   return (
     <div className={className.container}>
       <form onSubmit={handleSubmit(onSubmit)} className={className.form}>
@@ -160,7 +161,7 @@ export const Register = () => {
       <>
         {isError && isOpen ? <DialogModal title="에러" message={errorMsg} type="alert" onClose={handleClose} /> : null}
         {isSuccess && isOpen ? (
-          <DialogModal title="회원가입" message="회원가입 되었습니다." type="alert" refresh onClose={handleClose} />
+          <DialogModal title="회원가입" message="회원가입 되었습니다." type="alert" refresh="/" onClose={handleClose} />
         ) : null}
       </>
     </div>
@@ -169,7 +170,7 @@ export const Register = () => {
 
 const className = {
   container:
-    'flex flex-col items-center justify-start w-[580px] h-[610px] mb-[100px] px-6  border-[3px] border-garden1 box-border rounded-xl bg-gardenBG shadow-[0_0_30px_rgba(30, 30, 30, 0.185)]',
+    'flex flex-col items-center justify-start w-[580px] h-[590px] max-[600px]:h-[750px] mb-[130px] max-[600px]:mx-[20px] px-6 border-[3px] border-garden1 box-border rounded-xl bg-gardenBG shadow-[0_0_30px_rgba(30, 30, 30, 0.185)]',
   form: 'flex-col w-full px-3',
-  title: 'justify-self-start text-center my-16 pb-2 text-garden1 font-pacifico text-4xl  ',
+  title: 'justify-self-start text-center my-14 max-[550px]:my-12 pb-2 text-garden1 font-pacifico text-4xl  ',
 };

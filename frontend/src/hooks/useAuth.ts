@@ -1,5 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../util/api';
+import { useLocation } from 'react-router-dom';
+
 export interface IAuthData {
   username?: string;
   email: string;
@@ -8,6 +10,8 @@ export interface IAuthData {
 }
 
 export function useLogin() {
+  const { pathname } = useLocation();
+
   const queryClient = useQueryClient();
   const registerMutate = async (data: IAuthData) => {
     const res = await api.post('/auth/login', data);
@@ -19,7 +23,7 @@ export function useLogin() {
     onSuccess: (token) => {
       queryClient.invalidateQueries({ queryKey: ['user'] });
       window.sessionStorage.setItem('token', token);
-      window.location.replace('/');
+      window.location.replace(pathname);
     },
   });
 }
