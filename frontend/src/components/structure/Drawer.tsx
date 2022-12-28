@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import DrawerList from './DrawerList';
-import LoginForm from './hamburger/LoginForm';
-import { useDrawerStore } from '../hooks/useDrawer';
+import LoginForm from './LoginForm';
+import { useDrawerStore } from '../../hooks/useDrawer';
 
-import Loading from './loadings/Loading';
-import { useUserInfo } from '../hooks/store';
+import Loading from '../loadings/Loading';
+import { useUserInfo } from '../../hooks/useUser';
 
 function Drawer() {
   const { drawerOpen, toggleDrawer } = useDrawerStore();
@@ -25,13 +25,21 @@ function Drawer() {
   return (
     <>
       <div className={className.topDiv}>
+        {handleModal && (
+          <button
+            className="fixed -z-10 top-[13.4%] left-[0%] w-[30%] h-[78.1%] bg-navBg md:w-[70%]"
+            onClick={closeModal}
+          />
+        )}
         {existUser ? (
           <>
             <div className="flex flex-col mx-auto items-center">
-              <div className="leading-10 text-garden2 text-3xl dark:text-gray-200">
+              <div className="leading-10 text-garden2 font-bold text-2xl sm:text-3xl dark:text-gray-200">
                 {userInfo ? `${userInfo.role} ${userInfo.username}님` : <Loading />}
               </div>
-              <span className=" py-4 text-garden2 text-xl dark:text-gray-200">지금까지 펭귄 300마리를 구하셨어요!</span>
+              <span className=" py-4 text-garden2 text-center text-lg sm:text-xl dark:text-gray-200">
+                지금까지 펭귄 300마리를<br></br> 구하셨어요!
+              </span>
             </div>
             <DrawerList name={userInfo.role.toLowerCase()} handleModal={closeModal} />
           </>
@@ -39,12 +47,6 @@ function Drawer() {
           <LoginForm />
         )}
       </div>
-      {handleModal && (
-        <button
-          className="fixed -z-10 top-[13.4%] left-[0%] w-[30%] h-[78.1%] bg-navBg md:w-[70%]"
-          onClick={closeModal}
-        />
-      )}
     </>
   );
 }

@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
 import { CardType, TextType, WrapperType, BtnType } from '../common/theme';
 import CardSkeleton from '../loadings/CardSkeleton';
 import { CardLayout } from '../layout/GlobalLayout';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
-import { useSubscription } from '../../hooks/useSubscription';
+import { useSubscription } from '../../hooks/useSubs';
 import { checkName } from '../../util/functionUtil';
 import Modal from '../common/Modal';
+import { useModalState } from '../../hooks/useModalState';
 import { AiOutlineClose } from 'react-icons/ai';
+import { toast } from 'react-toastify';
+import { ICategory } from '../../hooks/useCategory';
 
 const SubscribeTab = () => {
-  const [isModal, setIsModal] = useState<boolean>(false);
+  const { isOpen, handleClose, handleToggle } = useModalState();
   const [cancelId, setCancelId] = useState<string>('');
 
   const {
@@ -18,10 +22,14 @@ const SubscribeTab = () => {
     delMutation,
   } = useSubscription(cancelId);
 
+  useEffect(() => {
+    handleClose();
+  }, []);
   refetch();
   const cancelSubscription = () => {
     delMutation.mutate();
-    setIsModal(!isModal);
+    toast.success('구독 취소!');
+    handleClose();
   };
 
   const tabCards = subInfo?.map((card) => (
@@ -37,8 +45,8 @@ const SubscribeTab = () => {
           data-id={card._id}
           id={card._id}
           onClick={() => {
-            setCancelId(card._id!);
-            setIsModal(!isModal);
+            setCancelId(card._id);
+            handleToggle();
           }}
         >
           {'구독취소 '}
@@ -60,8 +68,8 @@ const SubscribeTab = () => {
   const skeletonCards = Array(8).fill(0);
   return (
     <MyPageContentsLayout>
-      {subInfo && subInfo.length > 0 && (
-        <CardLayout>
+      {subInfo && subInfo.length > 0 ? (
+        <CardLayout isMypage>
           <div className={TextType.titleText}>{'My Greens'}</div>
           <div className={TextType.introduceText}>{'내가 구독 중인 토픽을 확인하고 관리해보세요!'} &nbsp;</div>
           <div className={WrapperType.cardContentsWrapper}>
@@ -73,20 +81,20 @@ const SubscribeTab = () => {
                   </li>
                 ))}
               {tabCards}
-              {isModal && (
+              {isOpen && (
                 <Modal
                   onClose={() => {
-                    setIsModal(!isModal);
+                    handleToggle();
                   }}
                 >
-                  <div className="relative w-full h-full max-w-md md:h-auto">
+                  <div className="relative w-72 sm:w-full h-full max-w-md md:h-auto">
                     <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                       <button
                         type="button"
                         className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
                         data-modal-toggle="popup-modal"
                         onClick={() => {
-                          setIsModal(!isModal);
+                          handleToggle();
                         }}
                       >
                         <AiOutlineClose size="24" />
@@ -109,7 +117,7 @@ const SubscribeTab = () => {
                           type="button"
                           className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-lg font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
                           onClick={() => {
-                            setIsModal(!isModal);
+                            handleToggle();
                           }}
                         >
                           아니요
@@ -122,17 +130,15 @@ const SubscribeTab = () => {
             </ul>
           </div>
         </CardLayout>
-      )}
-      {subInfo === undefined ||
-        (subInfo.length < 1 && (
-          <div className="flex-col mt-60 pb-24 align-middle">
-            <div className={TextType.titleText + ' text-center'}>구독 정보가 없습니다</div>
-            <br></br>
-            <div className="text-2xl text-center leading-10 font-bold text-garden1 underline">
-              <Link to="/categories">구독 하러가기</Link>
-            </div>
+      ) : (
+        <div className="flex-col mt-60 pb-24 align-middle">
+          <div className={TextType.titleText + ' text-center'}>구독 정보가 없습니다</div>
+          <br></br>
+          <div className="text-2xl text-center leading-10 font-bold text-garden1 underline">
+            <Link to="/categories">구독 하러가기</Link>
           </div>
-        ))}
+        </div>
+      )}
     </MyPageContentsLayout>
   );
 };

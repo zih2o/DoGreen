@@ -3,14 +3,16 @@ import { Link } from 'react-router-dom';
 import { CardLayout, CategoryLayout } from '../components/layout/GlobalLayout';
 import CardSkeleton from '../components/loadings/CardSkeleton';
 import { CardType, TextType, BtnType, WrapperType } from '../components/common/theme';
-import useCategory, { ICategory, useSelectedCategory } from '../hooks/useCategory';
-import { useSubscription } from '../hooks/useSubscription';
+import useCategory, { ICategory } from '../hooks/useCategory';
+import { useSubscription } from '../hooks/useSubs';
 import { checkName } from '../util/functionUtil';
 import Modal from '../components/common/Modal';
 import { DialogModal } from '../components/common/DialogModal';
 import { AiOutlineClose } from 'react-icons/ai';
-import { useUserInfo } from '../hooks/store';
+import { useUserInfo } from '../hooks/useUser';
 import { useModalState } from '../hooks/useModalState';
+import { toast } from 'react-toastify';
+
 interface ISubscriptionInfo {
   categoryId: string;
   categoryName: string;
@@ -37,18 +39,9 @@ export const CategoriesPage = () => {
     subsMutation,
   } = useSubscription(newSubsInfo.categoryId as string);
 
-  const setCategory = useSelectedCategory((state) => state.setCategory);
-
-  if (error) {
-    console.log('errorrrrrr');
-  } else {
-    console.log('refetch1');
-    refetch();
-  }
   useEffect(() => {
+    handleClose();
     getUserInfo();
-    console.log('user?', existUser);
-    refetch();
   }, [existUser]);
 
   const checkLogin = () => {
@@ -56,27 +49,24 @@ export const CategoriesPage = () => {
       setIsLogined(!isLogined);
     }
     handleClose();
-    console.log(existUser, isLogined);
   };
   const handleSubButton = (category: ICategory) => {
-    setNewSubsInfo((prev) => ({
+    setNewSubsInfo(() => ({
       categoryId: category._id,
       categoryName: category.categoryName,
       subStatus: true,
     }));
     handleOpen();
   };
-
   const applySubscription = async () => {
     if (existUser) {
       setSubsInfoArr([...subsInfoArr, newSubsInfo]);
       subsMutation.mutate();
       handleClose();
-      console.log('refetch2');
+      toast.success('구독 완료!');
       refetch();
     } else {
       checkLogin();
-      console.log('open?', isOpen);
     }
   };
   const handleSubStatus = (category: ICategory) => {
@@ -85,10 +75,6 @@ export const CategoriesPage = () => {
         ? '구독중 💌'
         : '구독하기 ✅';
     return status;
-  };
-
-  const handleClickLink = (category: ICategory) => {
-    setCategory(category);
   };
 
   const skeletonCards = Array(15).fill(0);
@@ -101,7 +87,15 @@ export const CategoriesPage = () => {
             {'관심있는 토픽에 대한 뉴스레터를 둘러보거나 구독해보아요!'} &nbsp;
           </div>
 
-          {!isLogined && <DialogModal type="alert" title="로그인 안내" message="로그인 시 이용 가능합니다." />}
+          {!isLogined && (
+            <DialogModal
+              type="alert"
+              navigate="/login"
+              title="로그인 안내"
+              message="로그인 시 이용 가능합니다."
+              onClose={handleClose}
+            />
+          )}
           <div className={WrapperType.cardContentsWrapper}>
             <ul className={WrapperType.cardListWrapper}>
               {isLoading &&
@@ -116,9 +110,7 @@ export const CategoriesPage = () => {
                     <div key={`back-${category._id}`} className={CardType.layout + CardType.back}>
                       <button type="button" className={BtnType.newsLetterBtn}>
                         {' '}
-                        <Link to={`/categories/${category.categoryName}`} onClick={() => handleClickLink(category)}>
-                          뉴스레터 📰
-                        </Link>
+                        <Link to={`/categories/${category._id}`}>뉴스레터 📰</Link>
                       </button>
                       <button
                         type="button"

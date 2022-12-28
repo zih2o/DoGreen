@@ -5,6 +5,7 @@
     "plugin:import/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks",
     "eslint-config-prettier"
   ],
   "settings": {
@@ -22,6 +23,8 @@
     "node": true
   },
   "rules": {
-    "import/no-unresolved": "off"
+    "import/no-unresolved": "off",
+    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
   }
 }

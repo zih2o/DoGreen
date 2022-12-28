@@ -1,16 +1,20 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import NewsSkeleton from '../components/loadings/NewsSkeleton';
+import { ToTopButton } from '../components/structure/ScrollToTop';
 import News from '../components/newspage/News';
 import usePost, { IPost } from '../hooks/usePost';
-import { useSelectedCategory } from '../hooks/useCategory';
+import useCategory from '../hooks/useCategory';
 
 export default function NewsPage() {
   const { ref, inView } = useInView();
-  const { mascotImage, mascotName, _id } = useSelectedCategory();
+  const {
+    selectedCatQuery: { data: category, error },
+  } = useCategory();
+
   const {
     postQuery: { status, fetchNextPage, hasNextPage, data },
-  } = usePost(_id);
+  } = usePost(category?._id);
   useEffect(() => {
     if (inView) {
       fetchNextPage();
@@ -23,9 +27,9 @@ export default function NewsPage() {
         <Fragment key={index}>
           {page.result.map((post: IPost) => (
             <News
-              categoryName={mascotName}
-              categoryImg={mascotImage}
-              categoryId={_id}
+              categoryName={category?.mascotName ?? ''}
+              categoryImg={category?.mascotImage ?? ''}
+              categoryId={category?._id ?? ''}
               content={post.content}
               _id={post._id}
               imageList={post.imageList}
@@ -39,6 +43,7 @@ export default function NewsPage() {
         </Fragment>
       ))}
       {(hasNextPage || status === 'loading') && <NewsSkeleton instance={ref} />}
+      <ToTopButton />
     </div>
   );
 }

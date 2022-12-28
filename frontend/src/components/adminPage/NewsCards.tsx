@@ -1,7 +1,7 @@
 import React from 'react';
 
 import CardSkeleton from '../loadings/CardSkeleton';
-import Card from '../Card';
+import Card from './Card';
 
 import useNews from '../../hooks/useNews';
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import axios from 'axios';
 import App from './App';
 import Admin from './pages/Admin';
 import Home from './pages/Home';
@@ -11,8 +10,8 @@ import { MyPage } from './pages/MyPage';
 import NewsPage from './pages/NewsPage';
 import { MyHome, MyInfoEditTab, MySubscribe } from './components/mypage/DetailPage';
 import RegisterPage from './pages/RegisterPage';
-import LoginModalPage from './pages/LoginModalPage';
 import NotFound from './pages/NotFound';
+import LoginPage from './pages/Login';
 
 const router = createBrowserRouter([
   {
@@ -34,7 +33,7 @@ const router = createBrowserRouter([
       { path: '/categories', element: <CategoriesPage /> },
       { path: '/categories/:catId', element: <NewsPage /> },
       { path: '/register', element: <RegisterPage /> },
-      { path: '/login', element: <LoginModalPage /> },
+      { path: '/login', element: <LoginPage /> },
     ],
   },
 ]);

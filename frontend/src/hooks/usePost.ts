@@ -22,7 +22,7 @@ export default function usePost(catId?: string) {
   const postQuery = useInfiniteQuery({
     queryKey: ['posts', catId],
     queryFn: async ({ pageParam = 1 }) => {
-      const res = await api.get(`/post/posts/?categoryId=${catId}&page=${pageParam}&perPage=5`);
+      const res = await api.get(`/post/?categoryId=${catId}&page=${pageParam}&perPage=5`);
       const { result, totalPage } = res.data;
       return { nextPage: pageParam + 1, result, totalPage };
     },
@@ -36,14 +36,13 @@ export default function usePost(catId?: string) {
     onMutate: async (newPost: IPost) => {
       await queryClient.cancelQueries({ queryKey: ['posts', catId] });
       const previousData = queryClient.getQueryData(['posts', catId]);
-      console.log(previousData);
-      console.log(newPost);
       queryClient.setQueryData<InfiniteData<IPage>>(['posts', catId], (oldData) => ({
-        ...oldData!,
-        pages: oldData!.pages.map((page) => ({
-          ...page,
-          result: page.result.map((post) => (post._id === newPost._id ? newPost : post)),
-        })),
+        pageParams: oldData?.pageParams ?? [],
+        pages:
+          oldData?.pages.map((page) => ({
+            ...page,
+            result: page.result.map((post) => (post._id === newPost._id ? newPost : post)),
+          })) ?? [],
       }));
       return { previousData };
     },
@@ -54,6 +53,8 @@ export default function usePost(catId?: string) {
       queryClient.invalidateQueries({ queryKey: ['todos', catId] });
     },
   });
+
+  // const addPost = useMutation~~~~
 
   return { postQuery, addLike };
 }

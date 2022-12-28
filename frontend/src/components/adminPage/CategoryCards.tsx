@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import CardSkeleton from '../loadings/CardSkeleton';
-import Card from '../Card';
+import Card from './Card';
 
 import useCategory from '../../hooks/useCategory';
 
@@ -14,7 +14,7 @@ export default function CategoryCards() {
       {categories === undefined ? (
         <CardSkeleton />
       ) : (
-        categories.map((category) => 
+        categories.map((category) => (
           <Card
             key={category._id}
             id={category._id}
@@ -23,7 +23,7 @@ export default function CategoryCards() {
             description={category.categoryName}
             cardtype="category"
           />
-        )
+        ))
       )}
     </div>
   );
