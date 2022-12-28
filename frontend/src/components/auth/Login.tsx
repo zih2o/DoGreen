@@ -11,7 +11,7 @@ import { AxiosError } from 'axios';
 import { useModalState } from '../../hooks/useModalState';
 
 export const Login = () => {
-  const { isOpen, handleClose, handleToggle } = useModalState();
+  const { isOpen, handleClose } = useModalState();
   const { schema } = loginValidation();
   const {
     handleSubmit,

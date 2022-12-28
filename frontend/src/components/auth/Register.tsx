@@ -17,7 +17,7 @@ interface IRegisterData extends IAuthData {
 }
 
 export const Register = () => {
-  const { isOpen, handleClose, handleToggle } = useModalState();
+  const { isOpen, handleClose } = useModalState();
   const { schema } = userValidation();
   const {
     handleSubmit,
@@ -158,9 +158,9 @@ export const Register = () => {
         <InputButton value="가입하기" />
       </form>
       <>
-        {isError && isOpen ? <DialogModal title="에러" message={errorMsg} type="alert" onClose={handleToggle} /> : null}
+        {isError && isOpen ? <DialogModal title="에러" message={errorMsg} type="alert" onClose={handleClose} /> : null}
         {isSuccess && isOpen ? (
-          <DialogModal title="회원가입" message="회원가입 되었습니다." type="alert" refresh onClose={handleToggle} />
+          <DialogModal title="회원가입" message="회원가입 되었습니다." type="alert" refresh onClose={handleClose} />
         ) : null}
       </>
     </div>
