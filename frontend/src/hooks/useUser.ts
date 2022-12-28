@@ -1,16 +1,24 @@
+import create from 'zustand';
+import { persist } from 'zustand/middleware';
 import { api } from '../util/api';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from 'react-router';
 import { AxiosError } from 'axios';
 import { alertStore } from '../store/alertStore';
 
-interface IUserData {
+interface IUserInfo {
   role: string;
   email: string;
   username: string;
   bio: string;
   imgUrl: string;
 }
+
+interface IGetUserInfo {
+  existUser: boolean | Error;
+  userInfo: IUserInfo;
+  getUserInfo: () => void;
+}
+
 interface IEditData {
   username?: string;
   oldPassword: string;
@@ -21,10 +29,31 @@ interface IEditData {
 interface IAuthData {
   currentPassword: string;
 }
+
+export const useUserInfo = create<IGetUserInfo, [['zustand/persist', IGetUserInfo]]>(
+  persist(
+    (set) => ({
+      existUser: false,
+      userInfo: { role: '', email: '', username: '', bio: '', imgUrl: '' },
+      getUserInfo: async () => {
+        try {
+          const { data } = await api('/user/me');
+          set(() => ({ existUser: true }));
+          set(() => ({ userInfo: { ...data } }));
+        } catch (err) {
+          set(() => ({ existUser: false }));
+          set(() => ({ userInfo: { role: '', email: '', username: '', bio: '', imgUrl: '' } }));
+        }
+      },
+    }),
+    { name: 'user-login-store', getStorage: () => sessionStorage },
+  ),
+);
+
 export default function useUserData() {
   const queryClient = useQueryClient();
 
-  const userQuery = useQuery<IUserData>({
+  const userQuery = useQuery<IUserInfo>({
     queryKey: ['user'],
     queryFn: async () => {
       return api.get('/user/me').then((res) => res.data);

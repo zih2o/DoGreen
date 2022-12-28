@@ -1,16 +1,14 @@
 import React from 'react';
 import { useAdminCategoryStore } from '../../hooks/useAdminCategory';
-import useUserData from '../../hooks/useUserData';
-import { AuthStore } from '../../hooks/useAuth';
+import useUserData from '../../hooks/useUser';
 
 import Loading from '../loadings/Loading';
 
 export default function LeftSide() {
   const { setMascotCategory, setNewsCategory, closeAdminCreateCardBtn } = useAdminCategoryStore();
-  const accessToken = AuthStore((state) => state.token);
   const {
     userQuery: { data: userData },
-  } = useUserData(accessToken);
+  } = useUserData();
 
   const clickCategory = () => {
     setMascotCategory();

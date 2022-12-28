@@ -1,7 +1,7 @@
 import React from 'react';
-import CardsList from '../components/home/CardsList';
-import MainTopCards from '../components/MainTopCards';
-import { ToTopButton } from '../components/ScrollToTop';
+import CardsList from '../components/homepage/CardsList';
+import MainTopCards from '../components/structure/MainTopCards';
+import { ToTopButton } from '../components/structure/ScrollToTop';
 function Home() {
   return (
     <>

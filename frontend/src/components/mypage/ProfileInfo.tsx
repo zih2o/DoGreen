@@ -1,6 +1,6 @@
 import React from 'react';
 import { ImageType, WrapperType } from '../common/theme';
-import useUserData from '../../hooks/useUserData';
+import useUserData from '../../hooks/useUser';
 import { ProfileSkeleton } from '../loadings/ProfileSkeleton';
 interface IMyPageTopBarProps {
   modal?: boolean;

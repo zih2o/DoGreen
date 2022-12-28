@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { InputContainer } from '../common/InputContainer';
 import { FormInput, IputError, ClickButton } from '../common/FormsAboutInput';
-import useUserData from '../../hooks/useUserData';
+import useUserData from '../../hooks/useUser';
 import { DialogModal } from '../common/DialogModal';
 import { alertStore } from '../../store/alertStore';
 
