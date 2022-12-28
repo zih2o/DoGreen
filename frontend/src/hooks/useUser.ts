@@ -66,9 +66,6 @@ export default function useUserData() {
   };
   const userMutation = useMutation({
     mutationFn: editMutate,
-    onMutate: () => {
-      alert('수정하시겠습니까?');
-    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user'] });
       alertStore.setState({ confirmMsg: '정보가 수정 되었습니다.' });
