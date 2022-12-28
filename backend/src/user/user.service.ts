@@ -28,9 +28,6 @@ export class UserService implements IUserService {
         select: 'role'
       }
     })
-
-    // })
-      .limit(10)
       .sort({ updatedAt: 'desc' });
     // O(N)
     return users.map(userToUserDto);
