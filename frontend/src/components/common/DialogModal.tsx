@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Modal from './Modal';
-import { useModalState } from '../../hooks/useModalState';
 
 export interface IModalType {
   title: string;
@@ -10,31 +9,24 @@ export interface IModalType {
   navigate?: string;
   refresh?: boolean;
   setConfirm?: (data: boolean) => void;
+  onClose: () => void;
 }
-export const DialogModal = ({ title, message, type, navigate, refresh, setConfirm }: IModalType) => {
-  const { isOpen, handleToggle } = useModalState();
-  const [handleModal, setHandleModal] = useState(isOpen);
+export const DialogModal = ({ title, message, type, navigate, refresh, setConfirm, onClose }: IModalType) => {
   const nav = useNavigate();
-
-  console.log('isopen:', isOpen);
   const handleModalClose = () => {
-    console.log(isOpen);
-    handleToggle();
-    console.log(isOpen);
-    !refresh ? setHandleModal(!handleModal) : window.location.replace('/');
+    console.log('눌렀음');
+    !refresh ? onClose() : window.location.replace('/');
     navigate && nav(navigate);
   };
   const handleModalConfirm = () => {
-    handleToggle();
-    setHandleModal(!handleModal);
+    onClose();
     setConfirm && setConfirm(true);
   };
   const handleModalCancle = () => {
-    handleToggle();
-    setHandleModal(!handleModal);
+    onClose();
     setConfirm && setConfirm(false);
   };
-  return isOpen ? (
+  return (
     <Modal onClose={type === 'confirm' ? handleModalConfirm : handleModalClose}>
       <div className="relative w-full h-full max-w-xl w-xl md:h-auto">
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -83,7 +75,5 @@ export const DialogModal = ({ title, message, type, navigate, refresh, setConfir
         </div>
       </div>
     </Modal>
-  ) : (
-    <></>
   );
 };

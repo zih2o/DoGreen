@@ -4,7 +4,8 @@ import { useUserInfo } from '../../hooks/useUser';
 import { useDrawerStore } from '../../hooks/useDrawer';
 import { DialogModal } from '../common/DialogModal';
 import Loading from '../loadings/Loading';
-import { alertStore } from '../../store/alertStore';
+import { useModalState } from '../../hooks/useModalState';
+
 interface IDrawerNav {
   name: 'user' | 'admin';
   handleModal: () => void;
@@ -19,6 +20,8 @@ type DrawerNameType = 'user' | 'admin';
 type DrawerDrawerDatasType = Record<DrawerNameType, IDrawerNaveList[]>;
 
 export default function DrawerList({ name, handleModal }: IDrawerNav) {
+  const { isOpen, handleToggle } = useModalState();
+
   const { existUser } = useUserInfo();
   const { toggleDrawer } = useDrawerStore();
   const DrawerDrawerDatas: DrawerDrawerDatasType = {
@@ -35,11 +38,9 @@ export default function DrawerList({ name, handleModal }: IDrawerNav) {
   const drawerDatas = DrawerDrawerDatas[name];
 
   const [logoutStatus, setLogoutStatus] = useState(false);
-  const { confirmMsg } = alertStore();
   const logout = () => {
     setLogoutStatus(true);
     window.sessionStorage.clear();
-    alertStore.setState({ confirmMsg: '로그아웃 되었습니다.' });
   };
 
   return (
@@ -76,7 +77,17 @@ export default function DrawerList({ name, handleModal }: IDrawerNav) {
               <li className="text-l mt-5 dark:text-gray-200 md:text-xl font-bold text-garden2">로그아웃</li>
             </button>
           </div>
-          <>{logoutStatus ? <DialogModal title="로그아웃" message={confirmMsg} type="alert" refresh /> : null}</>
+          <>
+            {logoutStatus && isOpen ? (
+              <DialogModal
+                title="로그아웃"
+                message="로그아웃 되었습니다."
+                type="alert"
+                refresh
+                onClose={handleToggle}
+              />
+            ) : null}
+          </>
         </ul>
       ) : (
         <Loading />

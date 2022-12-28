@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { withDrawValidation } from '../auth/yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -7,15 +7,17 @@ import { InputContainer } from '../common/InputContainer';
 import { FormInput, IputError, ClickButton } from '../common/FormsAboutInput';
 import useUserData from '../../hooks/useUser';
 import { DialogModal } from '../common/DialogModal';
-import { alertStore } from '../../store/alertStore';
+import { AxiosError } from 'axios';
+import { useModalState } from '../../hooks/useModalState';
 
 const Userwithdraw = () => {
+  const { isOpen, handleClose } = useModalState();
+
   interface IAuthInput {
     currentPassword: string;
   }
-  const { errorMsg, confirmMsg } = alertStore();
   const {
-    withdrawMutaiton: { mutate, isError, isSuccess },
+    withdrawMutaiton: { mutate, isError, isSuccess, error },
   } = useUserData();
   const { schema } = withDrawValidation();
   const {
@@ -31,6 +33,7 @@ const Userwithdraw = () => {
     mutate(currentPassword);
     console.log(currentPassword, confirm);
   };
+  const errorMsg = error instanceof AxiosError ? error?.response?.data?.error : null;
 
   return (
     <div className={className.container}>
@@ -65,8 +68,14 @@ const Userwithdraw = () => {
           <br /> 3개월 동안 동일한 계정으로 가입하실 수 없습니다.
         </p>
       </form>
-      <>{isError ? <DialogModal title="에러" message={errorMsg} type="alert" /> : null}</>
-      <>{isSuccess ? <DialogModal title="확인" message={confirmMsg} type="alert" navigate="/" /> : null}</>
+      <>
+        {isError && isOpen ? <DialogModal title="에러" message={errorMsg} type="alert" onClose={handleClose} /> : null}
+      </>
+      <>
+        {isSuccess && isOpen ? (
+          <DialogModal title="확인" message="탈퇴되었습니다." type="alert" navigate="/" onClose={handleClose} />
+        ) : null}
+      </>
     </div>
   );
 };
