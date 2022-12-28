@@ -2,13 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { CardLayout } from '../layout/GlobalLayout';
 import { CardType, TextType, WrapperType } from '../common/theme';
-import useCategory from '../../hooks/useCategory';
+import useCategory, { ICategory, useSelectedCategory } from '../../hooks/useCategory';
 import { checkName } from '../../util/functionUtil';
 
 const CardsList = () => {
   const {
     catQuery: { data: categories },
   } = useCategory();
+  const setCategory = useSelectedCategory((state) => state.setCategory);
+
+  const handleClickLink = (category: ICategory) => {
+    setCategory(category);
+  };
 
   const tabCards1 = categories?.map((card, index) => {
     const range = categories.length / 2;
@@ -16,7 +21,11 @@ const CardsList = () => {
       <>
         {index < range && (
           <li key={card._id} className={CardType.size}>
-            <Link to={`/categories/${card._id}`} className={CardType.layout}>
+            <Link
+              to={`/categories/${card.categoryName}`}
+              className={CardType.layout}
+              onClick={() => handleClickLink(card)}
+            >
               <div className={CardType.imgWrapper}>
                 <img className={CardType.img} src={card.mascotImage} alt="default card" />
               </div>
