@@ -5,8 +5,8 @@ import { userValidation } from './yup';
 
 import { InputContainer } from '../common/InputContainer';
 import { FormInput, IputError, InputButton } from '../common/FormsAboutInput';
-import { useResiter, IAuthData } from '../../hooks/authApi';
-import { useValUserName, useValEmail } from '../../hooks/useValUserData';
+import { useResiter, IAuthData } from '../../hooks/useAuth';
+import { useValUserName, useValEmail } from '../../hooks/useValUser';
 import { DialogModal } from '../common/DialogModal';
 import { alertStore } from '../../store/alertStore';
 

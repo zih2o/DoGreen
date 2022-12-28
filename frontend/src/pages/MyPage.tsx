@@ -4,7 +4,7 @@ import MyPageTab from '../components/mypage/MyPageTab';
 import MyPageTopBar from '../components/mypage/MyPageTopBar';
 import { GlobalLayout } from '../components/layout/GlobalLayout';
 import { MyPageLayout } from '../components/layout/MyPageLayout';
-import { useUserInfo } from '../hooks/store';
+import { useUserInfo } from '../hooks/useUser';
 import { DialogModal } from '../components/common/DialogModal';
 
 export const MyPage = () => {

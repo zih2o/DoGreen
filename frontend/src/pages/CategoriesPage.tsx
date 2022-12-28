@@ -4,12 +4,12 @@ import { CardLayout, CategoryLayout } from '../components/layout/GlobalLayout';
 import CardSkeleton from '../components/loadings/CardSkeleton';
 import { CardType, TextType, BtnType, WrapperType } from '../components/common/theme';
 import useCategory, { ICategory, useSelectedCategory } from '../hooks/useCategory';
-import { useSubscription } from '../hooks/useSubscription';
+import { useSubscription } from '../hooks/useSubs';
 import { checkName } from '../util/functionUtil';
 import Modal from '../components/common/Modal';
 import { DialogModal } from '../components/common/DialogModal';
 import { AiOutlineClose } from 'react-icons/ai';
-import { useUserInfo } from '../hooks/store';
+import { useUserInfo } from '../hooks/useUser';
 import { useModalState } from '../hooks/useModalState';
 import { toast } from 'react-toastify';
 

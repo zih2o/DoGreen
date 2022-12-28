@@ -5,7 +5,7 @@ import Drawer from './Drawer';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { FaUserCircle } from 'react-icons/fa';
 import { BsSun, BsFillMoonFill } from 'react-icons/bs';
-import { useDrawerStore, useDarkModeStore } from '../hooks/useDrawer';
+import { useDrawerStore, useDarkModeStore } from '../../hooks/useDrawer';
 
 function Header() {
   const { drawerOpen, toggleDrawer } = useDrawerStore();

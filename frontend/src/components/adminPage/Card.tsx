@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BiDotsHorizontalRounded } from 'react-icons/bi';
-import EditButton from './adminPage/EditButton';
+import EditButton from './EditButton';
 
 export default function Card({ id, img, name, description, cardtype }) {
   const [editBtnHandler, setEditBtnHandler] = useState(false);
@@ -16,7 +16,7 @@ export default function Card({ id, img, name, description, cardtype }) {
         >
           <BiDotsHorizontalRounded className="w-7 h-8 dark:hoverr:fill-white" />
         </button>
-        {editBtnHandler && <EditButton id={id} cardtype={cardtype} setEditBtnHandler={setEditBtnHandler}/>}
+        {editBtnHandler && <EditButton id={id} cardtype={cardtype} setEditBtnHandler={setEditBtnHandler} />}
       </div>
       <div className="flex flex-col items-center">
         <img className="w-24 h-24 mb-4 rounded-full shadow-lg" src={img} alt="default card" />
