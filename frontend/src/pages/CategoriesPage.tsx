@@ -102,7 +102,13 @@ export const CategoriesPage = () => {
           </div>
 
           {!isLogined && (
-            <DialogModal type="alert" navigate="/login" title="로그인 안내" message="로그인 시 이용 가능합니다." />
+            <DialogModal
+              type="alert"
+              navigate="/login"
+              title="로그인 안내"
+              message="로그인 시 이용 가능합니다."
+              onClose={handleClose}
+            />
           )}
           <div className={WrapperType.cardContentsWrapper}>
             <ul className={WrapperType.cardListWrapper}>
