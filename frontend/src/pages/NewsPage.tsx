@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import NewsSkeleton from '../components/loadings/NewsSkeleton';
+import { ToTopButton } from '../components/structure/ScrollToTop';
 import News from '../components/newspage/News';
 import usePost, { IPost } from '../hooks/usePost';
 import useCategory from '../hooks/useCategory';
@@ -42,6 +43,7 @@ export default function NewsPage() {
         </Fragment>
       ))}
       {(hasNextPage || status === 'loading') && <NewsSkeleton instance={ref} />}
+      <ToTopButton />
     </div>
   );
 }

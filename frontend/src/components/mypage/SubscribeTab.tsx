@@ -68,7 +68,7 @@ const SubscribeTab = () => {
   const skeletonCards = Array(8).fill(0);
   return (
     <MyPageContentsLayout>
-      {subInfo && subInfo.length > 0 && (
+      {subInfo && subInfo.length > 0 ? (
         <CardLayout>
           <div className={TextType.titleText}>{'My Greens'}</div>
           <div className={TextType.introduceText}>{'내가 구독 중인 토픽을 확인하고 관리해보세요!'} &nbsp;</div>
@@ -130,17 +130,15 @@ const SubscribeTab = () => {
             </ul>
           </div>
         </CardLayout>
-      )}
-      {subInfo === undefined ||
-        (subInfo.length < 1 && (
-          <div className="flex-col mt-60 pb-24 align-middle">
-            <div className={TextType.titleText + ' text-center'}>구독 정보가 없습니다</div>
-            <br></br>
-            <div className="text-2xl text-center leading-10 font-bold text-garden1 underline">
-              <Link to="/categories">구독 하러가기</Link>
-            </div>
+      ) : (
+        <div className="flex-col mt-60 pb-24 align-middle">
+          <div className={TextType.titleText + ' text-center'}>구독 정보가 없습니다</div>
+          <br></br>
+          <div className="text-2xl text-center leading-10 font-bold text-garden1 underline">
+            <Link to="/categories">구독 하러가기</Link>
           </div>
-        ))}
+        </div>
+      )}
     </MyPageContentsLayout>
   );
 };
