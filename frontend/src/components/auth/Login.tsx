@@ -5,7 +5,7 @@ import { loginValidation } from './yup';
 
 import { InputContainer } from '../common/InputContainer';
 import { FormInput, IputError, InputButton } from '../common/FormsAboutInput';
-import { useLogin, IAuthData } from '../../hooks/authApi';
+import { useLogin, IAuthData } from '../../hooks/useAuth';
 import { DialogModal } from '../common/DialogModal';
 import { alertStore } from '../../store/alertStore';
 

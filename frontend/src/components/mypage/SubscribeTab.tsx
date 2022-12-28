@@ -5,7 +5,7 @@ import { CardType, TextType, WrapperType, BtnType } from '../common/theme';
 import CardSkeleton from '../loadings/CardSkeleton';
 import { CardLayout } from '../layout/GlobalLayout';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
-import { useSubscription } from '../../hooks/useSubscription';
+import { useSubscription } from '../../hooks/useSubs';
 import { checkName } from '../../util/functionUtil';
 import Modal from '../common/Modal';
 import { useModalState } from '../../hooks/useModalState';
