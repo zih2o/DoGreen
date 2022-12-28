@@ -9,6 +9,7 @@ import { useResiter, IAuthData } from '../../hooks/useAuth';
 import { useValUserName, useValEmail } from '../../hooks/useValUser';
 import { DialogModal } from '../common/DialogModal';
 import { AxiosError } from 'axios';
+import { useModalState } from '../../hooks/useModalState';
 
 interface IRegisterData extends IAuthData {
   username: string;
@@ -16,6 +17,7 @@ interface IRegisterData extends IAuthData {
 }
 
 export const Register = () => {
+  const { isOpen, handleClose, handleToggle } = useModalState();
   const { schema } = userValidation();
   const {
     handleSubmit,
@@ -156,8 +158,10 @@ export const Register = () => {
         <InputButton value="가입하기" />
       </form>
       <>
-        {isError ? <DialogModal title="에러" message={errorMsg} type="alert" /> : null}
-        {isSuccess ? <DialogModal title="회원가입" message="회원가입 되었습니다." type="alert" refresh /> : null}
+        {isError && isOpen ? <DialogModal title="에러" message={errorMsg} type="alert" onClose={handleToggle} /> : null}
+        {isSuccess && isOpen ? (
+          <DialogModal title="회원가입" message="회원가입 되었습니다." type="alert" refresh onClose={handleToggle} />
+        ) : null}
       </>
     </div>
   );
