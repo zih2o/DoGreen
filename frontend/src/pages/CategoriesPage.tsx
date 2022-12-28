@@ -42,15 +42,16 @@ export const CategoriesPage = () => {
   const setCategory = useSelectedCategory((state) => state.setCategory);
 
   if (error) {
-    //console.log('errorrrrrr');
+    error;
   } else {
-    refetch();
+    // refetch();
   }
   useEffect(() => {
     handleClose();
     getUserInfo();
-
-    refetch();
+    if (existUser) {
+      // refetch();
+    }
   }, [existUser]);
 
   const checkLogin = () => {
@@ -60,7 +61,7 @@ export const CategoriesPage = () => {
     handleClose();
   };
   const handleSubButton = (category: ICategory) => {
-    setNewSubsInfo((prev) => ({
+    setNewSubsInfo(() => ({
       categoryId: category._id,
       categoryName: category.categoryName,
       subStatus: true,
@@ -101,7 +102,13 @@ export const CategoriesPage = () => {
           </div>
 
           {!isLogined && (
-            <DialogModal type="alert" navigate="/login" title="로그인 안내" message="로그인 시 이용 가능합니다." />
+            <DialogModal
+              type="alert"
+              navigate="/login"
+              title="로그인 안내"
+              message="로그인 시 이용 가능합니다."
+              onClose={handleClose}
+            />
           )}
           <div className={WrapperType.cardContentsWrapper}>
             <ul className={WrapperType.cardListWrapper}>
@@ -117,7 +124,7 @@ export const CategoriesPage = () => {
                     <div key={`back-${category._id}`} className={CardType.layout + CardType.back}>
                       <button type="button" className={BtnType.newsLetterBtn}>
                         {' '}
-                        <Link to={`/categories/${category.categoryName}`} onClick={() => handleClickLink(category)}>
+                        <Link to={`/categories/${category._id}`} onClick={() => handleClickLink(category)}>
                           뉴스레터 📰
                         </Link>
                       </button>

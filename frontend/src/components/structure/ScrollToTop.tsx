@@ -10,7 +10,7 @@ export const ToTopButton = () => {
     <button
       id="to-top-button"
       onClick={MoveToTop}
-      className="flex justify-center items-center fixed z-[90] bottom-20 right-5 border-0 w-14 h-14 rounded-full drop-shadow-md bg-slate-50 dark:bg-slate-100 "
+      className="flex justify-center items-center fixed z-[10] bottom-20 right-5 border-0 w-14 h-14 rounded-full drop-shadow-md bg-slate-50 dark:bg-slate-100 "
     >
       <GrLinkTop size="32" />
     </button>

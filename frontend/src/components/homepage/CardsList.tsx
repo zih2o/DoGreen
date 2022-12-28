@@ -17,15 +17,12 @@ const CardsList = () => {
 
   const tabCards1 = categories?.map((card, index) => {
     const range = categories.length / 2;
+
     return (
-      <>
+      <React.Fragment key={card._id}>
         {index < range && (
           <li key={card._id} className={CardType.size}>
-            <Link
-              to={`/categories/${card.categoryName}`}
-              className={CardType.layout}
-              onClick={() => handleClickLink(card)}
-            >
+            <Link to={`/categories/${card._id}`} className={CardType.layout} onClick={() => handleClickLink(card)}>
               <div className={CardType.imgWrapper}>
                 <img className={CardType.img} src={card.mascotImage} alt="default card" />
               </div>
@@ -39,17 +36,19 @@ const CardsList = () => {
             </Link>
           </li>
         )}
-      </>
+      </React.Fragment>
     );
   });
 
   const tabCards2 = categories?.map((card, index) => {
     const range = categories.length / 2;
+
     return (
-      <>
+      <React.Fragment key={card._id}>
         {index >= range && (
           <li key={card._id} className={CardType.size}>
-            <Link to={`/categories/${card._id}`} className={CardType.layout}>
+            <Link to={`/categories/${card._id}`} className={CardType.layout} onClick={() => handleClickLink(card)}>
+              {' '}
               <div className={CardType.imgWrapper}>
                 <img className={CardType.img} src={card.mascotImage} alt="default card" />
               </div>
@@ -62,7 +61,7 @@ const CardsList = () => {
             </Link>
           </li>
         )}
-      </>
+      </React.Fragment>
     );
   });
 
