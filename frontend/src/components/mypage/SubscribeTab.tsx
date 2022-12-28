@@ -11,7 +11,7 @@ import Modal from '../common/Modal';
 import { useModalState } from '../../hooks/useModalState';
 import { AiOutlineClose } from 'react-icons/ai';
 import { toast } from 'react-toastify';
-import { ICategory, useSelectedCategory } from '../../hooks/useCategory';
+import { ICategory } from '../../hooks/useCategory';
 
 const SubscribeTab = () => {
   const { isOpen, handleClose, handleToggle } = useModalState();
@@ -21,8 +21,6 @@ const SubscribeTab = () => {
     subsQuery: { isLoading, data: subInfo, refetch },
     delMutation,
   } = useSubscription(cancelId);
-
-  const setCategory = useSelectedCategory((state) => state.setCategory);
 
   useEffect(() => {
     handleClose();
@@ -34,18 +32,12 @@ const SubscribeTab = () => {
     handleClose();
   };
 
-  const handleClickLink = (category: ICategory) => {
-    setCategory(category);
-  };
-
   const tabCards = subInfo?.map((card) => (
     <li className={CardType.size + CardType.flipContent} key={card._id}>
       <div key={`back-${card._id}`} className={CardType.layout + CardType.back}>
         <button type="button" className={BtnType.newsLetterBtn}>
           {' '}
-          <Link to={`/categories/${card.categoryName}`} onClick={() => handleClickLink(card)}>
-            뉴스레터 📰
-          </Link>
+          <Link to={`/categories/${card._id}`}>뉴스레터 📰</Link>
         </button>
         <button
           type="button"
@@ -76,8 +68,8 @@ const SubscribeTab = () => {
   const skeletonCards = Array(8).fill(0);
   return (
     <MyPageContentsLayout>
-      {subInfo && subInfo.length > 0 && (
-        <CardLayout>
+      {subInfo && subInfo.length > 0 ? (
+        <CardLayout isMypage>
           <div className={TextType.titleText}>{'My Greens'}</div>
           <div className={TextType.introduceText}>{'내가 구독 중인 토픽을 확인하고 관리해보세요!'} &nbsp;</div>
           <div className={WrapperType.cardContentsWrapper}>
@@ -95,7 +87,7 @@ const SubscribeTab = () => {
                     handleToggle();
                   }}
                 >
-                  <div className="relative w-full h-full max-w-md md:h-auto">
+                  <div className="relative w-72 sm:w-full h-full max-w-md md:h-auto">
                     <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                       <button
                         type="button"
@@ -138,17 +130,15 @@ const SubscribeTab = () => {
             </ul>
           </div>
         </CardLayout>
-      )}
-      {subInfo === undefined ||
-        (subInfo.length < 1 && (
-          <div className="flex-col mt-60 pb-24 align-middle">
-            <div className={TextType.titleText + ' text-center'}>구독 정보가 없습니다</div>
-            <br></br>
-            <div className="text-2xl text-center leading-10 font-bold text-garden1 underline">
-              <Link to="/categories">구독 하러가기</Link>
-            </div>
+      ) : (
+        <div className="flex-col mt-60 pb-24 align-middle">
+          <div className={TextType.titleText + ' text-center'}>구독 정보가 없습니다</div>
+          <br></br>
+          <div className="text-2xl text-center leading-10 font-bold text-garden1 underline">
+            <Link to="/categories">구독 하러가기</Link>
           </div>
-        ))}
+        </div>
+      )}
     </MyPageContentsLayout>
   );
 };

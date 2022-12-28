@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useUserInfo } from '../../hooks/useUser';
 import { useDrawerStore } from '../../hooks/useDrawer';
 import { DialogModal } from '../common/DialogModal';
 import Loading from '../loadings/Loading';
-import { alertStore } from '../../store/alertStore';
+import { useModalState } from '../../hooks/useModalState';
+
 interface IDrawerNav {
   name: 'user' | 'admin';
   handleModal: () => void;
@@ -21,6 +22,7 @@ type DrawerDrawerDatasType = Record<DrawerNameType, IDrawerNaveList[]>;
 export default function DrawerList({ name, handleModal }: IDrawerNav) {
   const { existUser } = useUserInfo();
   const { toggleDrawer } = useDrawerStore();
+
   const DrawerDrawerDatas: DrawerDrawerDatasType = {
     user: [
       { name: '카드 보러가기', url: '/categories' },
@@ -34,14 +36,16 @@ export default function DrawerList({ name, handleModal }: IDrawerNav) {
   };
   const drawerDatas = DrawerDrawerDatas[name];
 
-  const [logoutStatus, setLogoutStatus] = useState(false);
-  const { confirmMsg } = alertStore();
-  const logout = () => {
-    setLogoutStatus(true);
-    window.sessionStorage.clear();
-    alertStore.setState({ confirmMsg: '로그아웃 되었습니다.' });
-  };
-
+  const { isOpen, handleToggle, handleClose, handleOpen } = useModalState();
+  useEffect(() => {
+    handleClose();
+  }, []);
+  const [confirm, setConfirm] = useState(false);
+  useEffect(() => {
+    if (confirm) {
+      window.sessionStorage.clear();
+    }
+  }, [confirm]);
   return (
     <>
       {existUser ? (
@@ -71,12 +75,23 @@ export default function DrawerList({ name, handleModal }: IDrawerNav) {
               </Link>
             );
           })}
-          <div className="pt-20">
-            <button className="hover:underline" onClick={logout}>
+          <div className="pt-0">
+            <button className="hover:underline" onClick={handleOpen}>
               <li className="text-l mt-5 dark:text-gray-200 md:text-xl font-bold text-garden2">로그아웃</li>
             </button>
           </div>
-          <>{logoutStatus ? <DialogModal title="로그아웃" message={confirmMsg} type="alert" refresh /> : null}</>
+          <>
+            {isOpen ? (
+              <DialogModal
+                title="로그아웃"
+                message="로그아웃 하시겠습니까?"
+                type="confirm"
+                setConfirm={setConfirm}
+                refresh="/"
+                onClose={handleToggle}
+              />
+            ) : null}
+          </>
         </ul>
       ) : (
         <Loading />

@@ -2,9 +2,6 @@ import create from 'zustand';
 import { persist } from 'zustand/middleware';
 import { api } from '../util/api';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
-import { alertStore } from '../store/alertStore';
-
 interface IUserInfo {
   role: string;
   email: string;
@@ -66,17 +63,8 @@ export default function useUserData() {
   };
   const userMutation = useMutation({
     mutationFn: editMutate,
-    onMutate: () => {
-      alert('수정하시겠습니까?');
-    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user'] });
-      alertStore.setState({ confirmMsg: '정보가 수정 되었습니다.' });
-    },
-    onError: (error) => {
-      if (error instanceof AxiosError) {
-        alertStore.setState({ errorMsg: error?.response?.data?.error });
-      }
     },
   });
 
@@ -86,13 +74,7 @@ export default function useUserData() {
   const withdrawMutaiton = useMutation({
     mutationFn: withdrawMutate,
     onSuccess: () => {
-      alertStore.setState({ confirmMsg: '회원탈퇴 되었습니다.' });
       window.sessionStorage.clear();
-    },
-    onError: (error) => {
-      if (error instanceof AxiosError) {
-        alertStore.setState({ errorMsg: error?.response?.data?.error });
-      }
     },
   });
   return { userQuery, userMutation, withdrawMutaiton };
