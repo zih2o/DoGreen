@@ -22,7 +22,7 @@ export const DialogModal = ({ title, message, type, navigate, refresh, setConfir
     !refresh ? onClose() : window.location.replace(refresh);
     setConfirm && setConfirm(true);
   };
-  const handleModalCancle = () => {
+  const handleModalCancel = () => {
     onClose();
     setConfirm && setConfirm(false);
   };
@@ -68,7 +68,7 @@ export const DialogModal = ({ title, message, type, navigate, refresh, setConfir
                   data-modal-toggle="popup-modal"
                   type="button"
                   className="mr-4 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-lg font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-                  onClick={handleModalCancle}
+                  onClick={handleModalCancel}
                 >
                   취소
                 </button>

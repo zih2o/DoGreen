@@ -18,8 +18,7 @@ export function useSubscription(catId: string) {
       return await api.get('/subscribe').then((res) => res.data);
     },
     onError: () => {
-      queryClient.invalidateQueries({ queryKey: ['userCategories'] });
-      console.log('구독 에러');
+      queryClient.refetchQueries({ queryKey: ['userCategories'] });
     },
     enabled: !!existUser,
   });
@@ -28,7 +27,7 @@ export function useSubscription(catId: string) {
       return await api.post(`/subscribe/${catId}`).then((res) => res.data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['subscription'] });
+      queryClient.refetchQueries({ queryKey: ['userCategories'] }); //같은 페이지
     },
   });
   const delMutation = useMutation<ISubscription>({
@@ -36,8 +35,7 @@ export function useSubscription(catId: string) {
       return await api.delete(`/subscribe/${catId}`).then((res) => res.data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['cancelSub'] });
-      console.log('구독 취소');
+      queryClient.refetchQueries({ queryKey: ['userCategories'] });
     },
   });
   return { subsQuery, subsMutation, delMutation };

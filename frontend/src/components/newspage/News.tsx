@@ -8,6 +8,8 @@ import Modal from '../common/Modal';
 import { useUserInfo } from '../../hooks/useUser';
 import NewsCarousel from './NewsCarousel';
 import usePost, { IPost } from '../../hooks/usePost';
+import { DialogModal } from '../common/DialogModal';
+import { useModalState } from '../../hooks/useModalState';
 
 const Theme = {
   NewsTheme: {
@@ -34,25 +36,24 @@ interface INews extends IPost {
 export default function NewsCard(props: INews) {
   const [clickComment, setClickComment] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
+  const { ref, inView } = useInView();
+  const { isOpen, handleOpen, handleClose, handleToggle } = useModalState();
   const isLoggedIn = useUserInfo((state) => state.existUser);
   const {
     addComment,
     commentQuery: { status, fetchNextPage, hasNextPage, data },
   } = useComment(props._id);
   const { addLike } = usePost(props.categoryId);
-  const { ref, inView } = useInView();
+
+  useEffect(() => {
+    handleClose();
+  }, []);
+
   useEffect(() => {
     if (inView) {
       fetchNextPage();
     }
   }, [inView]);
-
-  const handleFocus = (e: React.FocusEvent<HTMLFormElement>) => {
-    if (!isLoggedIn) {
-      alert('로그인이 필요한 서비스입니다.');
-      e.target?.blur();
-    }
-  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -65,16 +66,23 @@ export default function NewsCard(props: INews) {
     setInputValue('');
   };
 
+  const handleFocus = (e: React.FocusEvent<HTMLFormElement>) => {
+    if (!isLoggedIn) {
+      handleOpen();
+      e.target?.blur();
+    }
+  };
+
   const handleClickLike = (post: IPost) => {
     if (!isLoggedIn) {
-      alert('로그인이 안돼있어요');
+      handleOpen();
       return;
     }
     addLike.mutate(post);
   };
 
   return (
-    <div className="flex w-full h-full justify-center py-6 bg-gardenBG">
+    <div className="flex w-full h-full justify-center py-6 px-6 bg-gardenBG">
       <div className="flex flex-col mr-4 items-center">
         <img className={'rounded-full w-12 h-12 shadow-xl'} src={props.categoryImg} alt="펭귄" />
         <span className="font-semibold">{props.categoryName}</span>
@@ -88,7 +96,8 @@ export default function NewsCard(props: INews) {
           <div className="flex items-center">
             <FaHeart
               className={
-                'mr-4 hover:cursor-pointer ' + (isLoggedIn && props.isLiked ? 'text-red-400' : 'dark:text-slate-50')
+                ' w-6 h-6 mr-4 hover:cursor-pointer ' +
+                (isLoggedIn && props.isLiked ? 'text-red-400' : 'dark:text-slate-50')
               }
               onClick={() =>
                 handleClickLike({
@@ -103,11 +112,11 @@ export default function NewsCard(props: INews) {
               }
             />
             <ImBubble
-              className={'mr-4 hover:cursor-pointer dark:text-slate-50'}
+              className={'mr-4 w-6 h-6 hover:cursor-pointer dark:text-slate-50'}
               onClick={() => setClickComment(!clickComment)}
             />
             {props.likesNum !== 0 && (
-              <div className="text-sm text-garden4 font-semibold">{props.likesNum} 명이 이 글을 좋아합니다.</div>
+              <div className="pr-4 text-sm text-garden4 font-semibold">{props.likesNum} 명이 이 글을 좋아합니다.</div>
             )}
           </div>
           <span className=" text-slate-50 font-semibold text-sm">
@@ -149,6 +158,9 @@ export default function NewsCard(props: INews) {
             </form>
           </div>
         </Modal>
+      )}
+      {isOpen && (
+        <DialogModal title="로그인" message="로그인이 필요한 서비스입니다." type="alert" onClose={handleClose} />
       )}
     </div>
   );
