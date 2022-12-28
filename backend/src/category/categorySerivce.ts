@@ -18,6 +18,10 @@ export class CategoryService {
     await categoryRepository.updateOneCategory(toUpdate, categoryId);
   }
 
+  async isCategoryExists(categoryId: string) {
+    await categoryRepository.isCategoryExists(categoryId);
+  }
+
   async deleteOneCategory(categoryId: string) {
     await categoryRepository.deleteOneCategory(categoryId);
   }
