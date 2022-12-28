@@ -1,7 +1,6 @@
+import { useParams } from 'react-router-dom';
 import { api } from '../util/api';
 import { useQuery } from '@tanstack/react-query';
-import create from 'zustand';
-import { persist } from 'zustand/middleware';
 
 export interface ICategory {
   _id: string;
@@ -11,11 +10,9 @@ export interface ICategory {
   posts: string[];
 }
 
-interface ICategoryStore extends ICategory {
-  setCategory: (category: ICategory) => void;
-}
-
 export default function useCategory() {
+  const { catId } = useParams();
+
   const catQuery = useQuery<ICategory[]>({
     queryKey: ['categories'],
     queryFn: async () => {
@@ -24,19 +21,15 @@ export default function useCategory() {
     staleTime: 1000 * 60 * 5,
   });
 
-  return { catQuery };
+  const selectedCatQuery = useQuery<ICategory>({
+    queryKey: ['categories', catId],
+    queryFn: async () => {
+      return api.get(`/category/${catId}`).then((res) => res.data);
+    },
+    staleTime: 1000 * 60 * 5,
+    onError: (error) => {
+      return error;
+    },
+  });
+  return { catQuery, selectedCatQuery };
 }
-
-export const useSelectedCategory = create<ICategoryStore, [['zustand/persist', ICategoryStore]]>(
-  persist(
-    (set) => ({
-      _id: '',
-      categoryName: '',
-      mascotName: '',
-      mascotImage: '',
-      posts: [],
-      setCategory: (category: ICategory) => set(category),
-    }),
-    { name: 'category-store', getStorage: () => sessionStorage },
-  ),
-);

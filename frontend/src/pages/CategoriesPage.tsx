@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { CardLayout, CategoryLayout } from '../components/layout/GlobalLayout';
 import CardSkeleton from '../components/loadings/CardSkeleton';
 import { CardType, TextType, BtnType, WrapperType } from '../components/common/theme';
-import useCategory, { ICategory, useSelectedCategory } from '../hooks/useCategory';
+import useCategory, { ICategory } from '../hooks/useCategory';
 import { useSubscription } from '../hooks/useSubs';
 import { checkName } from '../util/functionUtil';
 import Modal from '../components/common/Modal';
@@ -38,8 +38,6 @@ export const CategoriesPage = () => {
     subsQuery: { data: subscriptions, refetch, error },
     subsMutation,
   } = useSubscription(newSubsInfo.categoryId as string);
-
-  const setCategory = useSelectedCategory((state) => state.setCategory);
 
   if (error) {
     error;
@@ -87,10 +85,6 @@ export const CategoriesPage = () => {
     return status;
   };
 
-  const handleClickLink = (category: ICategory) => {
-    setCategory(category);
-  };
-
   const skeletonCards = Array(15).fill(0);
   return (
     <>
@@ -124,9 +118,7 @@ export const CategoriesPage = () => {
                     <div key={`back-${category._id}`} className={CardType.layout + CardType.back}>
                       <button type="button" className={BtnType.newsLetterBtn}>
                         {' '}
-                        <Link to={`/categories/${category._id}`} onClick={() => handleClickLink(category)}>
-                          뉴스레터 📰
-                        </Link>
+                        <Link to={`/categories/${category._id}`}>뉴스레터 📰</Link>
                       </button>
                       <button
                         type="button"
