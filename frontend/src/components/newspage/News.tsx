@@ -8,6 +8,8 @@ import Modal from '../common/Modal';
 import { useUserInfo } from '../../hooks/useUser';
 import NewsCarousel from './NewsCarousel';
 import usePost, { IPost } from '../../hooks/usePost';
+import { DialogModal } from '../common/DialogModal';
+import { useModalState } from '../../hooks/useModalState';
 
 const Theme = {
   NewsTheme: {
@@ -34,25 +36,24 @@ interface INews extends IPost {
 export default function NewsCard(props: INews) {
   const [clickComment, setClickComment] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
+  const { ref, inView } = useInView();
+  const { isOpen, handleOpen, handleClose, handleToggle } = useModalState();
   const isLoggedIn = useUserInfo((state) => state.existUser);
   const {
     addComment,
     commentQuery: { status, fetchNextPage, hasNextPage, data },
   } = useComment(props._id);
   const { addLike } = usePost(props.categoryId);
-  const { ref, inView } = useInView();
+
+  useEffect(() => {
+    handleClose();
+  }, []);
+
   useEffect(() => {
     if (inView) {
       fetchNextPage();
     }
   }, [inView]);
-
-  const handleFocus = (e: React.FocusEvent<HTMLFormElement>) => {
-    if (!isLoggedIn) {
-      alert('로그인이 필요한 서비스입니다.');
-      e.target?.blur();
-    }
-  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -65,9 +66,16 @@ export default function NewsCard(props: INews) {
     setInputValue('');
   };
 
+  const handleFocus = (e: React.FocusEvent<HTMLFormElement>) => {
+    if (!isLoggedIn) {
+      handleOpen();
+      e.target?.blur();
+    }
+  };
+
   const handleClickLike = (post: IPost) => {
     if (!isLoggedIn) {
-      alert('로그인이 안돼있어요');
+      handleOpen();
       return;
     }
     addLike.mutate(post);
@@ -150,6 +158,9 @@ export default function NewsCard(props: INews) {
             </form>
           </div>
         </Modal>
+      )}
+      {isOpen && (
+        <DialogModal title="로그인" message="로그인이 필요한 서비스입니다." type="alert" onClose={handleClose} />
       )}
     </div>
   );

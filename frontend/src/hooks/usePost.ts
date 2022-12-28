@@ -22,7 +22,7 @@ export default function usePost(catId?: string) {
   const postQuery = useInfiniteQuery({
     queryKey: ['posts', catId],
     queryFn: async ({ pageParam = 1 }) => {
-      const res = await api.get(`/post/posts/?categoryId=${catId}&page=${pageParam}&perPage=5`);
+      const res = await api.get(`/post/?categoryId=${catId}&page=${pageParam}&perPage=5`);
       const { result, totalPage } = res.data;
       return { nextPage: pageParam + 1, result, totalPage };
     },

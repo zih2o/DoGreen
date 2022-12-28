@@ -14,7 +14,6 @@ export interface IModalType {
 export const DialogModal = ({ title, message, type, navigate, refresh, setConfirm, onClose }: IModalType) => {
   const nav = useNavigate();
   const handleModalClose = () => {
-    console.log('눌렀음');
     !refresh ? onClose() : window.location.replace('/');
     navigate && nav(navigate);
   };
