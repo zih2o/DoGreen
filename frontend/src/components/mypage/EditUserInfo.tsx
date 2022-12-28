@@ -28,12 +28,12 @@ interface IEditIData {
 }
 
 const EditUserInfo = () => {
+  const { isOpen, handleClose, handleToggle } = useModalState();
   //유저데이터부르기
   const {
     userQuery: { data: userData, isLoading: isUserDataLoading },
     userMutation: { mutate: editMutation, isError: isEditError, isSuccess: isEditSuccess, error: editError },
   } = useUserData();
-  const { isOpen, handleClose, handleToggle } = useModalState();
   const initialData = {
     username: userData?.username,
     oldPassword: '',
@@ -97,7 +97,7 @@ const EditUserInfo = () => {
 
   //회원탈퇴 모달
   const [handleModal, setHandleModal] = useState<boolean>(false);
-  const onClose = () => {
+  const onWithddrwaClose = () => {
     setHandleModal(!handleModal);
   };
 
@@ -259,12 +259,12 @@ const EditUserInfo = () => {
 
           <InputButton value="수정하기" />
         </form>
-        <ClickButton onClick={onClose}>탈퇴하기</ClickButton>
+        <ClickButton onClick={onWithddrwaClose}>탈퇴하기</ClickButton>
         {handleModal && (
           <div>
             {handleModal && (
-              <Modal onClose={onClose}>
-                <button type="button" className={className.closeButton} onClick={onClose}>
+              <Modal onClose={onWithddrwaClose}>
+                <button type="button" className={className.closeButton} onClick={onWithddrwaClose}>
                   <AiOutlineClose size="24" color="#5C5656" />
                 </button>
                 <Userwithdraw />
@@ -275,13 +275,25 @@ const EditUserInfo = () => {
       </div>
       <>
         {isOpen ? (
-          <DialogModal title="내 정보 수정" message="수정 하시겠습니까?" type="confirm" setConfirm={setConfirm} />
+          <DialogModal
+            title="내 정보 수정"
+            message="수정 하시겠습니까?"
+            type="confirm"
+            setConfirm={setConfirm}
+            onClose={handleClose}
+          />
         ) : null}
-        {isEditError ? <DialogModal title="에러" message={editErrorMsg} type="alert" /> : null}
+        {isEditError ? <DialogModal title="에러" message={editErrorMsg} type="alert" onClose={handleClose} /> : null}
         {isEditSuccess ? (
-          <DialogModal title="내 정보 수정" message="수정되었습니다." type="alert" navigate="/mypage" />
+          <DialogModal
+            title="내 정보 수정"
+            message="수정되었습니다."
+            type="alert"
+            navigate="/mypage"
+            onClose={handleClose}
+          />
         ) : null}
-        {imgUrlError ? <DialogModal title="에러" message={imgErrorMsg} type="alert" /> : null}
+        {imgUrlError ? <DialogModal title="에러" message={imgErrorMsg} type="alert" onClose={handleClose} /> : null}
       </>
     </MyPageContentsLayout>
   ) : (
