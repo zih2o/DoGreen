@@ -54,7 +54,7 @@ interface IInputError {
 }
 
 export const IputError = ({ children }: IInputError) => {
-  return <p className="mt-1 min-h-[30px] text-base text-red-500 dark:text-red-500">{children}</p>;
+  return <p className="mt-1 min-h-[30px] text-left text-base text-red-500 dark:text-red-500">{children}</p>;
 };
 
 interface IInputSubmitButton {
