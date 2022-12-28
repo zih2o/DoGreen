@@ -10,21 +10,18 @@ const postRepository = new PostRepository();
 const cateogryRepository = new CategoryRepository();
 
 export class PostService implements IPostService {
-  // eslint-disable-next-line consistent-return
-  async addlikeUserId(currentAuthId: string, postId: string): Promise<boolean | undefined> {
+  async addlikeUserId(currentAuthId: string, postId: string): Promise<boolean> {
     // 이미 좋아요 했는지 검증
     const isLiked = await postRepository.isLikedByPostId(currentAuthId, postId);
 
     // 좋아요를 누르지 않았다면 ->좋아요 증가
-    if (isLiked === null) {
+    if (isLiked) {
       await postRepository.addLike(currentAuthId, postId);
       return true;
-
-    // 좋아요를 눌렀다면 -> 좋아요 감소
-    } if (isLiked !== null) {
-      await postRepository.subtractLike(currentAuthId, postId);
-      return false;
     }
+    // 좋아요를 눌렀다면 -> 좋아요 감소
+    await postRepository.subtractLike(currentAuthId, postId);
+    return false;
   }
 
   async paginationPost(categoryId: string, page: number, perPage: number, authId?: string) {
