@@ -8,6 +8,7 @@ import { ForbiddenError } from '../errors/ForbiddenError';
 
 const commentService = new CommentService();
 
+// TODO comment.zodSchema파일로 분리가 필요합니다.
 const paginationSchema = z.object({
   query: z.object({
     page: z.coerce.number().int().positive().default(1),
@@ -61,7 +62,6 @@ export class CommentController {
     invariant(req.context.currentUser !== undefined, new ForbiddenError('로그인해야 이용할 수 있는 서비스입니다.'));
     const currentAuthId = req.context.currentUser.authId;
     const commentId = req.params.id;
-
     await commentService.deleteComment(commentId, currentAuthId);
     res.status(204).end();
   }

@@ -11,15 +11,20 @@ export class CommentService {
     return pagingComment;
   }
 
-  async deleteComment(commentId: string, currentAuthId: UserT['auth']) {
+  async deleteComment(commentId: string, currentAuthId: string) {
     // 양쪽이 강하게 결합되어 있어 분리가 반드시 필요합니다
-    await postRepository.deletePostByCommentId(commentId);
+    await this.isWrittenByCurrentUser(commentId, currentAuthId);
+    await postRepository.deletePostCommentId(commentId, currentAuthId);
     await commentRepository.deleteComment(commentId, currentAuthId);
   }
 
-  async updateComment(comment: CommentT['comment'], commentId: string, currentAuthId: UserT['auth']) {
-    // 코멘트 수정
+  async isWrittenByCurrentUser(commentId: string, currentAuthId: string) {
+    await commentRepository.isWrittenByCurrentUser(commentId, currentAuthId);
+  }
 
+  async updateComment(comment: CommentT['comment'], commentId: string, currentAuthId: string) {
+    // 코멘트 수정
+    await this.isWrittenByCurrentUser(commentId, currentAuthId);
     const toUpdate = {
       ...(comment && { comment })
     };

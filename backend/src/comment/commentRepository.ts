@@ -59,17 +59,17 @@ export class CommentRepository implements ICommentRepository {
     };
   }
 
-  async isWrittenByCurrentUser(commentId: string, currentAuthId: UserT['auth']): Promise<void> {
-    const targetCommentAuthId = await CommentModel.findById(commentId).select('authId');
-    invariant(targetCommentAuthId !== null, new ForbiddenError('작성자가 아니므로 권한이 존재하지 않습니다.'));
+  async isWrittenByCurrentUser(commentId: string, currentAuthId: string): Promise<void> {
+    const targetComment = await CommentModel.findById(commentId); // null
+    invariant(targetComment?.authId !== currentAuthId, new ForbiddenError('작성자가 아니므로 권한이 존재하지 않습니다.'));
   }
 
-  async deleteComment(commentId: string, currentAuthId: UserT['auth']) {
+  async deleteComment(commentId: string, currentAuthId: string) {
     await this.isWrittenByCurrentUser(commentId, currentAuthId);
     await CommentModel.findByIdAndDelete(commentId);
   }
 
-  async updateComment(commentId: string, toUpdate: updateCommentDto, currentAuthId: UserT['auth']) {
+  async updateComment(commentId: string, toUpdate: updateCommentDto, currentAuthId: string) {
     await this.isWrittenByCurrentUser(commentId, currentAuthId);
     await CommentModel.findByIdAndUpdate(commentId, { comment: toUpdate.comment });
   }
