@@ -5,6 +5,7 @@ interface IalertMsg {
   errorMsg: string;
   confirmMsg: string;
   response: boolean;
+  setConfirm: (confirmMsg: string) => void;
   handleResponse: () => void;
 }
 
@@ -13,6 +14,7 @@ export const alertStore = create<IalertMsg, [['zustand/persist', IalertMsg]]>(
     errorMsg: 'Error Message',
     confirmMsg: 'Confirm Message',
     response: false,
+    setConfirm: (confirmMsg) => set({ confirmMsg }),
     handleResponse: () => set((state) => ({ response: !state.response })),
   })),
 );

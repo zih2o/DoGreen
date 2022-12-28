@@ -83,10 +83,7 @@ export const Login = () => {
           Create account
         </a>
       </div>
-      <>
-        {isSuccess ? <DialogModal title="확인" message={confirmMsg} type="alert" refresh /> : null}
-        {isError ? <DialogModal title="에러" message={errorMsg} type="alert" /> : null}
-      </>
+      <>{isError ? <DialogModal title="에러" message={errorMsg} type="alert" /> : null}</>
     </div>
   );
 };

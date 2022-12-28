@@ -96,8 +96,8 @@ const EditUserInfo = () => {
 
   const { errorMsg, setConfirm, confirmMsg } = alertStore();
   const onSubmit = (data: IEditIData) => {
-    setConfirm('수정하시겠습니까?');
-    setIsEditConfirm(true);
+    // setConfirm('수정하시겠습니까?');
+    // setIsEditConfirm(true);
     const { username, oldPassword, password, bio } = data;
     const imgUrl = imgUrlMutation.data;
     const editData = { username, oldPassword, password, bio, imgUrl };
@@ -257,9 +257,11 @@ const EditUserInfo = () => {
         )}
       </div>
       <>
-        {isEditConfirm ? <DialogModal title="수정확인" message={errorMsg} type="alert" /> : null}
+        {/* {isEditConfirm ? <DialogModal title="내 정보 수정" message={errorMsg} type="alert" /> : null} */}
         {isEditError ? <DialogModal title="에러" message={errorMsg} type="alert" /> : null}
-        {isEditSuccess ? <DialogModal title="수정완료" message={confirmMsg} type="alert" navigate="/mypage" /> : null}
+        {isEditSuccess ? (
+          <DialogModal title="내 정보 수정" message={confirmMsg} type="alert" navigate="/mypage" />
+        ) : null}
       </>
     </MyPageContentsLayout>
   ) : (

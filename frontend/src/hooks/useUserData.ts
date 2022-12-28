@@ -58,6 +58,7 @@ export default function useUserData() {
     mutationFn: withdrawMutate,
     onSuccess: () => {
       alertStore.setState({ confirmMsg: '회원탈퇴 되었습니다.' });
+      window.sessionStorage.clear();
     },
     onError: (error) => {
       if (error instanceof AxiosError) {
