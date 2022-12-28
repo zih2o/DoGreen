@@ -16,8 +16,8 @@ export default function RightBody({ name }) {
         <div className="flex flex-row justify-between p-4 item-bottom">
           <h2 className="flex text-4xl font-bold mb-5">{name} 관리</h2>
         </div>
-        <div className="flex flex-wrap flex-row">
-          <div className="text-center m-3 p-3 w-full font-bold text-xl bg-white border border-gray-200 rounded-lg shadow-md dark:bg-[#292524] dark:border-[#292524]">
+        <div className="flex flex-wrap">
+          <div className="flex flex-col text-center m-3 p-3 w-full font-bold text-xl bg-white border border-gray-200 rounded-lg shadow-md dark:bg-[#292524] dark:border-[#292524]">
             <button className="w-full" onClick={() => toggleAdminCreateCardBtn()}>
               {name} 카드생성하기
             </button>
