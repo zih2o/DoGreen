@@ -2,7 +2,6 @@ import create from 'zustand';
 import { persist } from 'zustand/middleware';
 import { api } from '../util/api';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-
 interface IUserInfo {
   role: string;
   email: string;
@@ -64,7 +63,6 @@ export default function useUserData() {
   };
   const userMutation = useMutation({
     mutationFn: editMutate,
-
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user'] });
     },
