@@ -30,7 +30,7 @@ export class CommentService {
     await commentRepository.updateComment(commentId, toUpdate);
   }
 
-  async findAllCommentAtPost(postId: string) {
+  async findAllCommentAtPost(postId: string, page: number, perPage: number) {
     // 보내고 싶은 형태
     //   [
     //     username: ,
@@ -38,8 +38,7 @@ export class CommentService {
     //     createAt,
     //     upadateAt
     // ]
-    const commentId = await postRepository.findAllCommentAtPost(postId);
-    return commentId;
+    return commentRepository.paginationComment(postId, page, perPage);
   }
 
   async createComment(comment: CommentT['comment'], postId: string, authId:string) {

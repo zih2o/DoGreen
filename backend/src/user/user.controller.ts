@@ -32,17 +32,12 @@ export class UserController {
 
     invariant(oldPassword !== undefined, new BadRequestError('비밀번호가 필요합니다.'));
 
-    const isExistUser = await authService.existUserByEmail(email);
-    if (isExistUser === true) {
-      const isCurruentUserPasswordCorrect = await authService.isPasswordCorrect(oldPassword, email);
-      invariant(isCurruentUserPasswordCorrect === true, new BadRequestError('입력하신 비밀번호가 틀립니다'));
+    await authService.updatePassword(oldPassword, {
+      email,
+      password: newPassword // 새 비밀번호
+    });
 
-      await authService.updatePassword(oldPassword, {
-        email,
-        password: newPassword // 새 비밀번호
-      });
-      await userService.updateUser(email, userInfo);
-      res.status(200).end();
-    }
+    await userService.updateUser(email, userInfo);
+    res.status(200).end();
   };
 }

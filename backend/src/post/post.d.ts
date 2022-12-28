@@ -10,8 +10,8 @@ type PostT = {
     category: categoryT,
     content: string,
     imageList: string[],
-    likeUserList?: Types.ObjectId,
-    likesNum:number,
+    likeUserList: Types.ObjectId[],
+    likesNum: number,
     comments?: CommentT[], // comment를 분리?
     createdAt: Date
     updatedAt: Date

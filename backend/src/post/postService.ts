@@ -27,8 +27,8 @@ export class PostService implements IPostService {
     }
   }
 
-  async paginationPost(categoryId: string | string, page: number, perPage: number) {
-    const pagingPosts = await postRepository.paginationPost(categoryId, page, perPage);
+  async paginationPost(categoryId: string | string, page: number, perPage: number, authId: string) {
+    const pagingPosts = await postRepository.paginationPost(categoryId, page, perPage, authId);
     return pagingPosts;
   }
 
