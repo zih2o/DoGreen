@@ -9,9 +9,12 @@ import { useLogin, IAuthData } from '../../hooks/useAuth';
 import { DialogModal } from '../common/DialogModal';
 import { AxiosError } from 'axios';
 import { useModalState } from '../../hooks/useModalState';
+import { useLocation } from 'react-router-dom';
 
 export const Login = () => {
-  const { isOpen, handleClose } = useModalState();
+  const { isOpen, handleClose, handleOpen } = useModalState();
+  const { pathname } = useLocation();
+
   const { schema } = loginValidation();
   const {
     handleSubmit,
@@ -24,9 +27,9 @@ export const Login = () => {
   const { mutate, isError, error } = useLogin();
   const onSubmit = async (data: IAuthData) => {
     mutate(data);
+    handleOpen();
   };
   const errorMsg = error instanceof AxiosError ? error?.response?.data?.error : null;
-
   return (
     <div className={className.container}>
       <form onSubmit={handleSubmit(onSubmit)} className={className.form}>
@@ -84,7 +87,9 @@ export const Login = () => {
         </a>
       </div>
       <>
-        {isError && isOpen ? <DialogModal title="에러" message={errorMsg} type="alert" onClose={handleClose} /> : null}
+        {isError && isOpen ? (
+          <DialogModal title="에러" message={errorMsg} type="alert" onClose={handleClose} removeBg={true} />
+        ) : null}
       </>
     </div>
   );
@@ -92,10 +97,12 @@ export const Login = () => {
 
 const className = {
   container:
-    'flex flex-col items-center justify-start w-[460px] h-[400px] px-8 border-[3px] border-garden1 box-border rounded-xl bg-gardenBG shadow-[0_0_30px_rgba(30, 30, 30, 0.185)]',
-  title: 'justify-self-start text-center my-10 pb-3 text-garden1 font-pacifico text-4xl',
+    'flex flex-col items-center justify-start w-[460px] h-[400px] max-[600px]:h-[470px] max-[600px]:w-[375px] px-8 border-[3px] border-garden1 box-border rounded-xl bg-gardenBG shadow-[0_0_30px_rgba(30, 30, 30, 0.185)]',
+  title:
+    'justify-self-start text-center my-10 max-[550px]:mt-10 max-[600px]:mb-5 pb-3 text-garden1 font-pacifico text-4xl',
   form: 'flex-col w-full px-3',
   accountContainer: 'flex py-2 px-1 mr-3 self-end text-xl ',
-  accountText: 'text-garden4 text-base dark:text-[#dedad9]',
-  accountLink: 'text-garden1 pl-3 accountContainer font-semibold hover:text-forest1 transition ease-in delay-75',
+  accountText: 'text-garden4 text-base  max-[550px]:text-[16px] dark:text-[#dedad9]',
+  accountLink:
+    'text-garden1 pl-3 accountContainer font-semibold max-[550px]:text-[17px] hover:text-forest1 transition ease-in delay-75',
 };

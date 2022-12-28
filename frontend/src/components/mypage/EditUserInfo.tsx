@@ -5,18 +5,20 @@ import { editValidation } from '../auth/yup';
 import { AiOutlineClose } from 'react-icons/ai';
 import { AxiosError } from 'axios';
 
+import useUserData from '../../hooks/useUser';
+import { useModalState } from '../../hooks/useModalState';
+import createUrl from '../../hooks/useImage';
+import { useValUserName } from '../../hooks/useValUser';
+import Userwithdraw from './Userwithdraw';
+
+import EditSkeleton from '../loadings/EditSkeleton';
 import { InputContainer } from '../common/InputContainer';
 import { ImgContainer } from '../common/ImgContainer';
 import { FormInput, IputError, InputButton, ClickButton } from '../common/FormsAboutInput';
 import { MyPageContentsLayout } from '../layout/MyPageLayout';
-import useUserData from '../../hooks/useUser';
-import Userwithdraw from './Userwithdraw';
-import { useValUserName } from '../../hooks/useValUser';
-import createUrl from '../../hooks/useImage';
-import Modal from '../common/Modal';
-import EditSkeleton from '../loadings/EditSkeleton';
 import { DialogModal } from '../common/DialogModal';
-import { useModalState } from '../../hooks/useModalState';
+import Modal from '../common/Modal';
+
 interface IEditIData {
   email: string;
   username: string;
@@ -71,13 +73,12 @@ const EditUserInfo = () => {
   }, [userData]);
 
   const [image, currUsername] = useWatch({ control, name: ['imgUrl', 'username'] });
-  const { mutate: imgUrlMutation, data: imgUrlData, isError: imgUrlError, error: igmError } = createUrl();
+  const { mutate: imgUrlMutation, data: imgUrlData, isError: isImgUrlError, error: imgUrlError } = createUrl();
   //이미지 변경
   const [imgPreview, setImgPreview] = useState('');
   useEffect(() => {
     if (image && image.length > 0) {
       const file = image?.[0];
-      console.log('file : ', file);
       setImgPreview(URL.createObjectURL(file));
       imgUrlMutation(file);
     }
@@ -118,7 +119,7 @@ const EditUserInfo = () => {
   }, [confirm]);
 
   const editErrorMsg = editError instanceof AxiosError ? editError?.response?.data?.error : null;
-  const imgErrorMsg = igmError instanceof AxiosError ? igmError?.response?.data?.error : null;
+  const imgErrorMsg = imgUrlError instanceof AxiosError ? imgUrlError?.response?.data?.error : null;
 
   return !isUserDataLoading ? (
     <MyPageContentsLayout>
@@ -293,7 +294,7 @@ const EditUserInfo = () => {
             onClose={handleClose}
           />
         ) : null}
-        {imgUrlError ? <DialogModal title="에러" message={imgErrorMsg} type="alert" onClose={handleClose} /> : null}
+        {isImgUrlError ? <DialogModal title="에러" message={imgErrorMsg} type="alert" onClose={handleClose} /> : null}
       </>
     </MyPageContentsLayout>
   ) : (
@@ -305,9 +306,9 @@ const EditUserInfo = () => {
 
 const className = {
   container:
-    'container flex flex-col justify-center items-center flex-1 sm:w-[600px] md:w-[700px] xl:w-[800px] mx-auto mt-5 mb-[100px] py-5 px-14 lg:px-15 border-2 border-solid border-garden1 rounded-xl',
-  title: 'text-center p-10 mb-5 text-4xl font-bold text-garden1',
-  form: 'flex-col w-full px-3',
+    'container flex flex-col justify-center items-center flex-1 sm:w-[600px] md:w-[700px] xl:w-[800px] mx-auto mt-5 mb-[100px] py-5 px-14 max-[780px]:px-12 max-[650px]:px-10 border-2 border-solid border-garden1 rounded-xl',
+  title: 'text-center p-10 mb-5 max-[550px]:px-1 text-4xl max-[550px]:text-3xl font-bold text-garden1',
+  form: 'flex-col w-full px-3 max-[800px]:px-1',
   closeButton: 'self-center absolute top-2 right-2 float-right p-2 rounded-xl active:bg-white active:opacity-60',
 };
 
