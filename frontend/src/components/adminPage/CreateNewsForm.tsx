@@ -6,6 +6,7 @@ import useCategory from '../../hooks/useCategory';
 export default function CreateNewsForm() {
   const mascotNameRef = useRef();
   const contentRef = useRef();
+  const newsImgRef = useRef();
   const mutation = useMutation((data) => api.post('/post/create', data));
 
   const {
@@ -16,12 +17,13 @@ export default function CreateNewsForm() {
     const formData = {
       category: mascotNameRef.current.value,
       content: contentRef.current.value,
+      imageList: newsImgRef.current.value,
     };
     confirm(`${formData.category} 카드를 저장하시겠습니까?`) ? mutation.mutate(formData) : event.preventDefault();
   };
 
   return (
-    <form className="px-7" onSubmit={handleSubmit}>
+    <form className="flex flex-row px-7" onSubmit={handleSubmit}>
       <label className="flex text-sm" htmlFor="mascotNameInput">
         Mascot name
       </label>
