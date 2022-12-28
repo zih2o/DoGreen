@@ -75,7 +75,7 @@ export default function DrawerList({ name, handleModal }: IDrawerNav) {
               </Link>
             );
           })}
-          <div className="pt-20">
+          <div className="pt-0">
             <button className="hover:underline" onClick={handleOpen}>
               <li className="text-l mt-5 dark:text-gray-200 md:text-xl font-bold text-garden2">로그아웃</li>
             </button>

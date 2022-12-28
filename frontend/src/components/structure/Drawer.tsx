@@ -34,10 +34,12 @@ function Drawer() {
         {existUser ? (
           <>
             <div className="flex flex-col mx-auto items-center">
-              <div className="leading-10 text-garden2 text-3xl dark:text-gray-200">
+              <div className="leading-10 text-garden2 font-bold text-2xl sm:text-3xl dark:text-gray-200">
                 {userInfo ? `${userInfo.role} ${userInfo.username}님` : <Loading />}
               </div>
-              <span className=" py-4 text-garden2 text-xl dark:text-gray-200">지금까지 펭귄 300마리를 구하셨어요!</span>
+              <span className=" py-4 text-garden2 text-center text-lg sm:text-xl dark:text-gray-200">
+                지금까지 펭귄 300마리를<br></br> 구하셨어요!
+              </span>
             </div>
             <DrawerList name={userInfo.role.toLowerCase()} handleModal={closeModal} />
           </>

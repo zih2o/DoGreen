@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const favTheme =
-  'absolute top-1/2 w-10 h-10 z-10 text-garden4 opacity-50 transition-all dark:text-forest2 hover:cursor-pointer hover:opacity-100 ';
+  'absolute top-1/2 w-10 h-10 z-0 text-garden4 opacity-50 transition-all dark:text-forest2 hover:cursor-pointer hover:opacity-100 ';
 
 export default function NewsCarousel(props: Record<'imageList', string[]>) {
   const images = props.imageList;
