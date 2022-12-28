@@ -32,7 +32,7 @@ export class PostRepository implements IPostRepository {
     return isLiked;
   }
 
-  async paginationPost(categoryId: string | string, page: number, perPage: number, authId: string) {
+  async paginationPost(categoryId: string, page: number, perPage: number, authId?: string) {
     // 해당 카테고리에 총 갯수를 구하는 쿼리
     const category = await CategoryModel.findById(categoryId, undefined, {
       populate: {
@@ -59,7 +59,7 @@ export class PostRepository implements IPostRepository {
         content: post.content,
         likeUserList,
         likesNum: post.likesNum,
-        isLiked: likeUserList.includes(authId),
+        isLiked: authId ? likeUserList.includes(authId) : false,
         createdAt: post.createdAt,
         updatedAt: post.updatedAt
       };
