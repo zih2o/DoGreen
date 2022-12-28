@@ -37,11 +37,12 @@ export default function usePost(catId?: string) {
       await queryClient.cancelQueries({ queryKey: ['posts', catId] });
       const previousData = queryClient.getQueryData(['posts', catId]);
       queryClient.setQueryData<InfiniteData<IPage>>(['posts', catId], (oldData) => ({
-        ...oldData!,
-        pages: oldData!.pages.map((page) => ({
-          ...page,
-          result: page.result.map((post) => (post._id === newPost._id ? newPost : post)),
-        })),
+        pageParams: oldData?.pageParams ?? [],
+        pages:
+          oldData?.pages.map((page) => ({
+            ...page,
+            result: page.result.map((post) => (post._id === newPost._id ? newPost : post)),
+          })) ?? [],
       }));
       return { previousData };
     },
