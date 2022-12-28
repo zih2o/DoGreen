@@ -11,8 +11,8 @@ postRouter.post('/create', loginRequired, adminRequired, nextError(postControlle
 postRouter.get('/like/:id', loginRequired, nextError(postController.addlikeUserId));
 postRouter.patch('/:id', loginRequired, adminRequired, nextError(postController.updatePost));
 postRouter.delete('/:id', loginRequired, adminRequired, nextError(postController.deletePost));
-postRouter.get('/posts', loginRequired, nextError(postController.paginationPost));
+postRouter.get('/', loginRequired, nextError(postController.paginationPost));
 postRouter.get('/:id', nextError(postController.findOnePost));
-postRouter.get('/', nextError(postController.findAllPost));
+// postRouter.get('/', nextError(postController.findAllPost));
 
 export { postRouter };
