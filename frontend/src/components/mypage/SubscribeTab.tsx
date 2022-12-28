@@ -76,7 +76,7 @@ const SubscribeTab = () => {
   return (
     <MyPageContentsLayout>
       {subInfo && subInfo.length > 0 ? (
-        <CardLayout>
+        <CardLayout isMypage>
           <div className={TextType.titleText}>{'My Greens'}</div>
           <div className={TextType.introduceText}>{'내가 구독 중인 토픽을 확인하고 관리해보세요!'} &nbsp;</div>
           <div className={WrapperType.cardContentsWrapper}>
@@ -94,7 +94,7 @@ const SubscribeTab = () => {
                     handleToggle();
                   }}
                 >
-                  <div className="relative w-full h-full max-w-md md:h-auto">
+                  <div className="relative w-72 sm:w-full h-full max-w-md md:h-auto">
                     <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                       <button
                         type="button"

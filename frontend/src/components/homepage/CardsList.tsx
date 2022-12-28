@@ -77,7 +77,7 @@ const CardsList = () => {
           </Link>
         </div>
       </div>
-      <div className="mt-16"></div>
+      <div className="mt-8 sm:mt-16"></div>
       <div className={WrapperType.homeCategoriesWrapper}>
         <ul id="rightMove" className={WrapperType.cardListRightWrapper}>
           {tabCards1}

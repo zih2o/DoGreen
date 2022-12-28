@@ -6,6 +6,7 @@ interface ILayoutProps {
 interface ICardLayoutProps {
   children: ReactNode;
   isHome?: boolean;
+  isMypage?: boolean;
 }
 
 export const GlobalLayout = ({ children }: ILayoutProps) => {
@@ -17,10 +18,12 @@ export const HomeLayout = ({ children }: ILayoutProps) => {
 export const CategoryLayout = ({ children }: ILayoutProps) => {
   return <div className="container w-full lg:mt-[113.99px] pt-10 lg:pt-0 mb-24 mx-auto px-5">{children}</div>;
 };
-export const CardLayout = ({ children, isHome }: ICardLayoutProps) => {
+export const CardLayout = ({ children, isHome, isMypage }: ICardLayoutProps) => {
   return (
     <div className={'grid grid-cols-1 ' + (isHome ? 'p-0' : 'p-4')}>
-      <div className={'flex flex-col w-full ' + (isHome ? 'p-0' : 'pt-20 px-0 lg:px-10')}>{children}</div>
+      <div className={'flex flex-col w-full ' + (isHome ? 'p-0' : isMypage ? 'px-0 lg:px-10' : 'pt-20 px-0 lg:px-10')}>
+        {children}
+      </div>
     </div>
   );
 };
