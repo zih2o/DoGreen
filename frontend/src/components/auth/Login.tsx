@@ -7,7 +7,7 @@ import { InputContainer } from '../common/InputContainer';
 import { FormInput, IputError, InputButton } from '../common/FormsAboutInput';
 import { useLogin, IAuthData } from '../../hooks/useAuth';
 import { DialogModal } from '../common/DialogModal';
-import { alertStore } from '../../store/alertStore';
+import { AxiosError } from 'axios';
 
 export const Login = () => {
   const { schema } = loginValidation();
@@ -19,12 +19,11 @@ export const Login = () => {
     mode: 'onSubmit',
     resolver: yupResolver(schema),
   });
-  const { mutate, isError, isSuccess } = useLogin();
-  const { errorMsg, confirmMsg } = alertStore();
-
+  const { mutate, isError, error } = useLogin();
   const onSubmit = async (data: IAuthData) => {
     mutate(data);
   };
+  const errorMsg = error instanceof AxiosError ? error?.response?.data?.error : null;
 
   return (
     <div className={className.container}>
