@@ -4,6 +4,7 @@ import { BadRequestError } from '../errors/BadRequestError';
 import invariant from '../invariant';
 import { CommentService } from './commentService';
 import { zParse } from '../zParse';
+import { ForbiddenError } from '../errors/ForbiddenError';
 
 const commentService = new CommentService();
 
@@ -39,6 +40,7 @@ export class CommentController {
   }
 
   async createComment(req: Request, res: Response) {
+    invariant(req.context.currentUser !== undefined, new ForbiddenError('로그인해야 이용할 수 있는 서비스입니다.'));
     const currentAuthId = req.context.currentUser.authId;
     const { comment, postId } = req.body;
     await commentService.createComment(comment, postId, currentAuthId);
@@ -46,6 +48,7 @@ export class CommentController {
   }
 
   async updateComment(req: Request, res: Response) {
+    invariant(req.context.currentUser !== undefined, new ForbiddenError('로그인해야 이용할 수 있는 서비스입니다.'));
     const currentAuthId = req.context.currentUser.authId;
     const commentId = req.params.id;
     const { comment } = req.body;
@@ -55,6 +58,7 @@ export class CommentController {
   }
 
   async deleteComment(req: Request, res: Response) {
+    invariant(req.context.currentUser !== undefined, new ForbiddenError('로그인해야 이용할 수 있는 서비스입니다.'));
     const currentAuthId = req.context.currentUser.authId;
     const commentId = req.params.id;
 
