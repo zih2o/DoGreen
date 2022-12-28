@@ -7,9 +7,11 @@ import { InputContainer } from '../common/InputContainer';
 import { FormInput, IputError, InputButton } from '../common/FormsAboutInput';
 import { useLogin, IAuthData } from '../../hooks/useAuth';
 import { DialogModal } from '../common/DialogModal';
-import { alertStore } from '../../store/alertStore';
+import { AxiosError } from 'axios';
+import { useModalState } from '../../hooks/useModalState';
 
 export const Login = () => {
+  const { isOpen, handleClose } = useModalState();
   const { schema } = loginValidation();
   const {
     handleSubmit,
@@ -19,12 +21,11 @@ export const Login = () => {
     mode: 'onSubmit',
     resolver: yupResolver(schema),
   });
-  const { mutate, isError, isSuccess } = useLogin();
-  const { errorMsg, confirmMsg } = alertStore();
-
+  const { mutate, isError, error } = useLogin();
   const onSubmit = async (data: IAuthData) => {
     mutate(data);
   };
+  const errorMsg = error instanceof AxiosError ? error?.response?.data?.error : null;
 
   return (
     <div className={className.container}>
@@ -37,7 +38,6 @@ export const Login = () => {
             defaultValue=""
             render={({ field: { name, onChange, value } }) => {
               const errorDisplay = errors.email ? 'error' : '';
-              console.log(value);
               return (
                 <FormInput
                   id="email"
@@ -83,7 +83,9 @@ export const Login = () => {
           Create account
         </a>
       </div>
-      <>{isError ? <DialogModal title="에러" message={errorMsg} type="alert" /> : null}</>
+      <>
+        {isError && isOpen ? <DialogModal title="에러" message={errorMsg} type="alert" onClose={handleClose} /> : null}
+      </>
     </div>
   );
 };

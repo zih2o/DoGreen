@@ -8,7 +8,8 @@ import { FormInput, IputError, InputButton } from '../common/FormsAboutInput';
 import { useResiter, IAuthData } from '../../hooks/useAuth';
 import { useValUserName, useValEmail } from '../../hooks/useValUser';
 import { DialogModal } from '../common/DialogModal';
-import { alertStore } from '../../store/alertStore';
+import { AxiosError } from 'axios';
+import { useModalState } from '../../hooks/useModalState';
 
 interface IRegisterData extends IAuthData {
   username: string;
@@ -16,6 +17,7 @@ interface IRegisterData extends IAuthData {
 }
 
 export const Register = () => {
+  const { isOpen, handleClose } = useModalState();
   const { schema } = userValidation();
   const {
     handleSubmit,
@@ -27,14 +29,11 @@ export const Register = () => {
   });
 
   //데이터 전달
-  const { confirmMsg, errorMsg } = alertStore();
-
-  const { mutate, isError, isSuccess } = useResiter();
+  const { mutate, isError, isSuccess, error } = useResiter();
   const onSubmit = (data: IRegisterData) => {
     const { username, email, password } = data;
     const role = 'USER';
     mutate({ username, email, password, role });
-    console.log(isError);
   };
 
   const [currUsername, currEmail] = useWatch({ control, name: ['username', 'email'] });
@@ -44,7 +43,6 @@ export const Register = () => {
     currUsername?.length > 2 ? currUsername : '##',
   );
   const usernameVal = valUsername?.username;
-
   useEffect(() => {
     usernameVal ? setUsernameError(Boolean(usernameVal)) : setUsernameError(Boolean(usernameVal));
   }, [currUsername, isUserNameLoading]);
@@ -53,10 +51,12 @@ export const Register = () => {
   const [emailError, setEmailError] = useState(false);
   const { data: valEmail, isLoading: isEmailLoading } = useValEmail(currEmail?.length > 2 ? currEmail : '##');
   const eamilVal = valEmail?.email;
-
   useEffect(() => {
     eamilVal ? setEmailError(Boolean(eamilVal)) : setEmailError(Boolean(eamilVal));
   }, [emailError, isEmailLoading]);
+
+  //에러처리
+  const errorMsg = error instanceof AxiosError ? error?.response?.data?.error : null;
 
   return (
     <div className={className.container}>
@@ -157,8 +157,12 @@ export const Register = () => {
         </InputContainer>
         <InputButton value="가입하기" />
       </form>
-      <>{isError ? <DialogModal title="에러" message={errorMsg} type="alert" /> : null}</>
-      <>{isSuccess ? <DialogModal title="회원가입" message={confirmMsg} type="alert" refresh /> : null}</>
+      <>
+        {isError && isOpen ? <DialogModal title="에러" message={errorMsg} type="alert" onClose={handleClose} /> : null}
+        {isSuccess && isOpen ? (
+          <DialogModal title="회원가입" message="회원가입 되었습니다." type="alert" refresh onClose={handleClose} />
+        ) : null}
+      </>
     </div>
   );
 };

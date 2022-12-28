@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigate, redirect } from 'react-router-dom';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Modal from './Modal';
-import { useModalState } from '../../hooks/useModalState';
 
 export interface IModalType {
   title: string;
@@ -9,23 +8,26 @@ export interface IModalType {
   type: string;
   navigate?: string;
   refresh?: boolean;
+  setConfirm?: (data: boolean) => void;
+  onClose: () => void;
 }
-export const DialogModal = ({ title, message, type, navigate, refresh }: IModalType) => {
-  const { isOpen, handleToggle } = useModalState();
-  const [handleModal, setHandleModal] = useState(isOpen);
+export const DialogModal = ({ title, message, type, navigate, refresh, setConfirm, onClose }: IModalType) => {
   const nav = useNavigate();
-
-  const handleClose = () => {
-    handleToggle();
-    !refresh ? setHandleModal(!handleModal) : window.location.replace('/');
+  const handleModalClose = () => {
+    console.log('눌렀음');
+    !refresh ? onClose() : window.location.replace('/');
     navigate && nav(navigate);
   };
-  const handleConfirm = () => {
-    handleToggle();
-    setHandleModal(!handleModal);
+  const handleModalConfirm = () => {
+    onClose();
+    setConfirm && setConfirm(true);
   };
-  return isOpen ? (
-    <Modal onClose={type === 'confirm' ? handleConfirm : handleClose}>
+  const handleModalCancle = () => {
+    onClose();
+    setConfirm && setConfirm(false);
+  };
+  return (
+    <Modal onClose={type === 'confirm' ? handleModalConfirm : handleModalClose}>
       <div className="relative w-full h-full max-w-xl w-xl md:h-auto">
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
           <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
@@ -45,7 +47,7 @@ export const DialogModal = ({ title, message, type, navigate, refresh }: IModalT
               <button
                 type="button"
                 className="mr-4 text-gray-500 bg-white hover:bg-gray-100 focus:ring-2 focus:outline-none focus:ring-gray-300 rounded-lg border border-gray-200 text-md font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-                onClick={handleClose}
+                onClick={handleModalClose}
               >
                 확인
               </button>
@@ -55,7 +57,7 @@ export const DialogModal = ({ title, message, type, navigate, refresh }: IModalT
                 <button
                   type="button"
                   className="mr-4 text-gray-500 bg-white hover:bg-gray-100 focus:ring-2 focus:outline-none focus:ring-gray-300 rounded-lg border border-gray-200 text-md font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-                  onClick={handleConfirm}
+                  onClick={handleModalConfirm}
                 >
                   확인
                 </button>
@@ -63,7 +65,7 @@ export const DialogModal = ({ title, message, type, navigate, refresh }: IModalT
                   data-modal-toggle="popup-modal"
                   type="button"
                   className="mr-4 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-lg font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-                  onClick={handleClose}
+                  onClick={handleModalCancle}
                 >
                   취소
                 </button>
@@ -73,7 +75,5 @@ export const DialogModal = ({ title, message, type, navigate, refresh }: IModalT
         </div>
       </div>
     </Modal>
-  ) : (
-    <></>
   );
 };
