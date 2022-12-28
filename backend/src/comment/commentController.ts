@@ -16,26 +16,26 @@ const paginationSchema = z.object({
 });
 
 export class CommentController {
-  async paginationComment(req:Request, res:Response) {
-    const { postId } = req.query;
-    // 왼쪽의 값이 falsy하면 오른쪽 값을 assign한다.
-    req.query.page ||= '1'; // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_OR_assignment
-    req.query.perPage = req.query.perPage || '10';
-    invariant(typeof req.query.page === 'string', new BadRequestError('page는 정수입니다'));
-    invariant(typeof req.query.perPage === 'string', new BadRequestError('perPage는 정수여야 합니다'));
-    const page = parseInt(req.query.page, 10);
-    const perPage = parseInt(req.query.perPage, 10);
+  // async paginationComment(req:Request, res:Response) {
+  //   const { postId } = req.query;
+  //   // 왼쪽의 값이 falsy하면 오른쪽 값을 assign한다.
+  //   req.query.page ||= '1'; // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_OR_assignment
+  //   req.query.perPage = req.query.perPage || '10';
+  //   invariant(typeof req.query.page === 'string', new BadRequestError('page는 정수입니다'));
+  //   invariant(typeof req.query.perPage === 'string', new BadRequestError('perPage는 정수여야 합니다'));
+  //   const page = parseInt(req.query.page, 10);
+  //   const perPage = parseInt(req.query.perPage, 10);
 
-    invariant(typeof postId === 'string', new BadRequestError('해당하는 post가 존재하지 않습니다.'));
-    const pagingComments = await commentService.paginationPost(postId, page, perPage);
-    res.status(200).json(pagingComments);
-  }
+  //   invariant(typeof postId === 'string', new BadRequestError('해당하는 post가 존재하지 않습니다.'));
+  //   const pagingComments = await commentService.paginationPost(postId, page, perPage);
+  //   res.status(200).json(pagingComments);
+  // }
 
   async findPaginatedCommentsAtPost(req: Request, res: Response) {
     const { id } = req.params;
     const { query: { page, perPage } } = await zParse(paginationSchema, req);
 
-    const allComment = await commentService.findAllCommentAtPost(id, page, perPage);
+    const allComment = await commentService.findPaginatedCommentAtPost(id, page, perPage);
     res.status(200).json(allComment);
   }
 
