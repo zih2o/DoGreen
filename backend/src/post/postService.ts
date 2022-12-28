@@ -1,10 +1,7 @@
-import { model, ObjectId, Types } from 'mongoose';
-import { ParamsDictionary } from 'express-serve-static-core';
-import { PostSchema } from './postSchema';
 import { PostRepository } from './postRepository';
 import { CategoryRepository } from '../category/categoryRepository';
-import ApplicationError from '../errors/ApplicationError';
 import invariant from '../invariant';
+import { NotFoundError } from '../errors/NotFoundError';
 
 const postRepository = new PostRepository();
 const cateogryRepository = new CategoryRepository();
@@ -32,7 +29,7 @@ export class PostService implements IPostService {
   async createPost(createPostInfo: createPostDto) {
     // 카테고리 존재 검증
     const categoryId = await cateogryRepository.findCategory(createPostInfo.category);
-    invariant(categoryId !== null, new ApplicationError(`${createPostInfo.category} 카테고리가 존재하지 않습니다.`, 404));
+    invariant(categoryId !== null, new NotFoundError(`${createPostInfo.category} 카테고리가 존재하지 않습니다.`));
 
     await postRepository.createOne(createPostInfo, categoryId._id);
   }
