@@ -117,7 +117,7 @@ export const CategoriesPage = () => {
                     <div key={`back-${category._id}`} className={CardType.layout + CardType.back}>
                       <button type="button" className={BtnType.newsLetterBtn}>
                         {' '}
-                        <Link to={`/categories/${category.categoryName}`} onClick={() => handleClickLink(category)}>
+                        <Link to={`/categories/${category._id}`} onClick={() => handleClickLink(category)}>
                           뉴스레터 📰
                         </Link>
                       </button>
