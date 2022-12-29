@@ -13,10 +13,10 @@ postRouter.get('/', loginOptional, nextError(postController.paginationPost));
 postRouter.get('/:id', loginOptional, nextError(postController.findOnePost));
 
 // ADMIN
+postRouter.get('/all/admin', loginRequired, adminRequired, nextError(postController.findAllPost));
 postRouter.post('/create', loginRequired, adminRequired, nextError(postController.createPost));
 postRouter.patch('/:id', loginRequired, adminRequired, nextError(postController.updatePost));
 postRouter.delete('/:id', loginRequired, adminRequired, nextError(postController.deletePost));
-postRouter.get('/all', loginRequired, adminRequired, nextError(postController.findAllPost));
 
 // USER
 postRouter.patch('/like/:id', loginRequired, nextError(postController.addlikeUserId));
