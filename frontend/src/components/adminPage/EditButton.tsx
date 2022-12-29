@@ -28,7 +28,12 @@ export default function EditButton({ id, cardtype, setEditBtnHandler }) {
   const deleteMutation = useMutation(() => api.delete(`/${cardtype}/${id}`));
   const deleteHandler = (event) => {
     setEditBtnHandler(false);
-    confirm('해당 카테고리를 삭제하시겠습니까?') ? deleteMutation.mutate() : event.preventDefault();
+    if (confirm('해당 카테고리를 삭제하시겠습니까?')) {
+      deleteMutation.mutate();
+      window.location.replace("/admin/mascot")
+    } else {
+      event.preventDefault();
+    }
   };
   return (
     <div id="dropdown" className="absolute mt-8 w-36 text-base bg-white divide-gray-100 rounded shadow">
