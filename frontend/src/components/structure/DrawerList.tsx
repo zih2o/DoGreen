@@ -63,9 +63,6 @@ export default function DrawerList({ name, handleModal }: IDrawerNav) {
               <Link to="/mypage/subscribe" className={className.navButton} onClick={toggleDrawer}>
                 MY 구독
               </Link>
-              <Link to={`/categories/${''}`} className={className.navButton} onClick={toggleDrawer}>
-                MY 뉴스레터
-              </Link>
             </>
           )}
           {drawerDatas?.map((data: IDrawerNaveList) => {

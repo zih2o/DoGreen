@@ -21,7 +21,11 @@ export const CategoryLayout = ({ children }: ILayoutProps) => {
 export const CardLayout = ({ children, isHome, isMypage }: ICardLayoutProps) => {
   return (
     <div className={'grid grid-cols-1 ' + (isHome ? 'p-0' : 'p-4')}>
-      <div className={'flex flex-col w-full ' + (isHome ? 'p-0' : isMypage ? 'px-0 lg:px-10' : 'pt-20 px-0 lg:px-10')}>
+      <div
+        className={
+          'flex flex-col w-full ' + (isHome ? 'p-0' : isMypage ? 'sm:pt-12 px-0 lg:px-10' : 'pt-20 px-0 lg:px-10')
+        }
+      >
         {children}
       </div>
     </div>
