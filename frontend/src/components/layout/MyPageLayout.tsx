@@ -22,7 +22,7 @@ export const MyPageTabLinkLayout = ({ children }: IMyPageLayoutProps) => {
   return <div className="flex flex-col font-bold text-xl">{children}</div>;
 };
 export const MyPageContentsLayout = ({ children }: IMyPageLayoutProps) => {
-  return <div className="w-full flex-1 lg:w-80 py-5">{children}</div>;
+  return <div className="w-full flex-1 lg:w-80 mt-10 py-5">{children}</div>;
 };
 export const MyPageMessageLayout = ({ children }: IMyPageLayoutProps) => {
   return (
