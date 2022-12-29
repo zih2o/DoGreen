@@ -70,12 +70,12 @@ const Userwithdraw = () => {
       </form>
       <>
         {isError && isOpen ? (
-          <DialogModal title="에러" message={errorMsg} type="alert" onClose={handleClose} removeBg={true} />
+          <DialogModal title="오류" message={errorMsg} type="alert" onClose={handleClose} removeBg={true} />
         ) : null}
       </>
       <>
         {isSuccess && isOpen ? (
-          <DialogModal title="확인" message="탈퇴되었습니다." type="alert" navigate="/" onClose={handleClose} />
+          <DialogModal title="회원 탈퇴" message="탈퇴되었습니다." type="alert" navigate="/" onClose={handleClose} />
         ) : null}
       </>
     </div>
