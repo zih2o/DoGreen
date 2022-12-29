@@ -68,12 +68,12 @@ export default function EditSkeleton() {
           </div>
         </section>
         <div className="flex justify-center mt-3 w-full">
-          <div className="flex justify-center w-[50%] mb-2 py-2 rounded-full bg-zinc-300 dark:bg-[#292524] text-xl text-transparent animate-pulse">
+          <div className="flex justify-center w-[50%] h-[45px] mb-2 py-2 rounded-full bg-zinc-300 dark:bg-[#292524] text-xl text-transparent animate-pulse">
             버튼
           </div>
         </div>
         <div className="flex justify-center mt-3 w-full">
-          <div className="flex justify-center w-[50%] mb-2 py-2 rounded-full bg-zinc-300 dark:bg-[#292524] text-xl text-transparent animate-pulse">
+          <div className="flex justify-center w-[50%] h-[45px] mb-2 py-2 rounded-full bg-zinc-300 dark:bg-[#292524] text-xl text-transparent animate-pulse">
             버튼
           </div>
         </div>
