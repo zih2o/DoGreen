@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom';
 import { useQuery, useInfiniteQuery, useQueryClient, useMutation, InfiniteData } from '@tanstack/react-query';
 import { api } from '../util/api';
 
@@ -16,9 +17,9 @@ interface IPage {
   totalPage: number;
 }
 
-export default function usePost(catId?: string) {
+export default function usePost() {
   const queryClient = useQueryClient();
-
+  const { catId } = useParams();
   const postQuery = useInfiniteQuery({
     queryKey: ['posts', catId],
     queryFn: async ({ pageParam = 1 }) => {
@@ -27,11 +28,13 @@ export default function usePost(catId?: string) {
       return { nextPage: pageParam + 1, result, totalPage };
     },
     getNextPageParam: (lastPage) => (lastPage.nextPage <= lastPage.totalPage ? lastPage.nextPage : undefined),
+    retry: true,
+    retryDelay: 3000,
   });
 
   const addLike = useMutation({
     mutationFn: async (newPost: IPost) => {
-      await api.get(`/post/like/${newPost._id}`);
+      await api.patch(`/post/like/${newPost._id}`);
     },
     onMutate: async (newPost: IPost) => {
       await queryClient.cancelQueries({ queryKey: ['posts', catId] });
