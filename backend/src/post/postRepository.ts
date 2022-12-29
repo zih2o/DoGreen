@@ -3,10 +3,8 @@ import { CategorySchema } from '../category/categorySchema';
 import invariant from '../invariant';
 import { PostSchema } from './postSchema';
 import { CommentSchema } from '../comment/commentSchema';
-import ApplicationError from '../errors/ApplicationError';
 import { UserSchema } from '../user/user.schema';
 import { NotFoundError } from '../errors/NotFoundError';
-import { ForbiddenError } from '../errors/ForbiddenError';
 
 const PostModel = model<PostT>('posts', PostSchema);
 const CategoryModel = model<categoryT>('categories', CategorySchema);
@@ -124,8 +122,16 @@ export class PostRepository implements IPostRepository {
   }
 
   async findAll() {
-    const totalPost = await PostModel.find({});
-    return totalPost;
+    const posts = await PostModel.find({}, undefined, {
+      populate: {
+        path: 'category',
+        select: 'categoryName',
+        transform: doc => doc.categoryName
+      }
+    });
+    invariant(posts.every(post => typeof post.category === 'string'), '카테고리가 존재하지 않습니다.');
+
+    return posts;
   }
 
   async isExistPost(postId: string) {
