@@ -7,18 +7,19 @@ export interface IModalType {
   message: string;
   type: string;
   navigate?: string;
-  refresh?: boolean;
+  refresh?: string;
+  removeBg?: boolean;
   setConfirm?: (data: boolean) => void;
   onClose: () => void;
 }
-export const DialogModal = ({ title, message, type, navigate, refresh, setConfirm, onClose }: IModalType) => {
+export const DialogModal = ({ title, message, type, navigate, refresh, setConfirm, onClose, removeBg }: IModalType) => {
   const nav = useNavigate();
   const handleModalClose = () => {
-    !refresh ? onClose() : window.location.replace('/');
+    !refresh ? onClose() : window.location.replace(refresh);
     navigate && nav(navigate);
   };
   const handleModalConfirm = () => {
-    onClose();
+    !refresh ? onClose() : window.location.replace(refresh);
     setConfirm && setConfirm(true);
   };
   const handleModalCancel = () => {
@@ -26,10 +27,10 @@ export const DialogModal = ({ title, message, type, navigate, refresh, setConfir
     setConfirm && setConfirm(false);
   };
   return (
-    <Modal onClose={type === 'confirm' ? handleModalConfirm : handleModalClose}>
-      <div className="relative w-full h-full max-w-xl w-xl md:h-auto">
-        <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-          <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+    <Modal onClose={type === 'confirm' ? handleModalConfirm : handleModalClose} removeBg={removeBg}>
+      <div className="relative w-full h-full max-w-md md:h-auto ">
+        <div className="relative max-[480px]:w-[370px] bg-white rounded-lg shadow dark:bg-gray-700 ">
+          <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600 ">
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{title}</h3>
             <button
               type="button"
@@ -37,8 +38,10 @@ export const DialogModal = ({ title, message, type, navigate, refresh, setConfir
             ></button>
           </div>
 
-          <div className="py-12 px-[80px] space-y-6">
-            <p className="text-xl leading-relaxed text-gray-500 dark:text-gray-400">{message}</p>
+          <div className="py-12 px-[80px] max-[480px]:px-2 space-y-6  ">
+            <p className="text-xl leading-relaxed text-center text-gray-500 max-[480px]:text-[17px] dark:text-gray-400">
+              {message}
+            </p>
           </div>
 
           <div className="py-5 flex justify-end border-t border-gray-200 rounded-b dark:border-gray-600">

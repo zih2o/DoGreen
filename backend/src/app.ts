@@ -2,13 +2,21 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
+import { mongo } from 'mongoose';
 import routes from './routes';
 import logger from './logger';
 import ApplicationError from './errors/ApplicationError';
+import initEmptyContext from './middleware/initEmptyContext';
+import { ConflictError } from './errors/ConflictError';
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: ['https://localhost:3000', 'http://localhost:3000', 'https://localhost:5173', 'http://localhost:5173', 'https://do-green.vercel.app', 'http://do-green.vercel.app'],
+  credentials: true
+};
+
+app.use(cors(corsOptions));
 
 function logResponseTime(req: Request, res: Response, next: NextFunction) {
   // 요청이 들어온 시간
@@ -30,6 +38,8 @@ function logResponseTime(req: Request, res: Response, next: NextFunction) {
   next();
 }
 
+app.use(initEmptyContext);
+
 app.use(logResponseTime);
 // response.body 압축해주는 역할
 app.use(compression());
@@ -41,6 +51,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(routes);
 
 app.use((err: ApplicationError, req: Request, res: Response, next: NextFunction) => {
+  // 몽고디비에서 발생한 에러일 경우
+  if (err instanceof mongo.MongoServerError) {
+    const formatted = Object.entries(err.keyValue).map(entry => entry.join(' : ')).join(', ');
+    throw new ConflictError(`중복된 ${formatted}입니다.`);
+  }
   if (res.headersSent) {
     return next(err);
   }

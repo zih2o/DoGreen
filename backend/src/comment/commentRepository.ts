@@ -5,6 +5,7 @@ import invariant from '../invariant';
 import { NotFoundError } from '../errors/NotFoundError';
 import ApplicationError from '../errors/ApplicationError';
 import { UserSchema } from '../user/user.schema';
+import { ForbiddenError } from '../errors/ForbiddenError';
 
 const CommentModel = model<CommentT>('comments', CommentSchema);
 const PostModel = model<PostT>('posts', PostSchema);
@@ -58,11 +59,18 @@ export class CommentRepository implements ICommentRepository {
     };
   }
 
-  async deleteComment(commentId: string) {
+  async isWrittenByCurrentUser(commentId: string, currentAuthId: string): Promise<void> {
+    const targetComment = await CommentModel.findById(commentId); // null
+    invariant(targetComment?.authId !== currentAuthId, new ForbiddenError('작성자가 아니므로 권한이 존재하지 않습니다.'));
+  }
+
+  async deleteComment(commentId: string, currentAuthId: string) {
+    await this.isWrittenByCurrentUser(commentId, currentAuthId);
     await CommentModel.findByIdAndDelete(commentId);
   }
 
-  async updateComment(commentId: string, toUpdate: updateCommentDto) {
+  async updateComment(commentId: string, toUpdate: updateCommentDto, currentAuthId: string) {
+    await this.isWrittenByCurrentUser(commentId, currentAuthId);
     await CommentModel.findByIdAndUpdate(commentId, { comment: toUpdate.comment });
   }
 

@@ -39,17 +39,9 @@ export const CategoriesPage = () => {
     subsMutation,
   } = useSubscription(newSubsInfo.categoryId as string);
 
-  if (error) {
-    error;
-  } else {
-    // refetch();
-  }
   useEffect(() => {
     handleClose();
     getUserInfo();
-    if (existUser) {
-      // refetch();
-    }
   }, [existUser]);
 
   const checkLogin = () => {

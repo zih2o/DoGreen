@@ -21,9 +21,9 @@ function Header() {
   }, [darkMode]);
   return (
     <header className="fixed top-0 inset-x-0 z-10">
-      <div className="grid grid-cols-10 items-center col-span-full top-0 px-6 py-[39px] bg-garden3">
+      <div className="grid grid-cols-5 sm:grid-cols-10 items-center col-span-full top-0 px-6 py-[39px] bg-garden3">
         <div className="grid col-span-7 md:col-span-8">
-          <span className="text-5xl font-pacifico">
+          <span className="text-3xl sm:text-5xl font-pacifico">
             <Link to="/" className="text-garden1">
               Do Green!
             </Link>
