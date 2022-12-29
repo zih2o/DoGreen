@@ -10,10 +10,9 @@ const postRouter = Router();
 
 // NOT LOGGED IN
 postRouter.get('/', loginOptional, nextError(postController.paginationPost));
+postRouter.get('/all', loginRequired, adminRequired, nextError(postController.findAllPost));
 postRouter.get('/:id', loginOptional, nextError(postController.findOnePost));
-
 // ADMIN
-postRouter.get('/all/admin', loginRequired, adminRequired, nextError(postController.findAllPost));
 postRouter.post('/create', loginRequired, adminRequired, nextError(postController.createPost));
 postRouter.patch('/:id', loginRequired, adminRequired, nextError(postController.updatePost));
 postRouter.delete('/:id', loginRequired, adminRequired, nextError(postController.deletePost));

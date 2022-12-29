@@ -66,10 +66,10 @@ export class PostService implements IPostService {
   }
 
   // ADMIN
-  // async findAllPost() {
-  //   const totalPostInfo = await postRepository.findAll();
-  //   return totalPostInfo;
-  // }
+  async findAllPost() {
+    const totalPostInfo = await postRepository.findAll();
+    return totalPostInfo;
+  }
 
   async findOnePost(id: string, authId: string | undefined) {
     const postInfo = await postRepository.findPost(id, authId);

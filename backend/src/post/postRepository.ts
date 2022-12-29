@@ -129,7 +129,7 @@ export class PostRepository implements IPostRepository {
         transform: doc => doc.categoryName
       }
     });
-    invariant(posts.every(post => typeof post.category === 'string'), '포스트가 존재하지 않습니다.');
+    invariant(posts.every(post => typeof post.category === 'string'), '카테고리가 존재하지 않습니다.');
 
     return posts;
   }
