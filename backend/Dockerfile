@@ -22,5 +22,5 @@ RUN yarn build
 # Expose port 3000
 EXPOSE 3000
 # CMD ["/bin/ls", "-a", "./dist"]
-RUN yarn dev
-# CMD ["node", "--experimental-modules", "--experimental-specifier-resolution=node", "./dist/src/server.js"]
+# RUN yarn dev
+CMD ["node", "--experimental-modules", "--experimental-specifier-resolution=node", "./dist/src/server.js"]
