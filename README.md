@@ -98,6 +98,9 @@
 - 구독 목록 조회, 구독 취소<br>  
 </details>
 
+<details><summary>관리자 페이지</summary>
+</details>
+<br>
 ## 3. ARCHITECTURE
 
 - 서비스 구조도 그림 <img src="./stack.png">
