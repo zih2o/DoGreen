@@ -14,14 +14,17 @@ export interface IComment {
   createdAt: string;
   updatedAt: string;
 }
+interface T {
+  data: { error: string };
+}
 
 export default function useComment(postId?: string) {
   const queryClient = useQueryClient();
 
   const commentQuery = useInfiniteQuery({
-    queryKey: ['comments'],
+    queryKey: ['comments', postId],
     queryFn: async ({ pageParam = 1 }) => {
-      const res = await api.get(`comment/comments?postId=${postId}&page=${pageParam}&perPage=6`);
+      const res = await api.get(`/comment/${postId}?perPage=8&page=${pageParam}`);
       const { result, totalPage } = res.data;
       return { nextPage: pageParam + 1, result, totalPage };
     },
@@ -29,16 +32,21 @@ export default function useComment(postId?: string) {
   });
 
   const addComment = useMutation<AxiosResponse, AxiosError, Record<'postId' | 'comment', string>>({
-    mutationFn: async () => {
-      return await api.post(`/comment`).then((res) => res.data);
+    mutationFn: async (data) => {
+      return await api.post(`/comment`, data).then((res) => res.data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['comments'] });
-      console.log('댓글 성공');
-    },
-    onError: (err: any) => {
-      console.log(err.response.data.error);
+      queryClient.invalidateQueries({ queryKey: ['comments', postId] });
     },
   });
-  return { commentQuery, addComment };
+
+  const removeComment = useMutation<AxiosResponse, AxiosError, string>({
+    mutationFn: async (commentId) => {
+      return await api.delete(`/comment/${commentId}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['comments', postId] });
+    },
+  });
+  return { commentQuery, addComment, removeComment };
 }

@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom';
 import { api } from '../util/api';
 import { useQuery } from '@tanstack/react-query';
 
@@ -7,10 +8,11 @@ export interface ICategory {
   mascotName: string;
   mascotImage: string;
   posts: string[];
-  __v: number;
 }
 
 export default function useCategory() {
+  const { catId } = useParams();
+
   const catQuery = useQuery<ICategory[]>({
     queryKey: ['categories'],
     queryFn: async () => {
@@ -19,16 +21,15 @@ export default function useCategory() {
     staleTime: 1000 * 60 * 5,
   });
 
-  return { catQuery };
-}
-
-export function useOneCategory(catId?: string) {
-  const categoryQuery = useQuery<ICategory>({
-    queryKey: [catId],
+  const selectedCatQuery = useQuery<ICategory>({
+    queryKey: ['categories', catId],
     queryFn: async () => {
-      return api.get(`category/${catId}`).then((res) => res.data);
+      return api.get(`/category/${catId}`).then((res) => res.data);
     },
     staleTime: 1000 * 60 * 5,
+    onError: (error) => {
+      return error;
+    },
   });
-  return { categoryQuery };
+  return { catQuery, selectedCatQuery };
 }

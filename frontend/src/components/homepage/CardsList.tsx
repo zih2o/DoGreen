@@ -12,8 +12,9 @@ const CardsList = () => {
 
   const tabCards1 = categories?.map((card, index) => {
     const range = categories.length / 2;
+
     return (
-      <>
+      <React.Fragment key={card._id}>
         {index < range && (
           <li key={card._id} className={CardType.size}>
             <Link to={`/categories/${card._id}`} className={CardType.layout}>
@@ -30,17 +31,19 @@ const CardsList = () => {
             </Link>
           </li>
         )}
-      </>
+      </React.Fragment>
     );
   });
 
   const tabCards2 = categories?.map((card, index) => {
     const range = categories.length / 2;
+
     return (
-      <>
+      <React.Fragment key={card._id}>
         {index >= range && (
           <li key={card._id} className={CardType.size}>
             <Link to={`/categories/${card._id}`} className={CardType.layout}>
+              {' '}
               <div className={CardType.imgWrapper}>
                 <img className={CardType.img} src={card.mascotImage} alt="default card" />
               </div>
@@ -53,7 +56,7 @@ const CardsList = () => {
             </Link>
           </li>
         )}
-      </>
+      </React.Fragment>
     );
   });
 
@@ -69,7 +72,7 @@ const CardsList = () => {
           </Link>
         </div>
       </div>
-      <div className="mt-16"></div>
+      <div className="mt-8 sm:mt-16"></div>
       <div className={WrapperType.homeCategoriesWrapper}>
         <ul id="rightMove" className={WrapperType.cardListRightWrapper}>
           {tabCards1}

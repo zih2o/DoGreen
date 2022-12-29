@@ -1,17 +1,22 @@
 import React from 'react';
-import CardsList from '../components/home/CardsList';
-import TestBody from '../components/TestBody';
-import { ToTopButton } from '../components/ScrollToTop';
+import CardsList from '../components/homepage/CardsList';
+import MainTopCards from '../components/homepage/MainTopCards';
+import { ToTopButton } from '../components/structure/ScrollToTop';
+import { useDrawerStore } from '../hooks/useDrawer';
+
 function Home() {
+  const { drawerOpen } = useDrawerStore();
+  console.log(drawerOpen);
+
   return (
     <>
       <div className="w-full min-h-screen grid grid-cols-10 grid-rows-6">
         <div className="grid mt-[106.77px] mb-[92px] col-span-full row-span-6 sm:mb-[72px]">
-          <TestBody title="Home" />
+          <MainTopCards />
           <CardsList />
         </div>
       </div>
-      <ToTopButton />
+      {!drawerOpen && <ToTopButton />}
     </>
   );
 }

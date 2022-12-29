@@ -1,16 +1,21 @@
+import create from 'zustand';
+import { persist } from 'zustand/middleware';
 import { api } from '../util/api';
-import { useQuery } from '@tanstack/react-query';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from 'react-router';
-import { AxiosError } from 'axios';
-
-interface IUserData {
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+interface IUserInfo {
   role: string;
   email: string;
   username: string;
   bio: string;
   imgUrl: string;
 }
+
+interface IGetUserInfo {
+  existUser: boolean | Error;
+  userInfo: IUserInfo;
+  getUserInfo: () => void;
+}
+
 interface IEditData {
   username?: string;
   oldPassword: string;
@@ -18,15 +23,34 @@ interface IEditData {
   imgUrl?: string;
   bio?: string;
 }
-
 interface IAuthData {
   currentPassword: string;
 }
+
+export const useUserInfo = create<IGetUserInfo, [['zustand/persist', IGetUserInfo]]>(
+  persist(
+    (set) => ({
+      existUser: false,
+      userInfo: { role: '', email: '', username: '', bio: '', imgUrl: '' },
+      getUserInfo: async () => {
+        try {
+          const { data } = await api('/user/me');
+          set(() => ({ existUser: true }));
+          set(() => ({ userInfo: { ...data } }));
+        } catch (err) {
+          set(() => ({ existUser: false }));
+          set(() => ({ userInfo: { role: '', email: '', username: '', bio: '', imgUrl: '' } }));
+        }
+      },
+    }),
+    { name: 'user-login-store', getStorage: () => sessionStorage },
+  ),
+);
+
 export default function useUserData() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
 
-  const userQuery = useQuery<IUserData>({
+  const userQuery = useQuery<IUserInfo>({
     queryKey: ['user'],
     queryFn: async () => {
       return api.get('/user/me').then((res) => res.data);
@@ -39,16 +63,8 @@ export default function useUserData() {
   };
   const userMutation = useMutation({
     mutationFn: editMutate,
-    onMutate: () => {
-      alert('수정하시겠습니까?');
-    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user'] });
-      console.log('성공');
-      navigate('/');
-    },
-    onError: (error) => {
-      alert(error?.response?.data?.error);
     },
   });
 
@@ -57,16 +73,8 @@ export default function useUserData() {
   };
   const withdrawMutaiton = useMutation({
     mutationFn: withdrawMutate,
-    onMutate: () => {
-      alert('탈퇴하시겠습니까?');
-    },
     onSuccess: () => {
-      console.log('회원탈퇴');
-      alert('회원탈퇴 되었습니다.');
-      navigate('/');
-    },
-    onError: (error) => {
-      alert(error?.response?.data?.error);
+      window.sessionStorage.clear();
     },
   });
   return { userQuery, userMutation, withdrawMutaiton };

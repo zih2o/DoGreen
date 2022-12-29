@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextType } from '../common/theme';
 import { MyPageMessageLayout } from '../layout/MyPageLayout';
-import useUserData from '../../hooks/useUserData';
+import useUserData from '../../hooks/useUser';
 import { MessageSkeleton } from '../loadings/MessageSkeleton';
 
 export const UserMessage = () => {

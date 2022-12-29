@@ -5,13 +5,20 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { InputContainer } from '../common/InputContainer';
 import { FormInput, IputError, ClickButton } from '../common/FormsAboutInput';
-import useUserData from '../../hooks/useUserData';
+import useUserData from '../../hooks/useUser';
+import { DialogModal } from '../common/DialogModal';
+import { AxiosError } from 'axios';
+import { useModalState } from '../../hooks/useModalState';
 
 const Userwithdraw = () => {
+  const { isOpen, handleClose, handleOpen } = useModalState();
+
   interface IAuthInput {
     currentPassword: string;
   }
-  const { withdrawMutaiton: widthdraw } = useUserData();
+  const {
+    withdrawMutaiton: { mutate, isError, isSuccess, error },
+  } = useUserData();
   const { schema } = withDrawValidation();
   const {
     handleSubmit,
@@ -23,9 +30,10 @@ const Userwithdraw = () => {
   });
 
   const onSubmit = async (currentPassword: IAuthInput) => {
-    console.log(currentPassword);
-    widthdraw.mutate(currentPassword);
+    mutate(currentPassword);
+    handleOpen();
   };
+  const errorMsg = error instanceof AxiosError ? error?.response?.data?.error : null;
 
   return (
     <div className={className.container}>
@@ -60,13 +68,24 @@ const Userwithdraw = () => {
           <br /> 3개월 동안 동일한 계정으로 가입하실 수 없습니다.
         </p>
       </form>
+      <>
+        {isError && isOpen ? (
+          <DialogModal title="오류" message={errorMsg} type="alert" onClose={handleClose} removeBg={true} />
+        ) : null}
+      </>
+      <>
+        {isSuccess && isOpen ? (
+          <DialogModal title="회원 탈퇴" message="탈퇴되었습니다." type="alert" navigate="/" onClose={handleClose} />
+        ) : null}
+      </>
     </div>
   );
 };
 const className = {
   container:
-    'flex flex-col items-center justify-start w-[460px] h-[380px] px-8 border-[3px] border-garden1 box-border rounded-xl bg-gardenBG shadow-[0_0_30px_rgba(30, 30, 30, 0.185)]',
-  title: 'justify-self-start text-center my-10 pb-3 font-bold text-garden1 font-pacifico text-4xl',
+    'flex flex-col items-center justify-start w-[460px] h-[380px] max-[600px]:h-[420px] max-[600px]:w-[375px] px-8 border-[3px] border-garden1 box-border rounded-xl bg-gardenBG shadow-[0_0_30px_rgba(30, 30, 30, 0.185)]',
+  title:
+    'justify-self-start text-center my-10 pb-3 max-[550px]:mt-10 max-[600px]:mb-5 font-bold text-garden1 font-pacifico text-4xl max-[550px]:text-3xl ',
   form: 'flex-col w-full px-3',
   accountContainer: 'flex p-1 mr-3 self-end text-xl ',
   accountText: 'text-garden4 text-base',

@@ -7,6 +7,11 @@ const PostSchema = new Schema<PostT>(
       ref: 'categories',
       index: true
     },
+    authId: {
+      type: Schema.Types.ObjectId,
+      ref: 'auths',
+      required: true
+    },
     content: {
       type: String,
       minlength: 5,
@@ -21,7 +26,8 @@ const PostSchema = new Schema<PostT>(
     }],
     likesNum: {
       type: Number,
-      default: 0
+      default: 0,
+      min: 0
     },
     comments: [{
       type: Schema.Types.ObjectId,

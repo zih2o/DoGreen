@@ -23,16 +23,11 @@ export class UserService implements IUserService {
     // https://mongoosejs.com/docs/populate.html#field-selection
     const authIds = await authService.findAll();
     const users = await UserModel.find({ auth: authIds }, undefined, {
-    // 아니 role을 그냥 userSchema에 넣으면 populate안해도되는데 왜 user스키마에 자신의 롤을
-    // 넣지않은거니
       populate: {
         path: 'auth',
         select: 'role'
       }
     })
-
-    // })
-      .limit(10)
       .sort({ updatedAt: 'desc' });
     // O(N)
     return users.map(userToUserDto);
@@ -84,9 +79,6 @@ export class UserService implements IUserService {
 
   // update, softdeletebyuser 가능
   async updateUser(email: UserT['email'], userInfo: Partial<Omit<UserT, 'email' | 'auth' | 'isDeleted'>>) {
-    // if (userInfo.username && await this.isDuplicatedUsername(userInfo.username)) {
-    //   throw new ConflictError('다른 유저가 사용하고 있는 닉네임입니다.');
-    // }
     await UserModel.updateOne(
       { email }, // filter
       {

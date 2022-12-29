@@ -1,13 +1,17 @@
-import { model, Types } from 'mongoose';
+import { model } from 'mongoose';
 import { CategorySchema } from '../category/categorySchema';
 import invariant from '../invariant';
 import { PostSchema } from './postSchema';
 import { CommentSchema } from '../comment/commentSchema';
 import ApplicationError from '../errors/ApplicationError';
+import { UserSchema } from '../user/user.schema';
+import { NotFoundError } from '../errors/NotFoundError';
+import { ForbiddenError } from '../errors/ForbiddenError';
 
 const PostModel = model<PostT>('posts', PostSchema);
 const CategoryModel = model<categoryT>('categories', CategorySchema);
 const CommentModel = model('comments', CommentSchema);
+const UserModel = model<UserT>('users', UserSchema);
 
 export class PostRepository implements IPostRepository {
   async subtractLike(currentAuthId: string, postId: string) {
@@ -24,54 +28,98 @@ export class PostRepository implements IPostRepository {
     );
   }
 
-  async isLikedByPostId(currentAuthId: string, postId: string): Promise<boolean> {
+  async isLikedByPostId(currentAuthId: string, postId: string): Promise<{} | null> {
+    const post = await PostModel.exists({ _id: postId });
+    invariant(post !== null, new NotFoundError('해당하는 포스트가 존재하지 않습니다.'));
+
     const isLiked = await PostModel.exists({ _id: postId, likeUserList: currentAuthId });
-    return isLiked !== null;
+    return isLiked;
   }
 
-  async paginationPost(categoryId: string | string, page: number, perPage: number) {
-    // 해당 카테고리에 총 갯수를 구하는 쿼리
+  async paginationPost(categoryId: string, page: number, perPage: number, authId?: string) {
     const category = await CategoryModel.findById(categoryId, undefined, {
       populate: {
         path: 'posts',
         options: {
+          // eslint-disable-next-line quote-props
+          // sort: { 'createdAt': -1 },
           skip: (page - 1) * perPage,
           limit: perPage
         }
       }
     });
-
-    invariant(category !== null, new ApplicationError('해당하는 카테고리가 존재하지 않습니다.', 404));
+    invariant(category !== null, new NotFoundError('해당하는 카테고리가 존재하지 않습니다.'));
 
     const total = await PostModel.count({ category: categoryId });
     const totalPage = Math.ceil(total / perPage);
 
+    const result = category.posts.map(post => {
+      const likeUserList = post.likeUserList.map(v => String(v));
+      return {
+        _id: post._id,
+        imageList: post.imageList,
+        content: post.content,
+        likeUserList,
+        likesNum: post.likesNum,
+        isLiked: authId ? likeUserList.includes(authId) : false,
+        createdAt: post.createdAt,
+        updatedAt: post.updatedAt,
+        authId: post.authId
+      };
+    });
     return {
-      page, perPage, result: category.posts, totalPage
+      page, perPage, result, totalPage
     };
   }
 
-  async deletePostCommentId(commentId: string) {
+  async deletePostCommentId(commentId: string, currentAuthId: string) {
     const comment = await CommentModel.findById(commentId);
-    invariant(comment !== null, new ApplicationError('해당하는 코멘트가 존재하지 않습니다.', 404));
-    await PostModel.findByIdAndUpdate(comment.refPost, { $pull: { comments: commentId } });
+    invariant(comment !== null, new NotFoundError('해당하는 댓글이 존재하지 않습니다.'));
+    await PostModel.findOneAndUpdate(comment.refPost, { $pull: { comments: commentId } });
   }
 
-  async findAllCommentAtPost(postId: CommentT['refPost']) {
-    const post = await PostModel.findById(postId.id)
+  async isWrittenByCurrentUser(postId: string, currentAuthId: string): Promise<boolean> {
+    const targetComment = await PostModel.findById(postId); // null
+
+    invariant(targetComment !== null, new NotFoundError(`${postId} Post가 존재하지 않습니다.`));
+    return targetComment.authId.toString() === currentAuthId;
+  }
+
+  async findAllCommentAtPost(postId: string) {
+    const post = await PostModel.findById(postId)
       .populate({
-        path: 'comments',
-        populate: {
-          path: 'userId',
-          select: 'username imgUrl'
-        }
+        path: 'comments'
       });
 
-    invariant(post !== null, new ApplicationError('해당하는 포스트가 존재하지 않습니다.', 404));
-    return post.comments!;
+    invariant(post !== null, new NotFoundError('해당하는 포스트가 존재하지 않습니다.'));
+    invariant(post.comments !== undefined, new NotFoundError('해당하는 댓글이 존재하지 않습니다.'));
+
+    const authIdList = post.comments.map(comment => comment.authId);
+
+    const userList = await UserModel.find({ auth: authIdList }, undefined, {
+      select: 'auth username imgUrl'
+    });
+
+    const userMap = new Map<string, Pick<UserT, 'username' | 'imgUrl'> & { _id: string }>();
+    userList.forEach(user => {
+      const authId = String(user.auth);
+      userMap.set(authId, {
+        _id: String(user._id),
+        username: user.username,
+        imgUrl: user.imgUrl
+      });
+    });
+    return post.comments.map((comment, i) => ({
+      _id: comment._id,
+      refPost: comment.refPost,
+      userId: userMap.get(String(authIdList[i])),
+      comment: comment.comment,
+      createdAt: comment.createdAt,
+      updatedAt: comment.updatedAt
+    }));
   }
 
-  async addcommentList(postId: string, commentId: Types.ObjectId) {
+  async addcommentList(postId: string, commentId: string) {
     await PostModel.findByIdAndUpdate(postId, { $push: { comments: commentId } });
   }
 
@@ -80,14 +128,32 @@ export class PostRepository implements IPostRepository {
     return totalPost;
   }
 
-  async findPost(postId: string) {
-    const post = await PostModel.findById(postId);
-    invariant(post !== null, new ApplicationError('해당하는 Post가 존재하지 않습니다.', 404));
-    return post;
+  async isExistPost(postId: string) {
+    const post = await PostModel.exists({ _id: postId });
+    return post !== null;
   }
 
-  async createOne(newPost: createPostDto, categoryId: createCategoryDto) {
+  async findPost(postId: string, authId: string | undefined) {
+    const post = await PostModel.findById(postId);
+    invariant(post !== null, new NotFoundError('해당하는 Post가 존재하지 않습니다.'));
+    const likeUserList = post.likeUserList.map(v => String(v));
+    return {
+      _id: post._id,
+      category: post.category,
+      imageList: post.imageList,
+      content: post.content,
+      likeUserList,
+      likesNum: post.likesNum,
+      isLiked: authId ? likeUserList.includes(authId) : false,
+      createdAt: post.createdAt,
+      updatedAt: post.updatedAt,
+      authId: post.authId
+    };
+  }
+
+  async createOne(newPost: createPostDto, categoryId: createCategoryDto, authId: string) {
     const newPostId = await PostModel.create({
+      authId,
       category: categoryId,
       content: newPost.content,
       imageList: newPost.imageList
@@ -97,14 +163,17 @@ export class PostRepository implements IPostRepository {
 
   async deleteOne(postId: string) {
     const post = await PostModel.findById(postId);
-    invariant(post !== null, new ApplicationError('해당하는 Post가 존재하지 않습니다.', 404));
+    invariant(post !== null, new NotFoundError('해당하는 Post가 존재하지 않습니다.'));
+
     await CategoryModel.findByIdAndUpdate(post.category, { $pull: { posts: postId } });
-    await PostModel.deleteOne({ id: postId });
+    await CommentModel.deleteMany({ _id: post.comments });
+    await PostModel.findByIdAndDelete(postId);
   }
 
   async updateOne(postId: string, toUpdatePost: updatePostDto) {
     const category = await CategoryModel.exists({ categoryName: toUpdatePost.category });
-    invariant(category !== null, new ApplicationError('해당하는 카테고리가 존재하지 않습니다.', 404));
+    invariant(category !== null, new NotFoundError('해당하는 카테고리가 존재하지 않습니다.'));
+
     // 포스트 정보 변경
     await PostModel.updateMany(
       { _id: postId },
@@ -116,20 +185,3 @@ export class PostRepository implements IPostRepository {
     );
   }
 }
-
-// createPost -> admin권한 필요, 카드를 참조해 그 카드에 해당하는 포스팅들을 보여줘야함. 근데 이게 피드식이라 과연 1개만 조회하는게 필요 할까?
-// findOnePost -> 하나의 포스트 조회, 한가지 포스트에 대한 정보만 보여줘야하는데 그걸 ID로 찾아내기?
-// findAllPost -> 카테고리 목록에서 뿌려질 포스트 목록, 페이지네이션 구현해야할듯?
-// updatePost -> 한개의 포스트 수정
-// deletePost -> 한개의 포스트 삭제, 전체삭제도 구현? 또 참조이기때문에 포스트가 해당되는 카드가 삭제되면, 해당 카드의 있는 포스트들은 어떻게 처리할 것인가?
-
-// 카드클릭시 포스트가 보여지는데,,,
-// 구독해야 게시글이 보여야하니까 그걸 구분하는걸 또 생각해야겠지?
-// 구독했을 때 그 피드가 보이게
-// user에 구독한카드(sub)배열이 추가가 되고
-// findOne 할때 user에게 그 그그그그 카드 인덱스번호가 있는지 체크한 후 보여주기
-
-// 구독 스키마 생성
-// 유저 구독정보 저장
-//
-// 카테고리 > 카드 > 포스트

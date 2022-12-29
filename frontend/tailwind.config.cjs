@@ -1,6 +1,6 @@
 module.exports = {
   darkMode: 'class',
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  content: ['./src/**/*.{js,jsx,ts,tsx}', 'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'],
   theme: {
     fontSize: {
       sm: '0.8rem',
@@ -60,12 +60,12 @@ module.exports = {
             transform: 'translateX(50px)',
           },
           '100%': {
-            transform: 'translateX(-900px)',
+            transform: 'translateX(-450px)',
           },
         },
         rightMove: {
           '0%': {
-            transform: 'translateX(-900px)',
+            transform: 'translateX(-450px)',
           },
           '100%': {
             transform: 'translateX(50px)',
@@ -80,5 +80,5 @@ module.exports = {
     },
   },
   mode: 'jit',
-  plugins: [require('@kamona/tailwindcss-perspective')],
+  plugins: [require('@kamona/tailwindcss-perspective'), require('flowbite/plugin')],
 };

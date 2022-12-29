@@ -1,72 +1,50 @@
 import { PostRepository } from '../post/postRepository';
 import { CommentRepository } from './commentRepository';
+import { NotFoundError } from '../errors/NotFoundError';
 import invariant from '../invariant';
+import { ForbiddenError } from '../errors/ForbiddenError';
 
 const commentRepository = new CommentRepository();
 const postRepository = new PostRepository();
 
 export class CommentService {
-  async paginationPost(postId: string, page: number, perPage: number) {
+  async findPaginatedCommentAtPost(postId: string, page: number, perPage: number) {
     const pagingComment = await commentRepository.paginationComment(postId, page, perPage);
     return pagingComment;
   }
 
   async deleteComment(commentId: string, currentAuthId: string) {
-    // personal 배열에서 삭제
-    // await commentRepository.deletePersonalCommentId(commentId, currentAuthId);
-    // posts 배열에서 삭제
-    await postRepository.deletePostCommentId(commentId);
-    // comment 삭제
-    await commentRepository.deleteComment(commentId);
+    // 양쪽이 강하게 결합되어 있어 분리가 반드시 필요합니다
+    invariant(
+      await commentRepository.isWrittenByCurrentUser(commentId, currentAuthId),
+      new ForbiddenError('작성자가 아니므로 권한이 존재하지 않습니다.')
+    );
+    await postRepository.deletePostCommentId(commentId, currentAuthId);
+    await commentRepository.deleteComment(commentId, currentAuthId);
   }
 
-  // async findMyComment(authId: string) {
-  //   const comments = await commentRepository.findMyComment(authId);
-  //   invariant(comments !== null, new NotFoundError('작성한 댓글이 존재하지 않습니다.'));
-  //   return comments;
-  // }
-
-  async updateComment(comment: CommentT['comment'], commentId: string, currentAuthId:string) {
+  async updateComment(comment: CommentT['comment'], commentId: string, currentAuthId: string) {
     // 코멘트 수정
-
+    invariant(
+      await commentRepository.isWrittenByCurrentUser(commentId, currentAuthId),
+      new ForbiddenError('작성자가 아니므로 권한이 존재하지 않습니다.')
+    );
     const toUpdate = {
       ...(comment && { comment })
     };
-
-    await commentRepository.updateComment(commentId, toUpdate);
-  }
-
-  async findAllCommentAtPost(postId: string) {
-    // 보내고 싶은 형태
-    //   [
-    //     username: ,
-    //     comment: ,
-    //     createAt,
-    //     upadateAt
-    // ]
-    const commentId = await postRepository.findAllCommentAtPost(postId);
-    return commentId;
+    await commentRepository.updateComment(commentId, toUpdate, currentAuthId);
   }
 
   async createComment(comment: CommentT['comment'], postId: string, authId:string) {
-    // 코멘트 등록
-    // 포스트의 아이디를 찾아 넣어줘야한다 (바디로 온것으로 찾기) (코멘트에)
-    const post = await postRepository.findPost(postId);
+    invariant(
+      await postRepository.isExistPost(postId),
+      new NotFoundError(`${postId} Post가 없습니다.`)
+    );
 
     // 찾은 username은 comment에 받아온 내용과 함께 생성
     const newComment = await commentRepository
-      .createComment(post.id, authId, comment);
-    // 생성완료
-    // 생성된 코멘트에서 또 id를 뽑아서 post에 comments 배열에 저장시켜줘야함
+      .createComment(postId, authId, comment);
 
-    // 찾은 postId를 postSchma에 저장
-    await postRepository.addcommentList(post.id, newComment.id);
-
-    // 이미 개인의 댓글 DB가 존재하는지 검증
-    // 찾은 userId를 personalComment Schema에 할당
-    // const isExist = await comment.isExist(authId);
-    // if (isExist === null) {
-    //   await personalCommentRepository.createList(authId, newComment.id);
-    // } else await personalCommentRepository.pushList(authId, newComment.id);
+    await postRepository.addcommentList(postId, newComment.id);
   }
 }

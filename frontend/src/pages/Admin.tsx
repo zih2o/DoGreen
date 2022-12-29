@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import AdminBody from '../components/AdminBody';
+import AdminBody from '../components/adminPage/AdminBody';
 import Loading from '../components/loadings/Loading';
 import NotFound from './NotFound';
-import { useUserInfo } from '../components/wastebasket/store';
+import { useUserInfo } from '../hooks/useUser';
 
 function Admin() {
   const { existUser, userInfo, getUserInfo } = useUserInfo();

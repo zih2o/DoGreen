@@ -1,9 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../util/api';
-import { AuthStore } from './useAuth';
-
+import { useUserInfo } from './useUser';
 export interface ISubscription {
-  _id: string | undefined;
+  _id: string;
   categoryName: string;
   mascotName: string;
   mascotImage: string;
@@ -12,21 +11,23 @@ export interface ISubscription {
 
 export function useSubscription(catId: string) {
   const queryClient = useQueryClient();
-  const token = AuthStore((state) => state.token);
+  const { existUser } = useUserInfo();
   const subsQuery = useQuery<ISubscription[]>({
     queryKey: ['userCategories'],
     queryFn: async () => {
       return await api.get('/subscribe').then((res) => res.data);
     },
-    staleTime: 1000 * 60,
-    enabled: !!token,
+    onError: () => {
+      queryClient.refetchQueries({ queryKey: ['userCategories'] });
+    },
+    enabled: !!existUser,
   });
   const subsMutation = useMutation<ISubscription>({
     mutationFn: async () => {
       return await api.post(`/subscribe/${catId}`).then((res) => res.data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['subscription'] });
+      queryClient.refetchQueries({ queryKey: ['userCategories'] }); //같은 페이지
     },
   });
   const delMutation = useMutation<ISubscription>({
@@ -34,8 +35,7 @@ export function useSubscription(catId: string) {
       return await api.delete(`/subscribe/${catId}`).then((res) => res.data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['cancelSub'] });
-      console.log('구독 취소');
+      queryClient.refetchQueries({ queryKey: ['userCategories'] });
     },
   });
   return { subsQuery, subsMutation, delMutation };

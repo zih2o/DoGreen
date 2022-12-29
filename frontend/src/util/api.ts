@@ -1,7 +1,8 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosError } from 'axios';
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 const config: AxiosRequestConfig = {
-  baseURL: 'http://localhost:3000/',
+  baseURL: baseURL,
   headers: {
     ContentType: 'application/json',
   },
@@ -22,3 +23,28 @@ api.interceptors.request.use(
     return Promise.reject(error);
   },
 );
+
+// api.interceptors.response.use(
+//   (response) => {
+//     return response;
+//   },
+//   (error) => {
+//     const {
+//       config,
+//       response: { status },
+//     } = error;
+
+//     if (status === 401) {
+//       axios({
+//         method: 'post',
+//         url: `${baseURL}/auth/refresh`,
+//       }).then((response) => {
+//         const accessToken = response.data;
+//         sessionStorage.setItem('token', accessToken);
+//         config.headers['Authorization'] = 'Bearer ' + accessToken;
+//         return axios(config);
+//       });
+//     }
+//     return Promise.reject(error);
+//   },
+// );

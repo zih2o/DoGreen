@@ -54,19 +54,21 @@ interface IInputError {
 }
 
 export const IputError = ({ children }: IInputError) => {
-  return <p className="mt-1 min-h-[30px] text-base text-red-500 dark:text-red-500">{children}</p>;
+  return <p className="mt-1 min-h-[30px] text-left text-base text-red-500 dark:text-red-500">{children}</p>;
 };
 
 interface IInputSubmitButton {
   value: string;
+  onClick?: () => void;
 }
 
-export const InputButton = ({ value }: IInputSubmitButton) => {
+export const InputButton = ({ value, onClick }: IInputSubmitButton) => {
   return (
     <div className="flex justify-center mt-3">
       <input
         type="submit"
         value={value}
+        onClick={onClick}
         className="flex justify-center w-[50%] h-[45px] mb-2 py-2 rounded-full bg-garden1 font-semibold text-xl text-garden2 dark:text-gray-700 hover:bg-[#6f8f76] dark:hover:bg-[#6edb76] hover:drop-shadow-lg active:scale-[1.02] transition ease-in-oout delay-75 cursor-pointer"
       ></input>
     </div>

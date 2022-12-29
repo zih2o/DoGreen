@@ -4,13 +4,15 @@ import { CardLayout, CategoryLayout } from '../components/layout/GlobalLayout';
 import CardSkeleton from '../components/loadings/CardSkeleton';
 import { CardType, TextType, BtnType, WrapperType } from '../components/common/theme';
 import useCategory, { ICategory } from '../hooks/useCategory';
-import { useSubscription } from '../hooks/useSubscription';
+import { useSubscription } from '../hooks/useSubs';
 import { checkName } from '../util/functionUtil';
 import Modal from '../components/common/Modal';
 import { DialogModal } from '../components/common/DialogModal';
 import { AiOutlineClose } from 'react-icons/ai';
-import { AuthStore } from '../hooks/useAuth';
+import { useUserInfo } from '../hooks/useUser';
 import { useModalState } from '../hooks/useModalState';
+import { toast } from 'react-toastify';
+
 interface ISubscriptionInfo {
   categoryId: string;
   categoryName: string;
@@ -18,10 +20,8 @@ interface ISubscriptionInfo {
 }
 
 export const CategoriesPage = () => {
-  const token = AuthStore((state) => state.token);
-  // const { isOpen, handleToggle } = useModalState();
-  // const [handleModal, setHandleModal] = useState(isOpen);
-  const [isModal, setIsModal] = useState<boolean>(false);
+  const { existUser, getUserInfo } = useUserInfo();
+  const { isOpen, handleOpen, handleClose, handleToggle } = useModalState();
   const [isLogined, setIsLogined] = useState<boolean>(true);
   const [subsInfoArr, setSubsInfoArr] = useState<ISubscriptionInfo[]>([]);
   const [newSubsInfo, setNewSubsInfo] = useState<ISubscriptionInfo>({
@@ -30,51 +30,52 @@ export const CategoriesPage = () => {
     subStatus: false,
   });
 
-  // const closeModal = () => {
-  //   handleToggle();
-  //   setHandleModal(!handleModal);
-  // };
   const {
     catQuery: { isLoading, data: categories },
   } = useCategory();
-
   const {
     subsQuery: { data: subscriptions, refetch, error },
     subsMutation,
   } = useSubscription(newSubsInfo.categoryId as string);
 
-  if (error) {
-    error;
-  } else {
-    refetch();
-  }
+  useEffect(() => {
+    handleClose();
+    getUserInfo();
+  }, [existUser]);
 
   const checkLogin = () => {
-    if (!token) {
-      setIsLogined(false);
+    if (!existUser) {
+      setIsLogined(!isLogined);
     }
-    console.log(token, isLogined);
-    setIsModal(!isModal);
+    handleClose();
   };
-  const handleSubButton = async (category: ICategory) => {
-    setNewSubsInfo((prev) => ({
+  const handleSubButton = (category: ICategory) => {
+    setNewSubsInfo(() => ({
       categoryId: category._id,
       categoryName: category.categoryName,
       subStatus: true,
     }));
-    setIsModal(!isModal);
+    handleOpen();
   };
   const applySubscription = async () => {
-    checkLogin();
-    setSubsInfoArr([...subsInfoArr, newSubsInfo]);
-    subsMutation.mutate();
-    setIsModal(!isModal);
+    if (existUser) {
+      setSubsInfoArr([...subsInfoArr, newSubsInfo]);
+      subsMutation.mutate();
+      handleClose();
+      toast.success('구독 완료!');
+      refetch();
+    } else {
+      checkLogin();
+    }
   };
   const handleSubStatus = (category: ICategory) => {
     const status =
-      subscriptions && subscriptions.filter((cat) => category._id === cat._id).length > 0 ? '구독중 💌' : '구독하기 ✅';
+      existUser && subscriptions && subscriptions.filter((cat) => category._id === cat._id).length > 0
+        ? '구독중 💌'
+        : '구독하기 ✅';
     return status;
   };
+
   const skeletonCards = Array(15).fill(0);
   return (
     <>
@@ -85,7 +86,15 @@ export const CategoriesPage = () => {
             {'관심있는 토픽에 대한 뉴스레터를 둘러보거나 구독해보아요!'} &nbsp;
           </div>
 
-          {!isLogined && <DialogModal type="alert" title="로그인 안내" message="로그인 시 이용 가능합니다." />}
+          {!isLogined && (
+            <DialogModal
+              type="alert"
+              navigate="/login"
+              title="로그인 안내"
+              message="로그인 시 이용 가능합니다."
+              onClose={handleClose}
+            />
+          )}
           <div className={WrapperType.cardContentsWrapper}>
             <ul className={WrapperType.cardListWrapper}>
               {isLoading &&
@@ -131,15 +140,15 @@ export const CategoriesPage = () => {
                     </div>
                   </li>
                 ))}
-              {isModal && categories && (
-                <Modal onClose={() => setIsModal(!isModal)}>
+              {isOpen && categories && (
+                <Modal onClose={() => handleToggle()}>
                   <div className="relative w-full h-full max-w-md md:h-auto">
                     <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                       <button
                         type="button"
                         className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
                         data-modal-toggle="popup-modal"
-                        onClick={() => setIsModal(!isModal)}
+                        onClick={() => handleToggle()}
                       >
                         <AiOutlineClose size="24" />
                         <span className="sr-only">Close modal</span>
@@ -153,7 +162,7 @@ export const CategoriesPage = () => {
                           data-modal-toggle="popup-modal"
                           type="button"
                           className="text-white bg-red-400 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-400 font-medium rounded-lg text-lg inline-flex items-center px-5 py-2.5 text-center mr-2"
-                          onClick={() => applySubscription()}
+                          onClick={applySubscription}
                         >
                           네
                         </button>
@@ -161,7 +170,7 @@ export const CategoriesPage = () => {
                           data-modal-toggle="popup-modal"
                           type="button"
                           className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-lg font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-                          onClick={() => setIsModal(!isModal)}
+                          onClick={() => handleToggle()}
                         >
                           아니요
                         </button>
