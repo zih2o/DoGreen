@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { api } from '../../util/api';
 import { useMutation } from '@tanstack/react-query';
 import createUrl from '../../hooks/useImage';
+
 export default function CategoryForm() {
-  const mascotNameRef = useRef();
-  const categoryRef = useRef();
+  const mascotNameRef = useRef(null);
+  const categoryRef = useRef(null);
   const [convertImgUrl, setConvertImgUrl] = useState(
     'https://user-images.githubusercontent.com/91370858/208048148-47028f2f-d283-4ab1-a43e-3c073543161e.png',
   );

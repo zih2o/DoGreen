@@ -6,8 +6,8 @@ import { useMutation } from '@tanstack/react-query';
 
 export default function Modal({ modalType }) {
   const { closeAdminModal, currentCategoryCard, currentNewsCard } = useAdminCategoryStore();
-  const topInputRef = useRef();
-  const bottomInputRef = useRef();
+  const topInputRef = useRef(null);
+  const bottomInputRef = useRef(null);
 
   const patchCategory = useMutation((data) => api.patch(`/category/${currentCategoryCard._id}`, data));
   const patchNews = useMutation((data) => api.patch(`/post/${currentNewsCard._id}`, data));
@@ -126,7 +126,7 @@ export default function Modal({ modalType }) {
                       type="text"
                       name="content"
                       id="content"
-                      rows="4"
+                      rows={4}
                       ref={bottomInputRef}
                       defaultValue={currentNewsCard.content}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
