@@ -36,7 +36,6 @@ export class PostService implements IPostService {
 
   async deletePost(postId: string, currentAuthId: string) {
     await this.isWrittenByCurrentUser(postId, currentAuthId);
-    await this.isWrittenByCurrentUser(postId, currentAuthId);
     await postRepository.deleteOne(postId, currentAuthId);
   }
 
