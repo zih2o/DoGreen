@@ -294,7 +294,7 @@ const EditUserInfo = () => {
             onClose={handleClose}
           />
         ) : null}
-        {isImgUrlError ? <DialogModal title="에러" message={imgErrorMsg} type="alert" onClose={handleClose} /> : null}
+        {isImgUrlError ? <DialogModal title="오류" message={imgErrorMsg} type="alert" onClose={handleClose} /> : null}
       </>
     </MyPageContentsLayout>
   ) : (
