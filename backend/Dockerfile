@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 # Add package file
 COPY package.json ./
 COPY yarn.lock ./
-# COPY scripts/dev.sh ./scripts/dev.sh
+COPY scripts/dev.sh ./scripts/dev.sh
 
 # Install deps
 RUN yarn install
@@ -22,4 +22,5 @@ RUN yarn build
 # Expose port 3000
 EXPOSE 3000
 # CMD ["/bin/ls", "-a", "./dist"]
-CMD ["node", "--experimental-modules", "--experimental-specifier-resolution=node", "./dist/src/server.js"]
+RUN yarn dev
+# CMD ["node", "--experimental-modules", "--experimental-specifier-resolution=node", "./dist/src/server.js"]
