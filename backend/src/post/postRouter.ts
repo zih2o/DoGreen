@@ -9,7 +9,7 @@ const postController = new PostController();
 const postRouter = Router();
 
 // NOT LOGGED IN
-postRouter.get('/all', loginRequired, adminRequired, nextError(postController.findAllPost));
+postRouter.get('/admin/all', loginRequired, adminRequired, nextError(postController.findAllPost));
 postRouter.get('/:id', loginOptional, nextError(postController.findOnePost));
 postRouter.get('/', loginOptional, nextError(postController.paginationPost));
 // ADMIN
