@@ -285,7 +285,7 @@ const EditUserInfo = () => {
           />
         ) : null}
         {errorMdoal ? (
-          <DialogModal title="에러" message={editErrorMsg} type="alert" onClose={handleErrorModalClose} />
+          <DialogModal title="오류" message={editErrorMsg} type="alert" onClose={handleErrorModalClose} />
         ) : null}
         {isEditSuccess && !isOpen ? (
           <DialogModal
