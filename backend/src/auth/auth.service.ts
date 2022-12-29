@@ -81,7 +81,7 @@ export class AuthService implements IAuthService {
     }
 
     const newHash = await argon2.hash(newAuth.newPassword);
-    await AuthModel.updateOne({ password: newHash });
+    await AuthModel.updateOne({ email: newAuth.email }, { password: newHash });
   }
 
   async findAll() {
