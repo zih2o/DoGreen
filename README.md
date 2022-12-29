@@ -1,7 +1,10 @@
 <hr />
 
 # DO GREEN🌏
-환경 뉴스 구독 서비스 👉 https://do-green.vercel.app
+환경 뉴스 구독 서비스 
+<br>
+<br>
+👉 https://do-green.vercel.app
 
 
 ## 1. TECH STACK
@@ -20,7 +23,7 @@
 <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white">
 <br>
 <br>
-<p></p>
+<p>백엔드 코어기술을 적어주세요</p>
 <p></p>
 <p></p>
 <p></p>
@@ -47,7 +50,7 @@
 <p>코멘트와 뉴스페이지에 Infinite scroll 구현</p>
 <p>optimistic update 구현</p>
 <p>alert/confirm 등 용도 변경 가능한 dialog modal 구현</p>
-<p></p>
+<p>skeleton screen 적용</p>
 <p></p>
 <p></p>
 
@@ -56,7 +59,28 @@
 
 
 ## 2. ABOUT SERVICE
+
+<details><summary>메인페이지</summary>
+- react-hook-form과 yup을 이용한 validation
+</details>
+
 <details><summary>로그인</summary>
+- react-hook-form과 yup을 이용한 validation
+</details>
+
+<details><summary>회원가입</summary>
+- react-hook-form과 yup을 이용한 validation
+</details>
+
+<details><summary>카테고리 페이지</summary>
+- react-hook-form과 yup을 이용한 validation
+</details>
+
+<details><summary>뉴스레터 페이지</summary>
+- react-hook-form과 yup을 이용한 validation
+</details>
+
+<details><summary>마이페이지</summary>
 - react-hook-form과 yup을 이용한 validation
 </details>
 

@@ -13,7 +13,7 @@ function Footer() {
     { name: 'BsGithub', url: '#' },
   ];
   return (
-    <footer className="fixed bottom-0 inset-x-0 inset-y-50 p-4 z-[200] bg-garden3 sm:p-6 h-[8%] sm:flex sm:items-center sm:justify-between sm:h-[7%]">
+    <footer className="fixed bottom-0 inset-x-0 inset-y-50 p-4 z-[200] bg-garden3 sm:p-6 h-[11%] sm:flex sm:items-center sm:justify-between sm:h-[7%]">
       <span className="text-sm text-garden4/80 sm:text-center ">
         © 2022
         <a href="/" className="hover:underline">
