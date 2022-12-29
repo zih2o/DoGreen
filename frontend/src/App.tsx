@@ -7,9 +7,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Outlet } from 'react-router-dom';
 import Header from './components/structure/Header';
 import Footer from './components/structure/Footer';
-import Drawer from './components/structure/Drawer';
 import ScrollToTop from './components/structure/ScrollToTop';
-
 
 const queryClient = new QueryClient();
 function App() {
@@ -17,7 +15,6 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ScrollToTop />
       <Header />
-      <Drawer />
       <Outlet />
       <Footer />
       <ReactQueryDevtools initialIsOpen={false} />
