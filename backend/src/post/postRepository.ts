@@ -28,12 +28,12 @@ export class PostRepository implements IPostRepository {
     );
   }
 
-  async isLikedByPostId(currentAuthId: string, postId: string): Promise<boolean> {
+  async isLikedByPostId(currentAuthId: string, postId: string): Promise<{} | null> {
     const post = await PostModel.exists({ _id: postId });
     invariant(post !== null, new NotFoundError('해당하는 포스트가 존재하지 않습니다.'));
 
     const isLiked = await PostModel.exists({ _id: postId, likeUserList: currentAuthId });
-    return isLiked !== null;
+    return isLiked;
   }
 
   async paginationPost(categoryId: string, page: number, perPage: number, authId?: string) {
