@@ -53,13 +53,13 @@ function MainTopCards() {
         <div className="container mx-auto mt-16 sm:mt-32 mb-20">
           <div className={TextType.titleText}>{'귀여운 친구들을 만나보세요!'} &nbsp;</div>
           <div className="flex justify-evenly mt-8 sm:mt-16">
-            <div
-              className=" static cursor-pointer m-3 p-3 w-full h-52 sm:h-80 md:h-96 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-[#292524] dark:border-[#292524]
-        hover:bg-blue-50
+            <Link to={`/categories/${categories[0]._id}`}>
+              <div
+                className=" static cursor-pointer m-3 p-3  h-52 sm:h-80 md:h-96 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-[#292524] dark:border-[#292524]
+       
         hover:scale-[1.1]"
-            >
-              <div className="flex flex-col items-center text-center ">
-                <Link to={`/categories/${categories[0]._id}`}>
+              >
+                <div className="flex flex-col items-center text-center ">
                   <img
                     className="w-20 h-20 sm:w-40 sm:h-40 md:w-52 md:h-52 m-2 sm:m-6 rounded-full shadow-lg"
                     src={categories[0].mascotImage}
@@ -71,16 +71,16 @@ function MainTopCards() {
                   <span className="text-sm sm:text-xl text-gray-500 dark:text-gray-400">
                     {categories[0].categoryName}
                   </span>
-                </Link>
-              </div>
-            </div>{' '}
-            <div
-              className=" static cursor-pointer m-3 p-3 w-full h-52 sm:h-80 md:h-96 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-[#292524] dark:border-[#292524]
-        hover:bg-blue-50
+                </div>
+              </div>{' '}
+            </Link>
+            <Link to={`/categories/${categories[1]._id}`}>
+              <div
+                className=" static cursor-pointer m-3 p-3 h-52 sm:h-80 md:h-96 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-[#292524] dark:border-[#292524]
+
         hover:scale-[1.1]"
-            >
-              <div className="flex flex-col items-center text-center ">
-                <Link to={`/categories/${categories[1]._id}`}>
+              >
+                <div className="flex flex-col items-center text-center ">
                   <img
                     className="w-20 h-20 sm:w-40 sm:h-40 md:w-52 md:h-52 m-2 sm:m-6 rounded-full shadow-lg"
                     src={categories[1].mascotImage}
@@ -92,16 +92,16 @@ function MainTopCards() {
                   <span className="text-sm sm:text-xl text-gray-500 dark:text-gray-400">
                     {categories[1].categoryName}
                   </span>
-                </Link>
-              </div>
-            </div>{' '}
-            <div
-              className=" static cursor-pointer m-3 p-3 w-full h-52 sm:h-80 md:h-96 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-[#292524] dark:border-[#292524]
-        hover:bg-blue-50
+                </div>
+              </div>{' '}
+            </Link>
+            <Link to={`/categories/${categories[2]._id}`}>
+              <div
+                className=" static cursor-pointer m-3 p-3 h-52 sm:h-80 md:h-96 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-[#292524] dark:border-[#292524]
+
         hover:scale-[1.1]"
-            >
-              <div className="flex flex-col items-center text-center ">
-                <Link to={`/categories/${categories[2]._id}`}>
+              >
+                <div className="flex flex-col items-center text-center ">
                   <img
                     className="w-20 h-20 sm:w-40 sm:h-40 md:w-52 md:h-52 m-2 sm:m-6 rounded-full shadow-lg"
                     src={categories[2].mascotImage}
@@ -113,9 +113,9 @@ function MainTopCards() {
                   <span className="text-sm sm:text-xl text-gray-500 dark:text-gray-400">
                     {categories[2].categoryName}
                   </span>
-                </Link>
-              </div>
-            </div>{' '}
+                </div>
+              </div>{' '}
+            </Link>
           </div>
         </div>
       )}

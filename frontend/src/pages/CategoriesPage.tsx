@@ -33,7 +33,6 @@ export const CategoriesPage = () => {
   const {
     catQuery: { isLoading, data: categories },
   } = useCategory();
-
   const {
     subsQuery: { data: subscriptions, refetch, error },
     subsMutation,
