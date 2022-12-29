@@ -97,7 +97,7 @@ export const Login = () => {
 
 const className = {
   container:
-    'flex flex-col items-center justify-start w-[460px] h-[400px] max-[600px]:h-[470px] max-[600px]:w-[375px] px-8 border-[3px] border-garden1 box-border rounded-xl bg-gardenBG shadow-[0_0_30px_rgba(30, 30, 30, 0.185)]',
+    'flex flex-col items-center justify-start w-[460px] h-[400px]  max-[600px]:h-[470px] max-[600px]:w-[375px] px-8 border-[3px] border-garden1 box-border rounded-xl bg-gardenBG shadow-[0_0_30px_rgba(30, 30, 30, 0.185)]',
   title:
     'justify-self-start text-center my-10 max-[550px]:mt-10 max-[600px]:mb-5 pb-3 text-garden1 font-pacifico text-4xl',
   form: 'flex-col w-full px-3',

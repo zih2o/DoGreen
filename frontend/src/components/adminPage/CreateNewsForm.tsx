@@ -2,10 +2,12 @@ import React, { useRef } from 'react';
 import { api } from '../../util/api';
 import { useMutation } from '@tanstack/react-query';
 import useCategory from '../../hooks/useCategory';
+import createUrl from '../../hooks/useImage';
 
 export default function CreateNewsForm() {
-  const mascotNameRef = useRef();
-  const contentRef = useRef();
+  const mascotNameRef = useRef(null);
+  const contentRef = useRef(null);
+  const newsImgRef = useRef(null);
   const mutation = useMutation((data) => api.post('/post/create', data));
 
   const {
@@ -16,12 +18,13 @@ export default function CreateNewsForm() {
     const formData = {
       category: mascotNameRef.current.value,
       content: contentRef.current.value,
+      imageList: newsImgRef.current.value,
     };
     confirm(`${formData.category} 카드를 저장하시겠습니까?`) ? mutation.mutate(formData) : event.preventDefault();
   };
 
   return (
-    <form className="px-7" onSubmit={handleSubmit}>
+    <form className="flex flex-row px-7" onSubmit={handleSubmit}>
       <label className="flex text-sm" htmlFor="mascotNameInput">
         Mascot name
       </label>
@@ -41,7 +44,7 @@ export default function CreateNewsForm() {
       <textarea
         id="newsContentInput"
         ref={contentRef}
-        rows="4"
+        rows={4}
         className="block p-2.5 mb-6 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
         placeholder="카드의 내용을 적어주세요"
         required
