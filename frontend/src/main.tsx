@@ -5,6 +5,10 @@ import App from './App';
 import Admin from './pages/Admin';
 import AdminMascot from './components/adminPage/AdminMascot';
 import AdminNews from './components/adminPage/AdminNews';
+import AdminUserManagement from './components/adminPage/AdminUserManagement';
+import AdminUserMgAlluser from './components/adminPage/AdminUserMgAlluser';
+import AdminUserMgInaUser from './components/adminPage/AdminUserMgInaUser';
+import AdminUserMgActUser from './components/adminPage/AdminUserMgActUser';
 import Home from './pages/Home';
 import './index.css';
 import { CategoriesPage } from './pages/CategoriesPage';
@@ -38,6 +42,16 @@ const router = createBrowserRouter([
           { path: '/admin', element: <AdminMascot /> },
           { path: '/admin/mascot', element: <AdminMascot /> },
           { path: '/admin/news', element: <AdminNews /> },
+          {
+            path: '/admin/userManage',
+            element: <AdminUserManagement />,
+            children: [
+              { path: '/admin/userManage', element: <AdminUserMgAlluser /> },
+              { path: '/admin/userManage/allUser', element: <AdminUserMgAlluser /> },
+              { path: '/admin/userManage/inaUser', element: <AdminUserMgInaUser /> },
+              { path: '/admin/userManage/actUser', element: <AdminUserMgActUser /> },
+            ],
+          },
         ],
       },
       { path: '/categories', element: <CategoriesPage /> },
