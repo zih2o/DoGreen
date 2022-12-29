@@ -4,6 +4,7 @@ import { useUserInfo } from '../../hooks/useUser';
 import { useDrawerStore } from '../../hooks/useDrawer';
 import { DialogModal } from '../common/DialogModal';
 import { useModalState } from '../../hooks/useModalState';
+import Loading from '../loadings/Loading';
 
 interface IDrawerNav {
   name: string;
@@ -55,7 +56,7 @@ export default function DrawerList({ name, handleModal }: IDrawerNav) {
 
   return (
     <>
-      {existUser && (
+      {existUser ? (
         <ul className={`flex flex-col ${name === 'admin' && 'pt-16'}`}>
           {name === 'user' && (
             <>
