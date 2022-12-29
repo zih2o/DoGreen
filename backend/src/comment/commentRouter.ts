@@ -10,6 +10,6 @@ commentRouter.get('/:id', nextError(commentController.findPaginatedCommentsAtPos
 // commentRouter.get('/me', nextError(commentController.findMyComment));
 
 commentRouter.post('/', loginRequired, nextError(commentController.createComment));
-commentRouter.patch('/:commentId', loginRequired, nextError(commentController.updateComment));
-commentRouter.delete('/:commentId', loginRequired, nextError(commentController.deleteComment));
+commentRouter.patch('/:id', loginRequired, nextError(commentController.updateComment));
+commentRouter.delete('/:id', loginRequired, nextError(commentController.deleteComment));
 export { commentRouter };
