@@ -1,6 +1,10 @@
 import React from 'react';
 
-export default function NewsSkeleton(props?: Record<'instance', () => void>) {
+export interface ISkeleton {
+  instance?: () => void;
+}
+
+export default function NewsSkeleton(props: ISkeleton) {
   return (
     <div ref={props && props.instance} className="flex justify-center w-full h-full px-6 py-6 bg-gardenBG">
       <div className="flex flex-col items-center mr-4">
