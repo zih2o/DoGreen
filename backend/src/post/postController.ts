@@ -35,7 +35,9 @@ export class PostController {
 
   async createPost(req: Request, res: Response, next: NextFunction) {
     const createPostInfo = req.body;
-    await postService.createPost(createPostInfo);
+    const currentAuthId = req.context.currentUser?.authId;
+    invariant(currentAuthId !== undefined, new ForbiddenError('로그인해야 이용할 수 있는 서비스입니다.'));
+    await postService.createPost(createPostInfo, currentAuthId);
     res.status(201).end();
   }
 
@@ -62,7 +64,7 @@ export class PostController {
   async findOnePost(req: Request, res: Response, next: NextFunction) {
     const { id } = req.params;
     invariant(typeof id === 'string', new BadRequestError('포스트의 id가 없습니다.'));
-    const postInfo = await postService.findOnePost(id);
+    const postInfo = await postService.findOnePost(id, req.context.currentUser?.authId);
     res.status(200).json(postInfo);
   }
 
