@@ -1,5 +1,6 @@
 import { PostRepository } from '../post/postRepository';
 import { CommentRepository } from './commentRepository';
+import { NotFoundError } from '../errors/NotFoundError';
 import invariant from '../invariant';
 
 const commentRepository = new CommentRepository();
@@ -32,11 +33,15 @@ export class CommentService {
   }
 
   async createComment(comment: CommentT['comment'], postId: string, authId:string) {
-    const post = await postRepository.findPost(postId);
+    invariant(
+      await postRepository.isExistPost(postId),
+      new NotFoundError(`${postId} Post가 없습니다.`)
+    );
+
     // 찾은 username은 comment에 받아온 내용과 함께 생성
     const newComment = await commentRepository
-      .createComment(post.id, authId, comment);
+      .createComment(postId, authId, comment);
 
-    await postRepository.addcommentList(post.id, newComment.id);
+    await postRepository.addcommentList(postId, newComment.id);
   }
 }

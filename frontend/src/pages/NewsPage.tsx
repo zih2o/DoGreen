@@ -42,7 +42,14 @@ export default function NewsPage() {
           ))}
         </Fragment>
       ))}
-      {(hasNextPage || status === 'loading') && <NewsSkeleton instance={ref} />}
+      {(hasNextPage || status === 'loading') && (
+        <>
+          <NewsSkeleton instance={ref} />
+          <NewsSkeleton />
+          <NewsSkeleton />
+          <NewsSkeleton />
+        </>
+      )}
       <ToTopButton />
     </div>
   );
