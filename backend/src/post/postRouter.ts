@@ -18,7 +18,7 @@ postRouter.get('/all', loginRequired, adminRequired, nextError(postController.fi
 postRouter.get('/like/:id', loginRequired, nextError(postController.addlikeUserId));
 
 // USER | NOT LOGGED IN
-postRouter.get('/', loginOptional, nextError(postController.paginationPost));
+postRouter.get('/', loginRequired, nextError(postController.paginationPost));
 postRouter.get('/:id', loginOptional, nextError(postController.findOnePost));
 
 export { postRouter };
