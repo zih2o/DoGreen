@@ -20,9 +20,9 @@ function Header() {
     }
   }, [darkMode]);
   return (
-    <header className="fixed top-0 inset-x-0 z-[200] bg-garden3 h-[10%] grid grid-cols-5 sm:grid-cols-10 items-center col-span-full px-6 md:h-[15%]">
+    <header className="fixed top-0 inset-x-0 z-[200] bg-garden3 h-[10%] grid grid-cols-5 md:grid-cols-10 items-center col-span-full px-6 md:h-[15%]">
       <div className="grid col-span-7 md:col-span-8">
-        <span className="text-3xl sm:text-5xl font-pacifico">
+        <span className="text-3xl md:text-5xl font-pacifico">
           <Link to="/" className="text-garden1">
             Do Green!
           </Link>
