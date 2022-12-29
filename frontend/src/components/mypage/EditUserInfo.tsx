@@ -30,7 +30,7 @@ interface IEditIData {
 }
 
 const EditUserInfo = () => {
-  const { isOpen, handleClose, handleOpen } = useModalState();
+  const { isOpen, handleClose, handleToggle } = useModalState();
   //유저데이터부르기
   const {
     userQuery: { data: userData, isLoading: isUserDataLoading },
@@ -43,6 +43,10 @@ const EditUserInfo = () => {
     bio: userData?.bio,
     imgUrl: userData?.imgUrl,
   };
+  useEffect(() => {
+    handleClose();
+  }, []);
+
   //react-hook-form yup
   const { schema } = editValidation();
   const {
@@ -79,7 +83,6 @@ const EditUserInfo = () => {
       imgUrlMutation(file);
     }
   }, [image]);
-  console.log(imgUrlData);
 
   //유저네임 실시간 밸리데이션
   const [usernameError, setUsernameError] = useState(false);
@@ -103,7 +106,7 @@ const EditUserInfo = () => {
   const [confirm, setConfirm] = useState(false);
   const [data, setData] = useState(initialData);
   const handleFromSubmit = (data: IEditIData) => {
-    handleOpen();
+    handleToggle();
     const { username, oldPassword, password, bio } = data;
     const imgUrl = imgUrlData;
     const editData = { username, oldPassword, password, bio, imgUrl };
