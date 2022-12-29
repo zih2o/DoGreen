@@ -9,18 +9,17 @@ import useCategory from '../hooks/useCategory';
 export default function NewsPage() {
   const { ref, inView } = useInView();
   const {
-    selectedCatQuery: { data: category, error },
+    selectedCatQuery: { data: category },
   } = useCategory();
 
   const {
-    postQuery: { status, fetchNextPage, hasNextPage, data },
+    postQuery: { status, fetchNextPage, hasNextPage, data, error },
   } = usePost();
   useEffect(() => {
     if (inView) {
       fetchNextPage();
     }
   }, [inView]);
-  console.log(data);
 
   return (
     <div className="w-full min-h-screen mt-32 mb-24">

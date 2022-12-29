@@ -33,7 +33,7 @@ function Drawer() {
           <>
             <div className={className.navContainer}>
               <div className={className.greeting}>
-                {userInfo ? `${userInfo.role} ${userInfo.username}님` : <Loading ref={() => ref} />}
+                {userInfo ? `${userInfo.role} ${userInfo.username}님` : <Loading />}
               </div>
               <span className={className.text}>
                 지금까지 펭귄 300마리를<br></br> 구하셨어요!
