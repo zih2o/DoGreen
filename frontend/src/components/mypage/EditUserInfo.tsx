@@ -43,9 +43,6 @@ const EditUserInfo = () => {
     bio: userData?.bio,
     imgUrl: userData?.imgUrl,
   };
-  useEffect(() => {
-    handleClose();
-  }, []);
 
   //react-hook-form yup
   const { schema } = editValidation();

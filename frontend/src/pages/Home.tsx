@@ -6,7 +6,6 @@ import { useDrawerStore } from '../hooks/useDrawer';
 
 function Home() {
   const { drawerOpen } = useDrawerStore();
-  console.log(drawerOpen);
 
   return (
     <>
