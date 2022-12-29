@@ -28,12 +28,12 @@ export class PostRepository implements IPostRepository {
     );
   }
 
-  async isLikedByPostId(currentAuthId: string, postId: string): Promise<boolean> {
+  async isLikedByPostId(currentAuthId: string, postId: string): Promise<{} | null> {
     const post = await PostModel.exists({ _id: postId });
     invariant(post !== null, new NotFoundError('해당하는 포스트가 존재하지 않습니다.'));
 
     const isLiked = await PostModel.exists({ _id: postId, likeUserList: currentAuthId });
-    return isLiked !== null;
+    return isLiked;
   }
 
   async paginationPost(categoryId: string, page: number, perPage: number, authId?: string) {
@@ -63,7 +63,8 @@ export class PostRepository implements IPostRepository {
         likesNum: post.likesNum,
         isLiked: authId ? likeUserList.includes(authId) : false,
         createdAt: post.createdAt,
-        updatedAt: post.updatedAt
+        updatedAt: post.updatedAt,
+        authId: post.authId
       };
     });
     return {
@@ -77,10 +78,11 @@ export class PostRepository implements IPostRepository {
     await PostModel.findOneAndUpdate(comment.refPost, { $pull: { comments: commentId } });
   }
 
-  async isWrittenByCurrentUser(postId: string, currentAuthId: string): Promise<void> {
-    const targetPost = await PostModel.findById(postId); // null
-    invariant(targetPost !== null, `${postId}에 해당하는 포스트가 존재하지 않습니다.`);
-    invariant(targetPost.authId !== currentAuthId, new ForbiddenError('작성자가 아니므로 권한이 존재하지 않습니다.'));
+  async isWrittenByCurrentUser(postId: string, currentAuthId: string): Promise<boolean> {
+    const targetComment = await PostModel.findById(postId); // null
+
+    invariant(targetComment !== null, new NotFoundError(`${postId} Post가 존재하지 않습니다.`));
+    return targetComment.authId.toString() === currentAuthId;
   }
 
   async findAllCommentAtPost(postId: string) {
@@ -126,14 +128,32 @@ export class PostRepository implements IPostRepository {
     return totalPost;
   }
 
-  async findPost(postId: string) {
-    const post = await PostModel.findById(postId);
-    invariant(post !== null, new NotFoundError('해당하는 Post가 존재하지 않습니다.'));
-    return post;
+  async isExistPost(postId: string) {
+    const post = await PostModel.exists({ _id: postId });
+    return post !== null;
   }
 
-  async createOne(newPost: createPostDto, categoryId: createCategoryDto) {
+  async findPost(postId: string, authId: string | undefined) {
+    const post = await PostModel.findById(postId);
+    invariant(post !== null, new NotFoundError('해당하는 Post가 존재하지 않습니다.'));
+    const likeUserList = post.likeUserList.map(v => String(v));
+    return {
+      _id: post._id,
+      category: post.category,
+      imageList: post.imageList,
+      content: post.content,
+      likeUserList,
+      likesNum: post.likesNum,
+      isLiked: authId ? likeUserList.includes(authId) : false,
+      createdAt: post.createdAt,
+      updatedAt: post.updatedAt,
+      authId: post.authId
+    };
+  }
+
+  async createOne(newPost: createPostDto, categoryId: createCategoryDto, authId: string) {
     const newPostId = await PostModel.create({
+      authId,
       category: categoryId,
       content: newPost.content,
       imageList: newPost.imageList
@@ -141,21 +161,19 @@ export class PostRepository implements IPostRepository {
     await CategoryModel.findByIdAndUpdate(categoryId, { $push: { posts: newPostId.id } });
   }
 
-  async deleteOne(postId: string, currentAuthId: string) {
+  async deleteOne(postId: string) {
     const post = await PostModel.findById(postId);
     invariant(post !== null, new NotFoundError('해당하는 Post가 존재하지 않습니다.'));
 
-    await this.isWrittenByCurrentUser(postId, currentAuthId);
     await CategoryModel.findByIdAndUpdate(post.category, { $pull: { posts: postId } });
     await CommentModel.deleteMany({ _id: post.comments });
     await PostModel.findByIdAndDelete(postId);
   }
 
-  async updateOne(postId: string, toUpdatePost: updatePostDto, currentAuthId: string) {
+  async updateOne(postId: string, toUpdatePost: updatePostDto) {
     const category = await CategoryModel.exists({ categoryName: toUpdatePost.category });
     invariant(category !== null, new NotFoundError('해당하는 카테고리가 존재하지 않습니다.'));
 
-    await this.isWrittenByCurrentUser(postId, currentAuthId);
     // 포스트 정보 변경
     await PostModel.updateMany(
       { _id: postId },

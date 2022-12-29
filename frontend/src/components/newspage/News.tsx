@@ -1,4 +1,5 @@
 import React, { useEffect, useState, Fragment, FormEvent, ChangeEvent } from 'react';
+import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import { FaHeart } from 'react-icons/fa';
 import { ImBubble } from 'react-icons/im';
@@ -90,7 +91,9 @@ export default function NewsCard(props: INews) {
   return (
     <div className="flex w-full h-full justify-center py-6 px-6 bg-gardenBG">
       <div className="flex flex-col mr-4 items-center">
-        <img className={'rounded-full w-12 h-12 shadow-xl'} src={props.categoryImg} alt="펭귄" />
+        <Link to={`/categories/${props.categoryId}`}>
+          <img className={'rounded-full w-12 h-12 shadow-xl'} src={props.categoryImg} alt="펭귄" />
+        </Link>
         <span className="font-semibold">{props.categoryName}</span>
       </div>
       <div className={Theme.NewsTheme.postContainer}>
@@ -141,26 +144,20 @@ export default function NewsCard(props: INews) {
               {data?.pages.map((page, index) => (
                 <Fragment key={index}>
                   {page.result.map((comment: IComment) => (
-                    <div className="flex mx-4 my-4" key={comment._id}>
+                    <div className={'flex mx-4 my-4'} key={comment._id}>
                       <img src={comment.userId.imgUrl} alt="사진" className="w-7 h-7 rounded-full bg-garden4" />
                       <div className="flex flex-col w-full ml-2">
                         <span className="text-sm font-semibold text-gray-400">{comment.userId.username}</span>
-                        <div
-                          className={
-                            'flex relative justify-between w-full ' + username === comment.userId.username
-                              ? 'hover:opacity-60'
-                              : ''
-                          }
-                        >
+                        <div className={'flex flex-col relative justify-between w-full h-auto'}>
                           {username === comment.userId.username && (
                             <button
-                              className="absolute right-4 z-10 hidden hover:visible"
+                              className="absolute right-0 z-10 mt-1 px-1 bg-red-400 rounded-sm text-sm text-white transition-all hover:scale-105"
                               onClick={() => handleDelete(comment._id)}
                             >
                               삭제
                             </button>
                           )}
-                          <p className="text-md font-medium text-gray-400">{comment.comment}</p>
+                          <p className={'mr-8 text-md font-medium text-gray-400'}>{comment.comment}</p>
                           <p className="text-sm font-thin  text-gray-400">
                             {comment.createdAt.split('.')[0].replace(/T/, '  ')}
                           </p>
@@ -170,7 +167,7 @@ export default function NewsCard(props: INews) {
                   ))}
                 </Fragment>
               ))}
-              {(hasNextPage || status === 'loading') && <Loading ref={ref} />}
+              {(hasNextPage || status === 'loading') && <Loading instance={ref} />}
             </div>
             <form onSubmit={handleSubmit} className={Theme.CommentTheme.form} onFocus={handleFocus}>
               <input type="text" className={Theme.CommentTheme.input} onChange={handleChange} value={inputValue} />

@@ -88,7 +88,7 @@ export const Login = () => {
       </div>
       <>
         {isError && isOpen ? (
-          <DialogModal title="에러" message={errorMsg} type="alert" onClose={handleClose} removeBg={true} />
+          <DialogModal title="오류" message={errorMsg} type="alert" onClose={handleClose} removeBg={true} />
         ) : null}
       </>
     </div>

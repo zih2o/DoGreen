@@ -11,12 +11,14 @@ import { ConflictError } from './errors/ConflictError';
 
 const app = express();
 
-const corsOptions = {
-  origin: ['https://localhost:3000', 'http://localhost:3000', 'https://localhost:5173', 'http://localhost:5173', 'https://do-green.vercel.app', 'http://do-green.vercel.app'],
-  credentials: true
-};
+// const corsOptions = {
+//   origin: ['https://localhost:3000', 'http://localhost:3000', 'https://localhost:5173', 'http://localhost:5173', 'https://do-green.vercel.app', 'http://do-green.vercel.app'],
+//   credentials: false
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+
+app.use(cors());
 
 function logResponseTime(req: Request, res: Response, next: NextFunction) {
   // 요청이 들어온 시간

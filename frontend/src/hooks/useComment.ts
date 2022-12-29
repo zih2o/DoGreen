@@ -24,7 +24,7 @@ export default function useComment(postId?: string) {
   const commentQuery = useInfiniteQuery({
     queryKey: ['comments', postId],
     queryFn: async ({ pageParam = 1 }) => {
-      const res = await api.get(`/comment/?postId=${postId}&page=${pageParam}&perPage=8`);
+      const res = await api.get(`/comment/${postId}?perPage=8&page=${pageParam}`);
       const { result, totalPage } = res.data;
       return { nextPage: pageParam + 1, result, totalPage };
     },

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { CardLayout } from '../layout/GlobalLayout';
 import { CardType, TextType, WrapperType } from '../common/theme';
-import useCategory, { ICategory } from '../../hooks/useCategory';
+import useCategory from '../../hooks/useCategory';
 import { checkName } from '../../util/functionUtil';
 
 const CardsList = () => {
