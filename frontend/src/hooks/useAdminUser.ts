@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { api } from '../util/api';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 
 export interface IUsers {
   role: string;
@@ -43,5 +43,13 @@ export default function useAdminUser() {
     },
   });
 
-  return { allUserQuery, inactiveUserQuery, activeUserQuery };
+  const banUserQuery = async (userInfo: string[]) => {
+    return await api.patch('/admin/ban', userInfo);
+  };
+
+  const cancleUserQuery = async (userInfo: string[]) => {
+    return await api.patch('/admin/cancle', userInfo);
+  };
+
+  return { allUserQuery, inactiveUserQuery, activeUserQuery, banUserQuery, cancleUserQuery };
 }
