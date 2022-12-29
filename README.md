@@ -1,27 +1,45 @@
-아래의 템플릿을 참고하여 README.md를 작성하세요.
-
 <hr />
 
-# (서비스 명)
-- 서비스 명을 위 괄호 부분에 작성하세요.
-- 서비스의 한 줄 소개를 작성하세요.
+# DO GREEN🌏
+환경 뉴스 구독 서비스
 
 
-## 서비스 구성 안내
+## 1. TECH STACK
 
-## 1. 서비스 소개
+### BE
+<div align="center">
+<img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white">
+<img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white">
+<br>
 
-- 기술 스택 (Bulma css, node, mongodb 등)
-- 웹서비스에 대한 자세한 개요 등
+<img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white">
+<img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white">
+<img src="https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white">
+<img src="https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white">
+<img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white">
 
 
-## 2. 서비스 주요 기능 설명
+</div>
 
-**웹서비스의 유용성, 편의성 및 시각화의 실용성에 대한 설명**
-  - 주요 기능 (주된 활용성) 및 서브 기능 소개
-  - 프로젝트만의 차별점, 기대 효과
+### FE
+<div align="center">
+<img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white">
+<img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">
+<img src="https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&logo=React_Query&logoColor=white">
+<img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white">
+<br>
+<img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E">
+<img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">
 
-## 3. 서비스 구성도
+</div>
+
+
+
+## 2. ABOUT SERVICE
+
+
+
+## 3. ARCHITECTURE
   - 서비스 구조도 그림 (사용한 기술 스택)
   - 와이어프레임 링크 (예상 웹 화면 UI) e.g) figma 사용
   - API 명세를 문서화한 링크

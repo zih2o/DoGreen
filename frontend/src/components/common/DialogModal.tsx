@@ -20,6 +20,7 @@ export const DialogModal = ({ title, message, type, navigate, refresh, setConfir
   };
   const handleModalConfirm = () => {
     !refresh ? onClose() : window.location.replace(refresh);
+    navigate && nav(navigate);
     setConfirm && setConfirm(true);
   };
   const handleModalCancel = () => {

@@ -159,7 +159,7 @@ export const Register = () => {
         <InputButton value="가입하기" />
       </form>
       <>
-        {isError && isOpen ? <DialogModal title="에러" message={errorMsg} type="alert" onClose={handleClose} /> : null}
+        {isError && isOpen ? <DialogModal title="오류" message={errorMsg} type="alert" onClose={handleClose} /> : null}
         {isSuccess && isOpen ? (
           <DialogModal title="회원가입" message="회원가입 되었습니다." type="alert" refresh="/" onClose={handleClose} />
         ) : null}

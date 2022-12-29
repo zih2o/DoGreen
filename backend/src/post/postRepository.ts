@@ -63,7 +63,8 @@ export class PostRepository implements IPostRepository {
         likesNum: post.likesNum,
         isLiked: authId ? likeUserList.includes(authId) : false,
         createdAt: post.createdAt,
-        updatedAt: post.updatedAt
+        updatedAt: post.updatedAt,
+        authId: post.authId
       };
     });
     return {
@@ -126,14 +127,32 @@ export class PostRepository implements IPostRepository {
     return totalPost;
   }
 
-  async findPost(postId: string) {
-    const post = await PostModel.findById(postId);
-    invariant(post !== null, new NotFoundError('해당하는 Post가 존재하지 않습니다.'));
-    return post;
+  async isExistPost(postId: string) {
+    const post = await PostModel.exists({ _id: postId });
+    return post !== null;
   }
 
-  async createOne(newPost: createPostDto, categoryId: createCategoryDto) {
+  async findPost(postId: string, authId: string | undefined) {
+    const post = await PostModel.findById(postId);
+    invariant(post !== null, new NotFoundError('해당하는 Post가 존재하지 않습니다.'));
+    const likeUserList = post.likeUserList.map(v => String(v));
+    return {
+      _id: post._id,
+      category: post.category,
+      imageList: post.imageList,
+      content: post.content,
+      likeUserList,
+      likesNum: post.likesNum,
+      isLiked: authId ? likeUserList.includes(authId) : false,
+      createdAt: post.createdAt,
+      updatedAt: post.updatedAt,
+      authId: post.authId
+    };
+  }
+
+  async createOne(newPost: createPostDto, categoryId: createCategoryDto, authId: string) {
     const newPostId = await PostModel.create({
+      authId,
       category: categoryId,
       content: newPost.content,
       imageList: newPost.imageList

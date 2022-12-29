@@ -6,7 +6,7 @@ import { loginRequired } from './loginRequired';
 const loginOptional = (req: Request, res: Response, next: NextFunction) => {
   const userToken = req.headers['authorization']?.split(' ')[1];
 
-  if (userToken === undefined || userToken !== '') {
+  if (userToken === undefined || userToken === '') {
     return next();
   }
 
