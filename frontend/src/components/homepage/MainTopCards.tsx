@@ -1,11 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { Carousel } from 'flowbite-react';
 import { TextType } from '../common/theme';
+import useCategory from '../../hooks/useCategory';
+
 function MainTopCards() {
+  const {
+    catQuery: { data: categories },
+  } = useCategory();
   const exData = [
     {
       mascotName: '서펭귄',
-      category: '뉴스레터',
+      category: '뉴스',
     },
     {
       mascotName: '박펭귄',
@@ -43,62 +49,76 @@ function MainTopCards() {
           </div>
         </div>
       </Carousel>
-      <div className="container mx-auto mt-16 sm:mt-32 mb-20">
-        <div className={TextType.titleText}>{'귀여운 친구들을 만나보세요!'} &nbsp;</div>
-        <div className="flex justify-evenly mt-8 sm:mt-16">
-          <div
-            className=" static cursor-pointer m-3 p-3 w-full h-52 sm:h-80 md:h-96 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-[#292524] dark:border-[#292524]
+      {categories && (
+        <div className="container mx-auto mt-16 sm:mt-32 mb-20">
+          <div className={TextType.titleText}>{'귀여운 친구들을 만나보세요!'} &nbsp;</div>
+          <div className="flex justify-evenly mt-8 sm:mt-16">
+            <div
+              className=" static cursor-pointer m-3 p-3 w-full h-52 sm:h-80 md:h-96 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-[#292524] dark:border-[#292524]
         hover:bg-blue-50
         hover:scale-[1.1]"
-          >
-            <div className="flex flex-col items-center">
-              <img
-                className="w-20 h-20 sm:w-40 sm:h-40 md:w-52 md:h-52 m-2 sm:m-6 rounded-full shadow-lg"
-                src="https://w.namu.la/s/91372f442eecd338ac9133706e272f0617405e0e647c72400b2854f7ee8c0688f5611d44aca4955aec4bd2c7e1d2c5a2a3da5167f5cf32a7bc21ccc8863149cdfdc67bd6569bda06cee24ef37a471d9f63fe50702d7250649574066d3378b010"
-                alt="default card"
-              />
-              <h5 className="my-3 text-lg sm:text-3xl font-medium text-gray-900 dark:text-white">
-                {exData[0].mascotName}
-              </h5>
-              <span className="text-sm sm:text-xl text-gray-500 dark:text-gray-400">{exData[0].category}</span>
-            </div>
-          </div>{' '}
-          <div
-            className=" static cursor-pointer m-3 p-3 w-full h-52 sm:h-80 md:h-96 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-[#292524] dark:border-[#292524]
+            >
+              <div className="flex flex-col items-center text-center ">
+                <Link to={`/categories/${categories[0]._id}`}>
+                  <img
+                    className="w-20 h-20 sm:w-40 sm:h-40 md:w-52 md:h-52 m-2 sm:m-6 rounded-full shadow-lg"
+                    src={categories[0].mascotImage}
+                    alt="default card"
+                  />
+                  <h5 className="my-3 text-lg sm:text-3xl text-center font-medium text-gray-900 dark:text-white">
+                    {categories[0].mascotName}
+                  </h5>
+                  <span className="text-sm sm:text-xl text-gray-500 dark:text-gray-400">
+                    {categories[0].categoryName}
+                  </span>
+                </Link>
+              </div>
+            </div>{' '}
+            <div
+              className=" static cursor-pointer m-3 p-3 w-full h-52 sm:h-80 md:h-96 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-[#292524] dark:border-[#292524]
         hover:bg-blue-50
         hover:scale-[1.1]"
-          >
-            <div className="flex flex-col items-center">
-              <img
-                className="w-20 h-20 sm:w-40 sm:h-40 md:w-52 md:h-52 m-2 sm:m-6 rounded-full shadow-lg"
-                src="https://w.namu.la/s/91372f442eecd338ac9133706e272f0617405e0e647c72400b2854f7ee8c0688f5611d44aca4955aec4bd2c7e1d2c5a2a3da5167f5cf32a7bc21ccc8863149cdfdc67bd6569bda06cee24ef37a471d9f63fe50702d7250649574066d3378b010"
-                alt="default card"
-              />
-              <h5 className="my-3 text-lg sm:text-3xl font-medium text-gray-900 dark:text-white">
-                {exData[1].mascotName}
-              </h5>
-              <span className="text-sm sm:text-xl text-gray-500 dark:text-gray-400">{exData[1].category}</span>
-            </div>
-          </div>{' '}
-          <div
-            className=" static cursor-pointer m-3 p-3 w-full h-52 sm:h-80 md:h-96 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-[#292524] dark:border-[#292524]
+            >
+              <div className="flex flex-col items-center text-center ">
+                <Link to={`/categories/${categories[1]._id}`}>
+                  <img
+                    className="w-20 h-20 sm:w-40 sm:h-40 md:w-52 md:h-52 m-2 sm:m-6 rounded-full shadow-lg"
+                    src={categories[1].mascotImage}
+                    alt="default card"
+                  />
+                  <h5 className="my-3 text-lg sm:text-3xl text-center font-medium text-gray-900 dark:text-white">
+                    {categories[1].mascotName}
+                  </h5>
+                  <span className="text-sm sm:text-xl text-gray-500 dark:text-gray-400">
+                    {categories[1].categoryName}
+                  </span>
+                </Link>
+              </div>
+            </div>{' '}
+            <div
+              className=" static cursor-pointer m-3 p-3 w-full h-52 sm:h-80 md:h-96 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-[#292524] dark:border-[#292524]
         hover:bg-blue-50
         hover:scale-[1.1]"
-          >
-            <div className="flex flex-col items-center">
-              <img
-                className="w-20 h-20 sm:w-40 sm:h-40 md:w-52 md:h-52 m-2 sm:m-6 rounded-full shadow-lg"
-                src="https://w.namu.la/s/91372f442eecd338ac9133706e272f0617405e0e647c72400b2854f7ee8c0688f5611d44aca4955aec4bd2c7e1d2c5a2a3da5167f5cf32a7bc21ccc8863149cdfdc67bd6569bda06cee24ef37a471d9f63fe50702d7250649574066d3378b010"
-                alt="default card"
-              />
-              <h5 className="my-3 text-lg sm:text-3xl font-medium text-gray-900 dark:text-white">
-                {exData[2].mascotName}
-              </h5>
-              <span className="text-sm sm:text-xl text-gray-500 dark:text-gray-400">{exData[2].category}</span>
-            </div>
-          </div>{' '}
+            >
+              <div className="flex flex-col items-center text-center ">
+                <Link to={`/categories/${categories[2]._id}`}>
+                  <img
+                    className="w-20 h-20 sm:w-40 sm:h-40 md:w-52 md:h-52 m-2 sm:m-6 rounded-full shadow-lg"
+                    src={categories[2].mascotImage}
+                    alt="default card"
+                  />
+                  <h5 className="my-3 text-lg sm:text-3xl text-center font-medium text-gray-900 dark:text-white">
+                    {categories[2].mascotName}
+                  </h5>
+                  <span className="text-sm sm:text-xl text-gray-500 dark:text-gray-400">
+                    {categories[2].categoryName}
+                  </span>
+                </Link>
+              </div>
+            </div>{' '}
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

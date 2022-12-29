@@ -59,13 +59,6 @@ export default function DrawerList({ name, handleModal }: IDrawerNav) {
               >
                 MY 구독
               </Link>
-              <Link
-                to={`/categories/${''}`}
-                className="my-4 text-garden2 bg-garden1 hover:bg-garden2 hover:text-garden1 border-2 border-garden1 text-lg font-bold rounded-lg w-95% px-5 py-2 text-center dark:border-forest3 dark:bg-forest3 dark:text-forest4 dark:hover:border-forest4 dark:hover:bg-forest4 dark:hover:text-forest3"
-                onClick={toggleDrawer}
-              >
-                MY 뉴스레터
-              </Link>
             </>
           )}
           {drawerDatas?.map((data: IDrawerNaveList) => {
