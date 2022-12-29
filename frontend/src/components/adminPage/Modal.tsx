@@ -3,36 +3,64 @@ import { api } from '../../util/api';
 import { GrClose } from 'react-icons/gr';
 import { useAdminCategoryStore } from '../../hooks/useAdminCategory';
 import { useMutation } from '@tanstack/react-query';
+import createUrl from '../../hooks/useImage';
 
 export default function Modal({ modalType }) {
   const { closeAdminModal, currentCategoryCard, currentNewsCard } = useAdminCategoryStore();
-  const topInputRef = useRef();
-  const bottomInputRef = useRef();
+  const topInputRef = useRef(null);
+  const bottomInputRef = useRef(null);
+
+  const [convertImgUrl, setConvertImgUrl] = useState('');
+  const [priewImg, setPriewImg] = useState(
+    modalType === 'Mascot' ? currentCategoryCard.mascotImage : currentNewsCard.imageList,
+  );
+  const {
+    mutate: imgUrlMutation,
+    data: imgUrlData,
+    isError: imgUrlError,
+    isSuccess: imgSuccess,
+    error: imgError,
+  } = createUrl();
+
+  const setConvertImage = (imgUrl: FileList) => {
+    if (imgUrl && imgUrl.length > 0) {
+      const file = imgUrl?.[0];
+      setPriewImg(URL.createObjectURL(file));
+      imgUrlMutation(file);
+    }
+  };
 
   const patchCategory = useMutation((data) => api.patch(`/category/${currentCategoryCard._id}`, data));
   const patchNews = useMutation((data) => api.patch(`/post/${currentNewsCard._id}`, data));
 
   const handleSubmitCategory = (event) => {
+    setConvertImgUrl(imgUrlData)
     const formData = {
       mascotName: topInputRef.current.value,
       categoryName: bottomInputRef.current.value,
+      mascotImage: convertImgUrl,
     };
-    confirm(`${formData.mascotName}으로 수정하시겠습니까?`) ? patchCategory.mutate(formData) : event.preventDefault();
+    console.log(formData);
+    if (confirm(`${formData.mascotName}으로 수정하시겠습니까?`)) {
+      patchCategory.mutate(formData);
+      window.location.replace('/admin/category');
+    } else {
+      event.preventDefault();
+    }
   };
 
   const handleSubmitNews = (event) => {
     const formData = {
       content: bottomInputRef.current.value,
+      imageList: '',
     };
-    confirm(`${topInputRef} 뉴스를 수정하시겠습니까?`) ? patchNews.mutate(formData) : event.preventDefault();
+    if (confirm(`${topInputRef} 뉴스를 수정하시겠습니까?`)) {
+      patchNews.mutate(formData);
+      window.location.replace('/admin/news');
+    } else {
+      event.preventDefault();
+    }
   };
-
-  const [inputType, setInputType] = useState({});
-  useEffect(() => {
-    modalType === 'Mascot'
-      ? setInputType({ topInput: 'Mascot Name', bottomInput: 'Category Name' })
-      : setInputType({ topInput: 'Category Name', bottomInput: 'Content' });
-  }, []);
   return (
     <>
       <div
@@ -57,12 +85,25 @@ export default function Modal({ modalType }) {
               </div>
               {modalType === 'Mascot' ? (
                 <form onSubmit={handleSubmitCategory} className="space-y-6" action="#">
+                  <div className="flex flex-col justify-center items-center">
+                    <label className="w-[40%]" htmlFor="categoryImg">
+                      <img className="cursor-pointer" alt="categoryImage" src={priewImg} />
+                    </label>
+                    <input
+                      id="categoryImg"
+                      type="file"
+                      onChange={(e) => setConvertImage(e.target.files)}
+                      placeholder="마스코트 이미지를 넣어주세요"
+                      required
+                      className="w-[70%] cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5"
+                    />
+                  </div>
                   <div>
                     <label
                       htmlFor="mascotName"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
-                      {inputType.topInput}
+                      Mascot Name
                     </label>
                     <input
                       type="text"
@@ -79,7 +120,7 @@ export default function Modal({ modalType }) {
                       htmlFor="categoryName"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
-                      {inputType.bottomInput}
+                      Category Name
                     </label>
                     <input
                       type="text"
@@ -106,7 +147,7 @@ export default function Modal({ modalType }) {
                       htmlFor="categoryName"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
-                      {inputType.topInput}
+                      Category Name
                     </label>
                     <input
                       type="text"
@@ -120,13 +161,13 @@ export default function Modal({ modalType }) {
                   </div>
                   <div>
                     <label htmlFor="content" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                      {inputType.bottomInput}
+                      Content
                     </label>
                     <textarea
                       type="text"
                       name="content"
                       id="content"
-                      rows="4"
+                      rows={4}
                       ref={bottomInputRef}
                       defaultValue={currentNewsCard.content}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"

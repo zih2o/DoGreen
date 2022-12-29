@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import DrawerList from './DrawerList';
 import LoginForm from './LoginForm';
 import { useDrawerStore } from '../../hooks/useDrawer';
-
 import Loading from '../loadings/Loading';
 import { useUserInfo } from '../../hooks/useUser';
 
@@ -18,7 +17,6 @@ function Drawer() {
   useEffect(() => {
     getUserInfo();
   }, []);
-
   const className = {
     topDiv:
       'items-center place-content-between fixed w-[70%] h-full z-[100] p-6 top-[10%] right-[0] bg-navbarBG text-right md:w-[30%] md:top-[15%]',

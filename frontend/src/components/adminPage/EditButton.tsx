@@ -13,10 +13,9 @@ export default function EditButton({ id, cardtype, setEditBtnHandler }) {
         })
         .then((data) => {
           cardtype === 'category'
-            ? setCurrentCategoryCard(data._id, data.mascotName, data.categoryName)
-            : setCurrentNewsCard(data._id, data.category, data.content);
+            ? setCurrentCategoryCard(data._id, data.mascotName, data.categoryName, data.mascotImage)
+            : setCurrentNewsCard(data._id, data.category, data.content, data.imageList);
         });
-
     resData();
   }, []);
 
@@ -28,7 +27,12 @@ export default function EditButton({ id, cardtype, setEditBtnHandler }) {
   const deleteMutation = useMutation(() => api.delete(`/${cardtype}/${id}`));
   const deleteHandler = (event) => {
     setEditBtnHandler(false);
-    confirm('해당 카테고리를 삭제하시겠습니까?') ? deleteMutation.mutate() : event.preventDefault();
+    if (confirm('해당 카테고리를 삭제하시겠습니까?')) {
+      deleteMutation.mutate();
+      window.location.replace("/admin/mascot")
+    } else {
+      event.preventDefault();
+    }
   };
   return (
     <div id="dropdown" className="absolute mt-8 w-36 text-base bg-white divide-gray-100 rounded shadow">

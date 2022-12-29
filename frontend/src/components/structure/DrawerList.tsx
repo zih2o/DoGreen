@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import { useUserInfo } from '../../hooks/useUser';
 import { useDrawerStore } from '../../hooks/useDrawer';
 import { DialogModal } from '../common/DialogModal';
-import Loading from '../loadings/Loading';
 import { useModalState } from '../../hooks/useModalState';
+import Loading from '../loadings/Loading';
 
 interface IDrawerNav {
-  name: 'user' | 'admin';
+  name: string;
   handleModal: () => void;
 }
 
@@ -41,7 +41,7 @@ export default function DrawerList({ name, handleModal }: IDrawerNav) {
   useEffect(() => {
     handleClose();
   }, []);
-  const [confirm, setConfirm] = useState(false);
+  const [confirm, setConfirm] = useState<boolean>(false);
   useEffect(() => {
     if (confirm) {
       window.sessionStorage.clear();
@@ -77,18 +77,16 @@ export default function DrawerList({ name, handleModal }: IDrawerNav) {
               <li className={className.navText}>로그아웃</li>
             </button>
           </div>
-          <>
-            {isOpen ? (
-              <DialogModal
-                title="로그아웃"
-                message="로그아웃 하시겠습니까?"
-                type="confirm"
-                setConfirm={setConfirm}
-                refresh="/"
-                onClose={handleToggle}
-              />
-            ) : null}
-          </>
+          {isOpen && (
+            <DialogModal
+              title="로그아웃"
+              message="로그아웃 하시겠습니까?"
+              type="confirm"
+              setConfirm={setConfirm}
+              refresh="/"
+              onClose={handleToggle}
+            />
+          )}
         </ul>
       ) : (
         <Loading ref={() => ref} />
