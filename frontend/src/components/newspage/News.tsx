@@ -34,6 +34,7 @@ interface INews extends IPost {
 }
 
 export default function NewsCard(props: INews) {
+  const { username } = useUserInfo((state) => state.userInfo);
   const [clickComment, setClickComment] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
   const { ref, inView } = useInView();
@@ -41,6 +42,7 @@ export default function NewsCard(props: INews) {
   const isLoggedIn = useUserInfo((state) => state.existUser);
   const {
     addComment,
+    removeComment,
     commentQuery: { status, fetchNextPage, hasNextPage, data },
   } = useComment(props._id);
   const { addLike } = usePost(props.categoryId);
@@ -79,6 +81,10 @@ export default function NewsCard(props: INews) {
       return;
     }
     addLike.mutate(post);
+  };
+
+  const handleDelete = (commentId: string) => {
+    removeComment.mutate(commentId);
   };
 
   return (
@@ -139,7 +145,21 @@ export default function NewsCard(props: INews) {
                       <img src={comment.userId.imgUrl} alt="사진" className="w-7 h-7 rounded-full bg-garden4" />
                       <div className="flex flex-col w-full ml-2">
                         <span className="text-sm font-semibold text-gray-400">{comment.userId.username}</span>
-                        <div className="flex justify-between w-full ">
+                        <div
+                          className={
+                            'flex relative justify-between w-full ' + username === comment.userId.username
+                              ? 'hover:opacity-60'
+                              : ''
+                          }
+                        >
+                          {username === comment.userId.username && (
+                            <button
+                              className="absolute right-4 z-10 hidden hover:visible"
+                              onClick={() => handleDelete(comment._id)}
+                            >
+                              삭제
+                            </button>
+                          )}
                           <p className="text-md font-medium text-gray-400">{comment.comment}</p>
                           <p className="text-sm font-thin  text-gray-400">
                             {comment.createdAt.split('.')[0].replace(/T/, '  ')}

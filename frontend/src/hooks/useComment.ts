@@ -14,6 +14,9 @@ export interface IComment {
   createdAt: string;
   updatedAt: string;
 }
+interface T {
+  data: { error: string };
+}
 
 export default function useComment(postId?: string) {
   const queryClient = useQueryClient();
@@ -35,16 +38,15 @@ export default function useComment(postId?: string) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['comments', postId] });
     },
-    onError: (err) => {
-      if (err instanceof AxiosError) {
-        const {
-          response: {
-            data: { error },
-          },
-        } = err;
-        console.log(error);
-      }
+  });
+
+  const removeComment = useMutation<AxiosResponse, AxiosError, string>({
+    mutationFn: async (commentId) => {
+      return await api.delete(`/comment/${commentId}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['comments', postId] });
     },
   });
-  return { commentQuery, addComment };
+  return { commentQuery, addComment, removeComment };
 }
