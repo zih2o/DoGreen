@@ -6,16 +6,20 @@ interface INews {
   category: string;
   content: string;
   imageList: any[];
+  comments: any[];
   createdAt: string;
   updatedAt: string;
   __v: number;
+  likeUserList: any[];
+  likesNum: number;
+  authId: string;
 }
 
 export default function useNews() {
   const newsQuery = useQuery<INews[]>({
     queryKey: ['news'],
     queryFn: async () => {
-      return api.get('/post').then((res) => res.data);
+      return api.get('/post/admin/all').then((res) => res.data);
     },
     staleTime: 1000 * 60,
   });
