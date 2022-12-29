@@ -46,7 +46,7 @@ export default function NewsCard(props: INews) {
     removeComment,
     commentQuery: { status, fetchNextPage, hasNextPage, data },
   } = useComment(props._id);
-  const { addLike } = usePost(props.categoryId);
+  const { addLike } = usePost();
 
   useEffect(() => {
     handleClose();
