@@ -100,12 +100,12 @@ export class UserService implements IUserService {
   }
 
   async banUsers(usernames: UserT['username'][]) {
-    await UserModel.updateMany({ role: 'USER', username: usernames }, { isDeleted: true }).limit(10)
+    await UserModel.updateMany({ role: 'USER', username: usernames }, { isDeleted: true })
       .sort({ updatedAt: 'desc' });
   }
 
   async cancelBanUsers(usernames: UserT['username'][]) {
-    await UserModel.updateMany({ role: 'USER', username: usernames }, { isDeleted: false }).limit(10)
+    await UserModel.updateMany({ role: 'USER', username: usernames }, { isDeleted: false })
       .sort({ updatedAt: 'desc' });
   }
 
@@ -116,7 +116,6 @@ export class UserService implements IUserService {
         select: 'role'
       }
     })
-      .limit(10)
       .sort({ updatedAt: 'desc' });
     // O(N)
     return inactiveUsers.map(userToUserDto);
