@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import Admin from './pages/Admin';
+import AdminMascot from './components/adminPage/AdminMascot';
+import AdminNews from './components/adminPage/AdminNews';
 import Home from './pages/Home';
 import './index.css';
 import { CategoriesPage } from './pages/CategoriesPage';
@@ -29,7 +31,14 @@ const router = createBrowserRouter([
           { path: '/mypage/editUser', element: <MyInfoEditTab /> },
         ],
       },
-      { path: '/admin', element: <Admin /> },
+      {
+        path: '/admin',
+        element: <Admin />,
+        children: [
+          { path: '/admin/mascot', element: <AdminMascot /> },
+          { path: '/admin/news', element: <AdminNews /> },
+        ],
+      },
       { path: '/categories', element: <CategoriesPage /> },
       { path: '/categories/:catId', element: <NewsPage /> },
       { path: '/register', element: <RegisterPage /> },

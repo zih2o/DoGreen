@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { api } from '../../util/api';
 import { useMutation } from '@tanstack/react-query';
 import createUrl from '../../hooks/useImage';
-import { ClickButton } from '../common/FormsAboutInput';
 
 export default function CategoryForm() {
   const mascotNameRef = useRef(null);
