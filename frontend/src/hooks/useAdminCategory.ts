@@ -13,11 +13,11 @@ interface IAdminCategory {
   toggleAdminModal: () => void;
   closeAdminModal: () => void;
 
-  currentCategoryCard: { _id: string; mascotName: string; categoryName: string };
-  setCurrentCategoryCard: (_id: string, mascotName: string, categoryName: string) => void;
+  currentCategoryCard: { _id: string; mascotName: string; categoryName: string, mascotImage: string };
+  setCurrentCategoryCard: (_id: string, mascotName: string, categoryName: string, mascotImage:string) => void;
 
-  currentNewsCard: { _id: string; category: string; content: string };
-  setCurrentNewsCard: (_id: string, category: string, content: string) => void;
+  currentNewsCard: { _id: string; category: string; content: string, imageList:string[] };
+  setCurrentNewsCard: (_id: string, category: string, content: string, imageList:string[]) => void;
 }
 export const useAdminCategoryStore = create<IAdminCategory>((set) => ({
   adminCategory: 'Mascot',
@@ -32,11 +32,13 @@ export const useAdminCategoryStore = create<IAdminCategory>((set) => ({
   toggleAdminModal: () => set((state) => ({ adminModal: !state.adminModal })),
   closeAdminModal: () => set(() => ({ adminModal: false })),
 
-  currentCategoryCard: { _id: '', mascotName: '', categoryName: '' },
-  setCurrentCategoryCard: (_id, mascotName, categoryName) =>
-    set(() => ({ currentCategoryCard: { _id: _id, mascotName: mascotName, categoryName: categoryName } })),
+  currentCategoryCard: { _id: '', mascotName: '', categoryName: '', mascotImage: '' },
+  setCurrentCategoryCard: (_id, mascotName, categoryName, mascotImage) =>
+    set(() => ({
+      currentCategoryCard: { _id: _id, mascotName: mascotName, categoryName: categoryName, mascotImage: mascotImage },
+    })),
 
-  currentNewsCard: { _id: '', category: '', content: '' },
-  setCurrentNewsCard: (_id, category, content) =>
-    set(() => ({ currentNewsCard: { _id: _id, category: category, content: content } })),
+  currentNewsCard: { _id: '', category: '', content: '', imageList:[""] },
+  setCurrentNewsCard: (_id, category, content, imageList) =>
+    set(() => ({ currentNewsCard: { _id: _id, category: category, content: content, imageList:imageList } })),
 }));
