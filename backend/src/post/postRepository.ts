@@ -78,10 +78,11 @@ export class PostRepository implements IPostRepository {
     await PostModel.findOneAndUpdate(comment.refPost, { $pull: { comments: commentId } });
   }
 
-  async isWrittenByCurrentUser(postId: string, currentAuthId: string): Promise<void> {
-    const targetPost = await PostModel.findById(postId); // null
-    invariant(targetPost !== null, `${postId}에 해당하는 포스트가 존재하지 않습니다.`);
-    invariant(targetPost.authId !== currentAuthId, new ForbiddenError('작성자가 아니므로 권한이 존재하지 않습니다.'));
+  async isWrittenByCurrentUser(postId: string, currentAuthId: string): Promise<boolean> {
+    const targetComment = await PostModel.findById(postId); // null
+
+    invariant(targetComment !== null, new NotFoundError(`${postId} Post가 존재하지 않습니다.`));
+    return targetComment.authId.toString() === currentAuthId;
   }
 
   async findAllCommentAtPost(postId: string) {
@@ -160,21 +161,19 @@ export class PostRepository implements IPostRepository {
     await CategoryModel.findByIdAndUpdate(categoryId, { $push: { posts: newPostId.id } });
   }
 
-  async deleteOne(postId: string, currentAuthId: string) {
+  async deleteOne(postId: string) {
     const post = await PostModel.findById(postId);
     invariant(post !== null, new NotFoundError('해당하는 Post가 존재하지 않습니다.'));
 
-    await this.isWrittenByCurrentUser(postId, currentAuthId);
     await CategoryModel.findByIdAndUpdate(post.category, { $pull: { posts: postId } });
     await CommentModel.deleteMany({ _id: post.comments });
     await PostModel.findByIdAndDelete(postId);
   }
 
-  async updateOne(postId: string, toUpdatePost: updatePostDto, currentAuthId: string) {
+  async updateOne(postId: string, toUpdatePost: updatePostDto) {
     const category = await CategoryModel.exists({ categoryName: toUpdatePost.category });
     invariant(category !== null, new NotFoundError('해당하는 카테고리가 존재하지 않습니다.'));
 
-    await this.isWrittenByCurrentUser(postId, currentAuthId);
     // 포스트 정보 변경
     await PostModel.updateMany(
       { _id: postId },

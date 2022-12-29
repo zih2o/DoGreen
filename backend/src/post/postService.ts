@@ -2,6 +2,7 @@ import { PostRepository } from './postRepository';
 import { CategoryRepository } from '../category/categoryRepository';
 import invariant from '../invariant';
 import { NotFoundError } from '../errors/NotFoundError';
+import { ForbiddenError } from '../errors/ForbiddenError';
 
 const postRepository = new PostRepository();
 const cateogryRepository = new CategoryRepository();
@@ -38,24 +39,30 @@ export class PostService implements IPostService {
   }
 
   async deletePost(postId: string, currentAuthId: string) {
-    await this.isWrittenByCurrentUser(postId, currentAuthId);
-    await postRepository.deleteOne(postId, currentAuthId);
+    invariant(
+      await postRepository.isWrittenByCurrentUser(postId, currentAuthId),
+      new ForbiddenError(`${postId}의 저자만 삭제할 수 있습니다.`)
+    );
+    await postRepository.deleteOne(postId);
   }
 
-  async isWrittenByCurrentUser(postId: string, currentAuthId: string) {
-    await postRepository.isWrittenByCurrentUser(postId, currentAuthId);
-  }
+  // async isWrittenByCurrentUser(postId: string, currentAuthId: string) {
+  //   await postRepository.isWrittenByCurrentUser(postId, currentAuthId);
+  // }
 
   async updatePost(updatedContents: updatePostDto, postId: string, currentAuthId: string) {
     const { category, content, imageList } = updatedContents;
-    await this.isWrittenByCurrentUser(postId, currentAuthId);
+    invariant(
+      await postRepository.isWrittenByCurrentUser(postId, currentAuthId),
+      new ForbiddenError(`${postId}의 저자만 수정할 수 있습니다.`)
+    );
 
     const toUpdatePost = {
       ...(category && { category }),
       ...(content && { content }),
       ...(imageList && { imageList })
     };
-    await postRepository.updateOne(postId, toUpdatePost, currentAuthId);
+    await postRepository.updateOne(postId, toUpdatePost);
   }
 
   // ADMIN
