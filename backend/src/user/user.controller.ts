@@ -36,6 +36,9 @@ export class UserController {
 
     invariant(oldPassword !== undefined, new BadRequestError('비밀번호가 필요합니다.'));
 
+    const isPasswordCorrect = await authService.isPasswordCorrect(oldPassword, email);
+    invariant(isPasswordCorrect, new BadRequestError('입력하신 비밀번호가 틀립니다'));
+
     await authService.updatePassword(oldPassword, {
       email,
       newPassword // 새 비밀번호
