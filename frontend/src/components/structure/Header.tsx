@@ -39,7 +39,6 @@ function Header() {
             <span className="sr-only">Drawer svg</span>
           </div>
         </button>
-        {drawerOpen && <Drawer />}
       </div>
     </header>
   );
