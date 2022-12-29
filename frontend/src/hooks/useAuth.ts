@@ -23,7 +23,7 @@ export function useLogin() {
     onSuccess: (token) => {
       queryClient.invalidateQueries({ queryKey: ['user'] });
       window.sessionStorage.setItem('token', token);
-      window.location.replace(pathname);
+      pathname !== '/login' ? window.location.replace(pathname) : window.location.replace('/');
     },
   });
 }
