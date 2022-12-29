@@ -19,7 +19,7 @@ export class CategoryService {
   }
 
   async isCategoryExists(categoryId: string) {
-    await categoryRepository.isCategoryExists(categoryId);
+    return categoryRepository.isCategoryExists(categoryId);
   }
 
   async deleteOneCategory(categoryId: string) {
