@@ -76,11 +76,23 @@
 </details>
 
 <details><summary>로그인</summary>
-- react-hook-form과 yup을 이용한 validation
+- react-hook-form과 yup을 이용한 validation<br> 
+- 모달 창을 이용하여 페이지 이동없이 로그인 가능<br> 
+- 로그인하는 경로에 따라, 로그인 이후의 경로 이동<br>
+- 모달알람 창을 통하여 로그인 오류 및 로그아웃 확인<br>
 </details>
 
-<details><summary>회원가입</summary>
-- react-hook-form과 yup을 이용한 validation
+<details><summary>회원가입 </summary>
+- react-hook-form과 yup을 이용한 validation<br>
+- 서버내 동일한 이름과 이메일이 존재하는지, 값을 입력하며 validation<br>
+</details>
+
+<details><summary>내 정보 수정</summary>
+- react-hook-form과 yup을 이용한 validation<br>
+- 현재 비밀번호를 필수로 입력한 뒤, 원하는 정보만 선택하여 수정 가능<br>
+- 서버내 동일한 이름이 존재하는지, 값을 입력하며 validation<br>
+- 모달, 알람 창을 통하여 제출 확인 선택과 에러 상태 확인 가능<br>
+- 모달을 통하여 페이지 이동없이 회원탈퇴 가능<br>
 </details>
 
 <details><summary>카테고리 페이지</summary>
