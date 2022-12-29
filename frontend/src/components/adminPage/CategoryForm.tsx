@@ -10,6 +10,10 @@ export default function CategoryForm() {
   const mutation = useMutation((data) => api.post('/category/create', data));
 
   const handleSubmit = (event) => {
+    if (convertImgUrl === "")
+      setConvertImgUrl(
+        'https://user-images.githubusercontent.com/91370858/208048148-47028f2f-d283-4ab1-a43e-3c073543161e.png',
+      );
     const formData = {
       mascotName: mascotNameRef.current.value,
       categoryName: categoryRef.current.value,
@@ -18,7 +22,9 @@ export default function CategoryForm() {
     console.log(formData);
     confirm(`${formData.mascotName} 카테고리를 저장하시겠습니까?`) ? mutation.mutate(formData) : event.preventDefault();
   };
-  const [priewImg, setPriewImg] = useState('https://user-images.githubusercontent.com/91370858/208048148-47028f2f-d283-4ab1-a43e-3c073543161e.png');
+  const [priewImg, setPriewImg] = useState(
+    'https://user-images.githubusercontent.com/91370858/208048148-47028f2f-d283-4ab1-a43e-3c073543161e.png',
+  );
   const {
     mutate: imgUrlMutation,
     data: imgUrlData,
@@ -47,7 +53,6 @@ export default function CategoryForm() {
           }}
           type="file"
           placeholder="마스코트 이미지를 넣어주세요"
-          required
           className="w-[70%] cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5"
         />
       </div>

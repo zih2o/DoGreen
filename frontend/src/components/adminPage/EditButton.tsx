@@ -13,10 +13,9 @@ export default function EditButton({ id, cardtype, setEditBtnHandler }) {
         })
         .then((data) => {
           cardtype === 'category'
-            ? setCurrentCategoryCard(data._id, data.mascotName, data.categoryName)
-            : setCurrentNewsCard(data._id, data.category, data.content);
+            ? setCurrentCategoryCard(data._id, data.mascotName, data.categoryName, data.mascotImage)
+            : setCurrentNewsCard(data._id, data.category, data.content, data.imageList);
         });
-
     resData();
   }, []);
 
