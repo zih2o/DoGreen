@@ -2,14 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { api } from '../../util/api';
 import { useMutation } from '@tanstack/react-query';
 import createUrl from '../../hooks/useImage';
+import { ClickButton } from '../common/FormsAboutInput';
 
 export default function CategoryForm() {
   const mascotNameRef = useRef(null);
   const categoryRef = useRef(null);
-  const [convertImgUrl, setConvertImgUrl] = useState(
-    'https://user-images.githubusercontent.com/91370858/208048148-47028f2f-d283-4ab1-a43e-3c073543161e.png',
-  );
-
+  const [convertImgUrl, setConvertImgUrl] = useState('');
   const mutation = useMutation((data) => api.post('/category/create', data));
 
   const handleSubmit = (event) => {
@@ -21,25 +19,32 @@ export default function CategoryForm() {
     console.log(formData);
     confirm(`${formData.mascotName} 카테고리를 저장하시겠습니까?`) ? mutation.mutate(formData) : event.preventDefault();
   };
-  const { mutate: imgUrlMutation, data: imgUrlData, isError: imgUrlError, error: igmError } = createUrl();
-  useEffect(() => {
-    // if (convertImgUrl !== undefined) {
-    //   const file = convertImgUrl;
-    //   setConvertImgUrl(URL.createObjectURL(file));
-    //   imgUrlMutation(file);
-    // }
-  }, [convertImgUrl]);
+  const [priewImg, setPriewImg] = useState('https://user-images.githubusercontent.com/91370858/208048148-47028f2f-d283-4ab1-a43e-3c073543161e.png');
+  const {
+    mutate: imgUrlMutation,
+    data: imgUrlData,
+    isError: imgUrlError,
+    isSuccess: imgSuccess,
+    error: imgError,
+  } = createUrl();
+  const setConvertImage = (imgUrl: FileList) => {
+    if (imgUrl && imgUrl.length > 0) {
+      const file = imgUrl?.[0];
+      setPriewImg(URL.createObjectURL(file));
+      imgUrlMutation(file);
+      imgSuccess && setConvertImgUrl(imgUrlData);
+    }
+  };
   return (
     <form className="flex flex-row p-10 justify-between items-center" onSubmit={handleSubmit}>
       <div className="flex justify-between items-center flex-col w-[40%] h-full">
         <label className="w-[40%]" htmlFor="categoryImg">
-          <img className="cursor-pointer" alt="categoryImage" src={convertImgUrl} />
+          <img className="cursor-pointer" alt="categoryImage" src={priewImg} />
         </label>
         <input
           id="categoryImg"
           onChange={(event) => {
-            setConvertImgUrl(event.target.value);
-            console.log(event.target.value);
+            setConvertImage(event.target.files);
           }}
           type="file"
           placeholder="마스코트 이미지를 넣어주세요"
