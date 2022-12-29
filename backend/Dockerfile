@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 # Add package file
 COPY package.json ./
 COPY yarn.lock ./
-# COPY scripts/dev.sh ./scripts/dev.sh
+COPY scripts/dev.sh ./scripts/dev.sh
 
 # Install deps
 RUN yarn install
@@ -17,9 +17,10 @@ COPY openapi.json ./openapi.json
 # Build dist
 RUN yarn build
 
-# Copy static files
-
+# RUN yarn start
 # Expose port 3000
 EXPOSE 3000
 # CMD ["/bin/ls", "-a", "./dist"]
-CMD ["node", "--experimental-modules", "--experimental-specifier-resolution=node", "./dist/src/server.js"]
+# RUN yarn dev
+# CMD ["node", "--experimental-modules", "--experimental-specifier-resolution=node", "./dist/src/server.js"]
+CMD ["yarn ts-node --esm --experimental-specifier-resolution=node src/server.ts"]
