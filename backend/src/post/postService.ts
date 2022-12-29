@@ -29,12 +29,12 @@ export class PostService implements IPostService {
     return pagingPosts;
   }
 
-  async createPost(createPostInfo: createPostDto) {
+  async createPost(createPostInfo: createPostDto, authId: string) {
     // 카테고리 존재 검증
     const categoryId = await cateogryRepository.findCategory(createPostInfo.category);
     invariant(categoryId !== null, new NotFoundError(`${createPostInfo.category} 카테고리가 존재하지 않습니다.`));
 
-    await postRepository.createOne(createPostInfo, categoryId._id);
+    await postRepository.createOne(createPostInfo, categoryId._id, authId);
   }
 
   async deletePost(postId: string, currentAuthId: string) {
@@ -64,8 +64,8 @@ export class PostService implements IPostService {
     return totalPostInfo;
   }
 
-  async findOnePost(id: string) {
-    const postInfo = await postRepository.findPost(id);
+  async findOnePost(id: string, authId: string | undefined) {
+    const postInfo = await postRepository.findPost(id, authId);
     return postInfo;
   }
 }

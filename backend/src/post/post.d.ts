@@ -22,17 +22,17 @@ type updatePostDto = Partial<Pick<PostT, 'content' | 'imageList'> & { category: 
 type createPostDto = Pick<PostT, 'content' | 'imageList'> & { category: string }
 
 interface IPostRepository {
-    createOne: (newPost: createPostDto, id:createPostDto['_id']) => Promise<void>
+    createOne: (newPost: createPostDto, id:createPostDto['_id'], authId: string) => Promise<void>
     deleteOne: (targetPost: string, authId: string) => Promise<void>
     updateOne: (id: PostT['_id'], toUpdatePost: updatePostDto, authId: string) => Promise<void>
     findAll: () => Promise<PostT[]>
-    findPost: (id: PostT['_id']) => Promise<PostT>
+    findPost: (id: PostT['_id'], authId: string | undefined) => Promise<PostT>
 }
 
 interface IPostService {
-    createPost: (newPost: createPostDto) => Promise<void>
+    createPost: (newPost: createPostDto, authId: string) => Promise<void>
     deletePost: (targetPost: PostT['_id'], authId: string) => Promise<void>
     updatePost: (post: PostT, categoryId: CategoryT['_id'], postId: PostT['_id'], authId: string) => Promise<void>;
     findAllPost: () => Promise<PostT[]>
-    findOnePost: (id: PostT['_id']) => Promise<PostT>
+    findOnePost: (id: PostT['_id'], authId: string | undefined) => Promise<PostT>
 }
