@@ -27,24 +27,26 @@ function Drawer() {
   };
   return (
     <>
-      <div className={className.topDiv}>
-        {handleModal && <button className={className.background} onClick={closeModal} />}
-        {existUser ? (
-          <>
-            <div className={className.navContainer}>
-              <div className={className.greeting}>
-                {userInfo ? `${userInfo.role} ${userInfo.username}님` : <Loading ref={() => ref} />}
+      {drawerOpen && (
+        <div className={className.topDiv}>
+          {handleModal && <button className={className.background} onClick={closeModal} />}
+          {existUser ? (
+            <>
+              <div className={className.navContainer}>
+                <div className={className.greeting}>
+                  {userInfo ? `${userInfo.role} ${userInfo.username}님` : <Loading ref={() => ref} />}
+                </div>
+                <span className={className.text}>
+                  지금까지 펭귄 300마리를<br></br> 구하셨어요!
+                </span>
               </div>
-              <span className={className.text}>
-                지금까지 펭귄 300마리를<br></br> 구하셨어요!
-              </span>
-            </div>
-            <DrawerList name={userInfo.role.toLowerCase() === 'user' ? 'user' : 'admin'} handleModal={closeModal} />
-          </>
-        ) : (
-          <LoginForm />
-        )}
-      </div>
+              <DrawerList name={userInfo.role.toLowerCase() === 'user' ? 'user' : 'admin'} handleModal={closeModal} />
+            </>
+          ) : (
+            <LoginForm />
+          )}
+        </div>
+      )}
     </>
   );
 }
