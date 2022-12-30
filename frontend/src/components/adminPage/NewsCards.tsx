@@ -14,7 +14,16 @@ export default function NewsCards() {
       {news === undefined ? (
         <CardSkeleton />
       ) : (
-        news.map((item) => <Card id={item._id} key={item._id} img={item.imageList[0]} name={item.category} description={item.content} cardtype="post"/>)
+        news.map((item) => (
+          <Card
+            id={item._id}
+            key={item._id}
+            img={item.imageList[0]}
+            name={item.category}
+            description={item.content}
+            cardtype="post"
+          />
+        ))
       )}
     </div>
   );

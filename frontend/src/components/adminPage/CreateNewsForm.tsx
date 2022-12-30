@@ -20,7 +20,7 @@ export default function CreateNewsForm() {
       content: contentRef.current.value,
       imageList: convertImgUrl,
     };
-    console.log(formData);
+
     confirm(`${formData.category} 카드를 저장하시겠습니까?`) ? mutation.mutate(formData) : event.preventDefault();
   };
   const [priewImg, setPriewImg] = useState([]);
