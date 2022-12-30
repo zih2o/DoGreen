@@ -22,5 +22,5 @@ RUN yarn build
 EXPOSE 3000
 # CMD ["/bin/ls", "-a", "./dist"]
 # RUN yarn dev
-# CMD ["node", "--experimental-modules", "--experimental-specifier-resolution=node", "./dist/src/server.js"]
-CMD ["NODE_ENV=development", "yarn", "ts-node", "--esm", "--experimental-specifier-resolution=node", "src/server.ts"]
+CMD ["node", "--experimental-modules", "--experimental-specifier-resolution=node", "./dist/src/server.js"]
+# CMD ["NODE_ENV=development", "yarn", "ts-node", "--esm", "--experimental-specifier-resolution=node", "src/server.ts"]
