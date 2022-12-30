@@ -1,7 +1,4 @@
-import React, { useState } from 'react';
-import useAdminUser from '../../hooks/useAdminUser';
-import Loading from '../loadings/Loading';
-import AdminUserLine from './AdminUserLine';
+import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 export default function AdminUserManagement() {

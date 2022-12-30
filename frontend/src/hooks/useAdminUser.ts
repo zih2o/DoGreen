@@ -11,8 +11,6 @@ export interface IUsers {
 }
 
 export default function useAdminUser() {
-  const { userId } = useParams();
-
   const allUserQuery = useQuery<IUsers[]>({
     queryKey: ['allUser'],
     queryFn: async () => {
@@ -44,10 +42,13 @@ export default function useAdminUser() {
   });
 
   const banUserQuery = async (userInfo: string[]) => {
+    //["라이언4"]
+    console.log(userInfo);
     return await api.patch('/admin/ban', userInfo);
   };
 
   const cancleUserQuery = async (userInfo: string[]) => {
+    console.log(userInfo);
     return await api.patch('/admin/cancle', userInfo);
   };
 

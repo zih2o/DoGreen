@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import useUserData from '../../hooks/useUser';
+import { useAdminCategoryStore } from '../../hooks/useAdminCategory';
 
 export default function LeftSide() {
+  const { adminCreateCardBtn, toggleAdminCreateCardBtn, setMascotCategory, setNewsCategory } = useAdminCategoryStore();
   const {
     userQuery: { data: userData },
   } = useUserData();
@@ -20,10 +22,10 @@ export default function LeftSide() {
           </>
         )}
         <div className="flex flex-col">
-          <Link to="/admin/mascot" className="flex text-l mt-5 md:text-xl font-bold hover:underline">
+          <Link to="/admin/mascot" onClick={setMascotCategory} className="flex text-l mt-5 md:text-xl font-bold hover:underline">
             Mascot 관리
           </Link>
-          <Link to="/admin/news" className="flex text-l mt-5 md:text-xl font-bold hover:underline">
+          <Link to="/admin/news" onClick={setNewsCategory} className="flex text-l mt-5 md:text-xl font-bold hover:underline">
             News 관리
           </Link>
           <Link to="/admin/userManage" className="flex text-l mt-5 md:text-xl font-bold hover:underline">
