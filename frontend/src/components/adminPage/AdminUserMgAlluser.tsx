@@ -11,7 +11,7 @@ export default function AdminUserMgAlluser() {
     <Loading />
   ) : (
     allUser.map((user, index) => (
-      <AdminUserLine ban="false" key={index}  role={user.role} email={user.email} username={user.username} bio={user.bio} imgUrl={user.imgUrl} />
+      <AdminUserLine ban="상태관리" key={index}  role={user.role} email={user.email} username={user.username} bio={user.bio} imgUrl={user.imgUrl} />
     ))
   );
 }
