@@ -5,7 +5,7 @@ import { GlobalLayout } from '../components/layout/GlobalLayout';
 export default function LoginPage() {
   return (
     <GlobalLayout>
-      <div className="flex justify-center w-full h-full mt-[150px]">
+      <div className="flex justify-center w-full h-full mt-[200px]">
         <Login />
       </div>
     </GlobalLayout>
