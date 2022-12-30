@@ -16,7 +16,7 @@ export default function CategoryForm() {
       categoryName: categoryRef.current.value,
       mascotImage: convertImgUrl,
     };
-    console.log(formData);
+
     confirm(`${formData.mascotName} 카테고리를 저장하시겠습니까?`) ? mutation.mutate(formData) : event.preventDefault();
   };
   const [priewImg, setPriewImg] = useState(
@@ -29,10 +29,10 @@ export default function CategoryForm() {
     isSuccess: imgSuccess,
     error: imgError,
   } = createUrl();
-  
+
   useEffect(() => {
-    setConvertImgUrl(imgUrlData)
-  }, [imgUrlData])
+    setConvertImgUrl(imgUrlData);
+  }, [imgUrlData]);
 
   const setConvertImage = async (imgUrl: FileList) => {
     if (imgUrl && imgUrl.length > 0) {

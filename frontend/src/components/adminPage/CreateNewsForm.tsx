@@ -24,7 +24,7 @@ export default function CreateNewsForm() {
       categoryName: categoryRef.current.value,
       mascotImage: convertImgUrl,
     };
-    console.log(formData);
+
     confirm(`${formData.category} 카드를 저장하시겠습니까?`) ? mutation.mutate(formData) : event.preventDefault();
   };
   const [priewImg, setPriewImg] = useState(
@@ -49,7 +49,7 @@ export default function CreateNewsForm() {
   return (
     <form className="flex flex-col px-7 py-3" onSubmit={handleSubmit}>
       <div className="flex items-center flex-row flex-wrap justify-around">
-        <div className='w-[30%]'>
+        <div className="w-[30%]">
           <label htmlFor="categoryImg">
             <img className="cursor-pointer" alt="categoryImage" src={priewImg} />
           </label>
@@ -63,7 +63,7 @@ export default function CreateNewsForm() {
             className="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5"
           />
         </div>
-        <div className='w-[30%]'>
+        <div className="w-[30%]">
           <label htmlFor="categoryImg">
             <img className="cursor-pointer" alt="categoryImage" src={priewImg} />
           </label>
