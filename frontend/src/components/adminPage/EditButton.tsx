@@ -24,12 +24,15 @@ export default function EditButton({ id, cardtype, setEditBtnHandler }) {
     setEditBtnHandler(false);
   };
 
-  const deleteMutation = useMutation(() => api.delete(`/${cardtype}/${id}`));
+  const deleteMutation = useMutation(async() => api.delete(`/${cardtype}/${id}`));
   const deleteHandler = (event) => {
     setEditBtnHandler(false);
-    if (confirm('해당 카테고리를 삭제하시겠습니까?')) {
+    const title = cardtype === 'category' ? '카테고리' : '카드';
+    console.log(cardtype, id);
+    if (confirm(`해당 ${title}를 삭제하시겠습니까?`)) {
+      
       deleteMutation.mutate();
-      window.location.replace("/admin/mascot")
+      title === '카테고리' ? window.location.replace('/admin/mascot') : window.location.replace('/admin/news')
     } else {
       event.preventDefault();
     }
