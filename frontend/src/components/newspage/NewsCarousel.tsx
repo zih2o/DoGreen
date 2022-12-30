@@ -25,10 +25,10 @@ export default function NewsCarousel(props: Record<'imageList', string[]>) {
   return (
     <>
       <FaChevronLeft className={favTheme + 'left-10'} onClick={() => handleClick(-1)} />
-      <div className={`w-64 h-64 mb-6 overflow-hidden`}>
+      <div className={`w-128 h-64 mb-6 overflow-hidden`}>
         <div ref={ref} className="flex transition-all " style={style}>
           {images.map((url, i) => (
-            <img className={`flex-none w-64 h-64 object-contatin rounded-lg`} src={url} alt={url} key={i} />
+            <img className={`flex-none w-128 h-64 object-contatin rounded-lg`} src={url} alt={url} key={i} />
           ))}
         </div>
       </div>
