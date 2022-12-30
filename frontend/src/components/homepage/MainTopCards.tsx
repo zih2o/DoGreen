@@ -8,20 +8,6 @@ function MainTopCards() {
   const {
     catQuery: { data: categories },
   } = useCategory();
-  const exData = [
-    {
-      mascotName: '서펭귄',
-      category: '뉴스',
-    },
-    {
-      mascotName: '박펭귄',
-      category: '푸드',
-    },
-    {
-      mascotName: '손펭귄',
-      category: '라이프스타일',
-    },
-  ];
 
   return (
     <>
@@ -50,7 +36,7 @@ function MainTopCards() {
         </div>
       </Carousel>
       {categories && (
-        <div className="container mx-auto mt-16 sm:mt-32 mb-20">
+        <div className="container mx-auto">
           <div className={TextType.titleText}>{'귀여운 친구들을 만나보세요!'} &nbsp;</div>
           <div className="flex justify-evenly mt-8 sm:mt-16">
             <Link to={`/categories/${categories[0]._id}`}>
