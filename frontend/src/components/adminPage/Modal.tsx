@@ -14,6 +14,9 @@ export default function Modal({ modalType }) {
   const [priewImg, setPriewImg] = useState(
     modalType === 'Mascot' ? currentCategoryCard.mascotImage : currentNewsCard.imageList,
   );
+  const patchCategory = useMutation((data) => api.patch(`/category/${currentCategoryCard._id}`, data));
+  const patchNews = useMutation((data) => api.patch(`/post/${currentNewsCard._id}`, data));
+
   const {
     mutate: imgUrlMutation,
     data: imgUrlData,
@@ -22,7 +25,12 @@ export default function Modal({ modalType }) {
     error: imgError,
   } = createUrl();
 
-  const setConvertImage = (imgUrl: FileList) => {
+  
+  useEffect(() => {
+    setConvertImgUrl(imgUrlData);
+  }, [imgUrlData]);
+
+  const setConvertImage = async (imgUrl: FileList) => {
     if (imgUrl && imgUrl.length > 0) {
       const file = imgUrl?.[0];
       setPriewImg(URL.createObjectURL(file));
@@ -30,11 +38,8 @@ export default function Modal({ modalType }) {
     }
   };
 
-  const patchCategory = useMutation((data) => api.patch(`/category/${currentCategoryCard._id}`, data));
-  const patchNews = useMutation((data) => api.patch(`/post/${currentNewsCard._id}`, data));
-
   const handleSubmitCategory = (event) => {
-    setConvertImgUrl(imgUrlData)
+    setConvertImgUrl(imgUrlData);
     const formData = {
       mascotName: topInputRef.current.value,
       categoryName: bottomInputRef.current.value,

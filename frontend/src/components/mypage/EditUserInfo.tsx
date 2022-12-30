@@ -31,7 +31,6 @@ interface IEditIData {
 
 const EditUserInfo = () => {
   const { isOpen, handleClose, handleToggle } = useModalState();
-  //유저데이터부르기
   const {
     userQuery: { data: userData, isLoading: isUserDataLoading },
     userMutation: { mutate: editMutation, isError: isEditError, isSuccess: isEditSuccess, error: editError },
@@ -44,7 +43,6 @@ const EditUserInfo = () => {
     imgUrl: userData?.imgUrl,
   };
 
-  //react-hook-form yup
   const { schema } = editValidation();
   const {
     control,
@@ -57,7 +55,6 @@ const EditUserInfo = () => {
     resolver: yupResolver(schema),
   });
 
-  //초기값
   useEffect(() => {
     if (userData) {
       reset({
@@ -71,7 +68,7 @@ const EditUserInfo = () => {
 
   const [image, currUsername] = useWatch({ control, name: ['imgUrl', 'username'] });
   const { mutate: imgUrlMutation, data: imgUrlData, isError: isImgUrlError, error: imgUrlError } = createUrl();
-  //이미지 변경
+
   const [imgPreview, setImgPreview] = useState('');
   useEffect(() => {
     if (image && image.length > 0) {
@@ -81,7 +78,6 @@ const EditUserInfo = () => {
     }
   }, [image]);
 
-  //유저네임 실시간 밸리데이션
   const [usernameError, setUsernameError] = useState(false);
   const { data: valUsername, isLoading } = useValUserName(currUsername?.length > 2 ? currUsername : '##');
   const usernameVal = valUsername?.username;
@@ -93,15 +89,14 @@ const EditUserInfo = () => {
     }
   }, [currUsername, isLoading]);
 
-  //회원탈퇴 모달
   const [handleModal, setHandleModal] = useState<boolean>(false);
   const onWithddrwaClose = () => {
     setHandleModal(!handleModal);
   };
 
-  //수정하기
   const [confirm, setConfirm] = useState(false);
   const [data, setData] = useState(initialData);
+  const [errorMdoal, setErrorModal] = useState(false);
   const handleFromSubmit = (data: IEditIData) => {
     handleToggle();
     const { username, oldPassword, password, bio } = data;
@@ -112,8 +107,16 @@ const EditUserInfo = () => {
   useEffect(() => {
     if (confirm) {
       editMutation(data);
+      setConfirm(false);
     }
   }, [confirm]);
+
+  useEffect(() => {
+    isEditError && !isOpen ? setErrorModal(true) : setErrorModal(false);
+  }, [confirm, isEditError]);
+  const handleErrorModalClose = () => {
+    setErrorModal(false);
+  };
 
   const editErrorMsg = editError instanceof AxiosError ? editError?.response?.data?.error : null;
   const imgErrorMsg = imgUrlError instanceof AxiosError ? imgUrlError?.response?.data?.error : null;
@@ -281,8 +284,10 @@ const EditUserInfo = () => {
             onClose={handleClose}
           />
         ) : null}
-        {isEditError ? <DialogModal title="에러" message={editErrorMsg} type="alert" onClose={handleClose} /> : null}
-        {isEditSuccess ? (
+        {errorMdoal ? (
+          <DialogModal title="오류" message={editErrorMsg} type="alert" onClose={handleErrorModalClose} />
+        ) : null}
+        {isEditSuccess && !isOpen ? (
           <DialogModal
             title="내 정보 수정"
             message="수정되었습니다."
@@ -291,7 +296,9 @@ const EditUserInfo = () => {
             onClose={handleClose}
           />
         ) : null}
-        {isImgUrlError ? <DialogModal title="오류" message={imgErrorMsg} type="alert" onClose={handleClose} /> : null}
+        {isImgUrlError && !isOpen ? (
+          <DialogModal title="오류" message={imgErrorMsg} type="alert" onClose={handleClose} />
+        ) : null}
       </>
     </MyPageContentsLayout>
   ) : (
