@@ -9,7 +9,6 @@ export default function NewsCards() {
   const {
     newsQuery: { data: news },
   } = useNews();
-  console.log(news);
   return (
     <div className="flex flex-wrap">
       {news === undefined ? (
