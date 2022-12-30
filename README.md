@@ -3,7 +3,7 @@
 # DO GREEN 🌏🌱
 
 <img src="frontend/public/assets/do1.png">
-<br><br>
+<br>
 <h3>✅ 서비스 소개</h3>환경 뉴스레터 구독 서비스  
 <h3>✅ 서비스 요약</h3>기후 위기, 멸종위기 동물, 환경 문제 등에 대하여 구독제 서비스를 통해 뉴스레터를 지속적으로 받아 볼 수 있는 웹서비스
 <h3>✅ 배포 링크</h3>
@@ -116,6 +116,9 @@
 - 구독 목록 조회, 구독 취소<br>  
 </details>
 
+<details><summary>관리자 페이지</summary>
+</details>
+<br>
 ## 3. ARCHITECTURE
 
 - 서비스 구조도 그림 <img src="./stack.png">
