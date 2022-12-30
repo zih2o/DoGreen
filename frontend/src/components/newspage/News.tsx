@@ -98,9 +98,9 @@ export default function NewsCard(props: INews) {
       </div>
       <div className={Theme.NewsTheme.postContainer}>
         <div className="flex relative justify-center mt-6 rounded-t-md">
-          {props.imageList.length !== 0 && <NewsCarousel imageList={props.imageList} />}
+          {props.imageList.length !== 0 && props.imageList[0] !== null && <NewsCarousel imageList={props.imageList} />}
         </div>
-        <div className="w-full px-6 pb-6 text-md dark:text-slate-50">{props.content}</div>
+        <span className="w-full px-6 pb-6 text-md whitespace-pre-wrap dark:text-slate-50">{props.content}</span>
         <div className={Theme.NewsTheme.footer}>
           <div className="flex items-center">
             <FaHeart
