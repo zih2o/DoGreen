@@ -57,7 +57,5 @@ export default function usePost() {
     },
   });
 
-  // const addPost = useMutation~~~~
-
   return { postQuery, addLike };
 }
