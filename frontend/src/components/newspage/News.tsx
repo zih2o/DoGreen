@@ -89,7 +89,7 @@ export default function NewsCard(props: INews) {
   };
 
   return (
-    <div className="flex w-full h-full justify-center py-6 px-6 bg-gardenBG">
+    <div className="flex w-full h-full justify-center pt-20 py-6 px-6 bg-gardenBG">
       <div className="flex flex-col mr-4 items-center">
         <Link to={`/categories/${props.categoryId}`}>
           <img className={'rounded-full w-12 h-12 shadow-xl'} src={props.categoryImg} alt="펭귄" />
