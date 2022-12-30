@@ -7,13 +7,10 @@ export default function CategoryForm() {
   const mascotNameRef = useRef(null);
   const categoryRef = useRef(null);
   const [convertImgUrl, setConvertImgUrl] = useState('');
+
   const mutation = useMutation((data) => api.post('/category/create', data));
 
   const handleSubmit = (event) => {
-    if (convertImgUrl === "")
-      setConvertImgUrl(
-        'https://user-images.githubusercontent.com/91370858/208048148-47028f2f-d283-4ab1-a43e-3c073543161e.png',
-      );
     const formData = {
       mascotName: mascotNameRef.current.value,
       categoryName: categoryRef.current.value,
@@ -32,16 +29,20 @@ export default function CategoryForm() {
     isSuccess: imgSuccess,
     error: imgError,
   } = createUrl();
-  const setConvertImage = (imgUrl: FileList) => {
+  
+  useEffect(() => {
+    setConvertImgUrl(imgUrlData)
+  }, [imgUrlData])
+
+  const setConvertImage = async (imgUrl: FileList) => {
     if (imgUrl && imgUrl.length > 0) {
       const file = imgUrl?.[0];
       setPriewImg(URL.createObjectURL(file));
       imgUrlMutation(file);
-      imgSuccess && setConvertImgUrl(imgUrlData);
     }
   };
   return (
-    <form className="flex flex-row p-10 justify-between items-center" onSubmit={handleSubmit}>
+    <form className="flex flex-row px-7 py-3 justify-between items-center" onSubmit={handleSubmit}>
       <div className="flex justify-between items-center flex-col w-[40%] h-full">
         <label className="w-[40%]" htmlFor="categoryImg">
           <img className="cursor-pointer" alt="categoryImage" src={priewImg} />

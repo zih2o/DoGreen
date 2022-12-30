@@ -12,7 +12,7 @@ import SafeMongooseConnection from './lib/safe-mongoose-connection';
 import logger from './logger';
 
 const PORT = process.env.PORT || 3000;
-
+process.env.NODE_ENV = 'development';
 let debugCallback;
 if (process.env.NODE_ENV === 'development') {
   debugCallback = (collectionName: string, method: string, query: any, doc: string): void => {

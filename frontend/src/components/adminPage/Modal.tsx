@@ -14,6 +14,9 @@ export default function Modal({ modalType }) {
   const [priewImg, setPriewImg] = useState(
     modalType === 'Mascot' ? currentCategoryCard.mascotImage : currentNewsCard.imageList,
   );
+  const patchCategory = useMutation((data) => api.patch(`/category/${currentCategoryCard._id}`, data));
+  const patchNews = useMutation((data) => api.patch(`/post/${currentNewsCard._id}`, data));
+
   const {
     mutate: imgUrlMutation,
     data: imgUrlData,
@@ -22,7 +25,11 @@ export default function Modal({ modalType }) {
     error: imgError,
   } = createUrl();
 
-  const setConvertImage = (imgUrl: FileList) => {
+  useEffect(() => {
+    setConvertImgUrl(imgUrlData);
+  }, [imgUrlData]);
+
+  const setConvertImage = async (imgUrl: FileList) => {
     if (imgUrl && imgUrl.length > 0) {
       const file = imgUrl?.[0];
       setPriewImg(URL.createObjectURL(file));
@@ -30,17 +37,13 @@ export default function Modal({ modalType }) {
     }
   };
 
-  const patchCategory = useMutation((data) => api.patch(`/category/${currentCategoryCard._id}`, data));
-  const patchNews = useMutation((data) => api.patch(`/post/${currentNewsCard._id}`, data));
-
   const handleSubmitCategory = (event) => {
-    setConvertImgUrl(imgUrlData)
+    setConvertImgUrl(imgUrlData);
     const formData = {
       mascotName: topInputRef.current.value,
       categoryName: bottomInputRef.current.value,
       mascotImage: convertImgUrl,
     };
-    console.log(formData);
     if (confirm(`${formData.mascotName}으로 수정하시겠습니까?`)) {
       patchCategory.mutate(formData);
       window.location.replace('/admin/category');
@@ -51,8 +54,9 @@ export default function Modal({ modalType }) {
 
   const handleSubmitNews = (event) => {
     const formData = {
+      category: '',
       content: bottomInputRef.current.value,
-      imageList: '',
+      imageList: [],
     };
     if (confirm(`${topInputRef} 뉴스를 수정하시겠습니까?`)) {
       patchNews.mutate(formData);
@@ -142,6 +146,33 @@ export default function Modal({ modalType }) {
                 </form>
               ) : (
                 <form onSubmit={handleSubmitNews} className="space-y-6" action="#">
+                  <div className="flex flex-col justify-center items-center">
+                    <label className="w-[40%]" htmlFor="categoryImg">
+                      <img className="cursor-pointer" alt="categoryImage" src={priewImg} />
+                    </label>
+                    <input
+                      id="categoryImg"
+                      type="file"
+                      onChange={(e) => setConvertImage(e.target.files)}
+                      placeholder="마스코트 이미지를 넣어주세요"
+                      required
+                      className="w-[70%] cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-center items-center">
+                    <label className="w-[40%]" htmlFor="categoryImg">
+                      <img className="cursor-pointer" alt="categoryImage" src={priewImg} />
+                    </label>
+                    <input
+                      id="categoryImg"
+                      type="file"
+                      onChange={(e) => setConvertImage(e.target.files)}
+                      placeholder="마스코트 이미지를 넣어주세요"
+                      required
+                      className="w-[70%] cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5"
+                    />
+                  </div>
+
                   <div>
                     <label
                       htmlFor="categoryName"

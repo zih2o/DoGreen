@@ -19,6 +19,8 @@ export default function useCategory() {
       return api.get('/category').then((res) => res.data);
     },
     staleTime: 1000 * 60 * 5,
+    retry: true,
+    retryDelay: 3000,
   });
 
   const selectedCatQuery = useQuery<ICategory>({
@@ -27,9 +29,8 @@ export default function useCategory() {
       return api.get(`/category/${catId}`).then((res) => res.data);
     },
     staleTime: 1000 * 60 * 5,
-    onError: (error) => {
-      return error;
-    },
+    retry: true,
+    retryDelay: 3000,
   });
   return { catQuery, selectedCatQuery };
 }

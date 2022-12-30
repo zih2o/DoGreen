@@ -17,22 +17,28 @@
 <div align="center">
 <h3>🛠 BackEnd 🛠</h3>
 <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white">
-<img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white">
-<br>
-
 <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white">
 <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white">
+<br>
+
+<img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white">
 <img src="https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white">
-<img src="https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white">
+<img src="https://img.shields.io/badge/AWS_S3-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white">
+<img src="https://img.shields.io/badge/GCP-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white">
 <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white">
+<img src="https://img.shields.io/badge/zod-000000?style=for-the-badge&logo=zod&logoColor=white">
+
 <br>
 <br>
-<p>백엔드 코어기술을 적어주세요</p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
+<p>Layered Architecture를 사용하여 도메인 로직을 분리</p>
+<p>Dockerfile과 GCP를 사용한 CI/CD 자동화</p>
+<p>MongoDB Atlas를 사용하여 애플리케이션과 데이터베이스 분리
+페이지네이션으로 올 쿼리 요청 최적화</p>
+<p>Zod library로 request validation을 통한 데이터 2차 검증</p>
+<p>TypeScript의 Pick, Omit, Union 타입을 이용하여 재사용성 극대화</p>
+<p>tiny-invariant 외부 라이브러리를 커스텀하여 type guard 해주는 유틸 함수 구현</p>
+<p>Express의 request 타입을 확장하여 미들웨어에서 공유 가능한 context 생성</p>
+<p>S3 bucket으로 이미지 파일 저장소 분리</p>
 </div>
 
 <br>
@@ -70,11 +76,23 @@
 </details>
 
 <details><summary>로그인</summary>
-- react-hook-form과 yup을 이용한 validation
+- react-hook-form과 yup을 이용한 validation<br> 
+- 모달 창을 이용하여 페이지 이동없이 로그인 가능<br> 
+- 로그인하는 경로에 따라, 로그인 이후의 경로 이동<br>
+- 모달알람 창을 통하여 로그인 오류 및 로그아웃 확인<br>
 </details>
 
-<details><summary>회원가입</summary>
-- react-hook-form과 yup을 이용한 validation
+<details><summary>회원가입 </summary>
+- react-hook-form과 yup을 이용한 validation<br>
+- 서버내 동일한 이름과 이메일이 존재하는지, 값을 입력하며 validation<br>
+</details>
+
+<details><summary>내 정보 수정</summary>
+- react-hook-form과 yup을 이용한 validation<br>
+- 현재 비밀번호를 필수로 입력한 뒤, 원하는 정보만 선택하여 수정 가능<br>
+- 서버내 동일한 이름이 존재하는지, 값을 입력하며 validation<br>
+- 모달, 알람 창을 통하여 제출 확인 선택과 에러 상태 확인 가능<br>
+- 모달을 통하여 페이지 이동없이 회원탈퇴 가능<br>
 </details>
 
 <details><summary>카테고리 페이지</summary>
@@ -104,6 +122,7 @@
 ## 3. ARCHITECTURE
 
 - 서비스 구조도 그림 <img src="./stack.png">
+- ERD <br><img src="./DoGreen ERD.png">
 - 와이어프레임  
   <t> <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">  
   <t>https://www.figma.com/file/tXtlbgXtKAsmPOo2scuaUn/team2-team-library?node-id=0%3A1&t=gwOCbP2MqN0caJlU-1
