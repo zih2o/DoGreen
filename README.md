@@ -157,7 +157,7 @@
   <t> <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">  
   <t>https://www.figma.com/file/tXtlbgXtKAsmPOo2scuaUn/team2-team-library?node-id=0%3A1&t=gwOCbP2MqN0caJlU-1
 
-- API 명세 <link to=""></link>
+- API 명세 https://www.notion.so/b607690ea13744f3bc04a890a50a49ba?p=1a8eaa08dcc142d18cecd0b1b7387680&pm=s
 
 ## 4. 프로젝트 팀원 역할 분담
 
