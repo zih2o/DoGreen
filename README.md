@@ -25,6 +25,8 @@
 <img src="https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&logo=React_Query&logoColor=white">
 <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white">
 <br>
+<img src="https://img.shields.io/badge/-zustand-black?style=for-the-badge">
+<img src="https://img.shields.io/badge/-react--hook--form-%23EC5990?style=for-the-badge">
 <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E">
 <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">
 <br>
