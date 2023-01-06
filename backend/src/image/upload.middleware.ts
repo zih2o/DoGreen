@@ -12,12 +12,12 @@ dotenv.config(); // 꼼수!
 type FileNameCallback = (error: Error | null, filename: string) => void;
 
 invariant(process.env.AWS_ACCESS_KEY, 'AWS_ACCESS_KEY 환경변수가 필요합니다.');
-invariant(process.env.AWS_SECRET_KEY, 'AWS_SECRET_KEY 환경변수가 필요합니다.');
+invariant(process.env.AWS_SECRET, 'AWS_SECRET 환경변수가 필요합니다.');
 invariant(process.env.BUCKET_NAME, 'BUCKET_NAME 환경변수가 필요합니다.');
 
-const credentials: AwsCredentialIdentity & { accessKeyId: string } = {
+const credentials: AwsCredentialIdentity & { accessKeyId: string, secretAccessKey:string } = {
   accessKeyId: process.env.AWS_ACCESS_KEY,
-  secretAccessKey: process.env.AWS_SECRET_KEY
+  secretAccessKey: process.env.AWS_SECRET
 };
 
 const s3Client = new S3Client({
