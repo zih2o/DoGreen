@@ -25,12 +25,15 @@
 <img src="https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&logo=React_Query&logoColor=white">
 <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white">
 <br>
+<img src="https://img.shields.io/badge/-zustand-black?style=for-the-badge">
+<img src="https://img.shields.io/badge/-react--hook--form-%23EC5990?style=for-the-badge">
 <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E">
 <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">
 <br>
 <br>
 <p>Zustand를 이용한 전역 상태 관리로 불필요한 리렌더링 방지, 중복 코드 최소화</p>
 <p>React Query로 캐싱 처리, 최소한의 요청 처리, 성능 최적화</p>
+<p>Axios instance 사용을 통한 중복 코드 최소화</p>
 <p>뉴스페이지와 댓글 기능에 react-query useInfiniteQuery를 이용한 Infinite scroll 구현</p>
 <p>좋아요 기능에 react-query을 이용한 optimistic update 구현</p>
 <p>alert/confirm 등 용도 변경 가능한 dialog modal 구현</p>
@@ -149,6 +152,7 @@
 <details><summary>관리자 페이지</summary>
 </details>
 <br>
+
 ## 3. ARCHITECTURE
 
 - 서비스 구조도 그림 <img src="./stack.png">
