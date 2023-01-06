@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosError } from 'axios';
 const baseURL = import.meta.env.VITE_BASE_URL;
 
 const config: AxiosRequestConfig = {
-  baseURL: baseURL || 'http://localhost:3000',
+  baseURL: 'http://localhost:3000',
   headers: {
     ContentType: 'application/json',
   },

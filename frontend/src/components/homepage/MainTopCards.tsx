@@ -35,7 +35,7 @@ function MainTopCards() {
           </div>
         </div>
       </Carousel>
-      {categories && (
+      {categories && categories.length !== 0 && (
         <div className="container mx-auto">
           <div className={TextType.titleText}>{'귀여운 친구들을 만나보세요!'} &nbsp;</div>
           <div className="flex justify-evenly mt-8 sm:mt-16">
