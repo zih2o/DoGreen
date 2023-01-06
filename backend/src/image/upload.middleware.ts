@@ -11,12 +11,12 @@ dotenv.config(); // 꼼수!
 
 type FileNameCallback = (error: Error | null, filename: string) => void;
 
-invariant(process.env.AWS_ACCESS_KEY, 'AWS_ACCESS_KEY 환경변수가 필요합니다.');
+invariant(process.env.AWS_ACCESS, 'AWS_ACCESS 환경변수가 필요합니다.');
 invariant(process.env.AWS_SECRET, 'AWS_SECRET 환경변수가 필요합니다.');
 invariant(process.env.BUCKET_NAME, 'BUCKET_NAME 환경변수가 필요합니다.');
 
 const credentials: AwsCredentialIdentity & { accessKeyId: string, secretAccessKey:string } = {
-  accessKeyId: process.env.AWS_ACCESS_KEY,
+  accessKeyId: process.env.AWS_ACCESS,
   secretAccessKey: process.env.AWS_SECRET
 };
 
