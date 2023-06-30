@@ -6,8 +6,8 @@
 <br>
 <h3>✅ 서비스 소개</h3>환경 뉴스레터 구독 서비스  
 <h3>✅ 서비스 요약</h3>기후 위기, 멸종위기 동물, 환경 문제 등에 대하여 구독제 서비스를 통해 뉴스레터를 지속적으로 받아 볼 수 있는 웹서비스
-<h3>✅ 배포 링크</h3>
-👉 https://do-green.vercel.app
+<h3>✅ 시연영상 </h3>
+👉 https://drive.google.com/file/d/1dx1qJLW1PRYh1PGS8zEtaRXNGfaSPQ0L/view?usp=sharing
 <br>
 <br>
 
